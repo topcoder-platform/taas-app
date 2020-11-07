@@ -1,0 +1,48 @@
+@import "styles/include";
+
+.handle {
+  > svg {
+    margin-left: 8px;
+  }
+}
+
+.handle-open {
+  > svg {
+    transform: rotate(180deg);
+  }
+}
+
+.popover {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0px 5px 25px #c6c6c6;
+  min-width: 175px;
+  z-index: 1000;
+}
+
+.popover-arrow {
+  border-style: solid;
+  border-width: 0 10px 10px 10px;
+  border-color: transparent transparent #fff transparent;
+  height: 0;
+  top: -9px;
+  width: 0;
+}
+
+.list {
+  padding: 16px;
+}
+
+.separator {
+  border-top: 1px solid #e7e7e7;
+  margin: 5px 0;
+}
+
+.option {
+  color: #0D61BF;
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 20px;
+  outline: none;
+  padding: 5px 0;
+}

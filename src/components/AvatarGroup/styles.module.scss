@@ -1,0 +1,34 @@
+@import "styles/include";
+
+.avatar-group {
+  display: flex;
+  flex-direction: row;
+  margin-top: 24px;
+  min-height: 40px;
+
+  > *:not(.rest-count) {
+    margin-top: 8px;
+    margin-right: 8px;
+  }
+}
+
+.rest-count {
+  align-items: center;
+  border: 1px solid #0D61BF;
+  border-radius: 100%;
+  box-sizing: border-box;
+  color: #0D61BF;
+  display: flex;
+  font-size: 14px;
+  height: 40px;
+  justify-content: center;
+  line-height: 22px;
+  margin-top: 8px;
+  width: 40px;
+}
+
+@media (max-width: 374px) {
+  .avatar-group {
+    flex-wrap: wrap;
+  }
+}

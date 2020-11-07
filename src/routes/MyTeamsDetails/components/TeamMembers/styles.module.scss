@@ -1,0 +1,232 @@
+@import "styles/include";
+
+.team-members {
+  @include rounded-card;
+  margin-top: 16px;
+  padding: 0 24px 24px;
+}
+
+.filter-input {
+  width: 380px;
+}
+
+.controls {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  > * {
+    margin-top: 24px;
+  }
+
+  > *:first-child {
+    margin-right: 24px;
+  }
+}
+
+.no-members {
+  color: #aaaaaa;
+  padding: 25px 0;
+  text-align: center;
+}
+
+.table {
+  @include table;
+}
+
+.table-row {
+  @include table-row;
+}
+
+.table-cell {
+  @include table-cell;
+}
+
+.table-group-first {
+  @include table-group;
+  width: 55%;
+
+  .cell-user {
+    width: 42%;
+  }
+
+  .table-group-first-inner {
+    @include table-group;
+    flex: 1 0 auto;
+    width: 58%;
+
+    .cell-role {
+      width: 25%;
+    }
+
+    .cell-date {
+      width: 55%;
+    }
+
+    .cell-money {
+      width: 20%;
+    }
+  }
+}
+
+.table-group-second {
+  @include table-group;
+  width: 45%;
+
+  .cell-skills {
+    width: 50%;
+  }
+
+  .table-group-second-inner {
+    @include table-group;
+    flex: 1 1 auto;
+    justify-content: space-between;
+
+    .cell-rating {
+      flex: 0 0 65px;
+      width: 65px;
+    }
+
+    .cell-action {
+      justify-content: flex-end;
+      flex: 0 0 125px;
+      width: 125px;
+    }
+  }
+}
+
+@media (max-width: 1365px) {
+  .table-group-first {
+    width: 55%;
+
+    .cell-user {
+      width: 45%;
+    }
+
+    .table-group-first-inner {
+      width: 55%;
+
+      .cell-role {
+        width: 35%;
+      }
+
+      .cell-date {
+        width: 40%;
+      }
+
+      .cell-money {
+        width: 25%;
+      }
+    }
+  }
+
+  .table-group-second {
+    width: 45%;
+  }
+}
+
+@media (max-width: 1230px) {
+  .table-group-first {
+    width: 50%;
+
+    .cell-user {
+      width: 50%;
+    }
+
+    .table-group-first-inner {
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      width: 50%;
+
+      .table-cell {
+        padding-bottom: 0;
+        padding-top: 0;
+      }
+
+      .cell-date,
+      .cell-role,
+      .cell-money {
+        flex: 0 auto;
+        width: 100%;
+      }
+    }
+  }
+
+  .table-group-second {
+    width: 50%;
+  }
+}
+
+@media (max-width: 1140px) {
+  .table-row {
+    flex-direction: column;
+    padding-bottom: 10px;
+    padding-top: 10px;
+  }
+
+  .table-group-first,
+  .table-group-second {
+    width: 100%;
+  }
+
+  .table-group-second {
+    .cell-skills,
+    .table-group-second-inner {
+      width: 50%;
+    }
+  }
+
+  .table-cell {
+    padding: 8px;
+  }
+
+  .cell-user,
+  .cell-skills,
+  .cell-rating,
+  .cell-action,
+  .table-group-first-inner {
+    width: 100%;
+  }
+}
+
+@media (max-width: 650px) {
+  .table-group-first {
+    flex-direction: column;
+    width: 100%;
+
+    .cell-user {
+      width: 100%;
+    }
+
+    .table-group-first-inner {
+      width: 100%;
+
+      .cell-role,
+      .cell-date,
+      .cell-money {
+        width: 100%;
+      }
+    }
+  }
+
+  .table-group-second {
+    flex-direction: column;
+    width: 100%;
+
+    .cell-skills {
+      width: 100%;
+    }
+
+    .table-group-second-inner {
+      width: 100%;
+    }
+  }
+}
+
+@media (max-width: 374px) {
+  .filter-input {
+    width: 100%;
+  }
+}

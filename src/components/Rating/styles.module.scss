@@ -1,0 +1,37 @@
+@import "styles/include";
+
+.rating {
+  align-items: center;
+  display: flex;
+  overflow-wrap: normal;
+}
+
+.stars-container {
+  margin-right: 8px;
+  position: relative;
+}
+
+.stars {
+  display: flex;
+  flex-shrink: 0;
+
+  > svg {
+    display: block;
+  }
+}
+
+.stars-full {
+  display: flex;
+  height: 100%;
+  left: 0;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+.star {
+  display: flex;
+  flex-shrink: 0;
+  margin-right: 8px;
+}

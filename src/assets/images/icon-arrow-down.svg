@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="12px" height="8px" viewBox="0 0 12 8" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="02A-Team-Details" transform="translate(-1270.000000, -385.000000)">
+            <g id="Group-3" transform="translate(305.000000, 278.000000)">
+                <g id="table-row/member" transform="translate(24.000000, 88.000000)">
+                    <g id="button/primary/sm" transform="translate(863.000000, 7.000000)">
+                        <g id="UI-Kit/Icons/arrow/small-down" transform="translate(78.000000, 12.000000)">
+                            <mask id="mask-2" fill="white">
+                                <polygon id="path-2" points="6 7.4 0.6 2 2 0.6 6 4.6 10 0.6 11.4 2"></polygon>
+                            </mask>
+                            <polygon id="path-2" points="6 7.4 0.6 2 2 0.6 6 4.6 10 0.6 11.4 2" fill="#FFFFFF"></polygon>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

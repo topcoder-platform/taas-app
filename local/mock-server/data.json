@@ -1,0 +1,353 @@
+{
+  "teams": [
+    {
+      "id": 1,
+      "name": "Team Name 001",
+      "startDate": "2020-06-15T00:00:00Z",
+      "endDate": "2020-12-15T00:00:00Z",
+      "weeklyCost": 5000,
+      "rating": 5,
+      "positions": [
+        {
+          "title": "Java Developer",
+          "skills": ["Skill 01", "Skill 02", "Skill 03", "Skill 04", "Skill 05", "Skill 06", "Skill 07", "Skill 08", "Skill 09", "Skill 10"],
+          "requiredSkills": ["Skill 01", "Skill 02", "Skill 03", "Skill 04", "Skill AA"],
+          "startDate": "2020-06-15T00:00:00Z",
+          "endDate": "2020-12-15T00:00:00Z",
+          "weeklyCost": 500,
+          "status": "sourcing"
+        },
+        {
+          "title": "Java Developer",
+          "skills": ["Skill 01", "Skill 02", "Skill 03", "Skill 04", "Skill 05", "Skill 06", "Skill 07", "Skill 08", "Skill 09", "Skill 10"],
+          "requiredSkills": ["Skill 01", "Skill 02", "Skill 03", "Skill 04", "Skill AA"],
+          "startDate": "2020-06-15T00:00:00Z",
+          "endDate": "2020-12-15T00:00:00Z",
+          "weeklyCost": 9500,
+          "status": "availableForReview"
+        }
+      ],
+      "members": [
+        {
+          "userId": 40158995,
+          "handle": "TCConCopilotMgr",
+          "firstName": "Liza",
+          "lastName": "Qun",
+          "role": "Developer",
+          "skills": ["Skill 01", "Skill 02", "Skill 03", "Skill 04", "Skill 05", "Skill 06", "Skill 07", "Skill 08", "Skill 09", "Skill 10"],
+          "requiredSkills": ["Skill 01", "Skill 02", "Skill 03", "Skill 04", "Skill AA"],
+          "weeklyCost": 500,
+          "rating": 0,
+          "startDate": "2020-06-15T00:00:00Z",
+          "endDate": "2020-12-15T00:00:00Z"
+        },
+        {
+          "userId": 401589951111,
+          "handle": "UnknownCat",
+          "firstName": "Cat",
+          "lastName": "Unknown",
+          "role": "Designer",
+          "skills": ["Skill 01", "Skill 02", "Skill 03", "Skill 04", "Skill 05", "Skill 06", "Skill 07", "Skill 08", "Skill 09", "Skill 10"],
+          "requiredSkills": ["Skill 01", "Skill 02", "Skill 03", "Skill 04", "Skill AA"],
+          "weeklyCost": 9500,
+          "rating": 3.38,
+          "startDate": "2020-06-15T00:00:00Z",
+          "endDate": "2020-12-15T00:00:00Z"
+        },
+        {
+          "userId": 40158997,
+          "handle": "TCConManager",
+          "firstName": "John",
+          "lastName": "Busby",
+          "role": "Developer",
+          "skills": ["React", "Skill 02", "Skill 03", "Skill 04", "Skill 05", "Skill 06", "Skill 07", "Skill 08", "Skill 09", "Skill 10"],
+          "requiredSkills": ["React", "Skill 02", "Skill 03", "Skill 04", "Skill AA"],
+          "weeklyCost": 500,
+          "rating": 4.5,
+          "startDate": "2020-06-15T00:00:00Z",
+          "endDate": "2020-12-15T00:00:00Z"
+        },
+        {
+          "userId": 401589971111,
+          "handle": "UnknownDog",
+          "firstName": "Dog",
+          "lastName": "Unknown",
+          "role": "Developer",
+          "skills": ["Skill 01", "Skill 02", "Skill 03", "Skill 04", "Skill 05", "Skill 06", "Skill 07", "Skill 08", "Skill 09", "Skill 10"],
+          "requiredSkills": ["Skill 01", "Skill 02", "Skill 03", "Skill 04", "Skill AA"],
+          "weeklyCost": 500,
+          "rating": 5,
+          "startDate": "2020-06-15T00:00:00Z",
+          "endDate": "2020-12-15T00:00:00Z"
+        },
+        {
+          "userId": 40152856,
+          "handle": "pshah_manager",
+          "firstName": "Richard",
+          "lastName": "Gere",
+          "role": "Developer",
+          "skills": ["Skill 01", "Skill 02", "Skill 03", "Skill 04", "Skill 05", "Skill 06", "Skill 07", "Skill 08", "Skill 09", "Skill 10"],
+          "requiredSkills": ["Skill 01", "Skill 02", "Skill 03", "Skill 04", "Skill AA"],
+          "weeklyCost": 500,
+          "rating": 4.5,
+          "startDate": "2020-06-15T00:00:00Z",
+          "endDate": "2020-12-15T00:00:00Z"
+        },
+        {
+          "userId": 40158996,
+          "handle": "TCConAccountMgr",
+          "firstName": "Brad",
+          "lastName": "Pitt",
+          "role": "Developer",
+          "skills": ["Skill 01", "Skill 02", "Skill 03", "Skill 04", "Skill 05", "Skill 06", "Skill 07", "Skill 08", "Skill 09", "Skill 10"],
+          "requiredSkills": ["Skill 01", "Skill 02", "Skill 03", "Skill 04", "Skill AA"],
+          "weeklyCost": 500,
+          "rating": 4.5,
+          "startDate": "2020-06-15T00:00:00Z",
+          "endDate": "2020-12-15T00:00:00Z"
+        },
+        {
+          "userId": 8547899,
+          "handle": "TonyJ",
+          "firstName": "Tony",
+          "lastName": "Walt",
+          "role": "Developer",
+          "skills": ["Skill 01", "Skill 02", "Skill 03", "Skill 04", "Skill 05", "Skill 06", "Skill 07", "Skill 08", "Skill 09", "Skill 10"],
+          "requiredSkills": ["Skill 01", "Skill 02", "Skill 03", "Skill 04", "Skill AA"],
+          "weeklyCost": 500,
+          "rating": 4.5,
+          "startDate": "2020-06-15T00:00:00Z",
+          "endDate": "2020-12-15T00:00:00Z"
+        },
+        {
+          "userId": 40153932,
+          "handle": "sachin-kumar",
+          "firstName": "Kumar",
+          "lastName": "Sachin",
+          "role": "Developer",
+          "skills": ["Skill 01", "Skill 02", "Skill 03", "Skill 04", "Skill 05", "Skill 06", "Skill 07", "Skill 08", "Skill 09", "Skill 10"],
+          "requiredSkills": ["Skill 01", "Skill 02", "Skill 03", "Skill 04", "Skill AA"],
+          "weeklyCost": 500,
+          "rating": 4.5,
+          "startDate": "2020-06-15T00:00:00Z",
+          "endDate": "2020-12-15T00:00:00Z"
+        },
+        {
+          "userId": 40152855,
+          "handle": "pshah_copilot",
+          "firstName": "Max",
+          "lastName": "Wild",
+          "role": "Developer",
+          "skills": ["Skill 01", "Skill 02", "Skill 03", "Skill 04", "Skill 05", "Skill 06", "Skill 07", "Skill 08", "Skill 09", "Skill 10"],
+          "requiredSkills": ["Skill 01", "Skill 02", "Skill 03", "Skill 04", "Skill AA"],
+          "weeklyCost": 500,
+          "rating": 4.5,
+          "startDate": "2020-06-15T00:00:00Z",
+          "endDate": "2020-12-15T00:00:00Z"
+        },
+        {
+          "userId": 88771122,
+          "handle": "maxceem14",
+          "firstName": "Maksym",
+          "lastName": "Dindon",
+          "role": "Developer",
+          "skills": ["Skill 01", "Skill 02", "Skill 03", "Skill 04", "Skill 05", "Skill 06", "Skill 07", "Skill 08", "Skill 09", "Skill 10"],
+          "requiredSkills": ["Skill 01", "Skill 02", "Skill 03", "Skill 04", "Skill AA"],
+          "weeklyCost": 500,
+          "rating": 4.5,
+          "startDate": "2020-06-15T00:00:00Z",
+          "endDate": "2020-12-15T00:00:00Z"
+        },
+        {
+          "userId": 88771622,
+          "handle": "TCConPresales",
+          "firstName": "Vika",
+          "lastName": "Barcelona",
+          "role": "Developer",
+          "skills": ["Skill 01", "Skill 02", "Skill 03", "Skill 04", "Skill 05", "Skill 06", "Skill 07", "Skill 08", "Skill 09", "Skill 10"],
+          "requiredSkills": ["Skill 01", "Skill 02", "Skill 03", "Skill 04", "Skill AA"],
+          "weeklyCost": 500,
+          "rating": 4.5,
+          "startDate": "2020-06-15T00:00:00Z",
+          "endDate": "2020-12-15T00:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Team Name 002",
+      "startDate": "2020-06-15T00:00:00Z",
+      "endDate": "2021-12-15T00:00:00Z",
+      "weeklyCost": 5000000,
+      "rating": 4.5,
+      "positions": [
+        {
+          "title": "Java Developer",
+          "skills": ["Skill 01", "Skill 02", "Skill 03", "Skill 04", "Skill 05", "Skill 06", "Skill 07", "Skill 08", "Skill 09", "Skill 10"],
+          "requiredSkills": ["Skill 01", "Skill 02", "Skill 03", "Skill 04", "Skill AA"],
+          "startDate": "2020-06-15T00:00:00Z",
+          "endDate": "2020-12-15T00:00:00Z",
+          "weeklyCost": 500,
+          "status": "sourcing"
+        },
+        {
+          "title": "Java Developer",
+          "skills": ["Skill 01", "Skill 02", "Skill 03", "Skill 04", "Skill 05", "Skill 06", "Skill 07", "Skill 08", "Skill 09", "Skill 10"],
+          "requiredSkills": ["Skill 01", "Skill 02", "Skill 03", "Skill 04", "Skill AA"],
+          "startDate": "2020-06-15T00:00:00Z",
+          "endDate": "2020-12-15T00:00:00Z",
+          "weeklyCost": 9500,
+          "status": "availableForReview"
+        }
+      ],
+      "members": [
+        {
+          "userId": 8547899,
+          "handle": "TonyJ",
+          "firstName": "Tony",
+          "lastName": "Walt",
+          "role": "Developer",
+          "skills": ["Skill 01", "Skill 02", "Skill 03", "Skill 04", "Skill 05", "Skill 06", "Skill 07", "Skill 08", "Skill 09", "Skill 10"],
+          "requiredSkills": ["Skill 01", "Skill 02", "Skill 03", "Skill 04", "Skill AA"],
+          "weeklyCost": 500,
+          "rating": 0,
+          "startDate": "2020-06-15T00:00:00Z",
+          "endDate": "2020-12-15T00:00:00Z"
+        },
+        {
+          "userId": 40153932,
+          "handle": "sachin-kumar",
+          "firstName": "Kumar",
+          "lastName": "Sachin",
+          "role": "Developer",
+          "skills": ["Skill 01", "Skill 02", "Skill 03", "Skill 04", "Skill 05", "Skill 06", "Skill 07", "Skill 08", "Skill 09", "Skill 10"],
+          "requiredSkills": ["Skill 01", "Skill 02", "Skill 03", "Skill 04", "Skill AA"],
+          "weeklyCost": 500,
+          "rating": 3.38,
+          "startDate": "2020-06-15T00:00:00Z",
+          "endDate": "2020-12-15T00:00:00Z"
+        },
+        {
+          "userId": 40152855,
+          "handle": "pshah_copilot",
+          "firstName": "Max",
+          "lastName": "Wild",
+          "role": "Developer",
+          "skills": ["Skill 01", "Skill 02", "Skill 03", "Skill 04", "Skill 05", "Skill 06", "Skill 07", "Skill 08", "Skill 09", "Skill 10"],
+          "requiredSkills": ["Skill 01", "Skill 02", "Skill 03", "Skill 04", "Skill AA"],
+          "weeklyCost": 500,
+          "rating": 4.5,
+          "startDate": "2020-06-15T00:00:00Z",
+          "endDate": "2020-12-15T00:00:00Z"
+        },
+        {
+          "userId": 88771122,
+          "handle": "maxceem14",
+          "firstName": "Maksym",
+          "lastName": "Dindon",
+          "role": "Developer",
+          "skills": ["Skill 01", "Skill 02", "Skill 03", "Skill 04", "Skill 05", "Skill 06", "Skill 07", "Skill 08", "Skill 09", "Skill 10"],
+          "requiredSkills": ["Skill 01", "Skill 02", "Skill 03", "Skill 04", "Skill AA"],
+          "weeklyCost": 500,
+          "rating": 4.5,
+          "startDate": "2020-06-15T00:00:00Z",
+          "endDate": "2020-12-15T00:00:00Z"
+        },
+        {
+          "userId": 88771622,
+          "handle": "TCConPresales",
+          "firstName": "Vika",
+          "lastName": "Barcelona",
+          "role": "Developer",
+          "skills": ["Skill 01", "Skill 02", "Skill 03", "Skill 04", "Skill 05", "Skill 06", "Skill 07", "Skill 08", "Skill 09", "Skill 10"],
+          "requiredSkills": ["Skill 01", "Skill 02", "Skill 03", "Skill 04", "Skill AA"],
+          "weeklyCost": 500,
+          "rating": 5,
+          "startDate": "2020-06-15T00:00:00Z",
+          "endDate": "2020-12-15T00:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Team_Which_Will_Do_Everything_to_Break_Your_CSS",
+      "startDate": "2020-06-15T00:00:00Z",
+      "endDate": "2020-11-10T00:00:00Z",
+      "weeklyCost": 100,
+      "rating": 3.38,
+      "positions": [
+        {
+          "title": "Java_Developer_I_Will_Do_Everything_To_Break_Your_CSS",
+          "skills": ["Skill_01_I_Will_Do_Everything_To_Break_Your_CSS", "Skill_02_I_Will_Do_Everything_To_Break_Your_CSS", "Skill_03_I_Will_Do_Everything_To_Break_Your_CSS", "Skill_04_I_Will_Do_Everything_To_Break_Your_CSS", "Skill_05_I_Will_Do_Everything_To_Break_Your_CSS", "Skill_06_I_Will_Do_Everything_To_Break_Your_CSS", "Skill_07_I_Will_Do_Everything_To_Break_Your_CSS", "Skill_08_I_Will_Do_Everything_To_Break_Your_CSS", "Skill_09_I_Will_Do_Everything_To_Break_Your_CSS", "Skill_10_I_Will_Do_Everything_To_Break_Your_CSS"],
+          "requiredSkills": ["Skill_01_I_Will_Do_Everything_To_Break_Your_CSS", "Skill_02_I_Will_Do_Everything_To_Break_Your_CSS", "Skill_03_I_Will_Do_Everything_To_Break_Your_CSS", "Skill_04_I_Will_Do_Everything_To_Break_Your_CSS", "Skill_AA_I_Will_Do_Everything_To_Break_Your_CSS"],
+          "startDate": "2020-06-15T00:00:00Z",
+          "endDate": "2020-12-15T00:00:00Z",
+          "weeklyCost": 100000000,
+          "status": "sourcing"
+        },
+        {
+          "title": "Java Developer I Will Do Everything To Break Your CSS",
+          "skills": ["Skill 01 I Will Do Everything To Break Your CSS", "Skill 02 I Will Do Everything To Break Your CSS", "Skill 03 I Will Do Everything To Break Your CSS", "Skill 04 I Will Do Everything To Break Your CSS", "Skill 05 I Will Do Everything To Break Your CSS", "Skill 06 I Will Do Everything To Break Your CSS", "Skill 07 I Will Do Everything To Break Your CSS", "Skill 08 I Will Do Everything To Break Your CSS", "Skill 09 I Will Do Everything To Break Your CSS", "Skill 10 I Will Do Everything To Break Your CSS"],
+          "requiredSkills": ["Skill 01 I Will Do Everything To Break Your CSS", "Skill 02 I Will Do Everything To Break Your CSS", "Skill 03 I Will Do Everything To Break Your CSS", "Skill 04 I Will Do Everything To Break Your CSS", "Skill AA I Will Do Everything To Break Your CSS"],
+          "startDate": "2020-06-15T00:00:00Z",
+          "endDate": "2020-12-15T00:00:00Z",
+          "weeklyCost": 9500,
+          "status": "availableForReview"
+        }
+      ],
+      "members": [
+        {
+          "userId": 40152855,
+          "handle": "pshah_copilot_I_Will_Do_Everything_To_Break_Your_CSS",
+          "firstName": "Crazy_I_Will_Do_Everything_To_Break_Your_CSS",
+          "lastName": "Breaker_I_Will_Do_Everything_To_Break_Your_CSS",
+          "role": "Developer_I_Will_Do_Everything_To_Break_Your_CSS",
+          "skills": ["Skill_01_I_Will_Do_Everything_To_Break_Your_CSS", "Skill_02_I_Will_Do_Everything_To_Break_Your_CSS", "Skill_03_I_Will_Do_Everything_To_Break_Your_CSS", "Skill_04_I_Will_Do_Everything_To_Break_Your_CSS", "Skill_05_I_Will_Do_Everything_To_Break_Your_CSS", "Skill_06_I_Will_Do_Everything_To_Break_Your_CSS", "Skill_07_I_Will_Do_Everything_To_Break_Your_CSS", "Skill_08_I_Will_Do_Everything_To_Break_Your_CSS", "Skill_09_I_Will_Do_Everything_To_Break_Your_CSS", "Skill_10_I_Will_Do_Everything_To_Break_Your_CSS"],
+          "requiredSkills": ["Skill_01_I_Will_Do_Everything_To_Break_Your_CSS", "Skill_02_I_Will_Do_Everything_To_Break_Your_CSS", "Skill_03_I_Will_Do_Everything_To_Break_Your_CSS", "Skill_04_I_Will_Do_Everything_To_Break_Your_CSS", "Skill_AA_I_Will_Do_Everything_To_Break_Your_CSS"],
+          "weeklyCost": 10000000,
+          "rating": 4.5,
+          "startDate": "2020-06-15T00:00:00Z",
+          "endDate": "2020-12-15T00:00:00Z"
+        },
+        {
+          "userId": 88771122,
+          "handle": "maxceem14",
+          "firstName": "Maksym",
+          "lastName": "Dindon",
+          "role": "Developer I Will Do Everything To Break Your CSS",
+          "skills": ["Skill 01 I Will Do Everything To Break Your CSS", "Skill 02 I Will Do Everything To Break Your CSS", "Skill 03 I Will Do Everything To Break Your CSS", "Skill 04 I Will Do Everything To Break Your CSS", "Skill 05 I Will Do Everything To Break Your CSS", "Skill 06 I Will Do Everything To Break Your CSS", "Skill 07 I Will Do Everything To Break Your CSS", "Skill 08 I Will Do Everything To Break Your CSS", "Skill 09 I Will Do Everything To Break Your CSS", "Skill 10 I Will Do Everything To Break Your CSS"],
+          "requiredSkills": ["Skill 01 I Will Do Everything To Break Your CSS", "Skill 02 I Will Do Everything To Break Your CSS", "Skill 03 I Will Do Everything To Break Your CSS", "Skill 04 I Will Do Everything To Break Your CSS", "Skill AA I Will Do Everything To Break Your CSS"],
+          "weeklyCost": 500,
+          "rating": 4.5,
+          "startDate": "2020-06-15T00:00:00Z",
+          "endDate": "2020-12-15T00:00:00Z"
+        },
+        {
+          "userId": 88771622,
+          "handle": "TCConPresales",
+          "firstName": "Vika",
+          "lastName": "Barcelona",
+          "role": "Developer",
+          "skills": ["Skill 01", "Skill 02", "Skill 03", "Skill 04", "Skill 05", "Skill 06", "Skill 07", "Skill 08", "Skill 09", "Skill 10"],
+          "requiredSkills": ["Skill 01", "Skill 02", "Skill 03", "Skill 04", "Skill AA"],
+          "weeklyCost": 500,
+          "rating": 4.5,
+          "startDate": "2020-06-15T00:00:00Z",
+          "endDate": "2020-12-15T00:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Team Name Nothing",
+      "startDate": "2020-06-15T00:00:00Z",
+      "endDate": "2020-07-15T00:00:00Z",
+      "weeklyCost": 1,
+      "rating": 0,
+      "positions": [
+      ],
+      "members": [
+      ]
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+@import "styles/include";
+
+.data-item {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+}
+
+.data {
+  margin-left: 16px;
+}
+
+.title {
+  color: #555555;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  line-height: 16px;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.value {
+  font-size: 14px;
+  line-height: 22px;
+  font-weight: 500;
+  margin-top: 2px;
+  text-align: left;
+  white-space: nowrap;
+}

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="02A-Team-Details" transform="translate(-713.000000, -223.000000)" fill="#FEB902">
+            <g id="Group" transform="translate(305.000000, 182.000000)">
+                <g id="info-copy-4" transform="translate(367.000000, 20.000000)">
+                    <g id="rating-bar" transform="translate(41.000000, 18.000000)">
+                        <g id="star" transform="translate(0.000000, 3.000000)">
+                            <polygon id="Polygon_1" points="8 0 10.4 5.37133333 16 6.11133333 11.8833333 10.1713333 12.944 16 8 13.138 3.056 16 4.11666667 10.1713333 0 6.11133333 5.6 5.37133333"></polygon>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

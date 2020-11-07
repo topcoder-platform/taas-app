@@ -1,0 +1,27 @@
+@import "styles/include";
+
+.header {
+  align-items: center;
+  display: flex;
+  margin-bottom: 32px;
+}
+
+.title {
+  @include font-barlow-condensed;
+  font-weight: normal;
+  font-size: 34px;
+  line-height: 40px;
+  margin: 0;
+  overflow-wrap: anywhere;
+  padding: 0;
+  text-transform: uppercase;
+}
+
+.back-to {
+  align-items: center;
+  display: flex;
+  border-right: 1px solid #D4D4D4;
+  height: 40px;
+  margin-right: 16px;
+  padding-right: 16px;
+}

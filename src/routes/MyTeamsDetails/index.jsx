@@ -1,0 +1,41 @@
+/**
+ * MyTeamsDetails
+ *
+ * Page for team details.
+ * It gets `teamId` from the router.
+ */
+import React from "react";
+import PT from "prop-types";
+import LayoutContainer from "components/LayoutContainer";
+import PageHeader from "components/PageHeader";
+import { useData } from "../../hooks/useData";
+import { getTeamById } from "../../services/teams";
+import LoadingIndicator from "../../components/LoadingIndicator";
+import TeamSummary from "./components/TeamSummary";
+import TeamMembers from "./components/TeamMembers";
+import TeamPositions from "./components/TeamPositions";
+
+const MyTeamsDetails = ({ teamId }) => {
+  const [team, loadingError] = useData(getTeamById, teamId);
+
+  return (
+    <LayoutContainer>
+      {!team ? (
+        <LoadingIndicator error={loadingError && loadingError.toString()} />
+      ) : (
+        <>
+          <PageHeader title={team.name} backTo="/taas/myteams" />
+          <TeamSummary team={team} />
+          <TeamMembers members={team.members} />
+          <TeamPositions positions={team.positions} />
+        </>
+      )}
+    </LayoutContainer>
+  );
+};
+
+MyTeamsDetails.propTypes = {
+  teamId: PT.string,
+};
+
+export default MyTeamsDetails;
