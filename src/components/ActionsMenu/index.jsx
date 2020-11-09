@@ -121,8 +121,9 @@ const ActionsMenu = ({ options = [] }) => {
 ActionsMenu.propTypes = {
   options: PT.arrayOf(
     PT.shape({
-      label: PT.string.isRequired,
-      action: PT.func.isRequired,
+      label: PT.string,
+      action: PT.func,
+      separator: PT.bool,
     })
   ),
 };

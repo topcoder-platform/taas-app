@@ -37,11 +37,12 @@
       "plugins": [
         ["module-resolver", {
           "alias": {
-            "styles": "/src/styles",
+            "styles": "./src/styles",
             "components": "./src/components",
             "hooks": "./src/hooks",
             "utils": "./src/utils",
-            "constants": "./src/constants"
+            "constants": "./src/constants",
+            "services": "./src/services"
           }
         }]
       ]

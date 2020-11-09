@@ -13,4 +13,9 @@ module.exports = {
    * URL of Topcoder Community Website
    */
   TOPCODER_COMMUNITY_WEBSITE_URL: "https://topcoder.com",
+
+  /**
+   * Email to report issues to
+   */
+  EMAIL_REPORT_ISSUE: "support+team-issue@topcoder.com",
 };

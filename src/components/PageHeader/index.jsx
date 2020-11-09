@@ -9,17 +9,20 @@ import { Link } from "@reach/router";
 import IconArrowLeft from "../../assets/images/icon-arrow-left.svg";
 import "./styles.module.scss";
 
-const PageHeader = ({ title, backTo }) => {
+const PageHeader = ({ title, backTo, aside }) => {
   return (
     <header styleName="header">
-      {backTo && (
-        <div styleName="back-to">
-          <Link to={backTo}>
-            <IconArrowLeft />
-          </Link>
-        </div>
-      )}
-      <h1 styleName="title">{title}</h1>
+      <div styleName="title-wrapper">
+        {backTo && (
+          <div styleName="back-to">
+            <Link to={backTo}>
+              <IconArrowLeft />
+            </Link>
+          </div>
+        )}
+        <h1 styleName="title">{title}</h1>
+      </div>
+      {aside}
     </header>
   );
 };
@@ -27,6 +30,7 @@ const PageHeader = ({ title, backTo }) => {
 PageHeader.propTypes = {
   title: PT.string,
   backTo: PT.string,
+  aside: PT.node,
 };
 
 export default PageHeader;

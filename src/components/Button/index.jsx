@@ -4,12 +4,17 @@
  * Supports:
  * - size - see BUTTON_SIZE values
  * - type - see BUTTON_TYPE values
+ *
+ * If `routeTo` is set, then button works as React Router Link
+ *
+ * if `href` is set, then button is rendered as a link `<a>`
  */
 import React from "react";
 import PT from "prop-types";
 import cn from "classnames";
 import { BUTTON_SIZE, BUTTON_TYPE } from "constants";
 import "./styles.module.scss";
+import { Link } from "@reach/router";
 
 const Button = ({
   children,
@@ -19,18 +24,38 @@ const Button = ({
   className,
   innerRef,
   disabled,
+  routeTo,
+  href,
+  target,
 }) => {
-  return (
-    <button
-      styleName={cn("button", `type-${type}`, `size-${size}`)}
-      onClick={onClick}
-      className={className}
-      ref={innerRef}
-      disabled={disabled}
-    >
-      {children}
-    </button>
-  );
+  if (href) {
+    return (
+      <a
+        href={href}
+        target={target}
+        styleName={cn("button", `type-${type}`, `size-${size}`)}
+        onClick={onClick}
+        className={className}
+        ref={innerRef}
+      >
+        {children}
+      </a>
+    );
+  } else {
+    const button = (
+      <button
+        styleName={cn("button", `type-${type}`, `size-${size}`)}
+        onClick={onClick}
+        className={className}
+        ref={innerRef}
+        disabled={disabled}
+      >
+        {children}
+      </button>
+    );
+
+    return routeTo ? <Link to={routeTo}>{button}</Link> : button;
+  }
 };
 
 Button.propTypes = {
@@ -41,6 +66,8 @@ Button.propTypes = {
   className: PT.string,
   innerRef: PT.func,
   disabled: PT.bool,
+  routeTo: PT.string,
+  href: PT.string,
 };
 
 export default Button;

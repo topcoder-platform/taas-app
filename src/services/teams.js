@@ -12,7 +12,7 @@ import config from "../../config";
  * @returns {Promise<object[]>} list of teams
  */
 export const getMyTeams = () => {
-  return axios.get(`${config.TC_TEAMS_SERVICE_URL}/teams`);
+  return axios.get(`${config.TC_TEAMS_SERVICE_URL}/taas-teams`);
 };
 
 /**
@@ -20,8 +20,22 @@ export const getMyTeams = () => {
  *
  * @param {string|number} teamId team id
  *
- * @returns {Promise<{}>} list of teams
+ * @returns {Promise<{}>} team object
  */
 export const getTeamById = (teamId) => {
-  return axios.get(`${config.TC_TEAMS_SERVICE_URL}/teams/${teamId}`);
+  return axios.get(`${config.TC_TEAMS_SERVICE_URL}/taas-teams/${teamId}`);
+};
+
+/**
+ * Get team position details.
+ *
+ * @param {string|number} teamId team id
+ * @param {string|number} positionId position id
+ *
+ * @returns {Promise<object{}>} job object
+ */
+export const getPositionDetails = (teamId, positionId) => {
+  return axios.get(
+    `${config.TC_TEAMS_SERVICE_URL}/taas-teams/${teamId}/jobs/${positionId}`
+  );
 };

@@ -19,9 +19,9 @@ const SkillsList = ({
   limit = 3,
   showMatches = false,
 }) => {
-  const otherSkills = _.difference(skills, requiredSkills);
-  const skillsToShow = skills.slice(0, limit);
-  const skillsToHide = skills.slice(limit);
+  const otherSkills = _.differenceBy(skills, requiredSkills, "id");
+  const skillsToShow = (skills || requiredSkills).slice(0, limit);
+  const skillsToHide = (skills || requiredSkills).slice(limit);
 
   const [isOpen, setIsOpen] = useState(false);
   const [referenceElement, setReferenceElement] = useState(null);
@@ -73,7 +73,7 @@ const SkillsList = ({
 
   return (
     <div styleName="skills-list">
-      {skillsToShow.join(", ")}
+      {_.map(skillsToShow, "name").join(", ")}
       {skillsToHide.length && (
         <>
           {" and "}
@@ -98,30 +98,34 @@ const SkillsList = ({
                 {...attributes.popper}
               >
                 <div styleName="popover-content">
-                  <div styleName="skills-section">
-                    <div styleName="skills-title">Required Skills</div>
-                    <ul styleName="skills-list">
-                      {requiredSkills.map((skill) => (
-                        <li key={skill}>
-                          {showMatches &&
-                            (skills.includes(skill) ? (
-                              <IconCheck />
-                            ) : (
-                              <IconCross />
-                            ))}{" "}
-                          {skill}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  <div styleName="skills-section">
-                    <div styleName="skills-title">Other Skills</div>
-                    <ul styleName="skills-list">
-                      {otherSkills.map((skill) => (
-                        <li key={skill}>{skill}</li>
-                      ))}
-                    </ul>
-                  </div>
+                  {requiredSkills && (
+                    <div styleName="skills-section">
+                      <div styleName="skills-title">Required Skills</div>
+                      <ul styleName="skills-list">
+                        {requiredSkills.map((skill) => (
+                          <li key={skill.id}>
+                            {showMatches &&
+                              (_.find(skills, { id: skill.id }) ? (
+                                <IconCheck />
+                              ) : (
+                                <IconCross />
+                              ))}{" "}
+                            {skill.name}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                  {skills && (
+                    <div styleName="skills-section">
+                      <div styleName="skills-title">Other Skills</div>
+                      <ul styleName="skills-list">
+                        {otherSkills.map((skill) => (
+                          <li key={skill.id}>{skill.name}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
                 </div>
               </div>
             )}
@@ -132,9 +136,14 @@ const SkillsList = ({
   );
 };
 
+export const skillShape = PT.shape({
+  id: PT.string,
+  name: PT.string,
+});
+
 SkillsList.propTypes = {
-  skills: PT.arrayOf(PT.string),
-  requiredSkills: PT.arrayOf(PT.string),
+  skills: PT.arrayOf(skillShape),
+  requiredSkills: PT.arrayOf(skillShape),
   limit: PT.number,
   showMatches: PT.bool,
 };

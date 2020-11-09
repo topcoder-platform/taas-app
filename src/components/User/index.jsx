@@ -10,7 +10,7 @@ import "./styles.module.scss";
 import { formatFullName } from "utils/format";
 import { TOPCODER_COMMUNITY_WEBSITE_URL } from "../../../config";
 
-const User = ({ user }) => {
+const User = ({ user, hideFullName = false }) => {
   return (
     <div styleName="user">
       <Avatar {...user} />
@@ -21,7 +21,9 @@ const User = ({ user }) => {
         >
           <strong>{user.handle}</strong>
         </a>
-        <div>{formatFullName(user.firstName, user.lastName)}</div>
+        {!hideFullName && (
+          <div>{formatFullName(user.firstName, user.lastName)}</div>
+        )}
       </div>
     </div>
   );
@@ -34,6 +36,7 @@ User.propTypes = {
     lastName: PT.string,
     handle: PT.string,
   }),
+  hideFullName: PT.bool,
 };
 
 export default User;

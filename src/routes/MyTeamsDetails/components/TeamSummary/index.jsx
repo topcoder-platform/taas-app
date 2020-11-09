@@ -6,7 +6,11 @@
 import React from "react";
 import PT from "prop-types";
 import DataItem from "components/DataItem";
-import { formatMoney, formatRemainingTime } from "utils/format";
+import {
+  formatMoney,
+  formatRemainingTime,
+  formatReportIssueUrl,
+} from "utils/format";
 import IconClock from "../../../../assets/images/icon-clock.svg";
 import IconMoney from "../../../../assets/images/icon-money.svg";
 import IconRating from "../../../../assets/images/icon-rating.svg";
@@ -32,7 +36,12 @@ const TeamSummary = ({ team }) => {
       </div>
 
       <div styleName="actions">
-        <Button type="warning" size="medium">
+        <Button
+          type="warning"
+          size="medium"
+          href={formatReportIssueUrl(`TaaS Issue: ${team.name}`)}
+          target="_blank"
+        >
           REPORT AN ISSUE
         </Button>
       </div>
@@ -42,6 +51,7 @@ const TeamSummary = ({ team }) => {
 
 TeamSummary.propTypes = {
   team: PT.shape({
+    name: PT.string,
     endDate: PT.string,
     weeklyCost: PT.number,
     rating: PT.number,

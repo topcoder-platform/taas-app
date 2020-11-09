@@ -1,5 +1,5 @@
 {
-  "teams": [
+  "taas-teams": [
     {
       "id": 1,
       "name": "Team Name 001",
@@ -7,26 +7,7 @@
       "endDate": "2020-12-15T00:00:00Z",
       "weeklyCost": 5000,
       "rating": 5,
-      "positions": [
-        {
-          "title": "Java Developer",
-          "skills": ["Skill 01", "Skill 02", "Skill 03", "Skill 04", "Skill 05", "Skill 06", "Skill 07", "Skill 08", "Skill 09", "Skill 10"],
-          "requiredSkills": ["Skill 01", "Skill 02", "Skill 03", "Skill 04", "Skill AA"],
-          "startDate": "2020-06-15T00:00:00Z",
-          "endDate": "2020-12-15T00:00:00Z",
-          "weeklyCost": 500,
-          "status": "sourcing"
-        },
-        {
-          "title": "Java Developer",
-          "skills": ["Skill 01", "Skill 02", "Skill 03", "Skill 04", "Skill 05", "Skill 06", "Skill 07", "Skill 08", "Skill 09", "Skill 10"],
-          "requiredSkills": ["Skill 01", "Skill 02", "Skill 03", "Skill 04", "Skill AA"],
-          "startDate": "2020-06-15T00:00:00Z",
-          "endDate": "2020-12-15T00:00:00Z",
-          "weeklyCost": 9500,
-          "status": "availableForReview"
-        }
-      ],
+      "totalPositions": 17,
       "members": [
         {
           "userId": 40158995,
@@ -34,8 +15,71 @@
           "firstName": "Liza",
           "lastName": "Qun",
           "role": "Developer",
-          "skills": ["Skill 01", "Skill 02", "Skill 03", "Skill 04", "Skill 05", "Skill 06", "Skill 07", "Skill 08", "Skill 09", "Skill 10"],
-          "requiredSkills": ["Skill 01", "Skill 02", "Skill 03", "Skill 04", "Skill AA"],
+          "skillMatched": 80,
+          "skills": [
+            {
+              "id": "Skill 01",
+              "name": "Skill 01"
+            },
+            {
+              "id": "Skill 02",
+              "name": "Skill 02"
+            },
+            {
+              "id": "Skill 03",
+              "name": "Skill 03"
+            },
+            {
+              "id": "Skill 04",
+              "name": "Skill 04"
+            },
+            {
+              "id": "Skill 05",
+              "name": "Skill 05"
+            },
+            {
+              "id": "Skill 06",
+              "name": "Skill 06"
+            },
+            {
+              "id": "Skill 07",
+              "name": "Skill 07"
+            },
+            {
+              "id": "Skill 08",
+              "name": "Skill 08"
+            },
+            {
+              "id": "Skill 09",
+              "name": "Skill 09"
+            },
+            {
+              "id": "Skill 10",
+              "name": "Skill 10"
+            }
+          ],
+          "requiredSkills": [
+            {
+              "id": "Skill 01",
+              "name": "Skill 01"
+            },
+            {
+              "id": "Skill 02",
+              "name": "Skill 02"
+            },
+            {
+              "id": "Skill 03",
+              "name": "Skill 03"
+            },
+            {
+              "id": "Skill 04",
+              "name": "Skill 04"
+            },
+            {
+              "id": "Skill AA",
+              "name": "Skill AA"
+            }
+          ],
           "weeklyCost": 500,
           "rating": 0,
           "startDate": "2020-06-15T00:00:00Z",
@@ -47,8 +91,71 @@
           "firstName": "Cat",
           "lastName": "Unknown",
           "role": "Designer",
-          "skills": ["Skill 01", "Skill 02", "Skill 03", "Skill 04", "Skill 05", "Skill 06", "Skill 07", "Skill 08", "Skill 09", "Skill 10"],
-          "requiredSkills": ["Skill 01", "Skill 02", "Skill 03", "Skill 04", "Skill AA"],
+          "skillMatched": 80,
+          "skills": [
+            {
+              "id": "Skill 01",
+              "name": "Skill 01"
+            },
+            {
+              "id": "Skill 02",
+              "name": "Skill 02"
+            },
+            {
+              "id": "Skill 03",
+              "name": "Skill 03"
+            },
+            {
+              "id": "Skill 04",
+              "name": "Skill 04"
+            },
+            {
+              "id": "Skill 05",
+              "name": "Skill 05"
+            },
+            {
+              "id": "Skill 06",
+              "name": "Skill 06"
+            },
+            {
+              "id": "Skill 07",
+              "name": "Skill 07"
+            },
+            {
+              "id": "Skill 08",
+              "name": "Skill 08"
+            },
+            {
+              "id": "Skill 09",
+              "name": "Skill 09"
+            },
+            {
+              "id": "Skill 10",
+              "name": "Skill 10"
+            }
+          ],
+          "requiredSkills": [
+            {
+              "id": "Skill 01",
+              "name": "Skill 01"
+            },
+            {
+              "id": "Skill 02",
+              "name": "Skill 02"
+            },
+            {
+              "id": "Skill 03",
+              "name": "Skill 03"
+            },
+            {
+              "id": "Skill 04",
+              "name": "Skill 04"
+            },
+            {
+              "id": "Skill AA",
+              "name": "Skill AA"
+            }
+          ],
           "weeklyCost": 9500,
           "rating": 3.38,
           "startDate": "2020-06-15T00:00:00Z",
@@ -60,8 +167,71 @@
           "firstName": "John",
           "lastName": "Busby",
           "role": "Developer",
-          "skills": ["React", "Skill 02", "Skill 03", "Skill 04", "Skill 05", "Skill 06", "Skill 07", "Skill 08", "Skill 09", "Skill 10"],
-          "requiredSkills": ["React", "Skill 02", "Skill 03", "Skill 04", "Skill AA"],
+          "skillMatched": 80,
+          "skills": [
+            {
+              "id": "React",
+              "name": "React"
+            },
+            {
+              "id": "Skill 02",
+              "name": "Skill 02"
+            },
+            {
+              "id": "Skill 03",
+              "name": "Skill 03"
+            },
+            {
+              "id": "Skill 04",
+              "name": "Skill 04"
+            },
+            {
+              "id": "Skill 05",
+              "name": "Skill 05"
+            },
+            {
+              "id": "Skill 06",
+              "name": "Skill 06"
+            },
+            {
+              "id": "Skill 07",
+              "name": "Skill 07"
+            },
+            {
+              "id": "Skill 08",
+              "name": "Skill 08"
+            },
+            {
+              "id": "Skill 09",
+              "name": "Skill 09"
+            },
+            {
+              "id": "Skill 10",
+              "name": "Skill 10"
+            }
+          ],
+          "requiredSkills": [
+            {
+              "id": "React",
+              "name": "React"
+            },
+            {
+              "id": "Skill 02",
+              "name": "Skill 02"
+            },
+            {
+              "id": "Skill 03",
+              "name": "Skill 03"
+            },
+            {
+              "id": "Skill 04",
+              "name": "Skill 04"
+            },
+            {
+              "id": "Skill AA",
+              "name": "Skill AA"
+            }
+          ],
           "weeklyCost": 500,
           "rating": 4.5,
           "startDate": "2020-06-15T00:00:00Z",
@@ -73,8 +243,71 @@
           "firstName": "Dog",
           "lastName": "Unknown",
           "role": "Developer",
-          "skills": ["Skill 01", "Skill 02", "Skill 03", "Skill 04", "Skill 05", "Skill 06", "Skill 07", "Skill 08", "Skill 09", "Skill 10"],
-          "requiredSkills": ["Skill 01", "Skill 02", "Skill 03", "Skill 04", "Skill AA"],
+          "skillMatched": 80,
+          "skills": [
+            {
+              "id": "Skill 01",
+              "name": "Skill 01"
+            },
+            {
+              "id": "Skill 02",
+              "name": "Skill 02"
+            },
+            {
+              "id": "Skill 03",
+              "name": "Skill 03"
+            },
+            {
+              "id": "Skill 04",
+              "name": "Skill 04"
+            },
+            {
+              "id": "Skill 05",
+              "name": "Skill 05"
+            },
+            {
+              "id": "Skill 06",
+              "name": "Skill 06"
+            },
+            {
+              "id": "Skill 07",
+              "name": "Skill 07"
+            },
+            {
+              "id": "Skill 08",
+              "name": "Skill 08"
+            },
+            {
+              "id": "Skill 09",
+              "name": "Skill 09"
+            },
+            {
+              "id": "Skill 10",
+              "name": "Skill 10"
+            }
+          ],
+          "requiredSkills": [
+            {
+              "id": "Skill 01",
+              "name": "Skill 01"
+            },
+            {
+              "id": "Skill 02",
+              "name": "Skill 02"
+            },
+            {
+              "id": "Skill 03",
+              "name": "Skill 03"
+            },
+            {
+              "id": "Skill 04",
+              "name": "Skill 04"
+            },
+            {
+              "id": "Skill AA",
+              "name": "Skill AA"
+            }
+          ],
           "weeklyCost": 500,
           "rating": 5,
           "startDate": "2020-06-15T00:00:00Z",
@@ -86,8 +319,71 @@
           "firstName": "Richard",
           "lastName": "Gere",
           "role": "Developer",
-          "skills": ["Skill 01", "Skill 02", "Skill 03", "Skill 04", "Skill 05", "Skill 06", "Skill 07", "Skill 08", "Skill 09", "Skill 10"],
-          "requiredSkills": ["Skill 01", "Skill 02", "Skill 03", "Skill 04", "Skill AA"],
+          "skillMatched": 80,
+          "skills": [
+            {
+              "id": "Skill 01",
+              "name": "Skill 01"
+            },
+            {
+              "id": "Skill 02",
+              "name": "Skill 02"
+            },
+            {
+              "id": "Skill 03",
+              "name": "Skill 03"
+            },
+            {
+              "id": "Skill 04",
+              "name": "Skill 04"
+            },
+            {
+              "id": "Skill 05",
+              "name": "Skill 05"
+            },
+            {
+              "id": "Skill 06",
+              "name": "Skill 06"
+            },
+            {
+              "id": "Skill 07",
+              "name": "Skill 07"
+            },
+            {
+              "id": "Skill 08",
+              "name": "Skill 08"
+            },
+            {
+              "id": "Skill 09",
+              "name": "Skill 09"
+            },
+            {
+              "id": "Skill 10",
+              "name": "Skill 10"
+            }
+          ],
+          "requiredSkills": [
+            {
+              "id": "Skill 01",
+              "name": "Skill 01"
+            },
+            {
+              "id": "Skill 02",
+              "name": "Skill 02"
+            },
+            {
+              "id": "Skill 03",
+              "name": "Skill 03"
+            },
+            {
+              "id": "Skill 04",
+              "name": "Skill 04"
+            },
+            {
+              "id": "Skill AA",
+              "name": "Skill AA"
+            }
+          ],
           "weeklyCost": 500,
           "rating": 4.5,
           "startDate": "2020-06-15T00:00:00Z",
@@ -99,8 +395,71 @@
           "firstName": "Brad",
           "lastName": "Pitt",
           "role": "Developer",
-          "skills": ["Skill 01", "Skill 02", "Skill 03", "Skill 04", "Skill 05", "Skill 06", "Skill 07", "Skill 08", "Skill 09", "Skill 10"],
-          "requiredSkills": ["Skill 01", "Skill 02", "Skill 03", "Skill 04", "Skill AA"],
+          "skillMatched": 80,
+          "skills": [
+            {
+              "id": "Skill 01",
+              "name": "Skill 01"
+            },
+            {
+              "id": "Skill 02",
+              "name": "Skill 02"
+            },
+            {
+              "id": "Skill 03",
+              "name": "Skill 03"
+            },
+            {
+              "id": "Skill 04",
+              "name": "Skill 04"
+            },
+            {
+              "id": "Skill 05",
+              "name": "Skill 05"
+            },
+            {
+              "id": "Skill 06",
+              "name": "Skill 06"
+            },
+            {
+              "id": "Skill 07",
+              "name": "Skill 07"
+            },
+            {
+              "id": "Skill 08",
+              "name": "Skill 08"
+            },
+            {
+              "id": "Skill 09",
+              "name": "Skill 09"
+            },
+            {
+              "id": "Skill 10",
+              "name": "Skill 10"
+            }
+          ],
+          "requiredSkills": [
+            {
+              "id": "Skill 01",
+              "name": "Skill 01"
+            },
+            {
+              "id": "Skill 02",
+              "name": "Skill 02"
+            },
+            {
+              "id": "Skill 03",
+              "name": "Skill 03"
+            },
+            {
+              "id": "Skill 04",
+              "name": "Skill 04"
+            },
+            {
+              "id": "Skill AA",
+              "name": "Skill AA"
+            }
+          ],
           "weeklyCost": 500,
           "rating": 4.5,
           "startDate": "2020-06-15T00:00:00Z",
@@ -112,8 +471,71 @@
           "firstName": "Tony",
           "lastName": "Walt",
           "role": "Developer",
-          "skills": ["Skill 01", "Skill 02", "Skill 03", "Skill 04", "Skill 05", "Skill 06", "Skill 07", "Skill 08", "Skill 09", "Skill 10"],
-          "requiredSkills": ["Skill 01", "Skill 02", "Skill 03", "Skill 04", "Skill AA"],
+          "skillMatched": 80,
+          "skills": [
+            {
+              "id": "Skill 01",
+              "name": "Skill 01"
+            },
+            {
+              "id": "Skill 02",
+              "name": "Skill 02"
+            },
+            {
+              "id": "Skill 03",
+              "name": "Skill 03"
+            },
+            {
+              "id": "Skill 04",
+              "name": "Skill 04"
+            },
+            {
+              "id": "Skill 05",
+              "name": "Skill 05"
+            },
+            {
+              "id": "Skill 06",
+              "name": "Skill 06"
+            },
+            {
+              "id": "Skill 07",
+              "name": "Skill 07"
+            },
+            {
+              "id": "Skill 08",
+              "name": "Skill 08"
+            },
+            {
+              "id": "Skill 09",
+              "name": "Skill 09"
+            },
+            {
+              "id": "Skill 10",
+              "name": "Skill 10"
+            }
+          ],
+          "requiredSkills": [
+            {
+              "id": "Skill 01",
+              "name": "Skill 01"
+            },
+            {
+              "id": "Skill 02",
+              "name": "Skill 02"
+            },
+            {
+              "id": "Skill 03",
+              "name": "Skill 03"
+            },
+            {
+              "id": "Skill 04",
+              "name": "Skill 04"
+            },
+            {
+              "id": "Skill AA",
+              "name": "Skill AA"
+            }
+          ],
           "weeklyCost": 500,
           "rating": 4.5,
           "startDate": "2020-06-15T00:00:00Z",
@@ -125,8 +547,71 @@
           "firstName": "Kumar",
           "lastName": "Sachin",
           "role": "Developer",
-          "skills": ["Skill 01", "Skill 02", "Skill 03", "Skill 04", "Skill 05", "Skill 06", "Skill 07", "Skill 08", "Skill 09", "Skill 10"],
-          "requiredSkills": ["Skill 01", "Skill 02", "Skill 03", "Skill 04", "Skill AA"],
+          "skillMatched": 80,
+          "skills": [
+            {
+              "id": "Skill 01",
+              "name": "Skill 01"
+            },
+            {
+              "id": "Skill 02",
+              "name": "Skill 02"
+            },
+            {
+              "id": "Skill 03",
+              "name": "Skill 03"
+            },
+            {
+              "id": "Skill 04",
+              "name": "Skill 04"
+            },
+            {
+              "id": "Skill 05",
+              "name": "Skill 05"
+            },
+            {
+              "id": "Skill 06",
+              "name": "Skill 06"
+            },
+            {
+              "id": "Skill 07",
+              "name": "Skill 07"
+            },
+            {
+              "id": "Skill 08",
+              "name": "Skill 08"
+            },
+            {
+              "id": "Skill 09",
+              "name": "Skill 09"
+            },
+            {
+              "id": "Skill 10",
+              "name": "Skill 10"
+            }
+          ],
+          "requiredSkills": [
+            {
+              "id": "Skill 01",
+              "name": "Skill 01"
+            },
+            {
+              "id": "Skill 02",
+              "name": "Skill 02"
+            },
+            {
+              "id": "Skill 03",
+              "name": "Skill 03"
+            },
+            {
+              "id": "Skill 04",
+              "name": "Skill 04"
+            },
+            {
+              "id": "Skill AA",
+              "name": "Skill AA"
+            }
+          ],
           "weeklyCost": 500,
           "rating": 4.5,
           "startDate": "2020-06-15T00:00:00Z",
@@ -138,8 +623,71 @@
           "firstName": "Max",
           "lastName": "Wild",
           "role": "Developer",
-          "skills": ["Skill 01", "Skill 02", "Skill 03", "Skill 04", "Skill 05", "Skill 06", "Skill 07", "Skill 08", "Skill 09", "Skill 10"],
-          "requiredSkills": ["Skill 01", "Skill 02", "Skill 03", "Skill 04", "Skill AA"],
+          "skillMatched": 80,
+          "skills": [
+            {
+              "id": "Skill 01",
+              "name": "Skill 01"
+            },
+            {
+              "id": "Skill 02",
+              "name": "Skill 02"
+            },
+            {
+              "id": "Skill 03",
+              "name": "Skill 03"
+            },
+            {
+              "id": "Skill 04",
+              "name": "Skill 04"
+            },
+            {
+              "id": "Skill 05",
+              "name": "Skill 05"
+            },
+            {
+              "id": "Skill 06",
+              "name": "Skill 06"
+            },
+            {
+              "id": "Skill 07",
+              "name": "Skill 07"
+            },
+            {
+              "id": "Skill 08",
+              "name": "Skill 08"
+            },
+            {
+              "id": "Skill 09",
+              "name": "Skill 09"
+            },
+            {
+              "id": "Skill 10",
+              "name": "Skill 10"
+            }
+          ],
+          "requiredSkills": [
+            {
+              "id": "Skill 01",
+              "name": "Skill 01"
+            },
+            {
+              "id": "Skill 02",
+              "name": "Skill 02"
+            },
+            {
+              "id": "Skill 03",
+              "name": "Skill 03"
+            },
+            {
+              "id": "Skill 04",
+              "name": "Skill 04"
+            },
+            {
+              "id": "Skill AA",
+              "name": "Skill AA"
+            }
+          ],
           "weeklyCost": 500,
           "rating": 4.5,
           "startDate": "2020-06-15T00:00:00Z",
@@ -151,8 +699,71 @@
           "firstName": "Maksym",
           "lastName": "Dindon",
           "role": "Developer",
-          "skills": ["Skill 01", "Skill 02", "Skill 03", "Skill 04", "Skill 05", "Skill 06", "Skill 07", "Skill 08", "Skill 09", "Skill 10"],
-          "requiredSkills": ["Skill 01", "Skill 02", "Skill 03", "Skill 04", "Skill AA"],
+          "skillMatched": 80,
+          "skills": [
+            {
+              "id": "Skill 01",
+              "name": "Skill 01"
+            },
+            {
+              "id": "Skill 02",
+              "name": "Skill 02"
+            },
+            {
+              "id": "Skill 03",
+              "name": "Skill 03"
+            },
+            {
+              "id": "Skill 04",
+              "name": "Skill 04"
+            },
+            {
+              "id": "Skill 05",
+              "name": "Skill 05"
+            },
+            {
+              "id": "Skill 06",
+              "name": "Skill 06"
+            },
+            {
+              "id": "Skill 07",
+              "name": "Skill 07"
+            },
+            {
+              "id": "Skill 08",
+              "name": "Skill 08"
+            },
+            {
+              "id": "Skill 09",
+              "name": "Skill 09"
+            },
+            {
+              "id": "Skill 10",
+              "name": "Skill 10"
+            }
+          ],
+          "requiredSkills": [
+            {
+              "id": "Skill 01",
+              "name": "Skill 01"
+            },
+            {
+              "id": "Skill 02",
+              "name": "Skill 02"
+            },
+            {
+              "id": "Skill 03",
+              "name": "Skill 03"
+            },
+            {
+              "id": "Skill 04",
+              "name": "Skill 04"
+            },
+            {
+              "id": "Skill AA",
+              "name": "Skill AA"
+            }
+          ],
           "weeklyCost": 500,
           "rating": 4.5,
           "startDate": "2020-06-15T00:00:00Z",
@@ -164,8 +775,71 @@
           "firstName": "Vika",
           "lastName": "Barcelona",
           "role": "Developer",
-          "skills": ["Skill 01", "Skill 02", "Skill 03", "Skill 04", "Skill 05", "Skill 06", "Skill 07", "Skill 08", "Skill 09", "Skill 10"],
-          "requiredSkills": ["Skill 01", "Skill 02", "Skill 03", "Skill 04", "Skill AA"],
+          "skillMatched": 80,
+          "skills": [
+            {
+              "id": "Skill 01",
+              "name": "Skill 01"
+            },
+            {
+              "id": "Skill 02",
+              "name": "Skill 02"
+            },
+            {
+              "id": "Skill 03",
+              "name": "Skill 03"
+            },
+            {
+              "id": "Skill 04",
+              "name": "Skill 04"
+            },
+            {
+              "id": "Skill 05",
+              "name": "Skill 05"
+            },
+            {
+              "id": "Skill 06",
+              "name": "Skill 06"
+            },
+            {
+              "id": "Skill 07",
+              "name": "Skill 07"
+            },
+            {
+              "id": "Skill 08",
+              "name": "Skill 08"
+            },
+            {
+              "id": "Skill 09",
+              "name": "Skill 09"
+            },
+            {
+              "id": "Skill 10",
+              "name": "Skill 10"
+            }
+          ],
+          "requiredSkills": [
+            {
+              "id": "Skill 01",
+              "name": "Skill 01"
+            },
+            {
+              "id": "Skill 02",
+              "name": "Skill 02"
+            },
+            {
+              "id": "Skill 03",
+              "name": "Skill 03"
+            },
+            {
+              "id": "Skill 04",
+              "name": "Skill 04"
+            },
+            {
+              "id": "Skill AA",
+              "name": "Skill AA"
+            }
+          ],
           "weeklyCost": 500,
           "rating": 4.5,
           "startDate": "2020-06-15T00:00:00Z",
@@ -180,26 +854,7 @@
       "endDate": "2021-12-15T00:00:00Z",
       "weeklyCost": 5000000,
       "rating": 4.5,
-      "positions": [
-        {
-          "title": "Java Developer",
-          "skills": ["Skill 01", "Skill 02", "Skill 03", "Skill 04", "Skill 05", "Skill 06", "Skill 07", "Skill 08", "Skill 09", "Skill 10"],
-          "requiredSkills": ["Skill 01", "Skill 02", "Skill 03", "Skill 04", "Skill AA"],
-          "startDate": "2020-06-15T00:00:00Z",
-          "endDate": "2020-12-15T00:00:00Z",
-          "weeklyCost": 500,
-          "status": "sourcing"
-        },
-        {
-          "title": "Java Developer",
-          "skills": ["Skill 01", "Skill 02", "Skill 03", "Skill 04", "Skill 05", "Skill 06", "Skill 07", "Skill 08", "Skill 09", "Skill 10"],
-          "requiredSkills": ["Skill 01", "Skill 02", "Skill 03", "Skill 04", "Skill AA"],
-          "startDate": "2020-06-15T00:00:00Z",
-          "endDate": "2020-12-15T00:00:00Z",
-          "weeklyCost": 9500,
-          "status": "availableForReview"
-        }
-      ],
+      "totalPositions": 17,
       "members": [
         {
           "userId": 8547899,
@@ -207,8 +862,71 @@
           "firstName": "Tony",
           "lastName": "Walt",
           "role": "Developer",
-          "skills": ["Skill 01", "Skill 02", "Skill 03", "Skill 04", "Skill 05", "Skill 06", "Skill 07", "Skill 08", "Skill 09", "Skill 10"],
-          "requiredSkills": ["Skill 01", "Skill 02", "Skill 03", "Skill 04", "Skill AA"],
+          "skillMatched": 80,
+          "skills": [
+            {
+              "id": "Skill 01",
+              "name": "Skill 01"
+            },
+            {
+              "id": "Skill 02",
+              "name": "Skill 02"
+            },
+            {
+              "id": "Skill 03",
+              "name": "Skill 03"
+            },
+            {
+              "id": "Skill 04",
+              "name": "Skill 04"
+            },
+            {
+              "id": "Skill 05",
+              "name": "Skill 05"
+            },
+            {
+              "id": "Skill 06",
+              "name": "Skill 06"
+            },
+            {
+              "id": "Skill 07",
+              "name": "Skill 07"
+            },
+            {
+              "id": "Skill 08",
+              "name": "Skill 08"
+            },
+            {
+              "id": "Skill 09",
+              "name": "Skill 09"
+            },
+            {
+              "id": "Skill 10",
+              "name": "Skill 10"
+            }
+          ],
+          "requiredSkills": [
+            {
+              "id": "Skill 01",
+              "name": "Skill 01"
+            },
+            {
+              "id": "Skill 02",
+              "name": "Skill 02"
+            },
+            {
+              "id": "Skill 03",
+              "name": "Skill 03"
+            },
+            {
+              "id": "Skill 04",
+              "name": "Skill 04"
+            },
+            {
+              "id": "Skill AA",
+              "name": "Skill AA"
+            }
+          ],
           "weeklyCost": 500,
           "rating": 0,
           "startDate": "2020-06-15T00:00:00Z",
@@ -220,8 +938,71 @@
           "firstName": "Kumar",
           "lastName": "Sachin",
           "role": "Developer",
-          "skills": ["Skill 01", "Skill 02", "Skill 03", "Skill 04", "Skill 05", "Skill 06", "Skill 07", "Skill 08", "Skill 09", "Skill 10"],
-          "requiredSkills": ["Skill 01", "Skill 02", "Skill 03", "Skill 04", "Skill AA"],
+          "skillMatched": 80,
+          "skills": [
+            {
+              "id": "Skill 01",
+              "name": "Skill 01"
+            },
+            {
+              "id": "Skill 02",
+              "name": "Skill 02"
+            },
+            {
+              "id": "Skill 03",
+              "name": "Skill 03"
+            },
+            {
+              "id": "Skill 04",
+              "name": "Skill 04"
+            },
+            {
+              "id": "Skill 05",
+              "name": "Skill 05"
+            },
+            {
+              "id": "Skill 06",
+              "name": "Skill 06"
+            },
+            {
+              "id": "Skill 07",
+              "name": "Skill 07"
+            },
+            {
+              "id": "Skill 08",
+              "name": "Skill 08"
+            },
+            {
+              "id": "Skill 09",
+              "name": "Skill 09"
+            },
+            {
+              "id": "Skill 10",
+              "name": "Skill 10"
+            }
+          ],
+          "requiredSkills": [
+            {
+              "id": "Skill 01",
+              "name": "Skill 01"
+            },
+            {
+              "id": "Skill 02",
+              "name": "Skill 02"
+            },
+            {
+              "id": "Skill 03",
+              "name": "Skill 03"
+            },
+            {
+              "id": "Skill 04",
+              "name": "Skill 04"
+            },
+            {
+              "id": "Skill AA",
+              "name": "Skill AA"
+            }
+          ],
           "weeklyCost": 500,
           "rating": 3.38,
           "startDate": "2020-06-15T00:00:00Z",
@@ -233,8 +1014,71 @@
           "firstName": "Max",
           "lastName": "Wild",
           "role": "Developer",
-          "skills": ["Skill 01", "Skill 02", "Skill 03", "Skill 04", "Skill 05", "Skill 06", "Skill 07", "Skill 08", "Skill 09", "Skill 10"],
-          "requiredSkills": ["Skill 01", "Skill 02", "Skill 03", "Skill 04", "Skill AA"],
+          "skillMatched": 80,
+          "skills": [
+            {
+              "id": "Skill 01",
+              "name": "Skill 01"
+            },
+            {
+              "id": "Skill 02",
+              "name": "Skill 02"
+            },
+            {
+              "id": "Skill 03",
+              "name": "Skill 03"
+            },
+            {
+              "id": "Skill 04",
+              "name": "Skill 04"
+            },
+            {
+              "id": "Skill 05",
+              "name": "Skill 05"
+            },
+            {
+              "id": "Skill 06",
+              "name": "Skill 06"
+            },
+            {
+              "id": "Skill 07",
+              "name": "Skill 07"
+            },
+            {
+              "id": "Skill 08",
+              "name": "Skill 08"
+            },
+            {
+              "id": "Skill 09",
+              "name": "Skill 09"
+            },
+            {
+              "id": "Skill 10",
+              "name": "Skill 10"
+            }
+          ],
+          "requiredSkills": [
+            {
+              "id": "Skill 01",
+              "name": "Skill 01"
+            },
+            {
+              "id": "Skill 02",
+              "name": "Skill 02"
+            },
+            {
+              "id": "Skill 03",
+              "name": "Skill 03"
+            },
+            {
+              "id": "Skill 04",
+              "name": "Skill 04"
+            },
+            {
+              "id": "Skill AA",
+              "name": "Skill AA"
+            }
+          ],
           "weeklyCost": 500,
           "rating": 4.5,
           "startDate": "2020-06-15T00:00:00Z",
@@ -246,8 +1090,71 @@
           "firstName": "Maksym",
           "lastName": "Dindon",
           "role": "Developer",
-          "skills": ["Skill 01", "Skill 02", "Skill 03", "Skill 04", "Skill 05", "Skill 06", "Skill 07", "Skill 08", "Skill 09", "Skill 10"],
-          "requiredSkills": ["Skill 01", "Skill 02", "Skill 03", "Skill 04", "Skill AA"],
+          "skillMatched": 80,
+          "skills": [
+            {
+              "id": "Skill 01",
+              "name": "Skill 01"
+            },
+            {
+              "id": "Skill 02",
+              "name": "Skill 02"
+            },
+            {
+              "id": "Skill 03",
+              "name": "Skill 03"
+            },
+            {
+              "id": "Skill 04",
+              "name": "Skill 04"
+            },
+            {
+              "id": "Skill 05",
+              "name": "Skill 05"
+            },
+            {
+              "id": "Skill 06",
+              "name": "Skill 06"
+            },
+            {
+              "id": "Skill 07",
+              "name": "Skill 07"
+            },
+            {
+              "id": "Skill 08",
+              "name": "Skill 08"
+            },
+            {
+              "id": "Skill 09",
+              "name": "Skill 09"
+            },
+            {
+              "id": "Skill 10",
+              "name": "Skill 10"
+            }
+          ],
+          "requiredSkills": [
+            {
+              "id": "Skill 01",
+              "name": "Skill 01"
+            },
+            {
+              "id": "Skill 02",
+              "name": "Skill 02"
+            },
+            {
+              "id": "Skill 03",
+              "name": "Skill 03"
+            },
+            {
+              "id": "Skill 04",
+              "name": "Skill 04"
+            },
+            {
+              "id": "Skill AA",
+              "name": "Skill AA"
+            }
+          ],
           "weeklyCost": 500,
           "rating": 4.5,
           "startDate": "2020-06-15T00:00:00Z",
@@ -259,8 +1166,71 @@
           "firstName": "Vika",
           "lastName": "Barcelona",
           "role": "Developer",
-          "skills": ["Skill 01", "Skill 02", "Skill 03", "Skill 04", "Skill 05", "Skill 06", "Skill 07", "Skill 08", "Skill 09", "Skill 10"],
-          "requiredSkills": ["Skill 01", "Skill 02", "Skill 03", "Skill 04", "Skill AA"],
+          "skillMatched": 80,
+          "skills": [
+            {
+              "id": "Skill 01",
+              "name": "Skill 01"
+            },
+            {
+              "id": "Skill 02",
+              "name": "Skill 02"
+            },
+            {
+              "id": "Skill 03",
+              "name": "Skill 03"
+            },
+            {
+              "id": "Skill 04",
+              "name": "Skill 04"
+            },
+            {
+              "id": "Skill 05",
+              "name": "Skill 05"
+            },
+            {
+              "id": "Skill 06",
+              "name": "Skill 06"
+            },
+            {
+              "id": "Skill 07",
+              "name": "Skill 07"
+            },
+            {
+              "id": "Skill 08",
+              "name": "Skill 08"
+            },
+            {
+              "id": "Skill 09",
+              "name": "Skill 09"
+            },
+            {
+              "id": "Skill 10",
+              "name": "Skill 10"
+            }
+          ],
+          "requiredSkills": [
+            {
+              "id": "Skill 01",
+              "name": "Skill 01"
+            },
+            {
+              "id": "Skill 02",
+              "name": "Skill 02"
+            },
+            {
+              "id": "Skill 03",
+              "name": "Skill 03"
+            },
+            {
+              "id": "Skill 04",
+              "name": "Skill 04"
+            },
+            {
+              "id": "Skill AA",
+              "name": "Skill AA"
+            }
+          ],
           "weeklyCost": 500,
           "rating": 5,
           "startDate": "2020-06-15T00:00:00Z",
@@ -275,26 +1245,7 @@
       "endDate": "2020-11-10T00:00:00Z",
       "weeklyCost": 100,
       "rating": 3.38,
-      "positions": [
-        {
-          "title": "Java_Developer_I_Will_Do_Everything_To_Break_Your_CSS",
-          "skills": ["Skill_01_I_Will_Do_Everything_To_Break_Your_CSS", "Skill_02_I_Will_Do_Everything_To_Break_Your_CSS", "Skill_03_I_Will_Do_Everything_To_Break_Your_CSS", "Skill_04_I_Will_Do_Everything_To_Break_Your_CSS", "Skill_05_I_Will_Do_Everything_To_Break_Your_CSS", "Skill_06_I_Will_Do_Everything_To_Break_Your_CSS", "Skill_07_I_Will_Do_Everything_To_Break_Your_CSS", "Skill_08_I_Will_Do_Everything_To_Break_Your_CSS", "Skill_09_I_Will_Do_Everything_To_Break_Your_CSS", "Skill_10_I_Will_Do_Everything_To_Break_Your_CSS"],
-          "requiredSkills": ["Skill_01_I_Will_Do_Everything_To_Break_Your_CSS", "Skill_02_I_Will_Do_Everything_To_Break_Your_CSS", "Skill_03_I_Will_Do_Everything_To_Break_Your_CSS", "Skill_04_I_Will_Do_Everything_To_Break_Your_CSS", "Skill_AA_I_Will_Do_Everything_To_Break_Your_CSS"],
-          "startDate": "2020-06-15T00:00:00Z",
-          "endDate": "2020-12-15T00:00:00Z",
-          "weeklyCost": 100000000,
-          "status": "sourcing"
-        },
-        {
-          "title": "Java Developer I Will Do Everything To Break Your CSS",
-          "skills": ["Skill 01 I Will Do Everything To Break Your CSS", "Skill 02 I Will Do Everything To Break Your CSS", "Skill 03 I Will Do Everything To Break Your CSS", "Skill 04 I Will Do Everything To Break Your CSS", "Skill 05 I Will Do Everything To Break Your CSS", "Skill 06 I Will Do Everything To Break Your CSS", "Skill 07 I Will Do Everything To Break Your CSS", "Skill 08 I Will Do Everything To Break Your CSS", "Skill 09 I Will Do Everything To Break Your CSS", "Skill 10 I Will Do Everything To Break Your CSS"],
-          "requiredSkills": ["Skill 01 I Will Do Everything To Break Your CSS", "Skill 02 I Will Do Everything To Break Your CSS", "Skill 03 I Will Do Everything To Break Your CSS", "Skill 04 I Will Do Everything To Break Your CSS", "Skill AA I Will Do Everything To Break Your CSS"],
-          "startDate": "2020-06-15T00:00:00Z",
-          "endDate": "2020-12-15T00:00:00Z",
-          "weeklyCost": 9500,
-          "status": "availableForReview"
-        }
-      ],
+      "totalPositions": 17,
       "members": [
         {
           "userId": 40152855,
@@ -302,8 +1253,70 @@
           "firstName": "Crazy_I_Will_Do_Everything_To_Break_Your_CSS",
           "lastName": "Breaker_I_Will_Do_Everything_To_Break_Your_CSS",
           "role": "Developer_I_Will_Do_Everything_To_Break_Your_CSS",
-          "skills": ["Skill_01_I_Will_Do_Everything_To_Break_Your_CSS", "Skill_02_I_Will_Do_Everything_To_Break_Your_CSS", "Skill_03_I_Will_Do_Everything_To_Break_Your_CSS", "Skill_04_I_Will_Do_Everything_To_Break_Your_CSS", "Skill_05_I_Will_Do_Everything_To_Break_Your_CSS", "Skill_06_I_Will_Do_Everything_To_Break_Your_CSS", "Skill_07_I_Will_Do_Everything_To_Break_Your_CSS", "Skill_08_I_Will_Do_Everything_To_Break_Your_CSS", "Skill_09_I_Will_Do_Everything_To_Break_Your_CSS", "Skill_10_I_Will_Do_Everything_To_Break_Your_CSS"],
-          "requiredSkills": ["Skill_01_I_Will_Do_Everything_To_Break_Your_CSS", "Skill_02_I_Will_Do_Everything_To_Break_Your_CSS", "Skill_03_I_Will_Do_Everything_To_Break_Your_CSS", "Skill_04_I_Will_Do_Everything_To_Break_Your_CSS", "Skill_AA_I_Will_Do_Everything_To_Break_Your_CSS"],
+          "skills": [
+            {
+              "id": "Skill_01_I_Will_Do_Everything_To_Break_Your_CSS",
+              "name": "Skill_01_I_Will_Do_Everything_To_Break_Your_CSS"
+            },
+            {
+              "id": "Skill_02_I_Will_Do_Everything_To_Break_Your_CSS",
+              "name": "Skill_02_I_Will_Do_Everything_To_Break_Your_CSS"
+            },
+            {
+              "id": "Skill_03_I_Will_Do_Everything_To_Break_Your_CSS",
+              "name": "Skill_03_I_Will_Do_Everything_To_Break_Your_CSS"
+            },
+            {
+              "id": "Skill_04_I_Will_Do_Everything_To_Break_Your_CSS",
+              "name": "Skill_04_I_Will_Do_Everything_To_Break_Your_CSS"
+            },
+            {
+              "id": "Skill_05_I_Will_Do_Everything_To_Break_Your_CSS",
+              "name": "Skill_05_I_Will_Do_Everything_To_Break_Your_CSS"
+            },
+            {
+              "id": "Skill_06_I_Will_Do_Everything_To_Break_Your_CSS",
+              "name": "Skill_06_I_Will_Do_Everything_To_Break_Your_CSS"
+            },
+            {
+              "id": "Skill_07_I_Will_Do_Everything_To_Break_Your_CSS",
+              "name": "Skill_07_I_Will_Do_Everything_To_Break_Your_CSS"
+            },
+            {
+              "id": "Skill_08_I_Will_Do_Everything_To_Break_Your_CSS",
+              "name": "Skill_08_I_Will_Do_Everything_To_Break_Your_CSS"
+            },
+            {
+              "id": "Skill_09_I_Will_Do_Everything_To_Break_Your_CSS",
+              "name": "Skill_09_I_Will_Do_Everything_To_Break_Your_CSS"
+            },
+            {
+              "id": "Skill_10_I_Will_Do_Everything_To_Break_Your_CSS",
+              "name": "Skill_10_I_Will_Do_Everything_To_Break_Your_CSS"
+            }
+          ],
+          "requiredSkills": [
+            {
+              "id": "Skill_01_I_Will_Do_Everything_To_Break_Your_CSS",
+              "name": "Skill_01_I_Will_Do_Everything_To_Break_Your_CSS"
+            },
+            {
+              "id": "Skill_02_I_Will_Do_Everything_To_Break_Your_CSS",
+              "name": "Skill_02_I_Will_Do_Everything_To_Break_Your_CSS"
+            },
+            {
+              "id": "Skill_03_I_Will_Do_Everything_To_Break_Your_CSS",
+              "name": "Skill_03_I_Will_Do_Everything_To_Break_Your_CSS"
+            },
+            {
+              "id": "Skill_04_I_Will_Do_Everything_To_Break_Your_CSS",
+              "name": "Skill_04_I_Will_Do_Everything_To_Break_Your_CSS"
+            },
+            {
+              "id": "Skill_AA_I_Will_Do_Everything_To_Break_Your_CSS",
+              "name": "Skill_AA_I_Will_Do_Everything_To_Break_Your_CSS"
+            }
+          ],
           "weeklyCost": 10000000,
           "rating": 4.5,
           "startDate": "2020-06-15T00:00:00Z",
@@ -315,8 +1328,70 @@
           "firstName": "Maksym",
           "lastName": "Dindon",
           "role": "Developer I Will Do Everything To Break Your CSS",
-          "skills": ["Skill 01 I Will Do Everything To Break Your CSS", "Skill 02 I Will Do Everything To Break Your CSS", "Skill 03 I Will Do Everything To Break Your CSS", "Skill 04 I Will Do Everything To Break Your CSS", "Skill 05 I Will Do Everything To Break Your CSS", "Skill 06 I Will Do Everything To Break Your CSS", "Skill 07 I Will Do Everything To Break Your CSS", "Skill 08 I Will Do Everything To Break Your CSS", "Skill 09 I Will Do Everything To Break Your CSS", "Skill 10 I Will Do Everything To Break Your CSS"],
-          "requiredSkills": ["Skill 01 I Will Do Everything To Break Your CSS", "Skill 02 I Will Do Everything To Break Your CSS", "Skill 03 I Will Do Everything To Break Your CSS", "Skill 04 I Will Do Everything To Break Your CSS", "Skill AA I Will Do Everything To Break Your CSS"],
+          "skills": [
+            {
+              "id": "Skill 01 I Will Do Everything To Break Your CSS",
+              "name": "Skill 01 I Will Do Everything To Break Your CSS"
+            },
+            {
+              "id": "Skill 02 I Will Do Everything To Break Your CSS",
+              "name": "Skill 02 I Will Do Everything To Break Your CSS"
+            },
+            {
+              "id": "Skill 03 I Will Do Everything To Break Your CSS",
+              "name": "Skill 03 I Will Do Everything To Break Your CSS"
+            },
+            {
+              "id": "Skill 04 I Will Do Everything To Break Your CSS",
+              "name": "Skill 04 I Will Do Everything To Break Your CSS"
+            },
+            {
+              "id": "Skill 05 I Will Do Everything To Break Your CSS",
+              "name": "Skill 05 I Will Do Everything To Break Your CSS"
+            },
+            {
+              "id": "Skill 06 I Will Do Everything To Break Your CSS",
+              "name": "Skill 06 I Will Do Everything To Break Your CSS"
+            },
+            {
+              "id": "Skill 07 I Will Do Everything To Break Your CSS",
+              "name": "Skill 07 I Will Do Everything To Break Your CSS"
+            },
+            {
+              "id": "Skill 08 I Will Do Everything To Break Your CSS",
+              "name": "Skill 08 I Will Do Everything To Break Your CSS"
+            },
+            {
+              "id": "Skill 09 I Will Do Everything To Break Your CSS",
+              "name": "Skill 09 I Will Do Everything To Break Your CSS"
+            },
+            {
+              "id": "Skill 10 I Will Do Everything To Break Your CSS",
+              "name": "Skill 10 I Will Do Everything To Break Your CSS"
+            }
+          ],
+          "requiredSkills": [
+            {
+              "id": "Skill 01 I Will Do Everything To Break Your CSS",
+              "name": "Skill 01 I Will Do Everything To Break Your CSS"
+            },
+            {
+              "id": "Skill 02 I Will Do Everything To Break Your CSS",
+              "name": "Skill 02 I Will Do Everything To Break Your CSS"
+            },
+            {
+              "id": "Skill 03 I Will Do Everything To Break Your CSS",
+              "name": "Skill 03 I Will Do Everything To Break Your CSS"
+            },
+            {
+              "id": "Skill 04 I Will Do Everything To Break Your CSS",
+              "name": "Skill 04 I Will Do Everything To Break Your CSS"
+            },
+            {
+              "id": "Skill AA I Will Do Everything To Break Your CSS",
+              "name": "Skill AA I Will Do Everything To Break Your CSS"
+            }
+          ],
           "weeklyCost": 500,
           "rating": 4.5,
           "startDate": "2020-06-15T00:00:00Z",
@@ -328,8 +1403,71 @@
           "firstName": "Vika",
           "lastName": "Barcelona",
           "role": "Developer",
-          "skills": ["Skill 01", "Skill 02", "Skill 03", "Skill 04", "Skill 05", "Skill 06", "Skill 07", "Skill 08", "Skill 09", "Skill 10"],
-          "requiredSkills": ["Skill 01", "Skill 02", "Skill 03", "Skill 04", "Skill AA"],
+          "skillMatched": 80,
+          "skills": [
+            {
+              "id": "Skill 01",
+              "name": "Skill 01"
+            },
+            {
+              "id": "Skill 02",
+              "name": "Skill 02"
+            },
+            {
+              "id": "Skill 03",
+              "name": "Skill 03"
+            },
+            {
+              "id": "Skill 04",
+              "name": "Skill 04"
+            },
+            {
+              "id": "Skill 05",
+              "name": "Skill 05"
+            },
+            {
+              "id": "Skill 06",
+              "name": "Skill 06"
+            },
+            {
+              "id": "Skill 07",
+              "name": "Skill 07"
+            },
+            {
+              "id": "Skill 08",
+              "name": "Skill 08"
+            },
+            {
+              "id": "Skill 09",
+              "name": "Skill 09"
+            },
+            {
+              "id": "Skill 10",
+              "name": "Skill 10"
+            }
+          ],
+          "requiredSkills": [
+            {
+              "id": "Skill 01",
+              "name": "Skill 01"
+            },
+            {
+              "id": "Skill 02",
+              "name": "Skill 02"
+            },
+            {
+              "id": "Skill 03",
+              "name": "Skill 03"
+            },
+            {
+              "id": "Skill 04",
+              "name": "Skill 04"
+            },
+            {
+              "id": "Skill AA",
+              "name": "Skill AA"
+            }
+          ],
           "weeklyCost": 500,
           "rating": 4.5,
           "startDate": "2020-06-15T00:00:00Z",
@@ -340,14 +1478,656 @@
     {
       "id": 5,
       "name": "Team Name Nothing",
-      "startDate": "2020-06-15T00:00:00Z",
-      "endDate": "2020-07-15T00:00:00Z",
+      "startDate": null,
+      "endDate": null,
       "weeklyCost": 1,
       "rating": 0,
-      "positions": [
+      "totalPositions": 17,
+      "members": []
+    }
+  ],
+  "jobs": [
+    {
+      "id": 11,
+      "description": "Java Developer",
+      "startDate": "2020-06-15T00:00:00Z",
+      "endDate": "2020-07-15T00:00:00Z",
+      "numPositions": 13,
+      "rateType": "weekly",
+      "skills": [
+        {
+          "id": "Skill 01",
+          "name": "Skill 01"
+        },
+        {
+          "id": "Skill 02",
+          "name": "Skill 02"
+        },
+        {
+          "id": "Skill 03",
+          "name": "Skill 03"
+        },
+        {
+          "id": "Skill 04",
+          "name": "Skill 04"
+        },
+        {
+          "id": "Skill 05",
+          "name": "Skill 05"
+        },
+        {
+          "id": "Skill AA",
+          "name": "Skill AA"
+        }
       ],
-      "members": [
+      "customerRate": 9500,
+      "status": "sourcing",
+      "teamId": 1,
+      "candidates": []
+    },
+    {
+      "id": 12,
+      "description": "UI/UX Designer",
+      "startDate": "2020-06-15T00:00:00Z",
+      "endDate": "2020-07-15T00:00:00Z",
+      "numPositions": 13,
+      "rateType": "hourly",
+      "skills": [
+        {
+          "id": "Skill 01",
+          "name": "Skill 01"
+        },
+        {
+          "id": "Skill 02",
+          "name": "Skill 02"
+        },
+        {
+          "id": "Skill 03",
+          "name": "Skill 03"
+        },
+        {
+          "id": "Skill 04",
+          "name": "Skill 04"
+        },
+        {
+          "id": "Skill 05",
+          "name": "Skill 05"
+        },
+        {
+          "id": "Skill AA",
+          "name": "Skill AA"
+        }
+      ],
+      "customerRate": 50,
+      "status": "in-review",
+      "teamId": 1,
+      "candidates": [
+        {
+          "id": "1",
+          "userId": 8547899,
+          "handle": "Tony",
+          "firstName": "Tony",
+          "lastName": "J",
+          "resumeLink": "http://localhost:8502/Resume-PDF-Example.pdf",
+          "status": "open",
+          "skills": [
+            {
+              "id": "Skill 01",
+              "name": "Skill 01"
+            },
+            {
+              "id": "Skill 02",
+              "name": "Skill 02"
+            },
+            {
+              "id": "Skill 03",
+              "name": "Skill 03"
+            },
+            {
+              "id": "Skill 04",
+              "name": "Skill 04"
+            },
+            {
+              "id": "Skill 05",
+              "name": "Skill 05"
+            },
+            {
+              "id": "Skill 06",
+              "name": "Skill 06"
+            },
+            {
+              "id": "Skill 07",
+              "name": "Skill 07"
+            },
+            {
+              "id": "Skill 08",
+              "name": "Skill 08"
+            },
+            {
+              "id": "Skill 09",
+              "name": "Skill 09"
+            },
+            {
+              "id": "Skill 10",
+              "name": "Skill 10"
+            },
+            {
+              "id": "Skill AA",
+              "name": "Skill AA"
+            }
+          ],
+          "skillMatched": 100
+        },
+        {
+          "id": "2",
+          "userId": 40158995,
+          "handle": "TCConCopilotMgr",
+          "firstName": "Liza",
+          "lastName": "Qun",
+          "resumeLink": "http://localhost:8502/Resume-PDF-Example.pdf",
+          "status": "open",
+          "skills": [
+            {
+              "id": "Skill 01",
+              "name": "Skill 01"
+            },
+            {
+              "id": "Skill 02",
+              "name": "Skill 02"
+            },
+            {
+              "id": "Skill 03",
+              "name": "Skill 03"
+            },
+            {
+              "id": "Skill 04",
+              "name": "Skill 04"
+            },
+            {
+              "id": "Skill 05",
+              "name": "Skill 05"
+            },
+            {
+              "id": "Skill 06",
+              "name": "Skill 06"
+            },
+            {
+              "id": "Skill 07",
+              "name": "Skill 07"
+            },
+            {
+              "id": "Skill 08",
+              "name": "Skill 08"
+            },
+            {
+              "id": "Skill 09",
+              "name": "Skill 09"
+            },
+            {
+              "id": "Skill 10",
+              "name": "Skill 10"
+            }
+          ],
+          "skillMatched": 83
+        },
+        {
+          "id": "3",
+          "userId": 401589951111,
+          "handle": "ariel",
+          "firstName": "Cat",
+          "lastName": "Unknown",
+          "resumeLink": "http://localhost:8502/Resume-PDF-Example.pdf",
+          "status": "open",
+          "skills": [
+            {
+              "id": "Skill 02",
+              "name": "Skill 02"
+            },
+            {
+              "id": "Skill 03",
+              "name": "Skill 03"
+            },
+            {
+              "id": "Skill 04",
+              "name": "Skill 04"
+            },
+            {
+              "id": "Skill 05",
+              "name": "Skill 05"
+            },
+            {
+              "id": "Skill 06",
+              "name": "Skill 06"
+            },
+            {
+              "id": "Skill 07",
+              "name": "Skill 07"
+            },
+            {
+              "id": "Skill 08",
+              "name": "Skill 08"
+            },
+            {
+              "id": "Skill 09",
+              "name": "Skill 09"
+            },
+            {
+              "id": "Skill 10",
+              "name": "Skill 10"
+            }
+          ],
+          "skillMatched": 67
+        },
+        {
+          "id": "4",
+          "userId": 40158997,
+          "handle": "TCConManager",
+          "firstName": "John",
+          "lastName": "Busby",
+          "resumeLink": "http://localhost:8502/Resume-PDF-Example.pdf",
+          "status": "open",
+          "skills": [
+            {
+              "id": "Skill 01",
+              "name": "Skill 01"
+            },
+            {
+              "id": "Skill 02",
+              "name": "Skill 02"
+            },
+            {
+              "id": "Skill 03",
+              "name": "Skill 03"
+            },
+            {
+              "id": "Skill 04",
+              "name": "Skill 04"
+            },
+            {
+              "id": "Skill 05",
+              "name": "Skill 05"
+            },
+            {
+              "id": "Skill 06",
+              "name": "Skill 06"
+            },
+            {
+              "id": "Skill 07",
+              "name": "Skill 07"
+            },
+            {
+              "id": "Skill 08",
+              "name": "Skill 08"
+            },
+            {
+              "id": "Skill 09",
+              "name": "Skill 09"
+            },
+            {
+              "id": "Skill 10",
+              "name": "Skill 10"
+            }
+          ],
+          "skillMatched": 83
+        },
+        {
+          "id": "5",
+          "userId": 401589971111,
+          "handle": "UnknownDog",
+          "firstName": "Dog",
+          "lastName": "Unknown",
+          "resumeLink": "http://localhost:8502/Resume-PDF-Example.pdf",
+          "status": "open",
+          "skills": [
+            {
+              "id": "Skill 01",
+              "name": "Skill 01"
+            },
+            {
+              "id": "Skill 02",
+              "name": "Skill 02"
+            },
+            {
+              "id": "Skill 03",
+              "name": "Skill 03"
+            },
+            {
+              "id": "Skill 04",
+              "name": "Skill 04"
+            },
+            {
+              "id": "Skill 05",
+              "name": "Skill 05"
+            },
+            {
+              "id": "Skill 06",
+              "name": "Skill 06"
+            },
+            {
+              "id": "Skill 07",
+              "name": "Skill 07"
+            },
+            {
+              "id": "Skill 08",
+              "name": "Skill 08"
+            },
+            {
+              "id": "Skill 09",
+              "name": "Skill 09"
+            },
+            {
+              "id": "Skill 10",
+              "name": "Skill 10"
+            }
+          ],
+          "skillMatched": 83
+        },
+        {
+          "id": "6",
+          "userId": 40152856,
+          "handle": "pshah_manager",
+          "firstName": "Richard",
+          "lastName": "Gere",
+          "resumeLink": "http://localhost:8502/Resume-PDF-Example.pdf",
+          "status": "open",
+          "skills": [
+            {
+              "id": "Skill 01",
+              "name": "Skill 01"
+            },
+            {
+              "id": "Skill 02",
+              "name": "Skill 02"
+            },
+            {
+              "id": "Skill 03",
+              "name": "Skill 03"
+            },
+            {
+              "id": "Skill 04",
+              "name": "Skill 04"
+            },
+            {
+              "id": "Skill 05",
+              "name": "Skill 05"
+            },
+            {
+              "id": "Skill 06",
+              "name": "Skill 06"
+            },
+            {
+              "id": "Skill 07",
+              "name": "Skill 07"
+            },
+            {
+              "id": "Skill 08",
+              "name": "Skill 08"
+            },
+            {
+              "id": "Skill 09",
+              "name": "Skill 09"
+            },
+            {
+              "id": "Skill 10",
+              "name": "Skill 10"
+            }
+          ],
+          "skillMatched": 83
+        },
+        {
+          "id": "7",
+          "userId": 40158996,
+          "handle": "TCConAccountMgr",
+          "firstName": "Brad",
+          "lastName": "Pitt",
+          "resumeLink": "http://localhost:8502/Resume-PDF-Example.pdf",
+          "status": "open",
+          "skills": [
+            {
+              "id": "Skill 01",
+              "name": "Skill 01"
+            },
+            {
+              "id": "Skill 02",
+              "name": "Skill 02"
+            },
+            {
+              "id": "Skill 03",
+              "name": "Skill 03"
+            },
+            {
+              "id": "Skill 04",
+              "name": "Skill 04"
+            },
+            {
+              "id": "Skill 05",
+              "name": "Skill 05"
+            },
+            {
+              "id": "Skill 06",
+              "name": "Skill 06"
+            },
+            {
+              "id": "Skill 07",
+              "name": "Skill 07"
+            },
+            {
+              "id": "Skill 08",
+              "name": "Skill 08"
+            },
+            {
+              "id": "Skill 09",
+              "name": "Skill 09"
+            },
+            {
+              "id": "Skill 10",
+              "name": "Skill 10"
+            }
+          ],
+          "skillMatched": 83
+        },
+        {
+          "id": "8",
+          "userId": 40153932,
+          "handle": "sachin-kumar",
+          "firstName": "Kumar",
+          "lastName": "Sachin",
+          "resumeLink": "http://localhost:8502/Resume-PDF-Example.pdf",
+          "status": "shortlist",
+          "skills": [
+            {
+              "id": "Skill 01",
+              "name": "Skill 01"
+            },
+            {
+              "id": "Skill 02",
+              "name": "Skill 02"
+            },
+            {
+              "id": "Skill 03",
+              "name": "Skill 03"
+            },
+            {
+              "id": "Skill 04",
+              "name": "Skill 04"
+            },
+            {
+              "id": "Skill 05",
+              "name": "Skill 05"
+            },
+            {
+              "id": "Skill 06",
+              "name": "Skill 06"
+            },
+            {
+              "id": "Skill 07",
+              "name": "Skill 07"
+            },
+            {
+              "id": "Skill 08",
+              "name": "Skill 08"
+            },
+            {
+              "id": "Skill 09",
+              "name": "Skill 09"
+            },
+            {
+              "id": "Skill 10",
+              "name": "Skill 10"
+            }
+          ],
+          "skillMatched": 83
+        },
+        {
+          "id": "9",
+          "userId": 40152855,
+          "handle": "pshah_copilot",
+          "firstName": "Max",
+          "lastName": "Wild",
+          "resumeLink": "http://localhost:8502/Resume-PDF-Example.pdf",
+          "status": "shortlist",
+          "skills": [
+            {
+              "id": "Skill 01",
+              "name": "Skill 01"
+            },
+            {
+              "id": "Skill 02",
+              "name": "Skill 02"
+            },
+            {
+              "id": "Skill 03",
+              "name": "Skill 03"
+            },
+            {
+              "id": "Skill 04",
+              "name": "Skill 04"
+            },
+            {
+              "id": "Skill 05",
+              "name": "Skill 05"
+            },
+            {
+              "id": "Skill 06",
+              "name": "Skill 06"
+            },
+            {
+              "id": "Skill 07",
+              "name": "Skill 07"
+            },
+            {
+              "id": "Skill 08",
+              "name": "Skill 08"
+            },
+            {
+              "id": "Skill 09",
+              "name": "Skill 09"
+            },
+            {
+              "id": "Skill 10",
+              "name": "Skill 10"
+            }
+          ],
+          "skillMatched": 83
+        },
+        {
+          "id": "10",
+          "userId": 88771122,
+          "handle": "maxceem14",
+          "firstName": "Maksym",
+          "lastName": "Dindon",
+          "resumeLink": "http://localhost:8502/Resume-PDF-Example.pdf",
+          "status": "rejected",
+          "skills": [
+            {
+              "id": "Skill 01",
+              "name": "Skill 01"
+            },
+            {
+              "id": "Skill 02",
+              "name": "Skill 02"
+            },
+            {
+              "id": "Skill 03",
+              "name": "Skill 03"
+            },
+            {
+              "id": "Skill 04",
+              "name": "Skill 04"
+            },
+            {
+              "id": "Skill 05",
+              "name": "Skill 05"
+            },
+            {
+              "id": "Skill 06",
+              "name": "Skill 06"
+            },
+            {
+              "id": "Skill 07",
+              "name": "Skill 07"
+            },
+            {
+              "id": "Skill 08",
+              "name": "Skill 08"
+            },
+            {
+              "id": "Skill 09",
+              "name": "Skill 09"
+            },
+            {
+              "id": "Skill 10",
+              "name": "Skill 10"
+            }
+          ],
+          "skillMatched": 83
+        }
       ]
+    },
+    {
+      "td": 31,
+      "description": "Java_Developer_I_Will_Do_Everything_To_Break_Your_CSS",
+      "skills": [
+        { "id": "Skill_01_I_Will_Do_Everything_To_Break_Your_CSS", "name": "Skill_01_I_Will_Do_Everything_To_Break_Your_CSS" },
+        { "id": "Skill_02_I_Will_Do_Everything_To_Break_Your_CSS", "name": "Skill_02_I_Will_Do_Everything_To_Break_Your_CSS" },
+        { "id": "Skill_03_I_Will_Do_Everything_To_Break_Your_CSS", "name": "Skill_03_I_Will_Do_Everything_To_Break_Your_CSS" },
+        { "id": "Skill_04_I_Will_Do_Everything_To_Break_Your_CSS", "name": "Skill_04_I_Will_Do_Everything_To_Break_Your_CSS" },
+        { "id": "Skill_05_I_Will_Do_Everything_To_Break_Your_CSS", "name": "Skill_05_I_Will_Do_Everything_To_Break_Your_CSS" },
+        { "id": "Skill_06_I_Will_Do_Everything_To_Break_Your_CSS", "name": "Skill_06_I_Will_Do_Everything_To_Break_Your_CSS" },
+        { "id": "Skill_07_I_Will_Do_Everything_To_Break_Your_CSS", "name": "Skill_07_I_Will_Do_Everything_To_Break_Your_CSS" },
+        { "id": "Skill_08_I_Will_Do_Everything_To_Break_Your_CSS", "name": "Skill_08_I_Will_Do_Everything_To_Break_Your_CSS" },
+        { "id": "Skill_09_I_Will_Do_Everything_To_Break_Your_CSS", "name": "Skill_09_I_Will_Do_Everything_To_Break_Your_CSS" },
+        { "id": "Skill_10_I_Will_Do_Everything_To_Break_Your_CSS", "name": "Skill_10_I_Will_Do_Everything_To_Break_Your_CSS" }
+      ],
+      "startDate": "2020-06-15T00:00:00Z",
+      "endDate": "2020-12-15T00:00:00Z",
+      "customerRate": 100,
+      "rateType": "daily",
+      "status": "sourcing",
+      "teamId": 3,
+      "candidates": []
+    },
+    {
+      "id": 32,
+      "description": "Java Developer I Will Do Everything To Break Your CSS",
+      "skills": [
+        { "id": "Skill 01 I Will Do Everything To Break Your CSS", "name": "Skill_01_I_Will_Do_Everything_To_Break_Your_CSS" },
+        { "id": "Skill 02 I Will Do Everything To Break Your CSS", "name": "Skill_02_I_Will_Do_Everything_To_Break_Your_CSS" },
+        { "id": "Skill 03 I Will Do Everything To Break Your CSS", "name": "Skill_03_I_Will_Do_Everything_To_Break_Your_CSS" },
+        { "id": "Skill 04 I Will Do Everything To Break Your CSS", "name": "Skill_04_I_Will_Do_Everything_To_Break_Your_CSS" },
+        { "id": "Skill 05 I Will Do Everything To Break Your CSS", "name": "Skill_05_I_Will_Do_Everything_To_Break_Your_CSS" },
+        { "id": "Skill 06 I Will Do Everything To Break Your CSS", "name": "Skill_06_I_Will_Do_Everything_To_Break_Your_CSS" },
+        { "id": "Skill 07 I Will Do Everything To Break Your CSS", "name": "Skill_07_I_Will_Do_Everything_To_Break_Your_CSS" },
+        { "id": "Skill 08 I Will Do Everything To Break Your CSS", "name": "Skill_08_I_Will_Do_Everything_To_Break_Your_CSS" },
+        { "id": "Skill 09 I Will Do Everything To Break Your CSS", "name": "Skill_09_I_Will_Do_Everything_To_Break_Your_CSS" },
+        { "id": "Skill 10 I Will Do Everything To Break Your CSS", "name": "Skill_10_I_Will_Do_Everything_To_Break_Your_CSS" }
+      ],
+      "startDate": "2020-06-15T00:00:00Z",
+      "endDate": "2020-12-15T00:00:00Z",
+      "customerRate": 9500,
+      "rateType": "monthly",
+      "status": "in-review",
+      "teamId": 3
     }
   ]
 }

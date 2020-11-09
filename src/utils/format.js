@@ -1,6 +1,8 @@
 /**
  * Format utilities
  */
+import { RATE_TYPE } from "constants";
+import { EMAIL_REPORT_ISSUE } from "../../config";
 import moment from "moment";
 
 /**
@@ -50,6 +52,39 @@ export const formatMoney = (value, currency = "$") =>
   currency + new Intl.NumberFormat().format(value);
 
 /**
+ * Convert rate value from one type to another one.
+ *
+ * Supported rate types are defined by `RATE_TYPE`.
+ *
+ * @param {number} value rate value
+ * @param {string} sourceRate source rate type
+ * @param {string} targetRate target rate type
+ *
+ * @returns {number} rate value in target rate type
+ */
+export const convertRate = (value, sourceRate, targetRate) => {
+  const hoursInRate = {
+    [RATE_TYPE.HOURLY]: 1,
+    [RATE_TYPE.DAILY]: 24,
+    [RATE_TYPE.WEEKLY]: 24 * 7,
+    [RATE_TYPE.MONTHLY]: 24 * 30, // 30 is average month days
+  };
+
+  const hourlyRate = value / hoursInRate[sourceRate];
+  return hourlyRate * hoursInRate[targetRate];
+};
+
+/**
+ * Format rate as weekly.
+ *
+ * @param {number} value rate value
+ * @param {string} rateType rate type
+ * @param {string} currency currency symbol
+ */
+export const formatRate = (value, rateType, currency = "$") =>
+  formatMoney(convertRate(value, rateType, RATE_TYPE.WEEKLY), currency);
+
+/**
  * Format full name.
  *
  * @param {string} firstName first name
@@ -67,4 +102,15 @@ export const formatFullName = (firstName, lastName) => {
   }
 
   return fullName;
+};
+
+/**
+ * Format Report an Issue URL (mailto:)
+ *
+ * @param {string} subject email subject
+ *
+ * @returns {string} report an issue URL
+ */
+export const formatReportIssueUrl = (subject) => {
+  return `mailto:${EMAIL_REPORT_ISSUE}?subject=${encodeURIComponent(subject)}`;
 };

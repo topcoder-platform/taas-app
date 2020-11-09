@@ -17,21 +17,14 @@ import Button from "components/Button";
 import Pagination from "components/Pagination";
 import { useUserDetails } from "hooks/useUserDetails";
 import { DAY_FORMAT, TEAM_MEMBERS_PER_PAGE } from "constants";
-import { formatMoney } from "utils/format";
+import { formatMoney, formatReportIssueUrl } from "utils/format";
 import Input from "components/Input";
+import { skillShape } from "components/SkillsList";
 
-const TeamMembers = ({ members }) => {
+const TeamMembers = ({ team }) => {
+  const { members } = team;
   const userDetails = useUserDetails(_.map(members, "userId"));
   const [filter, setFilter] = useState("");
-  const [perPage, setPerPage] = useState(TEAM_MEMBERS_PER_PAGE);
-  const [page, setPage] = useState(1);
-  const showMore = useCallback(() => {
-    const newPerPage = perPage + TEAM_MEMBERS_PER_PAGE;
-    const nextPageFirstItemNumber = page * perPage + 1;
-    const newPage = Math.floor(nextPageFirstItemNumber / newPerPage) + 1;
-    setPerPage(newPerPage);
-    setPage(newPage);
-  }, [perPage, setPerPage, page, setPage]);
 
   const filteredMembers = useMemo(
     () =>
@@ -42,7 +35,7 @@ const TeamMembers = ({ members }) => {
           member.firstName,
           member.lastName,
           member.role,
-          ...member.skills,
+          ..._.map(member.skills, "name"),
         ]).map((field) => field.toLowerCase());
 
         return _.some(
@@ -53,19 +46,29 @@ const TeamMembers = ({ members }) => {
     [members, filter]
   );
 
-  const pagesTotal = Math.ceil(filteredMembers.length / perPage);
-
-  const pageMembers = useMemo(
-    () => filteredMembers.slice((page - 1) * perPage, page * perPage),
-    [filteredMembers, page, perPage]
-  );
-
   const onFilterChange = useCallback(
     (event) => {
       setFilter(event.target.value);
       setPage(1);
     },
     [setFilter]
+  );
+
+  const [perPage, setPerPage] = useState(TEAM_MEMBERS_PER_PAGE);
+  const [page, setPage] = useState(1);
+  const showMore = useCallback(() => {
+    const newPerPage = perPage + TEAM_MEMBERS_PER_PAGE;
+    const nextPageFirstItemNumber = page * perPage + 1;
+    const newPage = Math.floor(nextPageFirstItemNumber / newPerPage) + 1;
+    setPerPage(newPerPage);
+    setPage(newPage);
+  }, [perPage, setPerPage, page, setPage]);
+
+  const pagesTotal = Math.ceil(filteredMembers.length / perPage);
+
+  const pageMembers = useMemo(
+    () => filteredMembers.slice((page - 1) * perPage, page * perPage),
+    [filteredMembers, page, perPage]
   );
 
   const onPageClick = useCallback(
@@ -121,6 +124,7 @@ const TeamMembers = ({ members }) => {
                   <SkillsSummary
                     requiredSkills={member.requiredSkills}
                     skills={member.skills}
+                    skillMatched={member.skillMatched}
                   />
                 </div>
                 <div styleName="table-group-second-inner">
@@ -128,7 +132,21 @@ const TeamMembers = ({ members }) => {
                     <Rating value={member.rating} short />
                   </div>
                   <div styleName="table-cell cell-action">
-                    <ActionsMenu />
+                    <ActionsMenu
+                      options={[
+                        {
+                          label: "Report an Issue",
+                          action: () => {
+                            window.open(
+                              formatReportIssueUrl(
+                                `Issue with ${member.handle} on ${team.name}`
+                              )
+                            );
+                          },
+                        },
+                        { label: "Request an Extension", action: () => {} },
+                      ]}
+                    />
                   </div>
                 </div>
               </div>
@@ -161,20 +179,24 @@ const TeamMembers = ({ members }) => {
 };
 
 TeamMembers.propTypes = {
-  members: PT.arrayOf(
-    PT.shape({
-      handle: PT.string,
-      firstName: PT.string,
-      lastName: PT.string,
-      role: PT.string,
-      weeklyCost: PT.number,
-      rating: PT.number,
-      skills: PT.arrayOf(PT.string),
-      startDate: PT.string,
-      endDate: PT.string,
-      requiredSkills: PT.arrayOf(PT.string),
-    })
-  ),
+  team: PT.shape({
+    name: PT.string,
+    members: PT.arrayOf(
+      PT.shape({
+        handle: PT.string,
+        firstName: PT.string,
+        lastName: PT.string,
+        role: PT.string,
+        weeklyCost: PT.number,
+        rating: PT.number,
+        skills: PT.arrayOf(skillShape),
+        skillMatched: PT.number,
+        startDate: PT.string,
+        endDate: PT.string,
+        requiredSkills: PT.arrayOf(skillShape),
+      })
+    ),
+  }),
 };
 
 export default TeamMembers;

@@ -8,9 +8,9 @@ import React from "react";
 import PT from "prop-types";
 import LayoutContainer from "components/LayoutContainer";
 import PageHeader from "components/PageHeader";
-import { useData } from "../../hooks/useData";
-import { getTeamById } from "../../services/teams";
-import LoadingIndicator from "../../components/LoadingIndicator";
+import { useData } from "hooks/useData";
+import { getTeamById } from "services/teams";
+import LoadingIndicator from "components/LoadingIndicator";
 import TeamSummary from "./components/TeamSummary";
 import TeamMembers from "./components/TeamMembers";
 import TeamPositions from "./components/TeamPositions";
@@ -26,8 +26,8 @@ const MyTeamsDetails = ({ teamId }) => {
         <>
           <PageHeader title={team.name} backTo="/taas/myteams" />
           <TeamSummary team={team} />
-          <TeamMembers members={team.members} />
-          <TeamPositions positions={team.positions} />
+          <TeamMembers team={team} />
+          <TeamPositions positions={team.jobs} teamId={teamId} />
         </>
       )}
     </LayoutContainer>

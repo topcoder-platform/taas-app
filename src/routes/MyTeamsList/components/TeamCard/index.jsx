@@ -13,7 +13,11 @@ import IconCalendar from "../../../../assets/images/icon-calendar.svg";
 import IconClock from "../../../../assets/images/icon-clock.svg";
 import IconMoney from "../../../../assets/images/icon-money.svg";
 import IconPeople from "../../../../assets/images/icon-people.svg";
-import { formatMoney, formatRemainingTime } from "utils/format";
+import {
+  formatMoney,
+  formatRemainingTime,
+  formatReportIssueUrl,
+} from "utils/format";
 import AvatarGroup from "components/AvatarGroup";
 import { useUserDetails } from "hooks/useUserDetails";
 import ThreeDotsMenu from "components/ThreeDotsMenu";
@@ -32,7 +36,12 @@ const TeamCard = ({ team }) => {
             { separator: true },
             { label: "Add Team Member", action: () => {} },
             { separator: true },
-            { label: "Report an Issue", action: () => {} },
+            {
+              label: "Report an Issue",
+              action: () => {
+                window.open(formatReportIssueUrl(`TaaS Issue: ${team.name}`));
+              },
+            },
           ]}
         />
       </div>
@@ -43,12 +52,18 @@ const TeamCard = ({ team }) => {
 
       <div styleName="data-items">
         <DataItem title="Start - End Date" icon={<IconCalendar />}>
-          {moment(team.startDate).format(DAY_FORMAT)} -{" "}
-          {moment(team.endDate).format(DAY_FORMAT)}
+          {team.startDate && team.endDate ? (
+            <>
+              {moment(team.startDate).format(DAY_FORMAT)} -{" "}
+              {moment(team.endDate).format(DAY_FORMAT)}
+            </>
+          ) : (
+            <>TBD</>
+          )}
         </DataItem>
 
         <DataItem title="Time Remaining" icon={<IconClock />}>
-          {formatRemainingTime(team.endDate)}
+          {team.endDate ? formatRemainingTime(team.endDate) : "N/A"}
         </DataItem>
 
         <DataItem title="Weekly Cost" icon={<IconMoney />}>
@@ -56,7 +71,7 @@ const TeamCard = ({ team }) => {
         </DataItem>
 
         <DataItem title="Number of Team Members" icon={<IconPeople />}>
-          {team.members.length}
+          {team.members.length} of {team.totalPositions}
         </DataItem>
       </div>
 
