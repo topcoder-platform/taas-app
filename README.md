@@ -1,8 +1,8 @@
-# Topcoder Teams Microapp
+# Topcoder Teams Micro-app
 
 This is a [single-spa](https://single-spa.js.org/) example React microapp.
 
-> NOTE. This application have been configured to be run as child app of a single-spa application. So while this app can be deployed and run independently, we would need some frame [single-spa](https://single-spa.js.org/) which would load it. While technically we can achieve running this app as standalone app it's strongly not recommended by the author of the `single-spa` approch, see this [GitHub Issue](https://github.com/single-spa/single-spa/issues/640) for details.
+> NOTE. This application have been configured to be run as child app of a single-spa application. So while this app can be deployed and run independently, we would need some frame [single-spa](https://single-spa.js.org/) which would load it. While technically we can achieve running this app as standalone app it's strongly not recommended by the author of the `single-spa` approach, see this [GitHub Issue](https://github.com/single-spa/single-spa/issues/640) for details.
 
 ## Requirements
 
@@ -51,12 +51,16 @@ Inside the project folder run:
 
 ### Deploying to Heroku
 
-Make sure you have [Heroky CLI](https://devcenter.heroku.com/articles/heroku-cli) installed and you have a Heroku account. And then inside the project folder run the next commands:
+Make sure you have [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli) installed and you have a Heroku account. And then inside the project folder run the next commands:
 
-- If there is not Git repository inited yet, create a repo and commit all the files:
+- If there is not Git repository initiated yet, create a repo and commit all the files:
   - `git init`
   - `git add .`
-  - `git commit -m'inital commit'`
+  - `git commit -m 'initial commit'`
 - `heroku apps:create` - create Heroku app
 - `git push heroku master` - push changes to Heroku and trigger deploying
-- Now you have to configure frame app to use the URL provided by Heroku like `https://<APP-NAME>.herokuapp.com/topcoder-micro-frontends-teams.js` to load this microapp.
+- Now you have to configure frame app to use the URL provided by Heroku like `https://<APP-NAME>.herokuapp.com/topcoder-micro-frontends-teams.js` to load this micro-app.
+
+## Verification
+
+Please check [verification-guide.md](verification-guide.md)
