@@ -18,7 +18,9 @@ This is a [single-spa](https://single-spa.js.org/) example React microapp.
 
 ## Config
 
-For available variables config, please refer to `config/development.js` and `config/production.js`.
+For available variables config which depend on the running environment (`development` or `production`), please refer to `config/development.js` and `config/production.js`.
+
+For application constants which don't depend on the running environment use `src/constants/index.js`.
 
 ## NPM Commands
 

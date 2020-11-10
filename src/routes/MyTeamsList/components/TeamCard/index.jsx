@@ -46,9 +46,11 @@ const TeamCard = ({ team }) => {
         />
       </div>
 
-      <Link to={`/taas/myteams/${team.id}`} styleName="title">
-        {team.name}
-      </Link>
+      <div styleName="title-wrapper">
+        <Link to={`/taas/myteams/${team.id}`} styleName="title">
+          {team.name}
+        </Link>
+      </div>
 
       <div styleName="data-items">
         <DataItem title="Start - End Date" icon={<IconCalendar />}>
