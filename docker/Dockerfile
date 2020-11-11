@@ -2,10 +2,10 @@
 FROM node:latest
 
 # Copy the current directory into the Docker image
-COPY . /micro-frontends-teams
+COPY . /taas-app
 
 # Set working directory for future use
-WORKDIR /micro-frontends-teams
+WORKDIR /taas-app
 
 # Install the dependencies from package.json
 RUN npm install
