@@ -1,7 +1,7 @@
 version: '3'
 services:
-  micro-frontends-teams:
-    image: micro-frontends-teams:latest
+  taas-app:
+    image: taas-app:latest
     build:
       context: ../
       dockerfile: docker/Dockerfile
