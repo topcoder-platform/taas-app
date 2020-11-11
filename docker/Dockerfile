@@ -1,6 +1,12 @@
 # Use the base image with Node.js
 FROM node:latest
 
+ARG APPMODE
+ARG APPENV
+
+ENV APPMODE=$APPMODE
+ENV APPENV=$APPENV
+
 # Copy the current directory into the Docker image
 COPY . /taas-app
 
@@ -10,8 +16,6 @@ WORKDIR /taas-app
 # Install the dependencies from package.json
 RUN npm install
 
-#RUN npm run dev
+RUN npm run build
 
-#CMD npm start
-
-CMD npm run dev
+CMD npm start
