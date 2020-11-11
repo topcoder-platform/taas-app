@@ -47,7 +47,7 @@ jobs:
     environment:
       DEPLOY_ENV: "DEV"
       LOGICAL_ENV: "dev"
-      APPNAME: "micro-frontends-teams"
+      APPNAME: "taas-app"
     steps: *builddeploy_steps
 
   "build-prod":
@@ -55,7 +55,7 @@ jobs:
     environment:
       DEPLOY_ENV: "PROD"
       LOGICAL_ENV: "prod"
-      APPNAME: "micro-frontends-teams"
+      APPNAME: "taas-app"
     steps: *builddeploy_steps
 
 workflows:
