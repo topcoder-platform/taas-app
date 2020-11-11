@@ -10,6 +10,6 @@ WORKDIR /taas-app
 # Install the dependencies from package.json
 RUN npm install
 
-RUN npm run build
+RUN npm run dev
 
 CMD npm start
