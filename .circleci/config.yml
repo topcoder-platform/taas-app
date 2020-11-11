@@ -28,7 +28,7 @@ builddeploy_steps: &builddeploy_steps
   - setup_remote_docker
   - run: *install_dependency
   - run: *install_deploysuite
-  - restore_cache: *restore_cache_settings_for_build
+  #- restore_cache: *restore_cache_settings_for_build
   - run: 
       command: |
         ./awsconfiguration.sh $DEPLOY_ENV
@@ -38,7 +38,7 @@ builddeploy_steps: &builddeploy_steps
       command: |
         source buildenvvar
         ./build.sh ${APPNAME}      
-  - save_cache: *save_cache_settings
+  #- save_cache: *save_cache_settings
   - deploy:
       name: Running MasterScript.
       command: |
@@ -47,6 +47,12 @@ builddeploy_steps: &builddeploy_steps
         ./buildenv.sh -e $DEPLOY_ENV -b ${LOGICAL_ENV}-${APPNAME}-deployvar
         source buildenvvar
         ./master_deploy.sh -d ECS -e $DEPLOY_ENV -t latest -s ${LOGICAL_ENV}-global-appvar,${LOGICAL_ENV}-${APPNAME}-appvar -i ${APPNAME}
+
+        #For mock server
+        echo "Running Masterscript - For mock server"
+        ./buildenv.sh -e $DEPLOY_ENV -b ${LOGICAL_ENV}-mock-${APPNAME}-deployvar
+        source buildenvvar
+        ./master_deploy.sh -d ECS -e $DEPLOY_ENV -t latest -s ${LOGICAL_ENV}-global-appvar,${LOGICAL_ENV}-mock-${APPNAME}-appvar -i mock-${APPNAME}
 
 jobs:
   # Build & Deploy against development backend
