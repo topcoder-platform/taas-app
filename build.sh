@@ -7,7 +7,7 @@ docker build -f docker/Dockerfile -t $APP_NAME:latest \
 --build-arg APPMODE=$APPMODE \
 --build-arg APPENV=$APPENV .
 
-docker build -f docker/mockDockerfile -t mock_$APP_NAME:latest .
+docker build -f docker/mockDockerfile -t mock-$APP_NAME:latest .
 
 #docker create --name app $APP_NAME:latest
 
