@@ -23,6 +23,7 @@ import Button from "components/Button";
 import Pagination from "components/Pagination";
 import IconResume from "../../../assets/images/icon-resume.svg";
 import { skillShape } from "components/SkillsList";
+import { TC_TEAMS_SERVICE_URL } from "../../../../config";
 
 /**
  * Generates a function to sort candidates
@@ -129,7 +130,10 @@ const PositionCandidates = ({
                   limit={7}
                 />
                 {candidate.resumeLink && (
-                  <a href={candidate.resumeLink} styleName="resume-link">
+                  <a
+                    href={`${TC_TEAMS_SERVICE_URL}${candidate.resumeLink}`}
+                    styleName="resume-link"
+                  >
                     <IconResume />
                     Download Resume
                   </a>

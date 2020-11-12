@@ -1568,7 +1568,7 @@
           "handle": "Tony",
           "firstName": "Tony",
           "lastName": "J",
-          "resumeLink": "http://localhost:8502/Resume-PDF-Example.pdf",
+          "resumeLink": "/Resume-PDF-Example.pdf",
           "status": "open",
           "skills": [
             {
@@ -1624,7 +1624,7 @@
           "handle": "TCConCopilotMgr",
           "firstName": "Liza",
           "lastName": "Qun",
-          "resumeLink": "http://localhost:8502/Resume-PDF-Example.pdf",
+          "resumeLink": "/Resume-PDF-Example.pdf",
           "status": "open",
           "skills": [
             {
@@ -1676,7 +1676,7 @@
           "handle": "ariel",
           "firstName": "Cat",
           "lastName": "Unknown",
-          "resumeLink": "http://localhost:8502/Resume-PDF-Example.pdf",
+          "resumeLink": "/Resume-PDF-Example.pdf",
           "status": "open",
           "skills": [
             {
@@ -1724,7 +1724,7 @@
           "handle": "TCConManager",
           "firstName": "John",
           "lastName": "Busby",
-          "resumeLink": "http://localhost:8502/Resume-PDF-Example.pdf",
+          "resumeLink": "/Resume-PDF-Example.pdf",
           "status": "open",
           "skills": [
             {
@@ -1776,7 +1776,7 @@
           "handle": "UnknownDog",
           "firstName": "Dog",
           "lastName": "Unknown",
-          "resumeLink": "http://localhost:8502/Resume-PDF-Example.pdf",
+          "resumeLink": "/Resume-PDF-Example.pdf",
           "status": "open",
           "skills": [
             {
@@ -1828,7 +1828,7 @@
           "handle": "pshah_manager",
           "firstName": "Richard",
           "lastName": "Gere",
-          "resumeLink": "http://localhost:8502/Resume-PDF-Example.pdf",
+          "resumeLink": "/Resume-PDF-Example.pdf",
           "status": "open",
           "skills": [
             {
@@ -1880,7 +1880,7 @@
           "handle": "TCConAccountMgr",
           "firstName": "Brad",
           "lastName": "Pitt",
-          "resumeLink": "http://localhost:8502/Resume-PDF-Example.pdf",
+          "resumeLink": "/Resume-PDF-Example.pdf",
           "status": "open",
           "skills": [
             {
@@ -1932,7 +1932,7 @@
           "handle": "sachin-kumar",
           "firstName": "Kumar",
           "lastName": "Sachin",
-          "resumeLink": "http://localhost:8502/Resume-PDF-Example.pdf",
+          "resumeLink": "/Resume-PDF-Example.pdf",
           "status": "shortlist",
           "skills": [
             {
@@ -1984,7 +1984,7 @@
           "handle": "pshah_copilot",
           "firstName": "Max",
           "lastName": "Wild",
-          "resumeLink": "http://localhost:8502/Resume-PDF-Example.pdf",
+          "resumeLink": "/Resume-PDF-Example.pdf",
           "status": "shortlist",
           "skills": [
             {
@@ -2036,7 +2036,7 @@
           "handle": "maxceem14",
           "firstName": "Maksym",
           "lastName": "Dindon",
-          "resumeLink": "http://localhost:8502/Resume-PDF-Example.pdf",
+          "resumeLink": "/Resume-PDF-Example.pdf",
           "status": "rejected",
           "skills": [
             {
