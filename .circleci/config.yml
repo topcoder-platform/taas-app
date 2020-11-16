@@ -83,7 +83,6 @@ workflows:
             branches:
               only:
                 - dev
-                - devverify
 
       # Production builds are exectuted only on tagged commits to the
       # master branch.
