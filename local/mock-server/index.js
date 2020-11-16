@@ -45,7 +45,7 @@ router.render = (req, res) => {
   }
 };
 
-server.use(router);
+server.use('/taasmock', router);
 
 server.listen(PORT, () => {
   console.log(`JSON Server is running on port ${PORT}`); // eslint-disable-line no-console

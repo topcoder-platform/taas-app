@@ -4,7 +4,7 @@ const express = require("express");
 
 const app = express();
 
-app.use('/react',
+app.use('/taas-app',
   express.static("./dist", {
     setHeaders: function setHeaders(res) {
       res.header("Access-Control-Allow-Origin", "*");

@@ -7,7 +7,7 @@ module.exports = {
   /**
    * Topcoder Teams Service base URL
    */
-  TC_TEAMS_SERVICE_URL: "http://localhost:8502",
+  TC_TEAMS_SERVICE_URL: "http://localhost:8502/taasmock",
 
   /**
    * URL of Topcoder Community Website
