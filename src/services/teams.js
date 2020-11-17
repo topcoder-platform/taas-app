@@ -35,7 +35,5 @@ export const getTeamById = (teamId) => {
  * @returns {Promise<object{}>} job object
  */
 export const getPositionDetails = (teamId, positionId) => {
-  return axios.get(
-    `${config.TC_TEAMS_SERVICE_URL}/taas-teams/${teamId}/jobs/${positionId}`
-  );
+  return axios.get(`${config.TC_TEAMS_SERVICE_URL}/jobs/${positionId}`);
 };

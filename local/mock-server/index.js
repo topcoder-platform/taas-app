@@ -8,12 +8,6 @@ const middlewares = jsonServer.defaults();
 const PORT = 8502;
 
 server.use(middlewares);
-server.use(
-  jsonServer.rewriter({
-    // match URL
-    "/taas-teams/:teamId/jobs/:jobId": "/jobs/:jobId?teamId=:teamId",
-  })
-);
 
 // serve Resume PDF Example for download
 server.get("/Resume-PDF-Example.pdf", (req, res) => {
