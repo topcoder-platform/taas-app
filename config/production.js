@@ -5,11 +5,6 @@ module.exports = {
   TC_MEMBER_SERVICE_URL: "https://api.topcoder.com/v3/members",
 
   /**
-   * Topcoder Teams Service base URL
-   */
-  TC_TEAMS_SERVICE_URL: "http://localhost:8502/taasmock",
-
-  /**
    * URL of Topcoder Community Website
    */
   TOPCODER_COMMUNITY_WEBSITE_URL: "https://topcoder.com",
@@ -18,4 +13,7 @@ module.exports = {
    * Email to report issues to
    */
   EMAIL_REPORT_ISSUE: "support+team-issue@topcoder.com",
+  API: {
+    V5: "http://api.topcoder.com/v5",
+  },
 };

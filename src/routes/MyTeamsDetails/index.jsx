@@ -14,9 +14,15 @@ import LoadingIndicator from "components/LoadingIndicator";
 import TeamSummary from "./components/TeamSummary";
 import TeamMembers from "./components/TeamMembers";
 import TeamPositions from "./components/TeamPositions";
+import { useAsync } from "react-use";
+import {
+  getAuthUserTokens,
+} from "@topcoder/micro-frontends-navbar-app";
 
 const MyTeamsDetails = ({ teamId }) => {
-  const [team, loadingError] = useData(getTeamById, teamId);
+  const authUserTokens = useAsync(getAuthUserTokens);
+  const tokenV3 = authUserTokens.value ? authUserTokens.value.tokenV3 : null;
+  const [team, loadingError] = useData(getTeamById, tokenV3, teamId);
 
   return (
     <LayoutContainer>
@@ -27,7 +33,7 @@ const MyTeamsDetails = ({ teamId }) => {
           <PageHeader title={team.name} backTo="/taas/myteams" />
           <TeamSummary team={team} />
           <TeamMembers team={team} />
-          <TeamPositions positions={team.jobs} teamId={teamId} />
+          <TeamPositions positions={team.jobs || []} teamId={teamId} />
         </>
       )}
     </LayoutContainer>

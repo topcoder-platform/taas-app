@@ -30,7 +30,7 @@ const TeamPositions = ({ teamId, positions }) => {
               <div styleName="table-group-first">
                 <div styleName="table-cell cell-skills">
                   <strong>{position.description}</strong>
-                  <SkillsList requiredSkills={position.skills} limit={5} />
+                  <SkillsList skills={position.skills} limit={5} />
                 </div>
                 <div styleName="table-group-first-inner">
                   <div styleName="table-cell cell-date">
@@ -38,7 +38,7 @@ const TeamPositions = ({ teamId, positions }) => {
                     {moment(position.endDate).format(DAY_FORMAT)}
                   </div>
                   <div styleName="table-cell cell-money">
-                    {formatRate(position.customerRate, position.rateType)}
+                    {formatRate(position.customerRate || 0, position.rateType)}
                   </div>
                 </div>
               </div>
