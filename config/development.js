@@ -14,6 +14,6 @@ module.exports = {
    */
   EMAIL_REPORT_ISSUE: "support+team-issue@topcoder-dev.com",
   API: {
-    V5: "http://api.topcoder-dev.com/v5",
+    V5: "https://api.topcoder-dev.com/v5",
   },
 };
