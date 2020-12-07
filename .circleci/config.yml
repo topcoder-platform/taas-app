@@ -82,7 +82,7 @@ workflows:
           filters:
             branches:
               only:
-                - ['feature/api-integration']
+                - feature/api-integration
 
       # Production builds are exectuted only on tagged commits to the
       # master branch.
