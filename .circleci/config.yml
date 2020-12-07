@@ -29,15 +29,15 @@ builddeploy_steps: &builddeploy_steps
   - run: *install_dependency
   - run: *install_deploysuite
   #- restore_cache: *restore_cache_settings_for_build
-  - run: 
+  - run:
       command: |
         ./awsconfiguration.sh $DEPLOY_ENV
         source awsenvconf
         ./buildenv.sh -e $DEPLOY_ENV -b ${LOGICAL_ENV}-${APPNAME}-buildvar
-  - run: 
+  - run:
       command: |
         source buildenvvar
-        ./build.sh ${APPNAME}      
+        ./build.sh ${APPNAME}
   #- save_cache: *save_cache_settings
   - deploy:
       name: Running MasterScript.
@@ -82,7 +82,7 @@ workflows:
           filters:
             branches:
               only:
-                - dev
+                - ['feature/api-integration']
 
       # Production builds are exectuted only on tagged commits to the
       # master branch.
