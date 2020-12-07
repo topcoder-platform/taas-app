@@ -22,13 +22,13 @@ import Input from "components/Input";
 import { skillShape } from "components/SkillsList";
 
 const TeamMembers = ({ team }) => {
-  const { members } = team;
-  const userDetails = useUserDetails(_.map(members, "userId"));
+  const { resources } = team;
+  const userDetails = useUserDetails(_.map(resources, "id"));
   const [filter, setFilter] = useState("");
 
   const filteredMembers = useMemo(
     () =>
-      members.filter((member) => {
+      resources.filter((member) => {
         const filterLowerCase = filter.toLowerCase();
         const lookupFields = _.compact([
           member.handle,
@@ -43,7 +43,7 @@ const TeamMembers = ({ team }) => {
           (field) => field.indexOf(filterLowerCase) > -1
         );
       }),
-    [members, filter]
+    [resources, filter]
   );
 
   const onFilterChange = useCallback(
@@ -91,20 +91,20 @@ const TeamMembers = ({ team }) => {
           />
         }
       />
-      {members.length === 0 && <div styleName="no-members">No members</div>}
-      {members.length > 0 && filteredMembers.length === 0 && (
+      {resources.length === 0 && <div styleName="no-members">No members</div>}
+      {resources.length > 0 && filteredMembers.length === 0 && (
         <div styleName="no-members">No members matching filter</div>
       )}
       {filteredMembers.length > 0 && (
         <div styleName="table">
           {pageMembers.map((member) => (
-            <div styleName="table-row" key={member.userId}>
+            <div styleName="table-row" key={member.id}>
               <div styleName="table-group-first">
                 <div styleName="table-cell cell-user">
                   <User
                     user={{
                       ...member,
-                      photoUrl: _.get(userDetails[member.userId], "photoURL"),
+                      photoUrl: _.get(userDetails[member.id], "photoURL"),
                     }}
                   />
                 </div>
@@ -115,14 +115,13 @@ const TeamMembers = ({ team }) => {
                     {moment(member.endDate).format(DAY_FORMAT)}
                   </div>
                   <div styleName="table-cell cell-money">
-                    {formatMoney(member.weeklyCost)}
+                    {formatMoney(member.weeklyCost || 0)}
                   </div>
                 </div>
               </div>
               <div styleName="table-group-second">
                 <div styleName="table-cell cell-skills">
                   <SkillsSummary
-                    requiredSkills={member.requiredSkills}
                     skills={member.skills}
                     skillMatched={member.skillMatched}
                   />
@@ -181,19 +180,14 @@ const TeamMembers = ({ team }) => {
 TeamMembers.propTypes = {
   team: PT.shape({
     name: PT.string,
-    members: PT.arrayOf(
+    resources: PT.arrayOf(
       PT.shape({
+        id: PT.string,
         handle: PT.string,
         firstName: PT.string,
         lastName: PT.string,
-        role: PT.string,
-        weeklyCost: PT.number,
-        rating: PT.number,
         skills: PT.arrayOf(skillShape),
         skillMatched: PT.number,
-        startDate: PT.string,
-        endDate: PT.string,
-        requiredSkills: PT.arrayOf(skillShape),
       })
     ),
   }),

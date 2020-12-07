@@ -15,13 +15,11 @@ import OutsideClickHandler from "react-outside-click-handler";
 
 const SkillsList = ({
   skills,
-  requiredSkills,
   limit = 3,
   showMatches = false,
 }) => {
-  const otherSkills = _.differenceBy(skills, requiredSkills, "id");
-  const skillsToShow = (skills || requiredSkills).slice(0, limit);
-  const skillsToHide = (skills || requiredSkills).slice(limit);
+  const skillsToShow = skills.slice(0, limit);
+  const skillsToHide = skills.slice(limit);
 
   const [isOpen, setIsOpen] = useState(false);
   const [referenceElement, setReferenceElement] = useState(null);
@@ -98,29 +96,11 @@ const SkillsList = ({
                 {...attributes.popper}
               >
                 <div styleName="popover-content">
-                  {requiredSkills && (
-                    <div styleName="skills-section">
-                      <div styleName="skills-title">Required Skills</div>
-                      <ul styleName="skills-list">
-                        {requiredSkills.map((skill) => (
-                          <li key={skill.id}>
-                            {showMatches &&
-                              (_.find(skills, { id: skill.id }) ? (
-                                <IconCheck />
-                              ) : (
-                                <IconCross />
-                              ))}{" "}
-                            {skill.name}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
                   {skills && (
                     <div styleName="skills-section">
-                      <div styleName="skills-title">Other Skills</div>
+                      <div styleName="skills-title">Skills</div>
                       <ul styleName="skills-list">
-                        {otherSkills.map((skill) => (
+                        {skills.map((skill) => (
                           <li key={skill.id}>{skill.name}</li>
                         ))}
                       </ul>
@@ -143,7 +123,6 @@ export const skillShape = PT.shape({
 
 SkillsList.propTypes = {
   skills: PT.arrayOf(skillShape),
-  requiredSkills: PT.arrayOf(skillShape),
   limit: PT.number,
   showMatches: PT.bool,
 };

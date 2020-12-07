@@ -23,7 +23,7 @@ import { useUserDetails } from "hooks/useUserDetails";
 import ThreeDotsMenu from "components/ThreeDotsMenu";
 
 const TeamCard = ({ team }) => {
-  const userDetails = useUserDetails(_.map(team.members, "userId"));
+  const userDetails = useUserDetails(_.map(team.resources, "id"));
 
   return (
     <div styleName="team-card">
@@ -69,18 +69,18 @@ const TeamCard = ({ team }) => {
         </DataItem>
 
         <DataItem title="Weekly Cost" icon={<IconMoney />}>
-          {formatMoney(team.weeklyCost)}
+          {formatMoney(team.weeklyCost || 0)}
         </DataItem>
 
         <DataItem title="Number of Team Members" icon={<IconPeople />}>
-          {team.members.length} of {team.totalPositions}
+          {team.resources.length} of {team.totalPositions || 0}
         </DataItem>
       </div>
 
       <AvatarGroup
-        users={team.members.map((member) => ({
+        users={team.resources.map((member) => ({
           ...member,
-          photoUrl: _.get(userDetails[member.userId], "photoURL"),
+          photoUrl: _.get(userDetails[member.id], "photo_url"),
         }))}
       />
     </div>
@@ -91,7 +91,7 @@ TeamCard.propTypes = {
   team: PT.shape({
     id: PT.number.isRequired,
     name: PT.string,
-    members: PT.array,
+    resources: PT.array,
     positions: PT.array,
     startDate: PT.string,
     endDate: PT.string,
