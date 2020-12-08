@@ -1,6 +1,7 @@
 /**
  * Format utilities
  */
+import _ from "lodash";
 import { RATE_TYPE } from "constants";
 import { EMAIL_REPORT_ISSUE } from "../../config";
 import moment from "moment";
@@ -49,7 +50,10 @@ export const formatRemainingTime = (endDate, timeIsAppText = "Time is up") => {
  * @returns {string} formatted time
  */
 export const formatRemainingTimeForTeam = (team) => {
-  return team.endDate ? formatRemainingTime(team.endDate, "TBD") : "TBD";
+  const hasResource = _.get(team, "resources", []).length > 0;
+  return team.endDate
+    ? formatRemainingTime(team.endDate, hasResource ? "Time is up" : "TBD")
+    : "TBD";
 };
 
 /**
