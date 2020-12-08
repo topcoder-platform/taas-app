@@ -72,7 +72,7 @@ const SkillsList = ({
   return (
     <div styleName="skills-list">
       {_.map(skillsToShow, "name").join(", ")}
-      {skillsToHide.length && (
+      {skillsToHide.length > 0 && (
         <>
           {" and "}
           <OutsideClickHandler onOutsideClick={close} display="inline">
@@ -85,7 +85,7 @@ const SkillsList = ({
               tabIndex={0}
               ref={setReferenceElement}
             >
-              {skillsToHide.length} more
+              {skillsToHide.length > 0} more
             </span>
 
             {isOpen && (
