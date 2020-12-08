@@ -10,12 +10,11 @@ import _ from "lodash";
 import moment from "moment";
 import User from "components/User";
 import CardHeader from "components/CardHeader";
-import Rating from "components/Rating";
+// import Rating from "components/Rating";
 import SkillsSummary from "components/SkillsSummary";
 import ActionsMenu from "components/ActionsMenu";
 import Button from "components/Button";
 import Pagination from "components/Pagination";
-import { useUserDetails } from "hooks/useUserDetails";
 import { DAY_FORMAT, TEAM_MEMBERS_PER_PAGE } from "constants";
 import { formatMoney, formatReportIssueUrl } from "utils/format";
 import Input from "components/Input";
@@ -23,7 +22,6 @@ import { skillShape } from "components/SkillsList";
 
 const TeamMembers = ({ team }) => {
   const { resources } = team;
-  const userDetails = useUserDetails(_.map(resources, "id"));
   const [filter, setFilter] = useState("");
 
   const filteredMembers = useMemo(
@@ -104,7 +102,7 @@ const TeamMembers = ({ team }) => {
                   <User
                     user={{
                       ...member,
-                      photoUrl: _.get(userDetails[member.id], "photoURL"),
+                      photoUrl: member.photo_url,
                     }}
                   />
                 </div>

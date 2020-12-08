@@ -16,7 +16,6 @@ import {
   CANDIDATE_STATUS,
   POSITION_CANDIDATES_PER_PAGE,
 } from "constants";
-import { useUserDetails } from "hooks/useUserDetails";
 import User from "components/User";
 import SkillsSummary from "components/SkillsSummary";
 import Button from "components/Button";
@@ -47,7 +46,6 @@ const PositionCandidates = ({
   candidates,
   candidateStatus,
 }) => {
-  const userDetails = useUserDetails(_.map(candidates, "userId"));
   const [sortBy, setSortBy] = useState(CANDIDATES_SORT_BY.SKILL_MATCHED);
   const filteredCandidates = useMemo(
     () =>
@@ -115,7 +113,7 @@ const PositionCandidates = ({
                 <User
                   user={{
                     ...candidate,
-                    photoUrl: _.get(userDetails[candidate.userId], "photoURL"),
+                    photoUrl: candidate.photo_url,
                   }}
                   hideFullName
                 />

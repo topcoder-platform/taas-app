@@ -19,12 +19,9 @@ import {
   formatReportIssueUrl,
 } from "utils/format";
 import AvatarGroup from "components/AvatarGroup";
-import { useUserDetails } from "hooks/useUserDetails";
 import ThreeDotsMenu from "components/ThreeDotsMenu";
 
 const TeamCard = ({ team }) => {
-  const userDetails = useUserDetails(_.map(team.resources, "id"));
-
   return (
     <div styleName="team-card">
       <div styleName="three-dots-menu">
@@ -80,7 +77,7 @@ const TeamCard = ({ team }) => {
       <AvatarGroup
         users={team.resources.map((member) => ({
           ...member,
-          photoUrl: _.get(userDetails[member.id], "photo_url"),
+          photoUrl: member.photo_url,
         }))}
       />
     </div>

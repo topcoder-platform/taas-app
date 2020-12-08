@@ -1,10 +1,5 @@
 module.exports = {
   /**
-   * Topcoder Member Service base URL
-   */
-  TC_MEMBER_SERVICE_URL: "https://api.topcoder-dev.com/v3/members",
-
-  /**
    * URL of Topcoder Community Website
    */
   TOPCODER_COMMUNITY_WEBSITE_URL: "https://topcoder-dev.com",
