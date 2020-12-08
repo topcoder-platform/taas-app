@@ -30,9 +30,10 @@ const TeamSummary = ({ team }) => {
           {formatMoney(team.weeklyCost || 0)}
         </DataItem>
 
-        <DataItem title="Overall Rating" icon={<IconRating />}>
+        {/* Hide Rating for now as per https://github.com/topcoder-platform/taas-app/issues/18 */}
+        {/* <DataItem title="Overall Rating" icon={<IconRating />}>
           <Rating value={team.rating} />
-        </DataItem>
+        </DataItem> */}
       </div>
 
       <div styleName="actions">

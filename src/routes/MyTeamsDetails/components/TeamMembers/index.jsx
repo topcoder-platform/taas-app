@@ -128,7 +128,8 @@ const TeamMembers = ({ team }) => {
                 </div>
                 <div styleName="table-group-second-inner">
                   <div styleName="table-cell cell-rating">
-                    <Rating value={member.rating} short />
+                    {/* Hide Rating for now as per https://github.com/topcoder-platform/taas-app/issues/18 */}
+                    {/* <Rating value={member.rating} short /> */}
                   </div>
                   <div styleName="table-cell cell-action">
                     <ActionsMenu
