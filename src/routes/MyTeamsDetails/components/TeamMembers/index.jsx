@@ -21,7 +21,7 @@ import Input from "components/Input";
 import { skillShape } from "components/SkillsList";
 
 const TeamMembers = ({ team }) => {
-  const { resources } = team;
+  const { resources, jobs } = team;
   const [filter, setFilter] = useState("");
 
   const filteredMembers = useMemo(
@@ -44,6 +44,13 @@ const TeamMembers = ({ team }) => {
     [resources, filter]
   );
 
+  const filteredMembersWithJobs = useMemo(() => {
+    return filteredMembers.map((member) => ({
+      ...member,
+      job: _.find(jobs, { id: member.jobId }) || {},
+    }));
+  }, [filteredMembers, jobs]);
+
   const onFilterChange = useCallback(
     (event) => {
       setFilter(event.target.value);
@@ -65,8 +72,8 @@ const TeamMembers = ({ team }) => {
   const pagesTotal = Math.ceil(filteredMembers.length / perPage);
 
   const pageMembers = useMemo(
-    () => filteredMembers.slice((page - 1) * perPage, page * perPage),
-    [filteredMembers, page, perPage]
+    () => filteredMembersWithJobs.slice((page - 1) * perPage, page * perPage),
+    [filteredMembersWithJobs, page, perPage]
   );
 
   const onPageClick = useCallback(
@@ -90,10 +97,10 @@ const TeamMembers = ({ team }) => {
         }
       />
       {resources.length === 0 && <div styleName="no-members">No members</div>}
-      {resources.length > 0 && filteredMembers.length === 0 && (
+      {resources.length > 0 && filteredMembersWithJobs.length === 0 && (
         <div styleName="no-members">No members matching filter</div>
       )}
-      {filteredMembers.length > 0 && (
+      {filteredMembersWithJobs.length > 0 && (
         <div styleName="table">
           {pageMembers.map((member) => (
             <div styleName="table-row" key={member.id}>
@@ -107,7 +114,9 @@ const TeamMembers = ({ team }) => {
                   />
                 </div>
                 <div styleName="table-group-first-inner">
-                  <div styleName="table-cell cell-role">{member.role}</div>
+                  <div styleName="table-cell cell-role">
+                    {member.job.description}
+                  </div>
                   <div styleName="table-cell cell-date">
                     {moment(member.startDate).format(DAY_FORMAT)} -{" "}
                     {moment(member.endDate).format(DAY_FORMAT)}
@@ -157,15 +166,15 @@ const TeamMembers = ({ team }) => {
           type="secondary"
           onClick={showMore}
           disabled={
-            filteredMembers.length === 0 || // if no members to show
+            filteredMembersWithJobs.length === 0 || // if no members to show
             page === pagesTotal // if we are already on the last page
           }
         >
           Show More
         </Button>
-        {filteredMembers.length > 0 && (
+        {filteredMembersWithJobs.length > 0 && (
           <Pagination
-            total={filteredMembers.length}
+            total={filteredMembersWithJobs.length}
             currentPage={page}
             perPage={perPage}
             onPageClick={onPageClick}
