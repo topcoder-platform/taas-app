@@ -113,7 +113,7 @@ const TeamMembers = ({ team }) => {
                     {moment(member.endDate).format(DAY_FORMAT)}
                   </div>
                   <div styleName="table-cell cell-money">
-                    {formatMoney(member.weeklyCost || 0)}
+                    {formatMoney(member.customerRate || 0)}
                   </div>
                 </div>
               </div>
