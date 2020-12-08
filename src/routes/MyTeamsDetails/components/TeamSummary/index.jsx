@@ -27,7 +27,7 @@ const TeamSummary = ({ team }) => {
         </DataItem>
 
         <DataItem title="Weekly Cost" icon={<IconMoney />}>
-          {formatMoney(team.weeklyCount || 0)}
+          {formatMoney(team.weeklyCost || 0)}
         </DataItem>
 
         <DataItem title="Overall Rating" icon={<IconRating />}>
@@ -53,7 +53,7 @@ TeamSummary.propTypes = {
   team: PT.shape({
     name: PT.string,
     endDate: PT.string,
-    weeklyCount: PT.number,
+    weeklyCost: PT.number,
     rating: PT.number,
   }),
 };
