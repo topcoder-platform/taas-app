@@ -15,7 +15,7 @@ import IconMoney from "../../../../assets/images/icon-money.svg";
 import IconPeople from "../../../../assets/images/icon-people.svg";
 import {
   formatMoney,
-  formatRemainingTime,
+  formatRemainingTimeForTeam,
   formatReportIssueUrl,
 } from "utils/format";
 import AvatarGroup from "components/AvatarGroup";
@@ -65,7 +65,7 @@ const TeamCard = ({ team }) => {
         </DataItem>
 
         <DataItem title="Time Remaining" icon={<IconClock />}>
-          {team.endDate ? formatRemainingTime(team.endDate) : "N/A"}
+          {formatRemainingTimeForTeam(team)}
         </DataItem>
 
         <DataItem title="Weekly Cost" icon={<IconMoney />}>
