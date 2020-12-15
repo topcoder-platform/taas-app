@@ -38,7 +38,8 @@ const TeamPositions = ({ teamId, positions }) => {
                     {moment(position.endDate).format(DAY_FORMAT)}
                   </div>
                   <div styleName="table-cell cell-money">
-                    {formatRate(position.customerRate || 0, position.rateType)}
+                    {/* Hide rate as we don't have data for it */}
+                    {/* {formatRate(position.customerRate || 0, position.rateType)} */}
                   </div>
                 </div>
               </div>
