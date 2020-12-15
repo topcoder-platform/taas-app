@@ -26,9 +26,11 @@ const TeamSummary = ({ team }) => {
           {formatRemainingTimeForTeam(team)}
         </DataItem>
 
-        <DataItem title="Weekly Cost" icon={<IconMoney />}>
-          {formatMoney(team.weeklyCost || 0)}
-        </DataItem>
+        {!!(team.weeklyCost && team.weeklyCost > 0) && (
+          <DataItem title="Weekly Cost" icon={<IconMoney />}>
+            {formatMoney(team.weeklyCost)}
+          </DataItem>
+        )}
 
         {/* Hide Rating for now as per https://github.com/topcoder-platform/taas-app/issues/18 */}
         {/* <DataItem title="Overall Rating" icon={<IconRating />}>
