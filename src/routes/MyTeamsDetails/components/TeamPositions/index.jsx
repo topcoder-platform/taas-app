@@ -9,7 +9,6 @@ import moment from "moment";
 import CardHeader from "components/CardHeader";
 import SkillsList, { skillShape } from "components/SkillsList";
 import Button from "components/Button";
-import { formatRate } from "utils/format";
 import {
   DAY_FORMAT,
   POSITION_STATUS,
@@ -39,7 +38,7 @@ const TeamPositions = ({ teamId, positions }) => {
                   </div>
                   <div styleName="table-cell cell-money">
                     {/* Hide rate as we don't have data for it */}
-                    {/* {formatRate(position.customerRate || 0, position.rateType)} */}
+                    {/* {position.customerRate} */}
                   </div>
                 </div>
               </div>

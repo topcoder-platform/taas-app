@@ -91,16 +91,6 @@ export const convertRate = (value, sourceRate, targetRate) => {
 };
 
 /**
- * Format rate as weekly.
- *
- * @param {number} value rate value
- * @param {string} rateType rate type
- * @param {string} currency currency symbol
- */
-export const formatRate = (value, rateType, currency = "$") =>
-  formatMoney(convertRate(value, rateType, RATE_TYPE.WEEKLY), currency);
-
-/**
  * Format full name.
  *
  * @param {string} firstName first name
