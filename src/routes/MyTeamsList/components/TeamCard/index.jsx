@@ -15,16 +15,13 @@ import IconMoney from "../../../../assets/images/icon-money.svg";
 import IconPeople from "../../../../assets/images/icon-people.svg";
 import {
   formatMoney,
-  formatRemainingTime,
+  formatRemainingTimeForTeam,
   formatReportIssueUrl,
 } from "utils/format";
 import AvatarGroup from "components/AvatarGroup";
-import { useUserDetails } from "hooks/useUserDetails";
 import ThreeDotsMenu from "components/ThreeDotsMenu";
 
 const TeamCard = ({ team }) => {
-  const userDetails = useUserDetails(_.map(team.members, "userId"));
-
   return (
     <div styleName="team-card">
       <div styleName="three-dots-menu">
@@ -65,22 +62,22 @@ const TeamCard = ({ team }) => {
         </DataItem>
 
         <DataItem title="Time Remaining" icon={<IconClock />}>
-          {team.endDate ? formatRemainingTime(team.endDate) : "N/A"}
+          {formatRemainingTimeForTeam(team)}
         </DataItem>
 
         <DataItem title="Weekly Cost" icon={<IconMoney />}>
-          {formatMoney(team.weeklyCost)}
+          {formatMoney(team.weeklyCost || 0)}
         </DataItem>
 
         <DataItem title="Number of Team Members" icon={<IconPeople />}>
-          {team.members.length} of {team.totalPositions}
+          {team.resources.length} of {team.totalPositions || 0}
         </DataItem>
       </div>
 
       <AvatarGroup
-        users={team.members.map((member) => ({
+        users={team.resources.map((member) => ({
           ...member,
-          photoUrl: _.get(userDetails[member.userId], "photoURL"),
+          photoUrl: member.photo_url,
         }))}
       />
     </div>
@@ -91,7 +88,7 @@ TeamCard.propTypes = {
   team: PT.shape({
     id: PT.number.isRequired,
     name: PT.string,
-    members: PT.array,
+    resources: PT.array,
     positions: PT.array,
     startDate: PT.string,
     endDate: PT.string,

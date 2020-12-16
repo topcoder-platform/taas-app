@@ -9,7 +9,6 @@ import moment from "moment";
 import CardHeader from "components/CardHeader";
 import SkillsList, { skillShape } from "components/SkillsList";
 import Button from "components/Button";
-import { formatRate } from "utils/format";
 import {
   DAY_FORMAT,
   POSITION_STATUS,
@@ -30,7 +29,7 @@ const TeamPositions = ({ teamId, positions }) => {
               <div styleName="table-group-first">
                 <div styleName="table-cell cell-skills">
                   <strong>{position.description}</strong>
-                  <SkillsList requiredSkills={position.skills} limit={5} />
+                  <SkillsList skills={position.skills} limit={5} />
                 </div>
                 <div styleName="table-group-first-inner">
                   <div styleName="table-cell cell-date">
@@ -38,7 +37,8 @@ const TeamPositions = ({ teamId, positions }) => {
                     {moment(position.endDate).format(DAY_FORMAT)}
                   </div>
                   <div styleName="table-cell cell-money">
-                    {formatRate(position.customerRate, position.rateType)}
+                    {/* Hide rate as we don't have data for it */}
+                    {/* {position.customerRate} */}
                   </div>
                 </div>
               </div>

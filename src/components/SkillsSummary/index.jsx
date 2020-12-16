@@ -10,7 +10,7 @@ import PercentageBar from "components/PercentageBar";
 import SkillsList from "components/SkillsList";
 import "./styles.module.scss";
 
-const SkillsSummary = ({ skills, requiredSkills, skillMatched, limit }) => {
+const SkillsSummary = ({ skills, skillMatched, limit }) => {
   return (
     <div>
       <div styleName="percentage">
@@ -19,7 +19,6 @@ const SkillsSummary = ({ skills, requiredSkills, skillMatched, limit }) => {
       </div>
       <SkillsList
         skills={skills}
-        requiredSkills={requiredSkills}
         limit={limit}
         showMatches
       />
@@ -34,7 +33,6 @@ const skillShape = PT.shape({
 
 SkillsSummary.propTypes = {
   skills: PT.arrayOf(skillShape),
-  requiredSkills: PT.arrayOf(skillShape),
   limit: PT.number,
   skillMatched: PT.number,
 };

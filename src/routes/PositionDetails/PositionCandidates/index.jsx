@@ -16,14 +16,12 @@ import {
   CANDIDATE_STATUS,
   POSITION_CANDIDATES_PER_PAGE,
 } from "constants";
-import { useUserDetails } from "hooks/useUserDetails";
 import User from "components/User";
 import SkillsSummary from "components/SkillsSummary";
 import Button from "components/Button";
 import Pagination from "components/Pagination";
 import IconResume from "../../../assets/images/icon-resume.svg";
 import { skillShape } from "components/SkillsList";
-import { TC_TEAMS_SERVICE_URL } from "../../../../config";
 
 /**
  * Generates a function to sort candidates
@@ -47,9 +45,7 @@ const createSortCandidatesMethod = (sortBy) => (candidate1, candidate2) => {
 const PositionCandidates = ({
   candidates,
   candidateStatus,
-  positionSkills,
 }) => {
-  const userDetails = useUserDetails(_.map(candidates, "userId"));
   const [sortBy, setSortBy] = useState(CANDIDATES_SORT_BY.SKILL_MATCHED);
   const filteredCandidates = useMemo(
     () =>
@@ -117,21 +113,20 @@ const PositionCandidates = ({
                 <User
                   user={{
                     ...candidate,
-                    photoUrl: _.get(userDetails[candidate.userId], "photoURL"),
+                    photoUrl: candidate.photo_url,
                   }}
                   hideFullName
                 />
               </div>
               <div styleName="table-cell cell-skills">
                 <SkillsSummary
-                  requiredSkills={positionSkills}
                   skills={candidate.skills}
                   skillMatched={candidate.skillMatched}
                   limit={7}
                 />
                 {candidate.resumeLink && (
                   <a
-                    href={`${TC_TEAMS_SERVICE_URL}${candidate.resumeLink}`}
+                    href={`${candidate.resumeLink}`}
                     styleName="resume-link"
                   >
                     <IconResume />
@@ -184,7 +179,6 @@ const PositionCandidates = ({
 PositionCandidates.propType = {
   candidates: PT.array,
   candidateStatus: PT.oneOf(Object.values(CANDIDATE_STATUS)),
-  positionSkills: PT.arrayOf(skillShape),
 };
 
 export default PositionCandidates;

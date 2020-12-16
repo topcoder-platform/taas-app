@@ -8,14 +8,14 @@ import PT from "prop-types";
 import DataItem from "components/DataItem";
 import {
   formatMoney,
-  formatRemainingTime,
+  formatRemainingTimeForTeam,
   formatReportIssueUrl,
 } from "utils/format";
 import IconClock from "../../../../assets/images/icon-clock.svg";
 import IconMoney from "../../../../assets/images/icon-money.svg";
-import IconRating from "../../../../assets/images/icon-rating.svg";
+// import IconRating from "../../../../assets/images/icon-rating.svg";
 import Button from "components/Button";
-import Rating from "components/Rating";
+// import Rating from "components/Rating";
 import "./styles.module.scss";
 
 const TeamSummary = ({ team }) => {
@@ -23,16 +23,19 @@ const TeamSummary = ({ team }) => {
     <div styleName="team-summary">
       <div styleName="data-items">
         <DataItem title="Time Remaining" icon={<IconClock />}>
-          {formatRemainingTime(team.endDate)}
+          {formatRemainingTimeForTeam(team)}
         </DataItem>
 
-        <DataItem title="Weekly Cost" icon={<IconMoney />}>
-          {formatMoney(team.weeklyCost)}
-        </DataItem>
+        {!!(team.weeklyCost && team.weeklyCost > 0) && (
+          <DataItem title="Weekly Cost" icon={<IconMoney />}>
+            {formatMoney(team.weeklyCost)}
+          </DataItem>
+        )}
 
-        <DataItem title="Overall Rating" icon={<IconRating />}>
+        {/* Hide Rating for now as per https://github.com/topcoder-platform/taas-app/issues/18 */}
+        {/* <DataItem title="Overall Rating" icon={<IconRating />}>
           <Rating value={team.rating} />
-        </DataItem>
+        </DataItem> */}
       </div>
 
       <div styleName="actions">

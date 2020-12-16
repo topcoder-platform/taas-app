@@ -1,6 +1,7 @@
 /**
  * Format utilities
  */
+import _ from "lodash";
 import { RATE_TYPE } from "constants";
 import { EMAIL_REPORT_ISSUE } from "../../config";
 import moment from "moment";
@@ -22,10 +23,11 @@ export const formatPlural = (num, baseWord) =>
  * If time is up, then return `Time is up`.
  *
  * @param {string|moment.Moment} endDate end date
+ * @param {string} timeIsAppText text to show when time is up
  *
  * @returns {string} formatted remaining time
  */
-export const formatRemainingTime = (endDate) => {
+export const formatRemainingTime = (endDate, timeIsAppText = "Time is up") => {
   const precisions = ["week", "day", "hour", "minute"];
 
   for (let i = 0; i < precisions.length; i++) {
@@ -37,7 +39,21 @@ export const formatRemainingTime = (endDate) => {
     }
   }
 
-  return "Time is up";
+  return timeIsAppText;
+};
+
+/**
+ * Format remaining time for team.
+ *
+ * @param {object} team team
+ *
+ * @returns {string} formatted time
+ */
+export const formatRemainingTimeForTeam = (team) => {
+  const hasResource = _.get(team, "resources", []).length > 0;
+  return team.endDate
+    ? formatRemainingTime(team.endDate, hasResource ? "Time is up" : "TBD")
+    : "TBD";
 };
 
 /**
@@ -73,16 +89,6 @@ export const convertRate = (value, sourceRate, targetRate) => {
   const hourlyRate = value / hoursInRate[sourceRate];
   return hourlyRate * hoursInRate[targetRate];
 };
-
-/**
- * Format rate as weekly.
- *
- * @param {number} value rate value
- * @param {string} rateType rate type
- * @param {string} currency currency symbol
- */
-export const formatRate = (value, rateType, currency = "$") =>
-  formatMoney(convertRate(value, rateType, RATE_TYPE.WEEKLY), currency);
 
 /**
  * Format full name.
