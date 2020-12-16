@@ -1,0 +1,42 @@
+@import "styles/include";
+
+.pagination {
+  display: flex;
+
+  .page {
+    padding: 0 10px;
+    margin: 0 5px;
+    min-width: 30px;
+  }
+
+  .current {
+    color: #2A2A2A;
+    cursor: default;
+    border-color: #2A2A2A;
+  }
+
+  .next {
+    margin-left: 5px;
+
+    > svg {
+      transform: rotate(-90deg);
+
+      path {
+        fill: #137D60;
+      }
+    }
+  }
+
+  .prev {
+    margin-right: 5px;
+
+    > svg {
+      margin-right: 3px;
+      transform: rotate(90deg);
+
+      path {
+        fill: #137D60;
+      }
+    }
+  }
+}

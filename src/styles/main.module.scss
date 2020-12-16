@@ -1,0 +1,8 @@
+// This file should contain global styles for the microapp
+
+@import "styles/include";
+
+.topcoder-micro-frontends-teams-app {
+  @include font-roboto;
+  color: #2A2A2A;
+}

@@ -1,0 +1,11 @@
+@import "styles/include";
+
+.candidates-status-filter {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+
+  > *:not(:last-child) {
+    margin-right: 10px;
+  }
+}

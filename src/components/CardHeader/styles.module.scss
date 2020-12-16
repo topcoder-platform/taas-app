@@ -1,0 +1,32 @@
+@import "styles/include";
+
+.card-header {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+  min-height: 72px;
+  padding: 16px 0;
+}
+
+.title {
+  @include font-barlow;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 26px;
+  margin: 0 32px 0 0;
+  padding: 12px 0;
+  text-transform: uppercase;
+}
+
+@media (max-width: 374px) {
+  .card-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .title {
+    margin-right: 0;
+  }
+}

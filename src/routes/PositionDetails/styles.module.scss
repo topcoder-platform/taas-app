@@ -1,0 +1,13 @@
+@import "styles/include";
+
+.candidates {
+  @include rounded-card;
+  margin-top: 16px;
+  padding: 0 24px 24px;
+}
+
+.no-candidates {
+  color: #aaaaaa;
+  padding: 25px 0 79px;
+  text-align: center;
+}

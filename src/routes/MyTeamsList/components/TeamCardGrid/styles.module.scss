@@ -1,0 +1,17 @@
+@import "styles/include";
+
+.team-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-gap: 24px;
+}
+
+@media (max-width: 374px) {
+  .team-card-grid {
+    display: block;
+
+    > * {
+      margin-top: 24px;
+    }
+  }
+}

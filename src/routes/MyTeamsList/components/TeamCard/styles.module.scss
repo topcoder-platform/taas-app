@@ -1,0 +1,39 @@
+@import "styles/include";
+
+.team-card {
+  @include rounded-card;
+  padding: 24px;
+  position: relative;
+}
+
+.title-wrapper {
+  box-sizing: border-box;
+  padding-right: 24px;
+  width: 100%;
+}
+
+.title {
+  @include font-barlow;
+  color: #219174;
+  display: inline-block;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 24px;
+  margin-right: 40px;
+  text-decoration: none;
+  text-transform: uppercase;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+}
+
+.three-dots-menu {
+  right: 8px;
+  position: absolute;
+  top: 8px;
+}
+
+.data-items > * {
+  margin-top: 16px;
+}

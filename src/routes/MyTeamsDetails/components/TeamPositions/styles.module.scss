@@ -1,0 +1,182 @@
+@import "styles/include";
+
+.team-positions {
+  @include rounded-card;
+  margin-top: 16px;
+  padding: 0 24px 24px;
+}
+
+.no-positions {
+  color: #aaaaaa;
+  padding: 25px 0 79px;
+  text-align: center;
+}
+
+.table {
+  @include table;
+}
+
+.table-row {
+  @include table-row;
+}
+
+.table-cell {
+  @include table-cell;
+}
+
+.table-group-first {
+  @include table-group;
+  width: 65%;
+
+  .cell-skills {
+    align-items: flex-start;
+    flex-direction: column;
+    width: 60%;
+  }
+
+  .table-group-first-inner {
+    @include table-group;
+    flex: 1 1 auto;
+    width: 40%;
+
+    .cell-date {
+      width: 70%;
+    }
+
+    .cell-money {
+      width: 30%;
+    }
+  }
+}
+
+.table-group-second {
+  @include table-group;
+  width: 35%;
+
+  .cell-status {
+    width: auto;
+  }
+
+  .cell-action {
+    flex: 1 0 180px;
+    width: 180px;
+  }
+}
+
+@media (max-width: 1365px) {
+  .table-group-first {
+    width: 60%;
+
+    .cell-skills {
+      width: 65%;
+    }
+
+    .table-group-first-inner {
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      width: 35%;
+
+      .table-cell {
+        padding-bottom: 0;
+        padding-top: 0;
+      }
+
+      .cell-date,
+      .cell-money {
+        flex: 0 auto;
+        width: 100%;
+      }
+    }
+  }
+
+  .table-group-second {
+    width: 40%;
+  }
+}
+
+@media (max-width: 1140px) {
+  .table-row {
+    flex-direction: column;
+    padding-bottom: 10px;
+    padding-top: 10px;
+  }
+
+  .table-cell {
+    padding: 8px;
+  }
+
+  .table-group-first,
+  .table-group-second {
+    width: 100%;
+  }
+
+  .table-group-first {
+    .cell-skills {
+      width: 60%;
+    }
+
+    .table-group-first-inner {
+      width: 40%;
+    }
+  }
+
+  .table-group-second {
+    .cell-status {
+      width: 60%;
+    }
+
+    .cell-action {
+      flex: 1 auto;
+      width: 40%;
+    }
+  }
+}
+
+@media (max-width: 650px) {
+  .table-group-first {
+    flex-direction: column;
+    width: 100%;
+
+    .cell-skills {
+      width: 100%;
+    }
+
+    .table-group-first-inner {
+      width: 100%;
+
+      .cell-date,
+      .cell-money {
+        width: 100%;
+      }
+    }
+  }
+
+  .table-group-second {
+    width: 100%;
+
+    .cell-status {
+      width: auto;
+    }
+
+    .cell-action {
+      flex: 1 0 180px;
+      width: 180px;
+    }
+  }
+}
+
+@media (max-width: 374px) {
+  .table-group-second {
+    flex-direction: column;
+
+    .cell-status {
+      width: 100%;
+    }
+
+    .cell-action {
+      flex: 1 auto;
+      width: 100%;
+    }
+  }
+}
