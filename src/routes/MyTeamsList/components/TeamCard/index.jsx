@@ -27,12 +27,6 @@ const TeamCard = ({ team }) => {
       <div styleName="three-dots-menu">
         <ThreeDotsMenu
           options={[
-            { label: "Team Feedback", action: () => {} },
-            { label: "Team Invoices", action: () => {} },
-            { label: "Team Reports", action: () => {} },
-            { separator: true },
-            { label: "Add Team Member", action: () => {} },
-            { separator: true },
             {
               label: "Report an Issue",
               action: () => {

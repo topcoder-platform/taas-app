@@ -16,7 +16,7 @@ import ActionsMenu from "components/ActionsMenu";
 import Button from "components/Button";
 import Pagination from "components/Pagination";
 import { DAY_FORMAT, TEAM_MEMBERS_PER_PAGE } from "constants";
-import { formatMoney, formatReportIssueUrl } from "utils/format";
+import { formatMoney, formatReportIssueUrl, formatRequestExtensionUrl } from "utils/format";
 import Input from "components/Input";
 import { skillShape } from "components/SkillsList";
 
@@ -153,7 +153,16 @@ const TeamMembers = ({ team }) => {
                             );
                           },
                         },
-                        { label: "Request an Extension", action: () => {} },
+                        {
+                          label: "Request an Extension",
+                          action: () => {
+                            window.open(
+                              formatRequestExtensionUrl(
+                                `Request extension for ${member.handle} on ${team.name}`
+                              )
+                            );
+                          },
+                        },
                       ]}
                     />
                   </div>

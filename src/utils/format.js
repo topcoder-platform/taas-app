@@ -3,7 +3,7 @@
  */
 import _ from "lodash";
 import { RATE_TYPE } from "constants";
-import { EMAIL_REPORT_ISSUE } from "../../config";
+import { EMAIL_REPORT_ISSUE, EMAIL_REQUEST_EXTENSION } from "../../config";
 import moment from "moment";
 
 /**
@@ -119,4 +119,15 @@ export const formatFullName = (firstName, lastName) => {
  */
 export const formatReportIssueUrl = (subject) => {
   return `mailto:${EMAIL_REPORT_ISSUE}?subject=${encodeURIComponent(subject)}`;
+};
+
+/**
+ * Format Request an Extension URL (mailto:)
+ *
+ * @param {string} subject email subject
+ *
+ * @returns {string} request an extension URL
+ */
+export const formatRequestExtensionUrl = (subject) => {
+  return `mailto:${EMAIL_REQUEST_EXTENSION}?subject=${encodeURIComponent(subject)}`;
 };

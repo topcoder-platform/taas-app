@@ -8,6 +8,12 @@ module.exports = {
    * Email to report issues to
    */
   EMAIL_REPORT_ISSUE: "support+team-issue@topcoder-dev.com",
+
+  /**
+   * Email to request extension
+   */
+  EMAIL_REQUEST_EXTENSION: "customersuccess@topcoder-dev.com",
+
   API: {
     V5: "https://api.topcoder-dev.com/v5",
   },
