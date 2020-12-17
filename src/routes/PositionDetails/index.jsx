@@ -9,26 +9,17 @@ import LayoutContainer from "components/LayoutContainer";
 import LoadingIndicator from "components/LoadingIndicator";
 import PageHeader from "components/PageHeader";
 import { CANDIDATE_STATUS } from "constants";
-import { useData } from "hooks/useData";
-import { getPositionDetails } from "services/teams";
-import PositionCandidates from "./PositionCandidates";
+import PositionCandidates from "./components/PositionCandidates";
+import CandidatesStatusFilter from "./components/CandidatesStatusFilter";
+import { useTeamPositionsState } from "./hooks/useTeamPositionsState";
 import "./styles.module.scss";
-import CandidatesStatusFilter from "./CandidatesStatusFilter";
-import { useAsync } from "react-use";
-import {
-  getAuthUserTokens,
-} from "@topcoder/micro-frontends-navbar-app";
 
 const PositionDetails = ({ teamId, positionId }) => {
-  const authUserTokens = useAsync(getAuthUserTokens);
-  const tokenV3 = authUserTokens.value ? authUserTokens.value.tokenV3 : null;
   const [candidateStatus, setCandidateStatus] = useState(CANDIDATE_STATUS.OPEN);
-  const [position, loadingError] = useData(
-    getPositionDetails,
-    tokenV3,
-    teamId,
-    positionId
-  );
+  const {
+    state: { position, error },
+    updateCandidate,
+  } = useTeamPositionsState(teamId, positionId);
 
   const onCandidateStatusChange = useCallback(
     (status) => {
@@ -40,7 +31,7 @@ const PositionDetails = ({ teamId, positionId }) => {
   return (
     <LayoutContainer>
       {!position ? (
-        <LoadingIndicator error={loadingError && loadingError.toString()} />
+        <LoadingIndicator error={error} />
       ) : (
         <>
           <PageHeader
@@ -57,6 +48,7 @@ const PositionDetails = ({ teamId, positionId }) => {
           <PositionCandidates
             candidates={position.candidates}
             candidateStatus={candidateStatus}
+            updateCandidate={updateCandidate}
           />
         </>
       )}

@@ -1,7 +1,5 @@
 /**
- * Topcoder Teams Service
- *
- * NOTE: It uses mock at the moment.
+ * Topcoder TaaS Service
  */
 import axios from "axios";
 import config from "../../config";
@@ -61,4 +59,26 @@ export const getPositionDetails = (tokenV3, teamId, positionId) => {
   return axios.get(`${config.API.V5}/taas-teams/${teamId}/jobs/${positionId}`, {
     headers: { Authorization: `Bearer ${tokenV3}` },
   });
+};
+
+/**
+ * Patch Position Candidate
+ *
+ * @param {string} tokenV3 login token
+ * @param {string} candidateId position candidate id
+ *
+ * @returns {Promise<object{}>} position candidate
+ */
+export const patchPositionCandidate = (
+  tokenV3,
+  candidateId,
+  partialCandidateData
+) => {
+  return axios.patch(
+    `${config.API.V5}/jobCandidates/${candidateId}`,
+    partialCandidateData,
+    {
+      headers: { Authorization: `Bearer ${tokenV3}` },
+    }
+  );
 };

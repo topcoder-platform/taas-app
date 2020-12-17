@@ -20,8 +20,8 @@ import User from "components/User";
 import SkillsSummary from "components/SkillsSummary";
 import Button from "components/Button";
 import Pagination from "components/Pagination";
-import IconResume from "../../../assets/images/icon-resume.svg";
-import { skillShape } from "components/SkillsList";
+import IconResume from "../../../../assets/images/icon-resume.svg";
+import { toastr } from "react-redux-toastr";
 
 /**
  * Generates a function to sort candidates
@@ -45,6 +45,7 @@ const createSortCandidatesMethod = (sortBy) => (candidate1, candidate2) => {
 const PositionCandidates = ({
   candidates,
   candidateStatus,
+  updateCandidate,
 }) => {
   const [sortBy, setSortBy] = useState(CANDIDATES_SORT_BY.SKILL_MATCHED);
   const filteredCandidates = useMemo(
@@ -86,6 +87,42 @@ const PositionCandidates = ({
     [setPage]
   );
 
+  const markCandidateShortlisted = useCallback(
+    (candidateId) => {
+      updateCandidate(candidateId, {
+        status: CANDIDATE_STATUS.SHORTLIST,
+      })
+        .then(() => {
+          toastr.success("Candidate is marked as interested.");
+        })
+        .catch((error) => {
+          toastr.error(
+            "Failed to mark candidate as interested",
+            error.toString()
+          );
+        });
+    },
+    [updateCandidate]
+  );
+
+  const markCandidateRejected = useCallback(
+    (candidateId) => {
+      updateCandidate(candidateId, {
+        status: CANDIDATE_STATUS.REJECTED,
+      })
+        .then(() => {
+          toastr.success("Candidate is marked as not interested.");
+        })
+        .catch((error) => {
+          toastr.error(
+            "Failed to mark candidate as not interested",
+            error.toString()
+          );
+        });
+    },
+    [updateCandidate]
+  );
+
   return (
     <div styleName="position-candidates">
       <CardHeader
@@ -125,24 +162,31 @@ const PositionCandidates = ({
                   limit={7}
                 />
                 {candidate.resumeLink && (
-                  <a
-                    href={`${candidate.resumeLink}`}
-                    styleName="resume-link"
-                  >
+                  <a href={`${candidate.resumeLink}`} styleName="resume-link">
                     <IconResume />
                     Download Resume
                   </a>
                 )}
               </div>
               <div styleName="table-cell cell-action">
-                {candidateStatus === CANDIDATE_STATUS.SHORTLIST ? (
-                  <Button type="primary">Schedule Interview</Button>
-                ) : (
+                {candidateStatus === CANDIDATE_STATUS.OPEN && (
                   <>
                     Interested in this candidate?
                     <div styleName="actions">
-                      <Button type="secondary">No</Button>
-                      <Button type="primary">Yes</Button>
+                      <Button
+                        type="secondary"
+                        onClick={() => markCandidateRejected(candidate.id)}
+                        disabled={candidate.updating}
+                      >
+                        No
+                      </Button>
+                      <Button
+                        type="primary"
+                        onClick={() => markCandidateShortlisted(candidate.id)}
+                        disabled={candidate.updating}
+                      >
+                        Yes
+                      </Button>
                     </div>
                   </>
                 )}
