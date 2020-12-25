@@ -110,7 +110,7 @@ export const CANDIDATE_STATUS_FILTERS = [
  * Candidates "sort by" values
  */
 export const CANDIDATES_SORT_BY = {
-  SKILL_MATCHED: "skillMatched",
+  SKILL_MATCHED: "skillsMatched",
   HANDLE: "handle",
 };
 

@@ -2,7 +2,6 @@
  * SkillsList
  *
  * Shows list of skills with "N more" link which is showing tooltip with a full list of skills.
- * If `showMatches = true` it marks matched and not matched required skills.
  */
 import React, { useCallback, useState } from "react";
 import PT from "prop-types";
@@ -13,11 +12,7 @@ import IconCross from "../../assets/images/icon-cross.svg";
 import { usePopper } from "react-popper";
 import OutsideClickHandler from "react-outside-click-handler";
 
-const SkillsList = ({
-  skills,
-  limit = 3,
-  showMatches = false,
-}) => {
+const SkillsList = ({ skills, limit = 3 }) => {
   const skillsToShow = skills.slice(0, limit);
   const skillsToHide = skills.slice(limit);
 
@@ -124,7 +119,6 @@ export const skillShape = PT.shape({
 SkillsList.propTypes = {
   skills: PT.arrayOf(skillShape),
   limit: PT.number,
-  showMatches: PT.bool,
 };
 
 export default SkillsList;

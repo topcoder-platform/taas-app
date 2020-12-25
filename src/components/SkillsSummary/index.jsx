@@ -10,18 +10,20 @@ import PercentageBar from "components/PercentageBar";
 import SkillsList from "components/SkillsList";
 import "./styles.module.scss";
 
-const SkillsSummary = ({ skills, skillMatched, limit }) => {
+const SkillsSummary = ({ skills, requiredSkills = [], limit }) => {
+  const skillsMatched = _.intersectionBy(skills, requiredSkills, "id");
+  const skillsMatchedRatio =
+    requiredSkills.length > 0
+      ? skillsMatched.length / requiredSkills.length
+      : 1;
+
   return (
     <div>
       <div styleName="percentage">
-        <PercentageBar ratio={skillMatched / 100} styleName="percentage-bar" />
-        {Math.round(skillMatched)}% skill matched
+        <PercentageBar ratio={skillsMatchedRatio} styleName="percentage-bar" />
+        {Math.round(skillsMatchedRatio * 100)}% skill matched
       </div>
-      <SkillsList
-        skills={skills}
-        limit={limit}
-        showMatches
-      />
+      <SkillsList skills={skills} limit={limit} />
     </div>
   );
 };
@@ -33,8 +35,8 @@ const skillShape = PT.shape({
 
 SkillsSummary.propTypes = {
   skills: PT.arrayOf(skillShape),
+  requiredSkills: PT.arrayOf(skillShape),
   limit: PT.number,
-  skillMatched: PT.number,
 };
 
 export default SkillsSummary;

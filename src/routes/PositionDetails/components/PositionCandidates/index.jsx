@@ -33,7 +33,7 @@ import { toastr } from "react-redux-toastr";
 const createSortCandidatesMethod = (sortBy) => (candidate1, candidate2) => {
   switch (sortBy) {
     case CANDIDATES_SORT_BY.SKILL_MATCHED:
-      return candidate2.skillMatched - candidate1.skillMatched;
+      return candidate2.skillsMatched - candidate1.skillsMatched;
     case CANDIDATES_SORT_BY.HANDLE:
       return new Intl.Collator().compare(
         candidate1.handle.toLowerCase(),
@@ -42,18 +42,31 @@ const createSortCandidatesMethod = (sortBy) => (candidate1, candidate2) => {
   }
 };
 
-const PositionCandidates = ({
-  candidates,
-  candidateStatus,
-  updateCandidate,
-}) => {
+/**
+ * Populates candidate objects with `skillsMatched` property
+ * which define the number of candidate skills that match position skills
+ *
+ * @param {object} position position
+ * @param {object} candidate candidate for position
+ */
+const populateSkillsMatched = (position, candidate) => ({
+  ...candidate,
+  skillsMatched: _.intersectionBy(position.skills, candidate.skills, "id"),
+});
+
+const PositionCandidates = ({ position, candidateStatus, updateCandidate }) => {
+  const { candidates } = position;
   const [sortBy, setSortBy] = useState(CANDIDATES_SORT_BY.SKILL_MATCHED);
   const filteredCandidates = useMemo(
     () =>
-      _.filter(candidates, { status: candidateStatus }).sort(
-        createSortCandidatesMethod(sortBy)
-      ),
-    [candidates, candidateStatus, sortBy]
+      _.chain(candidates)
+        .map((candidate) => populateSkillsMatched(position, candidate))
+        .filter({
+          status: candidateStatus,
+        })
+        .value()
+        .sort(createSortCandidatesMethod(sortBy)),
+    [candidates, candidateStatus, sortBy, position]
   );
 
   const onSortByChange = useCallback(
@@ -158,7 +171,7 @@ const PositionCandidates = ({
               <div styleName="table-cell cell-skills">
                 <SkillsSummary
                   skills={candidate.skills}
-                  skillMatched={candidate.skillMatched}
+                  requiredSkills={position.skills}
                   limit={7}
                 />
                 {candidate.resumeLink && (
@@ -221,7 +234,7 @@ const PositionCandidates = ({
 };
 
 PositionCandidates.propType = {
-  candidates: PT.array,
+  position: PT.object,
   candidateStatus: PT.oneOf(Object.values(CANDIDATE_STATUS)),
 };
 

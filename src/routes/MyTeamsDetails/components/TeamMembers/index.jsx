@@ -16,7 +16,11 @@ import ActionsMenu from "components/ActionsMenu";
 import Button from "components/Button";
 import Pagination from "components/Pagination";
 import { DAY_FORMAT, TEAM_MEMBERS_PER_PAGE } from "constants";
-import { formatMoney, formatReportIssueUrl, formatRequestExtensionUrl } from "utils/format";
+import {
+  formatMoney,
+  formatReportIssueUrl,
+  formatRequestExtensionUrl,
+} from "utils/format";
 import Input from "components/Input";
 import { skillShape } from "components/SkillsList";
 
@@ -132,7 +136,7 @@ const TeamMembers = ({ team }) => {
                 <div styleName="table-cell cell-skills">
                   <SkillsSummary
                     skills={member.skills}
-                    skillMatched={member.skillMatched}
+                    requiredSkills={member.job.skills}
                   />
                 </div>
                 <div styleName="table-group-second-inner">
@@ -206,7 +210,7 @@ TeamMembers.propTypes = {
         firstName: PT.string,
         lastName: PT.string,
         skills: PT.arrayOf(skillShape),
-        skillMatched: PT.number,
+        skillsMatched: PT.number,
       })
     ),
   }),
