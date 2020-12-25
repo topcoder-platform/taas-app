@@ -30,30 +30,31 @@ const TeamMembers = ({ team }) => {
 
   const filteredMembers = useMemo(
     () =>
-      resources.filter((member) => {
-        const filterLowerCase = filter.toLowerCase();
-        const lookupFields = _.compact([
-          member.handle,
-          member.firstName,
-          member.lastName,
-          member.role,
-          ..._.map(member.skills, "name"),
-        ]).map((field) => field.toLowerCase());
+      resources
+        // populate resources with job data first
+        .map((member) => ({
+          ...member,
+          job: _.find(jobs, { id: member.jobId }) || {},
+        }))
+        // now we can filter resources
+        .filter((member) => {
+          const filterLowerCase = filter.toLowerCase().trim();
+          const lookupFields = _.compact([
+            member.handle,
+            member.firstName,
+            member.lastName,
+            `${member.firstName} ${member.lastName}`, // full name
+            member.job.description,
+            ..._.map(member.skills, "name"),
+          ]).map((field) => field.toLowerCase());
 
-        return _.some(
-          lookupFields,
-          (field) => field.indexOf(filterLowerCase) > -1
-        );
-      }),
-    [resources, filter]
+          return _.some(
+            lookupFields,
+            (field) => field.indexOf(filterLowerCase) > -1
+          );
+        }),
+    [resources, filter, jobs]
   );
-
-  const filteredMembersWithJobs = useMemo(() => {
-    return filteredMembers.map((member) => ({
-      ...member,
-      job: _.find(jobs, { id: member.jobId }) || {},
-    }));
-  }, [filteredMembers, jobs]);
 
   const onFilterChange = useCallback(
     (event) => {
@@ -76,8 +77,8 @@ const TeamMembers = ({ team }) => {
   const pagesTotal = Math.ceil(filteredMembers.length / perPage);
 
   const pageMembers = useMemo(
-    () => filteredMembersWithJobs.slice((page - 1) * perPage, page * perPage),
-    [filteredMembersWithJobs, page, perPage]
+    () => filteredMembers.slice((page - 1) * perPage, page * perPage),
+    [filteredMembers, page, perPage]
   );
 
   const onPageClick = useCallback(
@@ -101,10 +102,10 @@ const TeamMembers = ({ team }) => {
         }
       />
       {resources.length === 0 && <div styleName="no-members">No members</div>}
-      {resources.length > 0 && filteredMembersWithJobs.length === 0 && (
+      {resources.length > 0 && filteredMembers.length === 0 && (
         <div styleName="no-members">No members matching filter</div>
       )}
-      {filteredMembersWithJobs.length > 0 && (
+      {filteredMembers.length > 0 && (
         <div styleName="table">
           {pageMembers.map((member) => (
             <div styleName="table-row" key={member.id}>
@@ -181,15 +182,15 @@ const TeamMembers = ({ team }) => {
           type="secondary"
           onClick={showMore}
           disabled={
-            filteredMembersWithJobs.length === 0 || // if no members to show
+            filteredMembers.length === 0 || // if no members to show
             page === pagesTotal // if we are already on the last page
           }
         >
           Show More
         </Button>
-        {filteredMembersWithJobs.length > 0 && (
+        {filteredMembers.length > 0 && (
           <Pagination
-            total={filteredMembersWithJobs.length}
+            total={filteredMembers.length}
             currentPage={page}
             perPage={perPage}
             onPageClick={onPageClick}
