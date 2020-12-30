@@ -12,14 +12,9 @@ import TeamCard from "./components/TeamCard";
 import TeamCardGrid from "./components/TeamCardGrid";
 import LoadingIndicator from "../../components/LoadingIndicator";
 import { useAsync } from "react-use";
-import {
-  getAuthUserTokens,
-} from "@topcoder/micro-frontends-navbar-app";
 
 const MyTeamsList = () => {
-  const authUserTokens = useAsync(getAuthUserTokens);
-  const tokenV3 = authUserTokens.value ? authUserTokens.value.tokenV3 : null;
-  const [myTeams, loadingError] = useData(getMyTeams, tokenV3);
+  const [myTeams, loadingError] = useData(getMyTeams);
 
   return (
     <LayoutContainer>
