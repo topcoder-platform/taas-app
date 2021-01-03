@@ -13,6 +13,11 @@ export const DAY_FORMAT = "MM/DD/YYYY";
 export const TEAM_MEMBERS_PER_PAGE = 5;
 
 /**
+ * How many teams  show per page by default
+ */
+export const TEAMS_PER_PAGE = 20;
+
+/**
  * How many position candidates show per page by default
  */
 export const POSITION_CANDIDATES_PER_PAGE = 5;

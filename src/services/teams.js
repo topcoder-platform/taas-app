@@ -6,11 +6,19 @@ import config from "../../config";
 
 /**
  * Get my teams.
+ * @param {string|number}  name    team name
+ * @param {number}         page    current page
+ * @param {number}         perPage perPage
  *
  * @returns {Promise<object[]>} list of teams
  */
-export const getMyTeams = () => {
-  return axios.get(`${config.API.V5}/taas-teams`);
+export const getMyTeams = (name, page = 1, perPage) => {
+  let query = `page=${page}&perPage=${perPage}`;
+  if (name) {
+    query += `&name=${name}`;
+  }
+
+  return axios.get(`${config.API.V5}/taas-teams?${query}`);
 };
 
 /**
