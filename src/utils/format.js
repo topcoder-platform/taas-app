@@ -129,5 +129,7 @@ export const formatReportIssueUrl = (subject) => {
  * @returns {string} request an extension URL
  */
 export const formatRequestExtensionUrl = (subject) => {
-  return `mailto:${EMAIL_REQUEST_EXTENSION}?subject=${encodeURIComponent(subject)}`;
+  return `mailto:${EMAIL_REQUEST_EXTENSION}?subject=${encodeURIComponent(
+    subject
+  )}`;
 };

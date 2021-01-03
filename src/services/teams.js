@@ -10,7 +10,6 @@ import config from "../../config";
  * @returns {Promise<object[]>} list of teams
  */
 export const getMyTeams = () => {
-  debugger;
   return axios.get(`${config.API.V5}/taas-teams`);
 };
 
