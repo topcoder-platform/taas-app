@@ -3,7 +3,7 @@
  *
  * Shows list of skills with "N more" link which is showing tooltip with a full list of skills.
  */
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState, useMemo } from "react";
 import PT from "prop-types";
 import _ from "lodash";
 import "./styles.module.scss";
@@ -12,13 +12,22 @@ import IconCross from "../../assets/images/icon-cross.svg";
 import { usePopper } from "react-popper";
 import OutsideClickHandler from "react-outside-click-handler";
 
-const SkillsList = ({ skills, limit = 3 }) => {
+const SkillsList = ({requiredSkills, skills, limit = 3 }) => {
   const skillsToShow = skills.slice(0, limit);
   const skillsToHide = skills.slice(limit);
 
+  // if has requiredSkills, show two columns, eles show only one column
+  const showMatches = !!requiredSkills
   const [isOpen, setIsOpen] = useState(false);
   const [referenceElement, setReferenceElement] = useState(null);
   const [popperElement, setPopperElement] = useState(null);
+
+  const otherSkills = useMemo(
+    () => {
+      return _.differenceBy(skills, requiredSkills, 'id' )
+    },
+    [requiredSkills, skills]
+  );
   const { styles, attributes } = usePopper(referenceElement, popperElement, {
     placement: "bottom",
     modifiers: [
@@ -91,11 +100,29 @@ const SkillsList = ({ skills, limit = 3 }) => {
                 {...attributes.popper}
               >
                 <div styleName="popover-content">
-                  {skills && (
+                  {requiredSkills && (
                     <div styleName="skills-section">
-                      <div styleName="skills-title">Skills</div>
+                      <div styleName="skills-title">Required Job Skills</div>
                       <ul styleName="skills-list">
-                        {skills.map((skill) => (
+                        {requiredSkills.map((skill) => (
+                          <li key={skill.id}>
+                            {showMatches &&
+                              (_.find(skills, { id: skill.id }) ? (
+                                <IconCheck />
+                              ) : (
+                                <IconCross />
+                              ))}{" "}
+                            {skill.name}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                  {otherSkills && (
+                    <div styleName="skills-section">
+                      <div styleName="skills-title">{showMatches ? 'Other User Skills': 'Required Skills'}</div>
+                      <ul styleName="skills-list">
+                        {otherSkills.map((skill) => (
                           <li key={skill.id}>{skill.name}</li>
                         ))}
                       </ul>
@@ -118,6 +145,7 @@ export const skillShape = PT.shape({
 
 SkillsList.propTypes = {
   skills: PT.arrayOf(skillShape),
+  requiredSkills: PT.arrayOf(skillShape),
   limit: PT.number,
 };
 

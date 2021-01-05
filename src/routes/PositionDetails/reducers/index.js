@@ -76,14 +76,10 @@ const reducer = (state = initialState, action) => {
       });
 
     case ACTION_TYPE.UPDATE_CANDIDATE_SUCCESS:
-      return patchCandidateInState(
-        state,
-        action.meta.candidateId,
-        {
-          updating: false,
-          ...action.payload,
-        }
-      );
+      return patchCandidateInState(state, action.meta.candidateId, {
+        updating: false,
+        ...action.payload,
+      });
 
     case ACTION_TYPE.UPDATE_CANDIDATE_ERROR:
       return patchCandidateInState(state, action.meta.candidateId, {
@@ -92,7 +88,7 @@ const reducer = (state = initialState, action) => {
       });
 
     default:
-      return state
+      return state;
   }
 };
 
