@@ -61,4 +61,4 @@ export const updateCandidate = (candidateId, partialCandidateData) => ({
  */
 export const resetPositionState = () => ({
   type: ACTION_TYPE.RESET_POSITION_STATE,
-})
+});

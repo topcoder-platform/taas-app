@@ -24,7 +24,7 @@ export const useTeamPositionsState = (teamId, positionId) => {
     // clear state when we leave the page
     return () => {
       dispatch(resetPositionState());
-    }
+    };
   }, [dispatch, teamId, positionId]);
 
   // bind actions to dispatch method
