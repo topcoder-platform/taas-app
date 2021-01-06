@@ -15,14 +15,9 @@ import TeamSummary from "./components/TeamSummary";
 import TeamMembers from "./components/TeamMembers";
 import TeamPositions from "./components/TeamPositions";
 import { useAsync } from "react-use";
-import {
-  getAuthUserTokens,
-} from "@topcoder/micro-frontends-navbar-app";
 
 const MyTeamsDetails = ({ teamId }) => {
-  const authUserTokens = useAsync(getAuthUserTokens);
-  const tokenV3 = authUserTokens.value ? authUserTokens.value.tokenV3 : null;
-  const [team, loadingError] = useData(getTeamById, tokenV3, teamId);
+  const [team, loadingError] = useData(getTeamById, teamId);
 
   return (
     <LayoutContainer>

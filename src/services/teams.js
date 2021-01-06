@@ -1,84 +1,59 @@
 /**
  * Topcoder TaaS Service
  */
-import axios from "axios";
+import { axiosInstance as axios } from "./requestInterceptor";
 import config from "../../config";
 
 /**
  * Get my teams.
- *
- * @param {string} tokenV3 login token
+ * @param {string|number}  name    team name
+ * @param {number}         page    current page
+ * @param {number}         perPage perPage
  *
  * @returns {Promise<object[]>} list of teams
  */
-export const getMyTeams = (tokenV3) => {
-  if (!tokenV3) {
-    return Promise.resolve({
-      data: null,
-    });
+export const getMyTeams = (name, page = 1, perPage) => {
+  let query = `page=${page}&perPage=${perPage}`;
+  if (name) {
+    query += `&name=${name}`;
   }
-  return axios.get(`${config.API.V5}/taas-teams`, {
-    headers: { Authorization: `Bearer ${tokenV3}` },
-  });
+
+  return axios.get(`${config.API.V5}/taas-teams?${query}`);
 };
 
 /**
  * Get team by id.
  *
- * @param {string} tokenV3 login token
  * @param {string|number} teamId team id
  *
  * @returns {Promise<{}>} team object
  */
-export const getTeamById = (tokenV3, teamId) => {
-  if (!tokenV3) {
-    return Promise.resolve({
-      data: null,
-    });
-  }
-  return axios.get(`${config.API.V5}/taas-teams/${teamId}`, {
-    headers: { Authorization: `Bearer ${tokenV3}` },
-  });
+export const getTeamById = (teamId) => {
+  return axios.get(`${config.API.V5}/taas-teams/${teamId}`);
 };
 
 /**
  * Get team position details.
  *
- * @param {string} tokenV3 login token
  * @param {string|number} teamId team id
  * @param {string|number} positionId position id
  *
  * @returns {Promise<object{}>} job object
  */
-export const getPositionDetails = (tokenV3, teamId, positionId) => {
-  if (!tokenV3) {
-    return Promise.resolve({
-      data: null,
-    });
-  }
-  return axios.get(`${config.API.V5}/taas-teams/${teamId}/jobs/${positionId}`, {
-    headers: { Authorization: `Bearer ${tokenV3}` },
-  });
+export const getPositionDetails = (teamId, positionId) => {
+  return axios.get(`${config.API.V5}/taas-teams/${teamId}/jobs/${positionId}`);
 };
 
 /**
  * Patch Position Candidate
  *
- * @param {string} tokenV3 login token
  * @param {string} candidateId position candidate id
  *
  * @returns {Promise<object{}>} position candidate
  */
-export const patchPositionCandidate = (
-  tokenV3,
-  candidateId,
-  partialCandidateData
-) => {
+export const patchPositionCandidate = (candidateId, partialCandidateData) => {
   return axios.patch(
     `${config.API.V5}/jobCandidates/${candidateId}`,
-    partialCandidateData,
-    {
-      headers: { Authorization: `Bearer ${tokenV3}` },
-    }
+    partialCandidateData
   );
 };
