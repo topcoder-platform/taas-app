@@ -23,6 +23,11 @@ export const TEAMS_PER_PAGE = 20;
 export const POSITION_CANDIDATES_PER_PAGE = 5;
 
 /**
+ * Input debounce delay (ms)
+ */
+export const INPUT_DEBOUNCE_DELAY = 200;
+
+/**
  * Position statuses
  */
 export const POSITION_STATUS = {

@@ -16,27 +16,32 @@ import LoadingIndicator from "../../components/LoadingIndicator";
 import { useDebounce } from "react-use";
 import { TEAMS_PER_PAGE } from "constants";
 import "./styles.module.scss";
+import { INPUT_DEBOUNCE_DELAY } from "constants/";
 
 const MyTeamsList = () => {
   let [myTeams, setMyTeams] = useState(null);
-  const [filter, setFilter] = useState("");
-  const [tempFilter, setTempFilter] = React.useState('');
+  const [debouncedFilter, setDebouncedFilter] = useState("");
+  const [filter, setFilter] = React.useState("");
   const [loadingError, setLoadingError] = useState(false);
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(0);
-  const onFilterChange = (evt) => {
-    setTempFilter(evt.target.value)
-  }
 
-  useDebounce((value) => {
-    console.log('xxxx', value)
-    setFilter(tempFilter);
-    setPage(1);
-  }, 200, [tempFilter]);
+  const onFilterChange = (evt) => {
+    setFilter(evt.target.value);
+  };
+
+  useDebounce(
+    () => {
+      setDebouncedFilter(filter);
+      setPage(1);
+    },
+    INPUT_DEBOUNCE_DELAY,
+    [filter]
+  );
 
   useEffect(() => {
     setMyTeams(null);
-    getMyTeams(filter, page, TEAMS_PER_PAGE)
+    getMyTeams(debouncedFilter, page, TEAMS_PER_PAGE)
       .then((response) => {
         setMyTeams(response.data);
         setTotal(response.headers["x-total"]);
@@ -44,7 +49,7 @@ const MyTeamsList = () => {
       .catch((responseError) => {
         setLoadingError(responseError);
       });
-  }, [filter, page]);
+  }, [debouncedFilter, page]);
 
   const onPageClick = useCallback(
     (newPage) => {
@@ -65,7 +70,9 @@ const MyTeamsList = () => {
           />
         }
       />
-      {myTeams && myTeams.length === 0 && (<div styleName="empty">No teams found</div>)}
+      {myTeams && myTeams.length === 0 && (
+        <div styleName="empty">No teams found</div>
+      )}
       {!myTeams ? (
         <LoadingIndicator error={loadingError && loadingError.toString()} />
       ) : (
