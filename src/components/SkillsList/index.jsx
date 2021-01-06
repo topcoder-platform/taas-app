@@ -12,22 +12,19 @@ import IconCross from "../../assets/images/icon-cross.svg";
 import { usePopper } from "react-popper";
 import OutsideClickHandler from "react-outside-click-handler";
 
-const SkillsList = ({requiredSkills, skills, limit = 3 }) => {
+const SkillsList = ({ requiredSkills, skills, limit = 3 }) => {
   const skillsToShow = skills.slice(0, limit);
   const skillsToHide = skills.slice(limit);
 
   // if has requiredSkills, show two columns, eles show only one column
-  const showMatches = !!requiredSkills
+  const showMatches = !!requiredSkills;
   const [isOpen, setIsOpen] = useState(false);
   const [referenceElement, setReferenceElement] = useState(null);
   const [popperElement, setPopperElement] = useState(null);
 
-  const otherSkills = useMemo(
-    () => {
-      return _.differenceBy(skills, requiredSkills, 'id' )
-    },
-    [requiredSkills, skills]
-  );
+  const otherSkills = useMemo(() => {
+    return _.differenceBy(skills, requiredSkills, "id");
+  }, [requiredSkills, skills]);
   const { styles, attributes } = usePopper(referenceElement, popperElement, {
     placement: "bottom",
     modifiers: [
@@ -106,12 +103,11 @@ const SkillsList = ({requiredSkills, skills, limit = 3 }) => {
                       <ul styleName="skills-list">
                         {requiredSkills.map((skill) => (
                           <li key={skill.id}>
-                            {showMatches &&
-                              (_.find(skills, { id: skill.id }) ? (
-                                <IconCheck />
-                              ) : (
-                                <IconCross />
-                              ))}{" "}
+                            {_.find(skills, { id: skill.id }) ? (
+                              <IconCheck />
+                            ) : (
+                              <IconCross />
+                            )}{" "}
                             {skill.name}
                           </li>
                         ))}
@@ -120,7 +116,9 @@ const SkillsList = ({requiredSkills, skills, limit = 3 }) => {
                   )}
                   {otherSkills && (
                     <div styleName="skills-section">
-                      <div styleName="skills-title">{showMatches ? 'Other User Skills': 'Required Skills'}</div>
+                      <div styleName="skills-title">
+                        {showMatches ? "Other User Skills" : "Required Skills"}
+                      </div>
                       <ul styleName="skills-list">
                         {otherSkills.map((skill) => (
                           <li key={skill.id}>{skill.name}</li>
