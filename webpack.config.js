@@ -4,8 +4,6 @@ const singleSpaDefaults = require("webpack-config-single-spa-react");
 const path = require("path");
 const autoprefixer = require("autoprefixer");
 
-const cssLocalIdent = "teams_[path][name]___[local]___[hash:base64:6]";
-
 module.exports = (webpackConfigEnv) => {
   const defaultConfig = singleSpaDefaults({
     orgName: "topcoder",
@@ -26,7 +24,6 @@ module.exports = (webpackConfigEnv) => {
               loader: "css-loader",
               options: {
                 modules: {
-                  localIdentName: cssLocalIdent,
                   auto: true,
                 },
               },
