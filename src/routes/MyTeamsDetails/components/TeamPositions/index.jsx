@@ -28,7 +28,7 @@ const TeamPositions = ({ teamId, positions }) => {
             <div styleName="table-row" key={index}>
               <div styleName="table-group-first">
                 <div styleName="table-cell cell-skills">
-                  <strong>{position.description}</strong>
+                  <strong>{position.title}</strong>
                   <SkillsList skills={position.skills} limit={5} />
                 </div>
                 <div styleName="table-group-first-inner">
@@ -70,7 +70,7 @@ TeamPositions.propTypes = {
   teamId: PT.string,
   positions: PT.arrayOf(
     PT.shape({
-      description: PT.string,
+      title: PT.string,
       customerRate: PT.number,
       rateType: PT.oneOf(Object.values(RATE_TYPE)),
       skills: PT.arrayOf(skillShape),

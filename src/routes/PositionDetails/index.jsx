@@ -35,7 +35,7 @@ const PositionDetails = ({ teamId, positionId }) => {
       ) : (
         <>
           <PageHeader
-            title={position.description}
+            title={position.title}
             backTo={`/taas/myteams/${teamId}`}
             aside={
               <CandidatesStatusFilter

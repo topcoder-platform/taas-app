@@ -44,7 +44,7 @@ const TeamMembers = ({ team }) => {
             member.firstName,
             member.lastName,
             `${member.firstName} ${member.lastName}`, // full name
-            member.job.description,
+            member.job.title,
             ..._.map(member.skills, "name"),
           ]).map((field) => field.toLowerCase());
 
@@ -119,9 +119,7 @@ const TeamMembers = ({ team }) => {
                   />
                 </div>
                 <div styleName="table-group-first-inner">
-                  <div styleName="table-cell cell-role">
-                    {member.job.description}
-                  </div>
+                  <div styleName="table-cell cell-role">{member.job.title}</div>
                   <div styleName="table-cell cell-date">
                     {moment(member.startDate).format(DAY_FORMAT)} -{" "}
                     {moment(member.endDate).format(DAY_FORMAT)}
