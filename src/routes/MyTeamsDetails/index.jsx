@@ -14,6 +14,7 @@ import LoadingIndicator from "components/LoadingIndicator";
 import TeamSummary from "./components/TeamSummary";
 import TeamMembers from "./components/TeamMembers";
 import TeamPositions from "./components/TeamPositions";
+import Authentication from '../../components/Authentication'
 import { useAsync } from "react-use";
 
 const MyTeamsDetails = ({ teamId }) => {
@@ -22,7 +23,7 @@ const MyTeamsDetails = ({ teamId }) => {
   return (
     <LayoutContainer>
       {!team ? (
-        <LoadingIndicator error={loadingError && loadingError.toString()} />
+        <LoadingIndicator error={loadingError} />
       ) : (
         <>
           <PageHeader title={team.name} backTo="/taas/myteams" />
@@ -39,4 +40,4 @@ MyTeamsDetails.propTypes = {
   teamId: PT.string,
 };
 
-export default MyTeamsDetails;
+export default Authentication(MyTeamsDetails);

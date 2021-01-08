@@ -14,9 +14,9 @@ export default function Root() {
     <div className={styles['topcoder-micro-frontends-teams-app']}>
       <Provider store={store}>
         <Router>
-          <MyTeamsList path="/taas/myteams" />
-          <MyTeamsDetails path="/taas/myteams/:teamId" />
-          <PositionDetails path="/taas/myteams/:teamId/positions/:positionId" />
+          <MyTeamsList path="/taas/myteams" auth/>
+          <MyTeamsDetails path="/taas/myteams/:teamId" auth />
+          <PositionDetails path="/taas/myteams/:teamId/positions/:positionId" auth/>
         </Router>
 
         {/* Global config for Toastr popups */}
