@@ -10,7 +10,9 @@ import "./styles.module.scss";
 
 const LoadingIndicator = ({ error }) => {
   return (
-    <div styleName="loading-indicator">{!error ? "Loading..." : _.get(error, 'response.data.message') || error}</div>
+    <div styleName="loading-indicator">
+      {!error ? "Loading..." : _.get(error, "response.data.message") || error}
+    </div>
   );
 };
 

@@ -13,7 +13,7 @@ import { getMyTeams } from "../../services/teams";
 import TeamCard from "./components/TeamCard";
 import TeamCardGrid from "./components/TeamCardGrid";
 import LoadingIndicator from "../../components/LoadingIndicator";
-import Authentication from '../../components/Authentication'
+import withAuthentication from "../../hoc/withAuthentication";
 import { useDebounce } from "react-use";
 import { TEAMS_PER_PAGE } from "constants";
 import "./styles.module.scss";
@@ -99,4 +99,4 @@ const MyTeamsList = () => {
   );
 };
 
-export default Authentication(MyTeamsList);
+export default withAuthentication(MyTeamsList);

@@ -4,19 +4,22 @@ import { Router } from "@reach/router";
 import MyTeamsList from "./routes/MyTeamsList";
 import MyTeamsDetails from "./routes/MyTeamsDetails";
 import PositionDetails from "./routes/PositionDetails";
-import ReduxToastr from 'react-redux-toastr'
+import ReduxToastr from "react-redux-toastr";
 import store from "./store";
 import "./styles/main.vendor.scss";
 import styles from "./styles/main.module.scss";
 
 export default function Root() {
   return (
-    <div className={styles['topcoder-micro-frontends-teams-app']}>
+    <div className={styles["topcoder-micro-frontends-teams-app"]}>
       <Provider store={store}>
         <Router>
-          <MyTeamsList path="/taas/myteams" auth/>
+          <MyTeamsList path="/taas/myteams" auth />
           <MyTeamsDetails path="/taas/myteams/:teamId" auth />
-          <PositionDetails path="/taas/myteams/:teamId/positions/:positionId" auth/>
+          <PositionDetails
+            path="/taas/myteams/:teamId/positions/:positionId"
+            auth
+          />
         </Router>
 
         {/* Global config for Toastr popups */}

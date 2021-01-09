@@ -14,7 +14,7 @@ import LoadingIndicator from "components/LoadingIndicator";
 import TeamSummary from "./components/TeamSummary";
 import TeamMembers from "./components/TeamMembers";
 import TeamPositions from "./components/TeamPositions";
-import Authentication from '../../components/Authentication'
+import withAuthentication from "../../hoc/withAuthentication";
 import { useAsync } from "react-use";
 
 const MyTeamsDetails = ({ teamId }) => {
@@ -40,4 +40,4 @@ MyTeamsDetails.propTypes = {
   teamId: PT.string,
 };
 
-export default Authentication(MyTeamsDetails);
+export default withAuthentication(MyTeamsDetails);
