@@ -3,7 +3,7 @@
  *
  * wrap component for authentication
  */
-import React, { useCallback, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { getAuthUserTokens, login } from "@topcoder/micro-frontends-navbar-app";
 import LoadingIndicator from "../components/LoadingIndicator";
 
@@ -13,27 +13,25 @@ export default function withAuthentication(Component) {
     let [authError, setAuthError] = useState(false);
 
     useEffect(() => {
-      if (props.auth) {
-        getAuthUserTokens()
-          .then(({ tokenV3 }) => {
-            if (!!tokenV3) {
-              setIsLoggedIn(!!tokenV3);
-            } else {
-              login();
-            }
-          })
-          .catch((err) => {
-            setAuthError(err);
-          });
-      }
-    }, [props.auth]);
+      getAuthUserTokens()
+        .then(({ tokenV3 }) => {
+          if (!!tokenV3) {
+            setIsLoggedIn(!!tokenV3);
+          } else {
+            login();
+          }
+        })
+        .catch(setAuthError);
+    }, []);
 
     return (
       <>
-        {authError && <LoadingIndicator error={authError.toString()} />}
-        {!props.auth || (props.auth && isLoggedIn === true) ? (
-          <Component {...props} />
-        ) : null}
+        {/* Show loading indicator until we know if user is logged-in or no.
+            In we got error during this process, show error */}
+        {isLoggedIn === null && <LoadingIndicator error={authError} />}
+
+        {/* Show component only if user is logged-in */}
+        {isLoggedIn === true ? <Component {...props} /> : null}
       </>
     );
   };

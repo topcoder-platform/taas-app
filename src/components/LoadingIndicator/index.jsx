@@ -11,7 +11,9 @@ import "./styles.module.scss";
 const LoadingIndicator = ({ error }) => {
   return (
     <div styleName="loading-indicator">
-      {!error ? "Loading..." : _.get(error, "response.data.message") || error}
+      {!error
+        ? "Loading..."
+        : _.get(error, "response.data.message", error.toString())}
     </div>
   );
 };
