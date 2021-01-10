@@ -13,6 +13,7 @@ import { getMyTeams } from "../../services/teams";
 import TeamCard from "./components/TeamCard";
 import TeamCardGrid from "./components/TeamCardGrid";
 import LoadingIndicator from "../../components/LoadingIndicator";
+import withAuthentication from "../../hoc/withAuthentication";
 import { useDebounce } from "react-use";
 import { TEAMS_PER_PAGE } from "constants";
 import "./styles.module.scss";
@@ -74,7 +75,7 @@ const MyTeamsList = () => {
         <div styleName="empty">No teams found</div>
       )}
       {!myTeams ? (
-        <LoadingIndicator error={loadingError && loadingError.toString()} />
+        <LoadingIndicator error={loadingError} />
       ) : (
         <>
           <TeamCardGrid>
@@ -98,4 +99,4 @@ const MyTeamsList = () => {
   );
 };
 
-export default MyTeamsList;
+export default withAuthentication(MyTeamsList);

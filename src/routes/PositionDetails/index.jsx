@@ -9,6 +9,7 @@ import LayoutContainer from "components/LayoutContainer";
 import LoadingIndicator from "components/LoadingIndicator";
 import PageHeader from "components/PageHeader";
 import { CANDIDATE_STATUS } from "constants";
+import withAuthentication from "../../hoc/withAuthentication";
 import PositionCandidates from "./components/PositionCandidates";
 import CandidatesStatusFilter from "./components/CandidatesStatusFilter";
 import { useTeamPositionsState } from "./hooks/useTeamPositionsState";
@@ -61,4 +62,4 @@ PositionDetails.propTypes = {
   positionId: PT.string,
 };
 
-export default PositionDetails;
+export default withAuthentication(PositionDetails);
