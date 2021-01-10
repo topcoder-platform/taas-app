@@ -174,8 +174,8 @@ const PositionCandidates = ({ position, candidateStatus, updateCandidate }) => {
                   requiredSkills={position.skills}
                   limit={7}
                 />
-                {candidate.resumeLink && (
-                  <a href={`${candidate.resumeLink}`} styleName="resume-link">
+                {candidate.resume && (
+                  <a href={`${candidate.resume}`} styleName="resume-link">
                     <IconResume />
                     Download Resume
                   </a>
