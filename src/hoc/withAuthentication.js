@@ -13,15 +13,20 @@ export default function withAuthentication(Component) {
     let [authError, setAuthError] = useState(false);
 
     useEffect(() => {
+      // prevent page redirecting to login page when unmount
+      let isUnmount = false;
       getAuthUserTokens()
         .then(({ tokenV3 }) => {
           if (!!tokenV3) {
             setIsLoggedIn(!!tokenV3);
-          } else {
+          } else if (!isUnmount) {
             login();
           }
         })
         .catch(setAuthError);
+      return () => {
+        isUnmount = true;
+      };
     }, []);
 
     return (
