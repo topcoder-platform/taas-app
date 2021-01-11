@@ -1,6 +1,6 @@
 import React from "react";
 import { Provider } from "react-redux";
-import { Router } from "@reach/router";
+import { Router, Redirect } from "@reach/router";
 import MyTeamsList from "./routes/MyTeamsList";
 import MyTeamsDetails from "./routes/MyTeamsDetails";
 import PositionDetails from "./routes/PositionDetails";
@@ -14,6 +14,7 @@ export default function Root() {
     <div className={styles["topcoder-micro-frontends-teams-app"]}>
       <Provider store={store}>
         <Router>
+          <Redirect from="/taas" to="/taas/myteams" exact />
           <MyTeamsList path="/taas/myteams" />
           <MyTeamsDetails path="/taas/myteams/:teamId" />
           <PositionDetails path="/taas/myteams/:teamId/positions/:positionId" />
