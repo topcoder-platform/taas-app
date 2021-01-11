@@ -5,17 +5,12 @@
  */
 import React from "react";
 import PT from "prop-types";
-import moment from "moment";
 import CardHeader from "components/CardHeader";
 import SkillsList, { skillShape } from "components/SkillsList";
 import Button from "components/Button";
-import {
-  DAY_FORMAT,
-  POSITION_STATUS,
-  POSITION_STATUS_TO_TEXT,
-  RATE_TYPE,
-} from "constants";
+import { POSITION_STATUS, POSITION_STATUS_TO_TEXT, RATE_TYPE } from "constants";
 import "./styles.module.scss";
+import { formatDateRange } from "utils/format";
 
 const TeamPositions = ({ teamId, positions }) => {
   return (
@@ -33,8 +28,7 @@ const TeamPositions = ({ teamId, positions }) => {
                 </div>
                 <div styleName="table-group-first-inner">
                   <div styleName="table-cell cell-date">
-                    {moment(position.startDate).format(DAY_FORMAT)} -{" "}
-                    {moment(position.endDate).format(DAY_FORMAT)}
+                    {formatDateRange(position.startDate, position.endDate)}
                   </div>
                   <div styleName="table-cell cell-money">
                     {/* Hide rate as we don't have data for it */}

@@ -5,6 +5,7 @@ import _ from "lodash";
 import { RATE_TYPE } from "constants";
 import { EMAIL_REPORT_ISSUE, EMAIL_REQUEST_EXTENSION } from "../../config";
 import moment from "moment";
+import { DAY_FORMAT } from "constants/";
 
 /**
  * Formats number with base word in singular or plural form depend on the number.
@@ -132,4 +133,19 @@ export const formatRequestExtensionUrl = (subject) => {
   return `mailto:${EMAIL_REQUEST_EXTENSION}?subject=${encodeURIComponent(
     subject
   )}`;
+};
+
+/**
+ * Form date range
+ *
+ * @param {string|Date|moment.Moment} startDate start date
+ * @param {string|Date|moment.Moment} endDate   end date
+ *
+ * @returns {string} formatted date range
+ */
+export const formatDateRange = (startDate, endDate) => {
+  const startDateStr = startDate ? moment(startDate).format(DAY_FORMAT) : "";
+  const endDateStr = endDate ? moment(endDate).format(DAY_FORMAT) : "";
+
+  return `${startDateStr} - ${endDateStr}`;
 };

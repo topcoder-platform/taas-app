@@ -7,7 +7,6 @@ import React, { useState, useCallback, useMemo } from "react";
 import PT from "prop-types";
 import "./styles.module.scss";
 import _ from "lodash";
-import moment from "moment";
 import User from "components/User";
 import CardHeader from "components/CardHeader";
 // import Rating from "components/Rating";
@@ -15,8 +14,9 @@ import SkillsSummary from "components/SkillsSummary";
 import ActionsMenu from "components/ActionsMenu";
 import Button from "components/Button";
 import Pagination from "components/Pagination";
-import { DAY_FORMAT, TEAM_MEMBERS_PER_PAGE } from "constants";
+import { TEAM_MEMBERS_PER_PAGE } from "constants";
 import {
+  formatDateRange,
   formatMoney,
   formatReportIssueUrl,
   formatRequestExtensionUrl,
@@ -121,8 +121,7 @@ const TeamMembers = ({ team }) => {
                 <div styleName="table-group-first-inner">
                   <div styleName="table-cell cell-role">{member.job.title}</div>
                   <div styleName="table-cell cell-date">
-                    {moment(member.startDate).format(DAY_FORMAT)} -{" "}
-                    {moment(member.endDate).format(DAY_FORMAT)}
+                    {formatDateRange(member.startDate, member.endDate)}
                   </div>
                   <div styleName="table-cell cell-money">
                     {member.customerRate && member.customerRate > 0
