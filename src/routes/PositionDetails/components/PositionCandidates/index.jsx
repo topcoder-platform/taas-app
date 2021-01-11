@@ -175,7 +175,11 @@ const PositionCandidates = ({ position, candidateStatus, updateCandidate }) => {
                   limit={7}
                 />
                 {candidate.resume && (
-                  <a href={`${candidate.resume}`} styleName="resume-link">
+                  <a
+                    href={`${candidate.resume}`}
+                    styleName="resume-link"
+                    target="_blank"
+                  >
                     <IconResume />
                     Download Resume
                   </a>
