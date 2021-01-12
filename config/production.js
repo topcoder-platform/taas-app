@@ -5,6 +5,11 @@ module.exports = {
   TOPCODER_COMMUNITY_WEBSITE_URL: "https://topcoder.com",
 
   /**
+   * URL of Topcoder Connect Website
+   */
+  CONNECT_WEBSITE_URL: "https://connect.topcoder.com",
+
+  /**
    * Email to report issues to
    */
   EMAIL_REPORT_ISSUE: "support+team-issue@topcoder.com",

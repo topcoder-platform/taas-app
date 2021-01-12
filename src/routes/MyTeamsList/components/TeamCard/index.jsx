@@ -7,8 +7,6 @@ import "./styles.module.scss";
 import _ from "lodash";
 import { Link } from "@reach/router";
 import DataItem from "components/DataItem";
-import moment from "moment";
-import { DAY_FORMAT } from "constants";
 import IconCalendar from "../../../../assets/images/icon-calendar.svg";
 import IconClock from "../../../../assets/images/icon-clock.svg";
 import IconMoney from "../../../../assets/images/icon-money.svg";
@@ -18,6 +16,7 @@ import {
   formatMoney,
   formatRemainingTimeForTeam,
   formatReportIssueUrl,
+  formatConnectProjectUrl,
 } from "utils/format";
 import AvatarGroup from "components/AvatarGroup";
 import ThreeDotsMenu from "components/ThreeDotsMenu";
@@ -28,6 +27,15 @@ const TeamCard = ({ team }) => {
       <div styleName="three-dots-menu">
         <ThreeDotsMenu
           options={[
+            {
+              label: "Open in Connect",
+              action: () => {
+                window.open(formatConnectProjectUrl(team.id));
+              },
+            },
+            {
+              separator: true,
+            },
             {
               label: "Report an Issue",
               action: () => {
