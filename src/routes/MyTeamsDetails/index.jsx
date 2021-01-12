@@ -15,7 +15,6 @@ import TeamSummary from "./components/TeamSummary";
 import TeamMembers from "./components/TeamMembers";
 import TeamPositions from "./components/TeamPositions";
 import withAuthentication from "../../hoc/withAuthentication";
-import { useAsync } from "react-use";
 
 const MyTeamsDetails = ({ teamId }) => {
   const [team, loadingError] = useData(getTeamById, teamId);

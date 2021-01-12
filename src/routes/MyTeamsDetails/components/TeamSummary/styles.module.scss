@@ -19,5 +19,14 @@
 }
 
 .actions {
-  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+
+  > * {
+    margin-top: 20px;
+  }
+
+  > *:not(:last-child) {
+    margin-right: 10px;
+  }
 }

@@ -7,6 +7,7 @@ import React from "react";
 import PT from "prop-types";
 import DataItem from "components/DataItem";
 import {
+  formatConnectProjectUrl,
   formatMoney,
   formatRemainingTimeForTeam,
   formatReportIssueUrl,
@@ -39,6 +40,14 @@ const TeamSummary = ({ team }) => {
       </div>
 
       <div styleName="actions">
+        <Button
+          href={formatConnectProjectUrl(team.id)}
+          target="_blank"
+          type="secondary"
+          size="medium"
+        >
+          Open in Connect
+        </Button>
         <Button
           type="warning"
           size="medium"

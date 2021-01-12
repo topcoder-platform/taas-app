@@ -3,9 +3,23 @@
  */
 import _ from "lodash";
 import { RATE_TYPE } from "constants";
-import { EMAIL_REPORT_ISSUE, EMAIL_REQUEST_EXTENSION } from "../../config";
+import {
+  EMAIL_REPORT_ISSUE,
+  EMAIL_REQUEST_EXTENSION,
+  CONNECT_WEBSITE_URL,
+} from "../../config";
 import moment from "moment";
 import { DAY_FORMAT } from "constants/";
+
+/**
+ * Format URL to the project (team) in Connect App.
+ *
+ * @param {string|number} teamId team (project) id
+ *
+ * @returns {string} URL to Connect project
+ */
+export const formatConnectProjectUrl = (teamId) =>
+  `${CONNECT_WEBSITE_URL}/projects/${teamId}`;
 
 /**
  * Formats number with base word in singular or plural form depend on the number.
