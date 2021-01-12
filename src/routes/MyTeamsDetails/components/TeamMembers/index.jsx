@@ -7,7 +7,6 @@ import React, { useState, useCallback, useMemo } from "react";
 import PT from "prop-types";
 import "./styles.module.scss";
 import _ from "lodash";
-import moment from "moment";
 import User from "components/User";
 import CardHeader from "components/CardHeader";
 // import Rating from "components/Rating";
@@ -15,8 +14,13 @@ import SkillsSummary from "components/SkillsSummary";
 import ActionsMenu from "components/ActionsMenu";
 import Button from "components/Button";
 import Pagination from "components/Pagination";
-import { DAY_FORMAT, TEAM_MEMBERS_PER_PAGE } from "constants";
-import { formatMoney, formatReportIssueUrl } from "utils/format";
+import { TEAM_MEMBERS_PER_PAGE } from "constants";
+import {
+  formatDateRange,
+  formatMoney,
+  formatReportIssueUrl,
+  formatRequestExtensionUrl,
+} from "utils/format";
 import Input from "components/Input";
 import { skillShape } from "components/SkillsList";
 
@@ -26,30 +30,31 @@ const TeamMembers = ({ team }) => {
 
   const filteredMembers = useMemo(
     () =>
-      resources.filter((member) => {
-        const filterLowerCase = filter.toLowerCase();
-        const lookupFields = _.compact([
-          member.handle,
-          member.firstName,
-          member.lastName,
-          member.role,
-          ..._.map(member.skills, "name"),
-        ]).map((field) => field.toLowerCase());
+      resources
+        // populate resources with job data first
+        .map((member) => ({
+          ...member,
+          job: _.find(jobs, { id: member.jobId }) || {},
+        }))
+        // now we can filter resources
+        .filter((member) => {
+          const filterLowerCase = filter.toLowerCase().trim();
+          const lookupFields = _.compact([
+            member.handle,
+            member.firstName,
+            member.lastName,
+            `${member.firstName} ${member.lastName}`, // full name
+            member.job.title,
+            ..._.map(member.skills, "name"),
+          ]).map((field) => field.toLowerCase());
 
-        return _.some(
-          lookupFields,
-          (field) => field.indexOf(filterLowerCase) > -1
-        );
-      }),
-    [resources, filter]
+          return _.some(
+            lookupFields,
+            (field) => field.indexOf(filterLowerCase) > -1
+          );
+        }),
+    [resources, filter, jobs]
   );
-
-  const filteredMembersWithJobs = useMemo(() => {
-    return filteredMembers.map((member) => ({
-      ...member,
-      job: _.find(jobs, { id: member.jobId }) || {},
-    }));
-  }, [filteredMembers, jobs]);
 
   const onFilterChange = useCallback(
     (event) => {
@@ -72,8 +77,8 @@ const TeamMembers = ({ team }) => {
   const pagesTotal = Math.ceil(filteredMembers.length / perPage);
 
   const pageMembers = useMemo(
-    () => filteredMembersWithJobs.slice((page - 1) * perPage, page * perPage),
-    [filteredMembersWithJobs, page, perPage]
+    () => filteredMembers.slice((page - 1) * perPage, page * perPage),
+    [filteredMembers, page, perPage]
   );
 
   const onPageClick = useCallback(
@@ -97,10 +102,10 @@ const TeamMembers = ({ team }) => {
         }
       />
       {resources.length === 0 && <div styleName="no-members">No members</div>}
-      {resources.length > 0 && filteredMembersWithJobs.length === 0 && (
+      {resources.length > 0 && filteredMembers.length === 0 && (
         <div styleName="no-members">No members matching filter</div>
       )}
-      {filteredMembersWithJobs.length > 0 && (
+      {filteredMembers.length > 0 && (
         <div styleName="table">
           {pageMembers.map((member) => (
             <div styleName="table-row" key={member.id}>
@@ -114,12 +119,9 @@ const TeamMembers = ({ team }) => {
                   />
                 </div>
                 <div styleName="table-group-first-inner">
-                  <div styleName="table-cell cell-role">
-                    {member.job.description}
-                  </div>
+                  <div styleName="table-cell cell-role">{member.job.title}</div>
                   <div styleName="table-cell cell-date">
-                    {moment(member.startDate).format(DAY_FORMAT)} -{" "}
-                    {moment(member.endDate).format(DAY_FORMAT)}
+                    {formatDateRange(member.startDate, member.endDate)}
                   </div>
                   <div styleName="table-cell cell-money">
                     {member.customerRate && member.customerRate > 0
@@ -132,7 +134,7 @@ const TeamMembers = ({ team }) => {
                 <div styleName="table-cell cell-skills">
                   <SkillsSummary
                     skills={member.skills}
-                    skillMatched={member.skillMatched}
+                    requiredSkills={member.job.skills}
                   />
                 </div>
                 <div styleName="table-group-second-inner">
@@ -153,7 +155,16 @@ const TeamMembers = ({ team }) => {
                             );
                           },
                         },
-                        { label: "Request an Extension", action: () => {} },
+                        {
+                          label: "Request an Extension",
+                          action: () => {
+                            window.open(
+                              formatRequestExtensionUrl(
+                                `Request extension for ${member.handle} on ${team.name}`
+                              )
+                            );
+                          },
+                        },
                       ]}
                     />
                   </div>
@@ -168,15 +179,15 @@ const TeamMembers = ({ team }) => {
           type="secondary"
           onClick={showMore}
           disabled={
-            filteredMembersWithJobs.length === 0 || // if no members to show
+            filteredMembers.length === 0 || // if no members to show
             page === pagesTotal // if we are already on the last page
           }
         >
           Show More
         </Button>
-        {filteredMembersWithJobs.length > 0 && (
+        {filteredMembers.length > 0 && (
           <Pagination
-            total={filteredMembersWithJobs.length}
+            total={filteredMembers.length}
             currentPage={page}
             perPage={perPage}
             onPageClick={onPageClick}
@@ -197,7 +208,7 @@ TeamMembers.propTypes = {
         firstName: PT.string,
         lastName: PT.string,
         skills: PT.arrayOf(skillShape),
-        skillMatched: PT.number,
+        skillsMatched: PT.number,
       })
     ),
   }),

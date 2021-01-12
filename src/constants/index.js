@@ -13,9 +13,19 @@ export const DAY_FORMAT = "MM/DD/YYYY";
 export const TEAM_MEMBERS_PER_PAGE = 5;
 
 /**
+ * How many teams  show per page by default
+ */
+export const TEAMS_PER_PAGE = 20;
+
+/**
  * How many position candidates show per page by default
  */
 export const POSITION_CANDIDATES_PER_PAGE = 5;
+
+/**
+ * Input debounce delay (ms)
+ */
+export const INPUT_DEBOUNCE_DELAY = 200;
 
 /**
  * Position statuses
@@ -110,7 +120,7 @@ export const CANDIDATE_STATUS_FILTERS = [
  * Candidates "sort by" values
  */
 export const CANDIDATES_SORT_BY = {
-  SKILL_MATCHED: "skillMatched",
+  SKILL_MATCHED: "skillsMatched",
   HANDLE: "handle",
 };
 
@@ -121,3 +131,20 @@ export const CANDIDATES_SORT_OPTIONS = [
   { label: "Skill Matched", value: CANDIDATES_SORT_BY.SKILL_MATCHED },
   { label: "Handle", value: CANDIDATES_SORT_BY.HANDLE },
 ];
+
+/**
+ * All action types
+ */
+export const ACTION_TYPE = {
+  LOAD_POSITION: "LOAD_POSITION",
+  LOAD_POSITION_PENDING: "LOAD_POSITION_PENDING",
+  LOAD_POSITION_SUCCESS: "LOAD_POSITION_SUCCESS",
+  LOAD_POSITION_ERROR: "LOAD_POSITION_ERROR",
+
+  RESET_POSITION_STATE: "RESET_POSITION_STATE",
+
+  UPDATE_CANDIDATE: "UPDATE_CANDIDATE",
+  UPDATE_CANDIDATE_PENDING: "UPDATE_CANDIDATE_PENDING",
+  UPDATE_CANDIDATE_SUCCESS: "UPDATE_CANDIDATE_SUCCESS",
+  UPDATE_CANDIDATE_ERROR: "UPDATE_CANDIDATE_ERROR",
+};

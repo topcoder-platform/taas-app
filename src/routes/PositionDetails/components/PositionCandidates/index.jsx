@@ -20,8 +20,8 @@ import User from "components/User";
 import SkillsSummary from "components/SkillsSummary";
 import Button from "components/Button";
 import Pagination from "components/Pagination";
-import IconResume from "../../../assets/images/icon-resume.svg";
-import { skillShape } from "components/SkillsList";
+import IconResume from "../../../../assets/images/icon-resume.svg";
+import { toastr } from "react-redux-toastr";
 
 /**
  * Generates a function to sort candidates
@@ -33,7 +33,7 @@ import { skillShape } from "components/SkillsList";
 const createSortCandidatesMethod = (sortBy) => (candidate1, candidate2) => {
   switch (sortBy) {
     case CANDIDATES_SORT_BY.SKILL_MATCHED:
-      return candidate2.skillMatched - candidate1.skillMatched;
+      return candidate2.skillsMatched - candidate1.skillsMatched;
     case CANDIDATES_SORT_BY.HANDLE:
       return new Intl.Collator().compare(
         candidate1.handle.toLowerCase(),
@@ -42,17 +42,31 @@ const createSortCandidatesMethod = (sortBy) => (candidate1, candidate2) => {
   }
 };
 
-const PositionCandidates = ({
-  candidates,
-  candidateStatus,
-}) => {
+/**
+ * Populates candidate objects with `skillsMatched` property
+ * which define the number of candidate skills that match position skills
+ *
+ * @param {object} position position
+ * @param {object} candidate candidate for position
+ */
+const populateSkillsMatched = (position, candidate) => ({
+  ...candidate,
+  skillsMatched: _.intersectionBy(position.skills, candidate.skills, "id"),
+});
+
+const PositionCandidates = ({ position, candidateStatus, updateCandidate }) => {
+  const { candidates } = position;
   const [sortBy, setSortBy] = useState(CANDIDATES_SORT_BY.SKILL_MATCHED);
   const filteredCandidates = useMemo(
     () =>
-      _.filter(candidates, { status: candidateStatus }).sort(
-        createSortCandidatesMethod(sortBy)
-      ),
-    [candidates, candidateStatus, sortBy]
+      _.chain(candidates)
+        .map((candidate) => populateSkillsMatched(position, candidate))
+        .filter({
+          status: candidateStatus,
+        })
+        .value()
+        .sort(createSortCandidatesMethod(sortBy)),
+    [candidates, candidateStatus, sortBy, position]
   );
 
   const onSortByChange = useCallback(
@@ -84,6 +98,42 @@ const PositionCandidates = ({
       setPage(newPage);
     },
     [setPage]
+  );
+
+  const markCandidateShortlisted = useCallback(
+    (candidateId) => {
+      updateCandidate(candidateId, {
+        status: CANDIDATE_STATUS.SHORTLIST,
+      })
+        .then(() => {
+          toastr.success("Candidate is marked as interested.");
+        })
+        .catch((error) => {
+          toastr.error(
+            "Failed to mark candidate as interested",
+            error.toString()
+          );
+        });
+    },
+    [updateCandidate]
+  );
+
+  const markCandidateRejected = useCallback(
+    (candidateId) => {
+      updateCandidate(candidateId, {
+        status: CANDIDATE_STATUS.REJECTED,
+      })
+        .then(() => {
+          toastr.success("Candidate is marked as not interested.");
+        })
+        .catch((error) => {
+          toastr.error(
+            "Failed to mark candidate as not interested",
+            error.toString()
+          );
+        });
+    },
+    [updateCandidate]
   );
 
   return (
@@ -121,13 +171,14 @@ const PositionCandidates = ({
               <div styleName="table-cell cell-skills">
                 <SkillsSummary
                   skills={candidate.skills}
-                  skillMatched={candidate.skillMatched}
+                  requiredSkills={position.skills}
                   limit={7}
                 />
-                {candidate.resumeLink && (
+                {candidate.resume && (
                   <a
-                    href={`${candidate.resumeLink}`}
+                    href={`${candidate.resume}`}
                     styleName="resume-link"
+                    target="_blank"
                   >
                     <IconResume />
                     Download Resume
@@ -135,14 +186,24 @@ const PositionCandidates = ({
                 )}
               </div>
               <div styleName="table-cell cell-action">
-                {candidateStatus === CANDIDATE_STATUS.SHORTLIST ? (
-                  <Button type="primary">Schedule Interview</Button>
-                ) : (
+                {candidateStatus === CANDIDATE_STATUS.OPEN && (
                   <>
                     Interested in this candidate?
                     <div styleName="actions">
-                      <Button type="secondary">No</Button>
-                      <Button type="primary">Yes</Button>
+                      <Button
+                        type="secondary"
+                        onClick={() => markCandidateRejected(candidate.id)}
+                        disabled={candidate.updating}
+                      >
+                        No
+                      </Button>
+                      <Button
+                        type="primary"
+                        onClick={() => markCandidateShortlisted(candidate.id)}
+                        disabled={candidate.updating}
+                      >
+                        Yes
+                      </Button>
                     </div>
                   </>
                 )}
@@ -177,7 +238,7 @@ const PositionCandidates = ({
 };
 
 PositionCandidates.propType = {
-  candidates: PT.array,
+  position: PT.object,
   candidateStatus: PT.oneOf(Object.values(CANDIDATE_STATUS)),
 };
 

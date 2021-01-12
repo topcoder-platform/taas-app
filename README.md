@@ -15,6 +15,8 @@ This is a [single-spa](https://single-spa.js.org/) example React microapp.
 - Router via [Reach Router](https://reach.tech/router/)
 - CSS Modules with SCSS via [babel-plugin-react-css-modules](https://github.com/gajus/babel-plugin-react-css-modules)
 - [React Inline SVG](https://github.com/airbnb/babel-plugin-inline-react-svg)
+- We use **Redux Store** for storing page data if we need to edit it. Otherwise we can use local state.
+- [react-redux-toastr](https://www.npmjs.com/package/react-redux-toastr) for success/error popups in the bottom left corner.
 
 ## Config
 

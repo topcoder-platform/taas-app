@@ -14,20 +14,16 @@ import LoadingIndicator from "components/LoadingIndicator";
 import TeamSummary from "./components/TeamSummary";
 import TeamMembers from "./components/TeamMembers";
 import TeamPositions from "./components/TeamPositions";
+import withAuthentication from "../../hoc/withAuthentication";
 import { useAsync } from "react-use";
-import {
-  getAuthUserTokens,
-} from "@topcoder/micro-frontends-navbar-app";
 
 const MyTeamsDetails = ({ teamId }) => {
-  const authUserTokens = useAsync(getAuthUserTokens);
-  const tokenV3 = authUserTokens.value ? authUserTokens.value.tokenV3 : null;
-  const [team, loadingError] = useData(getTeamById, tokenV3, teamId);
+  const [team, loadingError] = useData(getTeamById, teamId);
 
   return (
     <LayoutContainer>
       {!team ? (
-        <LoadingIndicator error={loadingError && loadingError.toString()} />
+        <LoadingIndicator error={loadingError} />
       ) : (
         <>
           <PageHeader title={team.name} backTo="/taas/myteams" />
@@ -44,4 +40,4 @@ MyTeamsDetails.propTypes = {
   teamId: PT.string,
 };
 
-export default MyTeamsDetails;
+export default withAuthentication(MyTeamsDetails);

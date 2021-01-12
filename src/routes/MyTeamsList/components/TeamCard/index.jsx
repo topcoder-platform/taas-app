@@ -14,6 +14,7 @@ import IconClock from "../../../../assets/images/icon-clock.svg";
 import IconMoney from "../../../../assets/images/icon-money.svg";
 import IconPeople from "../../../../assets/images/icon-people.svg";
 import {
+  formatDateRange,
   formatMoney,
   formatRemainingTimeForTeam,
   formatReportIssueUrl,
@@ -27,12 +28,6 @@ const TeamCard = ({ team }) => {
       <div styleName="three-dots-menu">
         <ThreeDotsMenu
           options={[
-            { label: "Team Feedback", action: () => {} },
-            { label: "Team Invoices", action: () => {} },
-            { label: "Team Reports", action: () => {} },
-            { separator: true },
-            { label: "Add Team Member", action: () => {} },
-            { separator: true },
             {
               label: "Report an Issue",
               action: () => {
@@ -51,14 +46,9 @@ const TeamCard = ({ team }) => {
 
       <div styleName="data-items">
         <DataItem title="Start - End Date" icon={<IconCalendar />}>
-          {team.startDate && team.endDate ? (
-            <>
-              {moment(team.startDate).format(DAY_FORMAT)} -{" "}
-              {moment(team.endDate).format(DAY_FORMAT)}
-            </>
-          ) : (
-            <>TBD</>
-          )}
+          {team.startDate && team.endDate
+            ? formatDateRange(team.startDate, team.endDate)
+            : "TBD"}
         </DataItem>
 
         <DataItem title="Time Remaining" icon={<IconClock />}>
