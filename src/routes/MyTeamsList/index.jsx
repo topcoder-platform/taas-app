@@ -5,7 +5,7 @@
  */
 import React, { useCallback, useState, useEffect } from "react";
 import _ from "lodash";
-import LayoutContainer from "components/LayoutContainer";
+import Page from "components/Page";
 import PageHeader from "components/PageHeader";
 import Input from "components/Input";
 import Pagination from "components/Pagination";
@@ -60,7 +60,7 @@ const MyTeamsList = () => {
   );
 
   return (
-    <LayoutContainer>
+    <Page title="My Teams">
       <PageHeader
         title="My Teams"
         aside={
@@ -95,7 +95,7 @@ const MyTeamsList = () => {
           )}
         </>
       )}
-    </LayoutContainer>
+    </Page>
   );
 };
 
