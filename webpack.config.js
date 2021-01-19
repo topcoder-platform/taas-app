@@ -1,4 +1,5 @@
 /* global __dirname */
+const webpack = require("webpack");
 const webpackMerge = require("webpack-merge");
 const singleSpaDefaults = require("webpack-config-single-spa-react");
 const path = require("path");
@@ -68,5 +69,10 @@ module.exports = (webpackConfigEnv) => {
         services: path.resolve(__dirname, "src/services"),
       },
     },
+    plugins: [
+      // ignore moment locales to reduce bundle size by 64kb gzipped
+      // see solution details https://stackoverflow.com/questions/25384360/how-to-prevent-moment-js-from-loading-locales-with-webpack/25426019#25426019
+      new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+    ],
   });
 };
