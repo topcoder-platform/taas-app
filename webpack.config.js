@@ -4,7 +4,10 @@ const singleSpaDefaults = require("webpack-config-single-spa-react");
 const path = require("path");
 const autoprefixer = require("autoprefixer");
 
-const cssLocalIdent = "teams_[path][name]___[local]___[hash:base64:6]";
+
+const cssLocalIdent = process.env.APPMODE === "production"  
+  ? "[hash:base64:6]"
+  : "teams_[path][name]___[local]___[hash:base64:6]";
 
 module.exports = (webpackConfigEnv) => {
   const defaultConfig = singleSpaDefaults({
