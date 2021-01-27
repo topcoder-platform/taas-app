@@ -161,5 +161,9 @@ export const formatDateRange = (startDate, endDate) => {
   const startDateStr = startDate ? moment(startDate).format(DAY_FORMAT) : "";
   const endDateStr = endDate ? moment(endDate).format(DAY_FORMAT) : "";
 
+  if (!startDateStr && !endDateStr) {
+    return "TBD";
+  }
+
   return `${startDateStr} - ${endDateStr}`;
 };
