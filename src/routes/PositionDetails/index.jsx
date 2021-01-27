@@ -5,7 +5,7 @@
  */
 import React, { useCallback, useState } from "react";
 import PT from "prop-types";
-import LayoutContainer from "components/LayoutContainer";
+import Page from "components/Page";
 import LoadingIndicator from "components/LoadingIndicator";
 import PageHeader from "components/PageHeader";
 import { CANDIDATE_STATUS } from "constants";
@@ -30,7 +30,7 @@ const PositionDetails = ({ teamId, positionId }) => {
   );
 
   return (
-    <LayoutContainer>
+    <Page title="Job Details">
       {!position ? (
         <LoadingIndicator error={error} />
       ) : (
@@ -53,7 +53,7 @@ const PositionDetails = ({ teamId, positionId }) => {
           />
         </>
       )}
-    </LayoutContainer>
+    </Page>
   );
 };
 
