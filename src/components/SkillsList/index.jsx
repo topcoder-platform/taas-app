@@ -101,6 +101,7 @@ const SkillsList = ({ requiredSkills, skills, limit = 3 }) => {
                     <div styleName="skills-section">
                       <div styleName="skills-title">Required Job Skills</div>
                       <ul styleName="skills-list">
+                        {!requiredSkills.length && <li>None</li>}
                         {requiredSkills.map((skill) => (
                           <li key={skill.id}>
                             {_.find(skills, { id: skill.id }) ? (

@@ -22,10 +22,12 @@
 
 .popover-content {
   display: flex;
-  padding: 24px;
+  flex-wrap: wrap;
+  padding: 4px 24px 24px;
 }
 
 .skills-section {
+  margin-top: 20px;
   padding-right: 32px;
 }
 
