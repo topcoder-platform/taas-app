@@ -2,14 +2,11 @@
 
 .pagination {
   display: flex;
-  flex-wrap: wrap;
-  margin-bottom: -10px;
 
   .page {
     padding: 0 10px;
-    margin: 0 5px 10px;
+    margin: 0 5px;
     min-width: 30px;
-
   }
 
   .current {
@@ -20,7 +17,6 @@
 
   .next {
     margin-left: 5px;
-    margin-bottom: 10px;
 
     > svg {
       transform: rotate(-90deg);
@@ -33,7 +29,6 @@
 
   .prev {
     margin-right: 5px;
-    margin-bottom: 10px;
 
     > svg {
       margin-right: 3px;
