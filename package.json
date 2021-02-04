@@ -4,7 +4,7 @@
     "start": "node server.js",
     "dev": "webpack-dev-server --port 8501 --host 0.0.0.0",
     "dev-https": "webpack-dev-server --https --port 8501 --host 0.0.0.0",
-    "build": "webpack --mode=${APPMODE:-development} --env.config=${APPENV:-dev}",
+    "build": "webpack --mode=${APPMODE:-production} --env.config=${APPENV:-prod}",
     "analyze": "webpack --mode=production --env.analyze=true",
     "lint": "eslint src --ext js",
     "format": "prettier --write \"./**\"",
