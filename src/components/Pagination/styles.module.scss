@@ -9,13 +9,12 @@
     padding: 0 10px;
     margin: 0 5px 10px;
     min-width: 30px;
-
   }
 
   .current {
-    color: #2A2A2A;
+    color: #2a2a2a;
     cursor: default;
-    border-color: #2A2A2A;
+    border-color: #2a2a2a;
   }
 
   .next {
@@ -26,7 +25,7 @@
       transform: rotate(-90deg);
 
       path {
-        fill: #137D60;
+        fill: #137d60;
       }
     }
   }
@@ -40,7 +39,7 @@
       transform: rotate(90deg);
 
       path {
-        fill: #137D60;
+        fill: #137d60;
       }
     }
   }

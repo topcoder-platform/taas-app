@@ -115,6 +115,7 @@ const TeamMembers = ({ team }) => {
                     user={{
                       ...member,
                       photoUrl: member.photo_url,
+                      teamId: team.id,
                     }}
                   />
                 </div>

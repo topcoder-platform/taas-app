@@ -1,0 +1,24 @@
+@import "styles/include";
+.resource-details {
+  background-color: #ffffff;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 5px 24px 0;
+  font-size: 14px;
+  line-height: 22px;
+}
+
+.table {
+  @include table;
+}
+
+.table-row {
+  @include table-row;
+  border: none;
+}
+
+.table-cell {
+  @include table-cell;
+  width: 33%;
+}
