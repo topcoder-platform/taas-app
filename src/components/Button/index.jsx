@@ -27,6 +27,7 @@ const Button = ({
   routeTo,
   href,
   target,
+  isSubmit,
 }) => {
   if (href) {
     return (
@@ -49,6 +50,7 @@ const Button = ({
         className={className}
         ref={innerRef}
         disabled={disabled}
+        type={isSubmit ? "submit" : "button"}
       >
         {children}
       </button>
@@ -68,6 +70,7 @@ Button.propTypes = {
   disabled: PT.bool,
   routeTo: PT.string,
   href: PT.string,
+  isSubmit: PT.bool,
 };
 
 export default Button;

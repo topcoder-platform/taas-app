@@ -50,6 +50,7 @@ const PositionDetails = ({ teamId, positionId }) => {
             position={position}
             candidateStatus={candidateStatus}
             updateCandidate={updateCandidate}
+            teamId={teamId}
           />
         </>
       )}

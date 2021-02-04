@@ -1,0 +1,12 @@
+.error {
+  :first-child {
+    border-color: #ff5b52;
+  }
+}
+
+.select-wrapper {
+  input {
+    border: none !important;
+    box-shadow: none !important;
+  }
+}

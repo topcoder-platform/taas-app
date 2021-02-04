@@ -22,6 +22,7 @@ import Button from "components/Button";
 import Pagination from "components/Pagination";
 import IconResume from "../../../../assets/images/icon-resume.svg";
 import { toastr } from "react-redux-toastr";
+import { getJobById } from "services/jobs";
 
 /**
  * Generates a function to sort candidates
@@ -54,7 +55,12 @@ const populateSkillsMatched = (position, candidate) => ({
   skillsMatched: _.intersectionBy(position.skills, candidate.skills, "id"),
 });
 
-const PositionCandidates = ({ position, candidateStatus, updateCandidate }) => {
+const PositionCandidates = ({
+  position,
+  candidateStatus,
+  updateCandidate,
+  teamId,
+}) => {
   const { candidates } = position;
   const [sortBy, setSortBy] = useState(CANDIDATES_SORT_BY.SKILL_MATCHED);
   const filteredCandidates = useMemo(
@@ -164,6 +170,7 @@ const PositionCandidates = ({ position, candidateStatus, updateCandidate }) => {
                   user={{
                     ...candidate,
                     photoUrl: candidate.photo_url,
+                    teamId: teamId,
                   }}
                   hideFullName
                 />
@@ -240,6 +247,7 @@ const PositionCandidates = ({ position, candidateStatus, updateCandidate }) => {
 PositionCandidates.propType = {
   position: PT.object,
   candidateStatus: PT.oneOf(Object.values(CANDIDATE_STATUS)),
+  teamId: PT.string.isRequired,
 };
 
 export default PositionCandidates;
