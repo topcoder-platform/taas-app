@@ -6,7 +6,7 @@ const path = require("path");
 const autoprefixer = require("autoprefixer");
 
 
-const cssLocalIdent = process.env.APPMODE === "production"  
+const cssLocalIdent = process.env.APPMODE === "production"
   ? "[hash:base64:6]"
   : "teams_[path][name]___[local]___[hash:base64:6]";
 
@@ -18,6 +18,10 @@ module.exports = (webpackConfigEnv) => {
   });
 
   return webpackMerge.smart(defaultConfig, {
+    output: {
+      // path: path.resolve(__dirname, 'dist'),
+      publicPath: 'taas-app',
+    },
     // modify the webpack config however you'd like to by adding to this object
     module: {
       rules: [

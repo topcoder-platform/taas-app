@@ -6,7 +6,7 @@
  */
 import React from "react";
 import PT from "prop-types";
-import LayoutContainer from "components/LayoutContainer";
+import Page from "components/Page";
 import PageHeader from "components/PageHeader";
 import { useData } from "hooks/useData";
 import { getTeamById } from "services/teams";
@@ -20,7 +20,7 @@ const MyTeamsDetails = ({ teamId }) => {
   const [team, loadingError] = useData(getTeamById, teamId);
 
   return (
-    <LayoutContainer>
+    <Page title="Team Details">
       {!team ? (
         <LoadingIndicator error={loadingError} />
       ) : (
@@ -31,7 +31,7 @@ const MyTeamsDetails = ({ teamId }) => {
           <TeamPositions positions={team.jobs || []} teamId={teamId} />
         </>
       )}
-    </LayoutContainer>
+    </Page>
   );
 };
 
