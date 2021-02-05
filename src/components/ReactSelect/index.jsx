@@ -37,7 +37,7 @@ const ReactSelect = (props) => {
     }),
     indicatorsContainer: (provided) => ({
       ...provided,
-      height: "36px",
+      height: "auto",
     }),
     option: (provided) => ({
       ...provided,

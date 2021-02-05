@@ -8,13 +8,10 @@
   input {
     border: none !important;
     box-shadow: none !important;
+    transition: none !important;
   }
 }
 
 .react-select__option{
   min-height: 32px;
-}
-
-input{
-  transition: none !important;
 }

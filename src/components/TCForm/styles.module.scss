@@ -2,17 +2,16 @@
 @import "~react-datepicker/dist/react-datepicker.css";
 
 
-@media (max-width: 1421px) {
-  .tc-form  > .job-form-fields {
-      padding: 0px !important;
-    }
-}
 
 .tc-form {
   width: 100%;
 
-  .job-form-fields {
+  .job-form-fields-container {
     padding: 40px 19% 20px;
+
+    .job-form-fields-wrapper{
+      max-width: 640px;
+    }
 
     input:not([type="checkbox"]),
     textarea {
@@ -58,3 +57,42 @@
   z-index: 100;
 }
 
+@media (max-width: 1366px) {
+  .tc-form{
+    .job-form-fields-container {
+        padding-left: 15%;
+        padding-right: 15%;
+        transition: 300ms;
+      }
+  }
+}
+
+@media (max-width: 1280px) {
+  .tc-form{
+    .job-form-fields-container {
+        padding-left: 10%;
+        padding-right: 10%;
+        transition: 300ms;
+      }
+  }
+}
+
+@media (max-width: 1020px) {
+  .tc-form{
+    .job-form-fields-container {
+        padding-left: 5%;
+        padding-right: 5%;
+        transition: 300ms;
+      }
+  }
+}
+
+@media (max-width: 854px) {
+  .tc-form{
+    .job-form-fields-container {
+        padding-left: 0;
+        padding-right: 0;
+        transition: 300ms;
+      }
+  }
+}

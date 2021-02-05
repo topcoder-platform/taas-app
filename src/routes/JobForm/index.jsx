@@ -78,7 +78,7 @@ const JobForm = ({ teamId, jobId }) => {
 
   useEffect(() => {
     if (skills && job && !options) {
-      const skillOptions = skills.slice(0, 10).map((item) => {
+      const skillOptions = skills.map((item) => {
         return {
           value: item.id,
           label: item.name,

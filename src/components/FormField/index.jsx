@@ -18,32 +18,28 @@ const FormField = ({ field, isGroupField }) => {
     <Field name={field.name}>
       {({ input, meta }) => (
         <div styleName={isGroupField ? "field-group-field" : ""}>
-          <label
-            styleName={
-              input.value || meta.active
-                ? "job-field-label"
-                : "job-field-label job-field-no-label"
-            }
-          >
-            {field.label}
-          </label>
+          { !field.readonly && (             
+            <label
+              styleName={
+                (input.value != "undefined" && input.value !== null && input.value !== "") || meta.active
+                  ? "job-field-label"
+                  : "job-field-label job-field-no-label"
+              }
+            >
+              {field.label}
+            </label>
+          )}
           {field.type === FORM_FIELD_TYPE.TEXT && (
             <TextInput
               maxLength={field.maxLength}
               placeholder={field.placeholder}
               value={input.value ?? ""}
               type="text"
-              onChange={(v) => {
-                input.onChange(v);
-              }}
               className={meta.error && meta.touched ? "error" : ""}
               readonly={field.readonly}
-              onBlur={(event) => {
-                input.onBlur(event);
-              }}
-              onFocus={(event) => {
-                input.onFocus(event);
-              }}
+              onChange={input.onChange}
+              onBlur={input.onBlur}
+              onFocus={input.onFocus}
             />
           )}
           {field.type === FORM_FIELD_TYPE.NUMBER && (
@@ -53,12 +49,8 @@ const FormField = ({ field, isGroupField }) => {
               type="number"
               minValue={field.minValue}
               onChange={input.onChange}
-              onBlur={(event) => {
-                input.onBlur(event);
-              }}
-              onFocus={(event) => {
-                input.onFocus(event);
-              }}
+              onBlur={input.onBlur}
+              onFocus={input.onFocus}
               className={meta.error && meta.touched ? "error" : ""}
             />
           )}
@@ -67,12 +59,8 @@ const FormField = ({ field, isGroupField }) => {
               placeholder={field.placeholder}
               value={input?.value ?? ""}
               onChange={input.onChange}
-              onBlur={(event) => {
-                input.onBlur(event);
-              }}
-              onFocus={(event) => {
-                input.onFocus(event);
-              }}
+              onBlur={input.onBlur}
+              onFocus={input.onFocus}
               className={meta.error && meta.touched ? "error" : ""}
             />
           )}
@@ -80,31 +68,19 @@ const FormField = ({ field, isGroupField }) => {
             <DateInput
               placeholder={field.placeholder}
               value={input?.value ?? ""}
-              onChange={(date) => {
-                input.onChange(date);
-              }}
-              onBlur={(event) => {
-                input.onBlur(event);
-              }}
-              onFocus={(event) => {
-                input.onFocus(event);
-              }}
+              onChange={input.onChange}
+              onBlur={input.onBlur}
+              onFocus={input.onFocus}
             />
           )}
           {field.type === FORM_FIELD_TYPE.SELECT && (
             <ReactSelect
               value={input?.value ?? ""}
-              onChange={(val) => {
-                input.onChange(val);
-              }}
               options={field.selectOptions}
               isMulti={field.isMulti}
-              onBlur={(event) => {
-                input.onBlur(event);
-              }}
-              onFocus={(event) => {
-                input.onFocus(event);
-              }}
+              onChange={input.onChange}
+              onBlur={input.onBlur}
+              onFocus={input.onFocus}
             />
           )}
           {field.isRequired && meta.error &&  meta.touched && (
