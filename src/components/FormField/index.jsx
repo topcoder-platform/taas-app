@@ -20,7 +20,7 @@ const FormField = ({ field, isGroupField }) => {
         <div styleName={isGroupField ? "field-group-field" : ""}>
           <label
             styleName={
-              input.value
+              input.value || meta.active
                 ? "job-field-label"
                 : "job-field-label job-field-no-label"
             }
@@ -36,8 +36,14 @@ const FormField = ({ field, isGroupField }) => {
               onChange={(v) => {
                 input.onChange(v);
               }}
-              className={meta.error ? "error" : ""}
+              className={meta.error && meta.touched ? "error" : ""}
               readonly={field.readonly}
+              onBlur={(event) => {
+                input.onBlur(event);
+              }}
+              onFocus={(event) => {
+                input.onFocus(event);
+              }}
             />
           )}
           {field.type === FORM_FIELD_TYPE.NUMBER && (
@@ -47,7 +53,13 @@ const FormField = ({ field, isGroupField }) => {
               type="number"
               minValue={field.minValue}
               onChange={input.onChange}
-              className={meta.error ? "error" : ""}
+              onBlur={(event) => {
+                input.onBlur(event);
+              }}
+              onFocus={(event) => {
+                input.onFocus(event);
+              }}
+              className={meta.error && meta.touched ? "error" : ""}
             />
           )}
           {field.type === FORM_FIELD_TYPE.TEXTAREA && (
@@ -55,7 +67,13 @@ const FormField = ({ field, isGroupField }) => {
               placeholder={field.placeholder}
               value={input?.value ?? ""}
               onChange={input.onChange}
-              className={meta.error ? "error" : ""}
+              onBlur={(event) => {
+                input.onBlur(event);
+              }}
+              onFocus={(event) => {
+                input.onFocus(event);
+              }}
+              className={meta.error && meta.touched ? "error" : ""}
             />
           )}
           {field.type === FORM_FIELD_TYPE.DATE && (
@@ -64,6 +82,12 @@ const FormField = ({ field, isGroupField }) => {
               value={input?.value ?? ""}
               onChange={(date) => {
                 input.onChange(date);
+              }}
+              onBlur={(event) => {
+                input.onBlur(event);
+              }}
+              onFocus={(event) => {
+                input.onFocus(event);
               }}
             />
           )}
@@ -75,9 +99,15 @@ const FormField = ({ field, isGroupField }) => {
               }}
               options={field.selectOptions}
               isMulti={field.isMulti}
+              onBlur={(event) => {
+                input.onBlur(event);
+              }}
+              onFocus={(event) => {
+                input.onFocus(event);
+              }}
             />
           )}
-          {field.isRequired && meta.error && (
+          {field.isRequired && meta.error &&  meta.touched && (
             <div styleName="field-error">{meta.error}</div>
           )}
         </div>

@@ -28,6 +28,7 @@ export const getEmptyJob = (teamId) => {
       workload: "full-time",
       rateType: "weekly",
       skills: [],
+      status: "sourcing",
     },
   });
 };

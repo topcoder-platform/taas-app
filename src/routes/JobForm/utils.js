@@ -18,6 +18,7 @@ const CREATE_JOB_ROWS = [
   { type: FORM_ROW_TYPE.SINGLE, fields: ["resourceType"] },
   { type: FORM_ROW_TYPE.SINGLE, fields: ["rateType"] },
   { type: FORM_ROW_TYPE.SINGLE, fields: ["workload"] },
+  { type: FORM_ROW_TYPE.SINGLE, fields: ["status"] },
 ];
 
 const EDIT_JOB_ROWS = [
@@ -185,6 +186,14 @@ export const getCreateJobConfig = (skillOptions, onSubmit) => {
         type: FORM_FIELD_TYPE.SELECT,
         name: "workload",
         selectOptions: WORKLOAD_OPTIONS,
+      },
+      {
+        label: "Status",
+        type: FORM_FIELD_TYPE.SELECT,
+        isRequired: true,
+        validationMessage: "Please, select Status",
+        name: "status",
+        selectOptions: STATUS_OPTIONS,
       },
     ],
     onSubmit: onSubmit,

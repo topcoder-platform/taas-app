@@ -1,6 +1,13 @@
 @import "styles/include";
 @import "~react-datepicker/dist/react-datepicker.css";
 
+
+@media (max-width: 1421px) {
+  .tc-form  > .job-form-fields {
+      padding: 0px !important;
+    }
+}
+
 .tc-form {
   width: 100%;
 
@@ -50,3 +57,4 @@
 .datepicker-wrapper > div:nth-child(2) > div:nth-child(2) {
   z-index: 100;
 }
+

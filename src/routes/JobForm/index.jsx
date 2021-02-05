@@ -78,7 +78,7 @@ const JobForm = ({ teamId, jobId }) => {
 
   useEffect(() => {
     if (skills && job && !options) {
-      const skillOptions = skills.map((item) => {
+      const skillOptions = skills.slice(0, 10).map((item) => {
         return {
           value: item.id,
           label: item.name,
@@ -110,7 +110,7 @@ const JobForm = ({ teamId, jobId }) => {
                   : getCreateJobConfig(options, onSubmit)
               }
               initialValue={job}
-              submitButton={{ text: "Save" }}
+              submitButton={{ text: isEdit ? "Save" : "Create" }}
               backButton={{
                 text: "Cancel",
                 backTo: isEdit
