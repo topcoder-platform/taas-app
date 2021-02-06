@@ -7,10 +7,13 @@
   width: 100%;
 
   .job-form-fields-container {
-    padding: 40px 19% 20px;
+    padding: 40px 0px 20px;
 
     .job-form-fields-wrapper{
+      width: 100%;
       max-width: 640px;
+      margin: 0 auto;
+      text-align: left;
     }
 
     input:not([type="checkbox"]),
@@ -55,44 +58,4 @@
 
 .datepicker-wrapper > div:nth-child(2) > div:nth-child(2) {
   z-index: 100;
-}
-
-@media (max-width: 1366px) {
-  .tc-form{
-    .job-form-fields-container {
-        padding-left: 15%;
-        padding-right: 15%;
-        transition: 300ms;
-      }
-  }
-}
-
-@media (max-width: 1280px) {
-  .tc-form{
-    .job-form-fields-container {
-        padding-left: 10%;
-        padding-right: 10%;
-        transition: 300ms;
-      }
-  }
-}
-
-@media (max-width: 1020px) {
-  .tc-form{
-    .job-form-fields-container {
-        padding-left: 5%;
-        padding-right: 5%;
-        transition: 300ms;
-      }
-  }
-}
-
-@media (max-width: 854px) {
-  .tc-form{
-    .job-form-fields-container {
-        padding-left: 0;
-        padding-right: 0;
-        transition: 300ms;
-      }
-  }
 }

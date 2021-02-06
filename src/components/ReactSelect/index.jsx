@@ -12,18 +12,19 @@ const ReactSelect = (props) => {
   const customStyles = {
     control: (provided, state) => ({
       ...provided,
-      minHeight: "36px",
-      borderColor: state.isFocused ? "#55a5ff" : provided.borderColor,
+      minHeight: "40px",
+      border: "1px solid #aaaaab",
+      borderColor: state.isFocused ? "#55a5ff" : "#aaaaab",
       boxShadow: state.isFocused ? "0 0 2px 1px #cee6ff" : provided.boxShadow
     }),
     menu: (provided) => ({
       ...provided,
-      minHeight: "36px",
+      minHeight: "40px",
       zIndex: 10,
     }),
     valueContainer: (provided) => ({
       ...provided,
-      padding: "1px 6px",
+      padding: "2px 6px",
     }),
     input: (provided) => ({
       ...provided,
@@ -47,14 +48,14 @@ const ReactSelect = (props) => {
       ...provided,
       color: "#AAAAAA",
       fontFamily: "Roboto",
-      fontSize: "16px",
+      fontSize: "14px",
       lineHeight: "22px",
       textAlign: "left",
-      fontWeight: "300"
+      fontWeight: "400"
     }),
     multiValue: (provided) => ({
       ...provided,
-      margin: "4px 4px",
+      margin: "3px 3px",
       color: "#AAAAAA",
       fontFamily: "Roboto",
       fontSize: "14px",
@@ -69,9 +70,7 @@ const ReactSelect = (props) => {
       <Select
         value={props.value}
         styles={customStyles}
-        onChange={(val) => {
-          props.onChange(val);
-        }}
+        onChange={props.onChange}
         options={props.options}
         styleName={props.error ? "error" : ""}
         isMulti={props.isMulti}
