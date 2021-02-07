@@ -55,12 +55,7 @@ const populateSkillsMatched = (position, candidate) => ({
   skillsMatched: _.intersectionBy(position.skills, candidate.skills, "id"),
 });
 
-const PositionCandidates = ({
-  position,
-  candidateStatus,
-  updateCandidate,
-  teamId,
-}) => {
+const PositionCandidates = ({ position, candidateStatus, updateCandidate }) => {
   const { candidates } = position;
   const [sortBy, setSortBy] = useState(CANDIDATES_SORT_BY.SKILL_MATCHED);
   const filteredCandidates = useMemo(
@@ -170,7 +165,6 @@ const PositionCandidates = ({
                   user={{
                     ...candidate,
                     photoUrl: candidate.photo_url,
-                    teamId: teamId,
                   }}
                   hideFullName
                 />
@@ -247,7 +241,6 @@ const PositionCandidates = ({
 PositionCandidates.propType = {
   position: PT.object,
   candidateStatus: PT.oneOf(Object.values(CANDIDATE_STATUS)),
-  teamId: PT.string.isRequired,
 };
 
 export default PositionCandidates;

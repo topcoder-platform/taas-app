@@ -11,6 +11,7 @@ import Button from "components/Button";
 import { POSITION_STATUS, POSITION_STATUS_TO_TEXT, RATE_TYPE } from "constants";
 import "./styles.module.scss";
 import { formatDateRange } from "utils/format";
+import { Link } from "@reach/router";
 
 const TeamPositions = ({ teamId, positions }) => {
   return (
@@ -33,12 +34,12 @@ const TeamPositions = ({ teamId, positions }) => {
             <div styleName="table-row" key={index}>
               <div styleName="table-group-first">
                 <div styleName="table-cell cell-skills">
-                  <a
+                  <Link
                     styleName="job-title"
-                    href={`/taas/myteams/${teamId}/positions/${position.id}`}
+                    to={`/taas/myteams/${teamId}/positions/${position.id}`}
                   >
                     <strong>{position.title}</strong>
-                  </a>
+                  </Link>
                   <SkillsList skills={position.skills} limit={5} />
                 </div>
                 <div styleName="table-group-first-inner">
