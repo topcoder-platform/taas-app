@@ -1,0 +1,26 @@
+@import "styles/include";
+
+.TextInput {
+  background-color: #ffffff;
+  border: 1px solid #aaaaaa;
+  border-radius: 6px;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  -ms-overflow-style: none;
+  font-family: Roboto;
+  font-size: 14px;
+  line-height: 22px;
+  text-align: left;
+
+  &.error {
+    border-color: #fe665d;
+  }
+
+  &.readonly {
+    background-color: #ffffff !important;
+    border: 1px solid #aaaaaa !important;
+    color: #aaaaaa;
+    box-shadow: none !important;
+  }
+}

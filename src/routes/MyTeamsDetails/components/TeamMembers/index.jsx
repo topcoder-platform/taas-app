@@ -116,6 +116,7 @@ const TeamMembers = ({ team }) => {
                       ...member,
                       photoUrl: member.photo_url,
                     }}
+                    handleLinkTo={`/taas/myteams/${team.id}/rb/${member.id}`}
                   />
                 </div>
                 <div styleName="table-group-first-inner">

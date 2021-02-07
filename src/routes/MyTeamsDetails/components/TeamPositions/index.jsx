@@ -11,19 +11,35 @@ import Button from "components/Button";
 import { POSITION_STATUS, POSITION_STATUS_TO_TEXT, RATE_TYPE } from "constants";
 import "./styles.module.scss";
 import { formatDateRange } from "utils/format";
+import { Link } from "@reach/router";
 
 const TeamPositions = ({ teamId, positions }) => {
   return (
     <div styleName="team-positions">
-      <CardHeader title="Open Positions" />
-
+      <div styleName="team-position-header">
+        <CardHeader title="Open Positions" />
+        <div styleName="actions">
+          <Button
+            type="secondary"
+            size="medium"
+            routeTo={`/taas/myteams/${teamId}/positions/new`}
+          >
+            Create Position
+          </Button>
+        </div>
+      </div>
       {positions.length > 0 ? (
         <div styleName="table">
           {positions.map((position, index) => (
             <div styleName="table-row" key={index}>
               <div styleName="table-group-first">
                 <div styleName="table-cell cell-skills">
-                  <strong>{position.title}</strong>
+                  <Link
+                    styleName="job-title"
+                    to={`/taas/myteams/${teamId}/positions/${position.id}`}
+                  >
+                    <strong>{position.title}</strong>
+                  </Link>
                   <SkillsList skills={position.skills} limit={5} />
                 </div>
                 <div styleName="table-group-first-inner">
@@ -43,7 +59,7 @@ const TeamPositions = ({ teamId, positions }) => {
                 <div styleName="table-cell cell-action">
                   {position.status === POSITION_STATUS.IN_REVIEW && (
                     <Button
-                      routeTo={`/taas/myteams/${teamId}/positions/${position.id}`}
+                      routeTo={`/taas/myteams/${teamId}/positions/${position.id}/candidates`}
                     >
                       select candidates
                     </Button>

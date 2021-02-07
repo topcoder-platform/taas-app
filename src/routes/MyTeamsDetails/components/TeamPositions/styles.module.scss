@@ -6,10 +6,28 @@
   padding: 0 24px 24px;
 }
 
+.team-position-header {
+  @include rounded-card;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 20px 0;
+  border-radius: 20px;
+}
+
 .no-positions {
   color: #aaaaaa;
   padding: 25px 0 79px;
   text-align: center;
+}
+
+.job-title {
+  cursor: pointer;
 }
 
 .table {

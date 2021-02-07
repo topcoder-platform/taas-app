@@ -4,7 +4,8 @@ const express = require("express");
 
 const app = express();
 
-app.use('/taas-app',
+app.use(
+  "/taas-app",
   express.static("./dist", {
     setHeaders: function setHeaders(res) {
       res.header("Access-Control-Allow-Origin", "*");
@@ -17,9 +18,9 @@ app.use('/taas-app',
   })
 );
 
-app.get('/', function (req, res) {
-  res.send('alive')
-})
+app.get("/", function (req, res) {
+  res.send("alive");
+});
 
 const PORT = process.env.PORT || 8501;
 app.listen(PORT);

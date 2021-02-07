@@ -19,3 +19,15 @@ axiosInstance.interceptors.request.use((config) => {
       return config;
     });
 });
+
+// response interceptor to handle error
+axiosInstance.interceptors.response.use(
+  (config) => {
+    // return the response
+    return config;
+  },
+  (error) => {
+    // return the response body
+    return Promise.reject(error.response.data);
+  }
+);

@@ -79,8 +79,10 @@ export const formatRemainingTimeForTeam = (team) => {
  *
  * @returns {string} formatted money value
  */
-export const formatMoney = (value, currency = "$") =>
-  currency + new Intl.NumberFormat().format(value);
+export const formatMoney = (value, currency = "$") => {
+  value = value ?? 0;
+  return currency + new Intl.NumberFormat().format(value);
+};
 
 /**
  * Convert rate value from one type to another one.
@@ -166,6 +168,23 @@ export const formatDateRange = (startDate, endDate) => {
   }
 
   return `${startDateStr} - ${endDateStr}`;
+};
+
+/**
+ * Format date
+ *
+ * @param {string|Date|moment.Moment} date date
+ *
+ * @returns {string} formatted date range
+ */
+export const formatDate = (date) => {
+  const dateStr = date ? moment(date).format(DAY_FORMAT) : "";
+
+  if (!dateStr) {
+    return "TBD";
+  }
+
+  return `${dateStr}`;
 };
 
 /**

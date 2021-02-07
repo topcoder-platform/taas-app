@@ -148,3 +148,64 @@ export const ACTION_TYPE = {
   UPDATE_CANDIDATE_SUCCESS: "UPDATE_CANDIDATE_SUCCESS",
   UPDATE_CANDIDATE_ERROR: "UPDATE_CANDIDATE_ERROR",
 };
+
+/**
+ * All fonr field types
+ */
+export const FORM_FIELD_TYPE = {
+  TEXT: "text",
+  TEXTAREA: "textarea",
+  NUMBER: "number",
+  SELECT: "select",
+  MULTISELECT: "multiselect",
+  DATE: "date",
+  DATERANGE: "date_range",
+};
+
+/**
+ * All form action types
+ */
+export const FORM_ACTION_TYPE = {
+  SUBMIT: "submit",
+  BACK: "back",
+  CUSTOM: "custom",
+};
+
+/**
+ * All form row types
+ */
+export const FORM_ROW_TYPE = {
+  SINGLE: "single",
+  GROUP: "group",
+};
+
+/**
+ * Rate type options
+ */
+export const RATE_TYPE_OPTIONS = [
+  { value: null, label: "" },
+  { value: "hourly", label: "hourly" },
+  { value: "daily", label: "daily" },
+  { value: "weekly", label: "weekly" },
+  { value: "monthly", label: "monthly" },
+];
+
+/**
+ * workload options
+ */
+export const WORKLOAD_OPTIONS = [
+  { value: null, label: "" },
+  { value: "full-time", label: "full-time" },
+  { value: "fractional", label: "fractional" },
+];
+
+/**
+ * status options
+ */
+export const STATUS_OPTIONS = [
+  { value: "sourcing", label: "sourcing" },
+  { value: "in-review", label: "in-review" },
+  { value: "assigned", label: "assigned" },
+  { value: "closed", label: "closed" },
+  { value: "cancelled", label: "cancelled" },
+];

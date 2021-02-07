@@ -1,13 +1,19 @@
 @import "styles/include";
 
 .data-item {
-  align-items: center;
+  align-items: flex-start;
   display: flex;
   flex-direction: row;
+  svg {
+    margin-top: 4px;
+  }
 }
 
 .data {
   margin-left: 16px;
+  display: flex;
+  flex-direction: column;
+  flex-basis: 90%;
 }
 
 .title {
@@ -16,7 +22,6 @@
   letter-spacing: 0.5px;
   line-height: 16px;
   text-align: left;
-  white-space: nowrap;
 }
 
 .value {
@@ -25,5 +30,5 @@
   font-weight: 500;
   margin-top: 2px;
   text-align: left;
-  white-space: nowrap;
+  word-break: break-all;
 }

@@ -22,6 +22,7 @@ import Button from "components/Button";
 import Pagination from "components/Pagination";
 import IconResume from "../../../../assets/images/icon-resume.svg";
 import { toastr } from "react-redux-toastr";
+import { getJobById } from "services/jobs";
 
 /**
  * Generates a function to sort candidates
