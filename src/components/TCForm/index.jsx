@@ -49,29 +49,31 @@ const TCForm = ({
         validate={getValidator(configuration.fields)}
         render={({ handleSubmit, invalid, dirty }) => (
           <form onSubmit={handleSubmit} styleName="tc-form">
-            <div styleName="job-form-fields">
-              {configuration.rows.map((row) => {
-                return (
-                  <>
-                    {row.type === FORM_ROW_TYPE.GROUP && (
-                      <div styleName="field-group">
-                        {row.fields.map((field) => {
-                          return (
-                            <FormField
-                              field={fields[field]}
-                              isGroupField={true}
-                            />
-                          );
+            <div styleName="job-form-fields-container">
+              <div styleName="job-form-fields-wrapper">
+                {configuration.rows.map((row) => {
+                  return (
+                    <>
+                      {row.type === FORM_ROW_TYPE.GROUP && (
+                        <div styleName="field-group">
+                          {row.fields.map((field) => {
+                            return (
+                              <FormField
+                                field={fields[field]}
+                                isGroupField={true}
+                              />
+                            );
+                          })}
+                        </div>
+                      )}
+                      {row.type === FORM_ROW_TYPE.SINGLE &&
+                        row.fields.map((field) => {
+                          return <FormField field={fields[field]} />;
                         })}
-                      </div>
-                    )}
-                    {row.type === FORM_ROW_TYPE.SINGLE &&
-                      row.fields.map((field) => {
-                        return <FormField field={fields[field]} />;
-                      })}
-                  </>
-                );
-              })}
+                    </>
+                  );
+                })}
+              </div>
             </div>
             <div styleName="form-actions">
               <Button

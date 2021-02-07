@@ -16,6 +16,8 @@ function TextArea(props) {
       placeholder={props.placeholder}
       value={props.value}
       autoFocus={props.autoFocus}
+      onBlur={props.onBlur}
+      onFocus={props.onFocus}
     />
   );
 }
@@ -31,6 +33,8 @@ TextArea.propTypes = {
   onChange: PT.func,
   placeholder: PT.string,
   value: PT.string.isRequired,
+  onBlur: PT.func,
+  onFocus: PT.func,
 };
 
 export default TextArea;

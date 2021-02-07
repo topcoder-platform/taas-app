@@ -1,11 +1,20 @@
 @import "styles/include";
 @import "~react-datepicker/dist/react-datepicker.css";
 
+
+
 .tc-form {
   width: 100%;
 
-  .job-form-fields {
-    padding: 40px 19% 20px;
+  .job-form-fields-container {
+    padding: 40px 0px 20px;
+
+    .job-form-fields-wrapper{
+      width: 100%;
+      max-width: 640px;
+      margin: 0 auto;
+      text-align: left;
+    }
 
     input:not([type="checkbox"]),
     textarea {

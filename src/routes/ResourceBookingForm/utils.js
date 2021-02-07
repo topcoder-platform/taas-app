@@ -27,17 +27,17 @@ export const getEditResourceBookingConfig = (onSubmit) => {
       { readonly: true, type: FORM_FIELD_TYPE.TEXT, name: "title" },
       { readonly: true, type: FORM_FIELD_TYPE.TEXT, name: "handle" },
       {
-        label: "Customer Rate",
+        label: "Client Rate",
         type: FORM_FIELD_TYPE.NUMBER,
         name: "customerRate",
-        minValue: 1,
-        placeholder: "Customer Rate",
+        minValue: 0,
+        placeholder: "Client Rate",
       },
       {
         label: "Member Rate",
         type: FORM_FIELD_TYPE.NUMBER,
         name: "memberRate",
-        minValue: 1,
+        minValue: 0,
         placeholder: "Member Rate",
       },
       {

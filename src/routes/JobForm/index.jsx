@@ -110,7 +110,7 @@ const JobForm = ({ teamId, jobId }) => {
                   : getCreateJobConfig(options, onSubmit)
               }
               initialValue={job}
-              submitButton={{ text: "Save" }}
+              submitButton={{ text: isEdit ? "Save" : "Create" }}
               backButton={{
                 text: "Cancel",
                 backTo: isEdit

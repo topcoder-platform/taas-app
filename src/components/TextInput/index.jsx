@@ -31,6 +31,8 @@ function TextInput(props) {
       value={props.value}
       autoFocus={props.autoFocus}
       readOnly={props.readonly ?? false}
+      onBlur={props.onBlur}
+      onFocus={props.onFocus}
     />
   );
 }
@@ -46,6 +48,8 @@ TextInput.propTypes = {
   className: PT.string,
   maxLength: PT.number,
   onChange: PT.func,
+  onBlur: PT.func,
+  onFocus: PT.func,
   placeholder: PT.string,
   value: PT.string.isRequired,
   type: PT.string.isRequired,
