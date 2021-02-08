@@ -28,6 +28,11 @@ export const POSITION_CANDIDATES_PER_PAGE = 5;
 export const INPUT_DEBOUNCE_DELAY = 200;
 
 /**
+ * The delay in milliseconds we are giving to ElasticSearch of re-index changes
+ */
+export const ES_REINDEX_DELAY = 3000;
+
+/**
  * Position statuses
  */
 export const POSITION_STATUS = {

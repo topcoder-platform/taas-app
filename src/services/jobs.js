@@ -3,6 +3,8 @@
  */
 import { axiosInstance as axios } from "./requestInterceptor";
 import config from "../../config";
+import { ES_REINDEX_DELAY } from "../constants";
+import { delay } from "utils/helpers";
 
 /**
  * Get job by id.
@@ -40,7 +42,14 @@ export const getEmptyJob = (teamId) => {
  * @returns {Promise<{}>} job object
  */
 export const createJob = (data) => {
-  return axios.post(`${config.API.V5}/jobs`, data);
+  return (
+    axios
+      .post(`${config.API.V5}/jobs`, data)
+      // temporary fix:
+      // after creating a job we are reloading the list of jobs
+      // so we have to wait a bit to make sure job is indexed in the ES
+      .then((response) => delay(ES_REINDEX_DELAY).then(() => response))
+  );
 };
 
 /**
@@ -51,5 +60,12 @@ export const createJob = (data) => {
  * @returns {Promise<{}>} job object
  */
 export const updateJob = (data, jobId) => {
-  return axios.put(`${config.API.V5}/jobs/${jobId}`, data);
+  return (
+    axios
+      .put(`${config.API.V5}/jobs/${jobId}`, data)
+      // temporary fix:
+      // after updating a job we are reloading the list of jobs
+      // so we have to wait a bit to make sure job is indexed in the ES
+      .then((response) => delay(ES_REINDEX_DELAY).then(() => response))
+  );
 };
