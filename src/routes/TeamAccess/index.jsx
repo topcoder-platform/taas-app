@@ -1,34 +1,33 @@
 /**
- * MyTeamsDetails
+ * TeamAccess
  *
- * Page for team details.
+ * Page for reviewing, adding and removing team members.
  * It gets `teamId` from the router.
+ * It fetches `teamMembers` and `invitees` from api.
  */
 import React from "react";
 import PT from "prop-types";
 import Page from "components/Page";
 import PageHeader from "components/PageHeader";
 import { useData } from "hooks/useData";
-import { getTeamById } from "services/teams";
+import { getTeamMembers, getTeamInvitees } from "services/teams";
 import LoadingIndicator from "components/LoadingIndicator";
-import TeamSummary from "../MyTeamsDetails/components/TeamSummary";
-import TeamMembers from "../MyTeamsDetails/components/TeamMembers";
-import TeamPositions from "../MyTeamsDetails/components/TeamPositions";
 import withAuthentication from "../../hoc/withAuthentication";
+import MemberList from "./components/MemberList";
 
 const MyTeamsDetails = ({ teamId }) => {
-  const [team, loadingError] = useData(getTeamById, teamId);
+
+  const [teamMembers, memberLoadingError] = useData(getTeamMembers, teamId);
+  const [teamInvitees, inviteeLoadingError] = useData(getTeamInvitees, teamId);
 
   return (
-    <Page title="Team Details">
-      {!team ? (
-        <LoadingIndicator error={loadingError} />
+    <Page title="Manage Access">
+      {!teamMembers || !teamInvitees ? (
+        <LoadingIndicator error={memberLoadingError} />
       ) : (
         <>
-          <PageHeader title={team.name} backTo="/taas/myteams" />
-          <TeamSummary team={team} />
-          <TeamMembers team={team} />
-          <TeamPositions positions={team.jobs || []} teamId={teamId} />
+          <PageHeader title="Manage Access" backTo={`/taas/myteams/${teamId}`} />
+          <MemberList teamId={teamId} members={teamMembers} invitees={teamInvitees} />
         </>
       )}
     </Page>

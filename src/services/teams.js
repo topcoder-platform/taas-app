@@ -57,3 +57,29 @@ export const patchPositionCandidate = (candidateId, partialCandidateData) => {
     partialCandidateData
   );
 };
+
+/**
+ * Get Team Members
+ * 
+ * @param {string} teamId team id
+ * 
+ * @returns {Promise<object[]>} list of team members
+ */
+export const getTeamMembers = teamId => {
+  return axios.get(`${config.API.V5}/projects/${teamId}/members/` +
+    "?fields=id,userId,role,createdAt,updatedAt,createdBy,updatedBy" +
+    ",handle,photoURL,workingHourStart,workingHourEnd,timeZone,email");
+}
+
+/**
+ * Get Team Invitees
+ * 
+ * @param {string} teamId team id
+ * 
+ * @returns {Promise<object[]>} list of team invitees
+ */
+export const getTeamInvitees = teamId => {
+  return axios.get(`${config.API.V5}/projects/${teamId}/invites/` + 
+    "?fields=id,projectId,userId,email,role,status,createdAt,updatedAt" + 
+    ",createdBy,updatedBy,handle");
+}
