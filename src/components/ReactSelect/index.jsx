@@ -76,6 +76,7 @@ const ReactSelect = (props) => {
         isMulti={props.isMulti}
         onBlur={props.onBlur}
         onFocus={props.onFocus}
+        placeholder={props.placeholder}
       />
     </div>
   );

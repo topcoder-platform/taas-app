@@ -1,0 +1,18 @@
+import React from 'react'
+import "react-responsive-modal/styles.css"
+import { Modal } from "react-responsive-modal";
+
+function DeleteModal({open, onClose}) {
+
+  const handle = "Some guy";
+  return (
+    <Modal
+      open={open} onClose={onClose}
+    >
+      <h1>You're about to remove an invitation</h1>
+      <p>Once you cancel the invitation for {handle} they won't be able to access the project. You will have to invite them again in order for them to gain access</p>
+    </Modal>  
+  )
+}
+
+export default DeleteModal  
