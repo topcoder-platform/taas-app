@@ -27,7 +27,7 @@ const containerStyle = {
   padding: "10px"
 }
 
-function BaseModal({open, onClose, children, title, button}) {
+function BaseModal({open, onClose, children, title, button, disabled}) {
   return (
     <Modal 
       open={open} 
@@ -45,7 +45,7 @@ function BaseModal({open, onClose, children, title, button}) {
       </div>
       <div styleName="button-group">
         {button && button}
-        <Button type="secondary" size="medium" onClick={onClose}>Cancel</Button>
+        <Button type="secondary" size="medium" onClick={onClose} disabled={disabled}>Cancel</Button>
       </div>
     </Modal>     
   )
@@ -56,7 +56,8 @@ BaseModal.propTypes = {
   onClose: PT.func.isRequired,
   children: PT.node,
   title: PT.string,
-  button: PT.element
+  button: PT.element,
+  disabled: PT.bool
 }
 
 export default BaseModal

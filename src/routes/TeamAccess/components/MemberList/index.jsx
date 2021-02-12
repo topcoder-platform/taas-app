@@ -18,13 +18,14 @@ import DeleteModal from "../DeleteModal";
 
 function MemberList({teamId, members, invitees}) {
 
-  const [deleteOpen, setDeleteOpen] = useState(false);
+  const [selectedToDelete, setSelectedToDelete] = useState(null);
   const [inviteOpen, setInviteOpen] = useState(false);
+  const [isInvite, setIsInvite] = useState(false);
+  const [deleteOpen, setDeleteOpen] = useState(false);
 
-  const openDeleteModal = member => {
-    let name = member.handle;
-    if (!name) name = member.email;
-    console.log(name);
+  const openDeleteModal = (member, isInvite = false) => {
+    setIsInvite(isInvite);
+    setSelectedToDelete(member);
     setDeleteOpen(true);
   }
 
@@ -39,7 +40,7 @@ function MemberList({teamId, members, invitees}) {
               </Button>
           </div>
         </div>
-        {members.length > 0 ? (
+        {members.length > 0 || invitees.length > 0 ? (
           <div styleName="table">
             {members.map(member => (
               <div styleName="row-container">
@@ -76,14 +77,14 @@ function MemberList({teamId, members, invitees}) {
                       Invited {formatInviteTime(invitee.createdAt)}
                     </div>
                   </div>
-                  <button styleName="delete">&times;</button>
+                  <button onClick={() => openDeleteModal(invitee, true)} styleName="delete">&times;</button>
                 </div>
               </div>
             ))}
           </div>
         ) : (<p>no members on team</p>)}
       </div>
-      <DeleteModal open={deleteOpen} onClose={() => setDeleteOpen(false)} />
+      <DeleteModal selected={selectedToDelete} open={deleteOpen} onClose={() => setDeleteOpen(false)} teamId={teamId} isInvite={isInvite}/>
       <AddModal open={inviteOpen} onClose={() => setInviteOpen(false)}/>
     </>
   )

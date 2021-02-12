@@ -61,7 +61,7 @@ export const patchPositionCandidate = (candidateId, partialCandidateData) => {
 /**
  * Get Team Members
  * 
- * @param {string} teamId team id
+ * @param {string|number} teamId team id
  * 
  * @returns {Promise<object[]>} list of team members
  */
@@ -74,7 +74,7 @@ export const getTeamMembers = teamId => {
 /**
  * Get Team Invitees
  * 
- * @param {string} teamId team id
+ * @param {string|number} teamId team id
  * 
  * @returns {Promise<object[]>} list of team invitees
  */
@@ -82,4 +82,21 @@ export const getTeamInvitees = teamId => {
   return axios.get(`${config.API.V5}/projects/${teamId}/invites/` + 
     "?fields=id,projectId,userId,email,role,status,createdAt,updatedAt" + 
     ",createdBy,updatedBy,handle");
+}
+
+/**
+ * Delete Team Member
+ * 
+ * @param {string|number} teamId team id
+ * @param {string|number} memberId member id
+ * 
+ * @returns {Promise<memberId>} memberId 
+ */
+export const deleteTeamMember = (teamId, memberId) => {
+  const url = `${config.API.V5}/projects/${teamId}/members/${memberId}/`;
+  return new Promise((resolve, reject) => {
+    axios.delete(url)
+      .then(() => resolve({ data: memberId }))
+      .catch(ex => reject(ex));
+  });
 }
