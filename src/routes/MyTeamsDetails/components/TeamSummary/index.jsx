@@ -44,9 +44,9 @@ const TeamSummary = ({ team }) => {
           routeTo={`/taas/myteams/${team.id}/access`}
           type="secondary"
           size="medium"
-         >
-           Manage Access
-         </Button>
+        >
+          Manage Access
+        </Button>
         <Button
           href={formatConnectProjectUrl(team.id)}
           target="_blank"

@@ -18,10 +18,13 @@ const FormField = ({ field, isGroupField }) => {
     <Field name={field.name}>
       {({ input, meta }) => (
         <div styleName={isGroupField ? "field-group-field" : ""}>
-          { !field.readonly && (             
+          {!field.readonly && (
             <label
               styleName={
-                (input.value != "undefined" && input.value !== null && input.value !== "") || meta.active
+                (input.value != "undefined" &&
+                  input.value !== null &&
+                  input.value !== "") ||
+                meta.active
                   ? "job-field-label"
                   : "job-field-label job-field-no-label"
               }
@@ -83,7 +86,7 @@ const FormField = ({ field, isGroupField }) => {
               onFocus={input.onFocus}
             />
           )}
-          {field.isRequired && meta.error &&  meta.touched && (
+          {field.isRequired && meta.error && meta.touched && (
             <div styleName="field-error">{meta.error}</div>
           )}
         </div>

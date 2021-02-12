@@ -28,7 +28,7 @@
   @include table-row;
   flex-wrap: wrap;
   border: none;
-  &:last-child  {
+  &:last-child {
     border: none;
   }
   justify-content: flex-start;
@@ -72,7 +72,7 @@
 }
 
 .direct-arrow {
-  position:absolute;
+  position: absolute;
   right: 0;
   bottom: 0;
   text-align: center;

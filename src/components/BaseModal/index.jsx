@@ -1,14 +1,14 @@
 /**
  * BaseModal
- * 
+ *
  * Wraps the react-responsive-modal
  * and adds the app's style
- * 
+ *
  * Supports title and action button
  * children are displayed as modal content
  */
 
-import React from 'react'
+import React from "react";
 import PT from "prop-types";
 import { Modal } from "react-responsive-modal";
 import Button from "../Button";
@@ -20,35 +20,40 @@ const modalStyle = {
   padding: "32px 32px 22px 32px",
   maxWidth: "640px",
   width: "100%",
-  margin: 0
-}
+  margin: 0,
+};
 
 const containerStyle = {
-  padding: "10px"
-}
+  padding: "10px",
+};
 
-function BaseModal({open, onClose, children, title, button, disabled}) {
+function BaseModal({ open, onClose, children, title, button, disabled }) {
   return (
-    <Modal 
-      open={open} 
-      onClose={onClose} 
+    <Modal
+      open={open}
+      onClose={onClose}
       closeIcon={<IconCross width="15px" height="15px" />}
       styles={{
         modal: modalStyle,
-        modalContainer: containerStyle
+        modalContainer: containerStyle,
       }}
       center={true}
     >
       {title && <h2 styleName="title">{title}</h2>}
-      <div styleName="content">
-        {children}
-      </div>
+      <div styleName="content">{children}</div>
       <div styleName="button-group">
         {button && button}
-        <Button type="secondary" size="medium" onClick={onClose} disabled={disabled}>Cancel</Button>
+        <Button
+          type="secondary"
+          size="medium"
+          onClick={onClose}
+          disabled={disabled}
+        >
+          Cancel
+        </Button>
       </div>
-    </Modal>     
-  )
+    </Modal>
+  );
 }
 
 BaseModal.propTypes = {
@@ -57,7 +62,7 @@ BaseModal.propTypes = {
   children: PT.node,
   title: PT.string,
   button: PT.element,
-  disabled: PT.bool
-}
+  disabled: PT.bool,
+};
 
-export default BaseModal
+export default BaseModal;

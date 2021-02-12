@@ -8,7 +8,7 @@ import ResourceBookingDetails from "./routes/ResourceBookingDetails";
 import ResourceBookingForm from "./routes/ResourceBookingForm";
 import JobDetails from "./routes/JobDetails";
 import JobForm from "./routes/JobForm";
-import TeamAccess from './routes/TeamAccess';
+import TeamAccess from "./routes/TeamAccess";
 import ReduxToastr from "react-redux-toastr";
 import store from "./store";
 import "./styles/main.vendor.scss";

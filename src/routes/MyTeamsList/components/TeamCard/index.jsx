@@ -34,13 +34,13 @@ const TeamCard = ({ team }) => {
               },
             },
             {
-              separator: true
+              separator: true,
             },
             {
               label: "Manage Access",
               action: () => {
                 navigate(`/taas/myteams/${team.id}/access`);
-              }
+              },
             },
             {
               separator: true,

@@ -15,13 +15,8 @@ import MemberList from "./components/MemberList";
 import { useTeamMembers } from "./hooks/useTeamMembers";
 
 const TeamAccess = ({ teamId }) => {
-
   const {
-    state: {
-      members,
-      invites,
-      error
-    }
+    state: { members, invites, error },
   } = useTeamMembers(teamId);
 
   return (
@@ -30,7 +25,10 @@ const TeamAccess = ({ teamId }) => {
         <LoadingIndicator error={error} />
       ) : (
         <>
-          <PageHeader title="Manage Access" backTo={`/taas/myteams/${teamId}`} />
+          <PageHeader
+            title="Manage Access"
+            backTo={`/taas/myteams/${teamId}`}
+          />
           <MemberList teamId={teamId} members={members} invitees={invites} />
         </>
       )}

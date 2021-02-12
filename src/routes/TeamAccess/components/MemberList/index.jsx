@@ -2,10 +2,10 @@
  * Lists team members and invitees
  */
 
-import React, {useState} from 'react'
-import PT from 'prop-types'
-import CardHeader from "components/CardHeader"
-import Button from "components/Button"
+import React, { useState } from "react";
+import PT from "prop-types";
+import CardHeader from "components/CardHeader";
+import Button from "components/Button";
 import "./styles.module.scss";
 import Avatar from "components/Avatar";
 import { Link } from "@reach/router";
@@ -16,8 +16,7 @@ import IconDirectArrow from "../../../../assets/images/icon-direct-arrow.svg";
 import AddModal from "../AddModal";
 import DeleteModal from "../DeleteModal";
 
-function MemberList({teamId, members, invitees}) {
-
+function MemberList({ teamId, members, invitees }) {
   const [selectedToDelete, setSelectedToDelete] = useState(null);
   const [inviteOpen, setInviteOpen] = useState(false);
   const [isInvite, setIsInvite] = useState(false);
@@ -27,7 +26,7 @@ function MemberList({teamId, members, invitees}) {
     setIsInvite(isInvite);
     setSelectedToDelete(member);
     setDeleteOpen(true);
-  }
+  };
 
   return (
     <>
@@ -35,41 +34,58 @@ function MemberList({teamId, members, invitees}) {
         <div styleName="list-header">
           <CardHeader title="Project Access" />
           <div styleName="actions">
-              <Button onClick={() => setInviteOpen(true)}>
-                +Add
-              </Button>
+            <Button onClick={() => setInviteOpen(true)}>+Add</Button>
           </div>
         </div>
         {members.length > 0 || invitees.length > 0 ? (
           <div styleName="table">
-            {members.map(member => (
+            {members.map((member) => (
               <div styleName="row-container">
                 <div styleName="table-row">
                   <div styleName="table-group avatar-name">
                     <div styleName="table-cell">
-                      <Avatar photoUrl={member.photoURL} handle={member.handle || member.email} />
+                      <Avatar
+                        photoUrl={member.photoURL}
+                        handle={member.handle || member.email}
+                      />
                     </div>
                     <div styleName="table-cell">
-                      <Link to={`/taas/myteams/${teamId}/rb/${member.id}`}>{member.handle || member.email}</Link>
+                      <Link to={`/taas/myteams/${teamId}/rb/${member.id}`}>
+                        {member.handle || member.email}
+                      </Link>
                     </div>
                   </div>
-                  <TimeSection start={member.workingHourStart} end={member.workingHourEnd} timeZone={member.timeZone} />
-                  <button onClick={() => openDeleteModal(member)} styleName="delete">&times;</button>
+                  <TimeSection
+                    start={member.workingHourStart}
+                    end={member.workingHourEnd}
+                    timeZone={member.timeZone}
+                  />
+                  <button
+                    onClick={() => openDeleteModal(member)}
+                    styleName="delete"
+                  >
+                    &times;
+                  </button>
                 </div>
-              </div>  
+              </div>
             ))}
-            {invitees.map(invitee => (
+            {invitees.map((invitee) => (
               <div styleName="row-container">
                 <div styleName="table-row">
                   <div styleName="table-group avatar-name">
                     <div styleName="table-cell">
                       <div styleName="invite-avatar">
-                        <Avatar photoUrl={invitee.photoURL} handle={invitee.handle || invitee.email} />
+                        <Avatar
+                          photoUrl={invitee.photoURL}
+                          handle={invitee.handle || invitee.email}
+                        />
                         <IconDirectArrow styleName="direct-arrow" />
                       </div>
                     </div>
                     <div styleName="table-cell">
-                      <Link to={`/taas/myteams/${teamId}/rb/${invitee.id}`}>{invitee.handle || invitee.email}</Link>
+                      <Link to={`/taas/myteams/${teamId}/rb/${invitee.id}`}>
+                        {invitee.handle || invitee.email}
+                      </Link>
                     </div>
                   </div>
                   <div styleName="table-group invite-date">
@@ -77,17 +93,30 @@ function MemberList({teamId, members, invitees}) {
                       Invited {formatInviteTime(invitee.createdAt)}
                     </div>
                   </div>
-                  <button onClick={() => openDeleteModal(invitee, true)} styleName="delete">&times;</button>
+                  <button
+                    onClick={() => openDeleteModal(invitee, true)}
+                    styleName="delete"
+                  >
+                    &times;
+                  </button>
                 </div>
               </div>
             ))}
           </div>
-        ) : (<p>no members on team</p>)}
+        ) : (
+          <p>no members on team</p>
+        )}
       </div>
-      <DeleteModal selected={selectedToDelete} open={deleteOpen} onClose={() => setDeleteOpen(false)} teamId={teamId} isInvite={isInvite}/>
-      <AddModal open={inviteOpen} onClose={() => setInviteOpen(false)}/>
+      <DeleteModal
+        selected={selectedToDelete}
+        open={deleteOpen}
+        onClose={() => setDeleteOpen(false)}
+        teamId={teamId}
+        isInvite={isInvite}
+      />
+      <AddModal open={inviteOpen} onClose={() => setInviteOpen(false)} />
     </>
-  )
+  );
 }
 
 MemberList.propTypes = {
@@ -106,7 +135,7 @@ MemberList.propTypes = {
       workingHourStart: PT.string,
       workingHourEnd: PT.string,
       timeZone: PT.string,
-      email: PT.string
+      email: PT.string,
     })
   ),
   invitees: PT.arrayOf(
@@ -121,9 +150,9 @@ MemberList.propTypes = {
       status: PT.string,
       updatedAt: PT.string,
       updatedBy: PT.number,
-      userId: PT.number
+      userId: PT.number,
     })
-  )
-}
+  ),
+};
 
-export default MemberList
+export default MemberList;

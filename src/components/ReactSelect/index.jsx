@@ -15,7 +15,7 @@ const ReactSelect = (props) => {
       minHeight: "40px",
       border: "1px solid #aaaaab",
       borderColor: state.isFocused ? "#55a5ff" : "#aaaaab",
-      boxShadow: state.isFocused ? "0 0 2px 1px #cee6ff" : provided.boxShadow
+      boxShadow: state.isFocused ? "0 0 2px 1px #cee6ff" : provided.boxShadow,
     }),
     menu: (provided) => ({
       ...provided,
@@ -31,7 +31,6 @@ const ReactSelect = (props) => {
       margin: "0px",
       height: "auto",
       padding: "0",
-      
     }),
     indicatorSeparator: () => ({
       display: "none",
@@ -42,7 +41,7 @@ const ReactSelect = (props) => {
     }),
     option: (provided) => ({
       ...provided,
-      minHeight: "32px"
+      minHeight: "32px",
     }),
     placeholder: (provided) => ({
       ...provided,
@@ -51,7 +50,7 @@ const ReactSelect = (props) => {
       fontSize: "14px",
       lineHeight: "22px",
       textAlign: "left",
-      fontWeight: "400"
+      fontWeight: "400",
     }),
     multiValue: (provided) => ({
       ...provided,
@@ -61,8 +60,8 @@ const ReactSelect = (props) => {
       fontSize: "14px",
       lineHeight: "22px",
       textAlign: "left",
-      borderRadius: "5px"
-    })
+      borderRadius: "5px",
+    }),
   };
 
   return (
