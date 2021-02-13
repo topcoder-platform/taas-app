@@ -10,7 +10,7 @@ import SkillsList, { skillShape } from "components/SkillsList";
 import Button from "components/Button";
 import { POSITION_STATUS, POSITION_STATUS_TO_TEXT, RATE_TYPE } from "constants";
 import "./styles.module.scss";
-import { formatDateRange } from "utils/format";
+import { formatJobDate } from "utils/format";
 import { Link } from "@reach/router";
 
 const TeamPositions = ({ teamId, positions }) => {
@@ -44,7 +44,7 @@ const TeamPositions = ({ teamId, positions }) => {
                 </div>
                 <div styleName="table-group-first-inner">
                   <div styleName="table-cell cell-date">
-                    {formatDateRange(position.startDate, position.endDate)}
+                    {formatJobDate(position.startDate, position.duration)}
                   </div>
                   <div styleName="table-cell cell-money">
                     {/* Hide rate as we don't have data for it */}
