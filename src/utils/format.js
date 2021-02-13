@@ -200,3 +200,27 @@ export const formatPageTitle = (pageTitle) => {
 
   return formattedPageTitle;
 };
+
+/**
+ * Format open positions.
+ *
+ * @param {Object} job job object
+ * @param {Array} resources resource list
+ *
+ * @returns {string} open positions string
+ */
+export const formatOpenPositions = (job, resources) => {
+  const jobs = _.filter(resources, (r) => {
+    return r.jobId === job.id;
+  });
+  if (jobs.length === 0) {
+    if (job.numPositions <= 1) {
+      return `${job.numPositions} open position`;
+    }
+    return `${job.numPositions} open positions`;
+  } else if (job.numPositions === 1) {
+    return `${jobs.length} / ${job.numPositions}  open position`;
+  } else {
+    return `${jobs.length} / ${job.numPositions}  open positions`;
+  }
+};

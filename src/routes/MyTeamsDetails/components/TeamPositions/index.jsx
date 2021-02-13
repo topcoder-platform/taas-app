@@ -13,7 +13,7 @@ import "./styles.module.scss";
 import { formatDateRange } from "utils/format";
 import { Link } from "@reach/router";
 
-const TeamPositions = ({ teamId, positions }) => {
+const TeamPositions = ({ teamId, positions, getOpenPositionsLabel }) => {
   return (
     <div styleName="team-positions">
       <div styleName="team-position-header">
@@ -41,6 +41,7 @@ const TeamPositions = ({ teamId, positions }) => {
                     <strong>{position.title}</strong>
                   </Link>
                   <SkillsList skills={position.skills} limit={5} />
+                  <div>{getOpenPositionsLabel(position)}</div>
                 </div>
                 <div styleName="table-group-first-inner">
                   <div styleName="table-cell cell-date">
@@ -78,6 +79,7 @@ const TeamPositions = ({ teamId, positions }) => {
 
 TeamPositions.propTypes = {
   teamId: PT.string,
+  getOpenPositionsLabel: PT.func,
   positions: PT.arrayOf(
     PT.shape({
       title: PT.string,
