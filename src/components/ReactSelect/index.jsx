@@ -62,6 +62,9 @@ const ReactSelect = (props) => {
       textAlign: "left",
       borderRadius: "5px",
     }),
+    dropdownIndicator: () => ({
+      display: "none"
+    }),
   };
 
   return (
@@ -76,6 +79,7 @@ const ReactSelect = (props) => {
         onBlur={props.onBlur}
         onFocus={props.onFocus}
         placeholder={props.placeholder}
+        onInputChange={props.onInputChange}
       />
     </div>
   );
@@ -89,6 +93,7 @@ ReactSelect.propTypes = {
   isMulti: PT.bool,
   onBlur: PT.func,
   onFocus: PT.func,
+  onInputChange: PT.func,
   options: PT.arrayOf(
     PT.shape({
       value: PT.string.isRequired,

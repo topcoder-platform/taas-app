@@ -123,3 +123,15 @@ export const deleteInvite = (teamId, inviteId) => {
       .catch((ex) => reject(ex));
   });
 };
+
+/**
+ * Get member suggestions
+ * 
+ * @param {string} fragment text for suggestions
+ * 
+ * @returns {Promise} 
+ */
+export const getMemberSuggestions = (fragment) => {
+  const url = `${config.API.V3}/members/_suggest/${fragment}`;
+  return axios.get(url);
+}

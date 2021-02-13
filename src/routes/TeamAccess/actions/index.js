@@ -7,6 +7,7 @@ import {
   getTeamInvitees,
   deleteTeamMember,
   deleteInvite,
+  getMemberSuggestions,
 } from "services/teams";
 
 export const ACTION_TYPE = {
@@ -18,6 +19,10 @@ export const ACTION_TYPE = {
   LOAD_INVITES_PENDING: "LOAD_INVITES_PENDING",
   LOAD_INVITES_SUCCESS: "LOAD_INVITES_SUCCESS",
   LOAD_INVITES_ERROR: "LOAD_INVITES_ERROR",
+  LOAD_SUGGESTIONS: "LOAD_SUGGESTIONS",
+  LOAD_SUGGESTIONS_PENDING: "LOAD_SUGGESTIONS_PENDING",
+  LOAD_SUGGESTIONS_SUCCESS: "LOAD_SUGGESTIONS_SUCCESS",
+  LOAD_SUGGESTIONS_ERROR: "LOAD_SUGGESTIONS_ERROR",
   REMOVE_MEMBER: "REMOVE_MEMBER",
   REMOVE_MEMBER_PENDING: "REMOVE_MEMBER_PENDING",
   REMOVE_MEMBER_SUCCESS: "REMOVE_MEMBER_SUCCESS",
@@ -27,6 +32,7 @@ export const ACTION_TYPE = {
   REMOVE_INVITE_SUCCESS: "REMOVE_INVITE_SUCCESS",
   REMOVE_INVITE_ERROR: "REMOVE_INVITE_ERROR",
   CLEAR_ALL: "CLEAR_ALL",
+  CLEAR_SUGGESTIONS: "CLEAR_SUGGESTIONS"
 };
 
 /**
@@ -95,8 +101,10 @@ export const removeTeamMember = (teamId, memberId) => ({
 /**
  * Removes an invite
  *
- * @para {string|number} teamId
+ * @param {string|number} teamId
  * @param {string|number} REMOVE_INVITE_PENDING
+ * 
+ * @returns {Promise} deleted invite id or error
  */
 export const removeInvite = (teamId, inviteId) => ({
   type: ACTION_TYPE.REMOVE_INVITE,
@@ -109,3 +117,28 @@ export const removeInvite = (teamId, inviteId) => ({
     inviteId,
   },
 });
+
+/**
+ * Loads suggestions for invites
+ * 
+ * @param {string} fragment
+ * 
+ * @returns {Promise<object[]>} list of suggestions or error 
+ */
+export const loadSuggestions = fragment => ({
+  type: ACTION_TYPE.LOAD_SUGGESTIONS,
+  payload: async () => {
+    const res = await getMemberSuggestions(fragment);
+    return res.data.result.content;
+  },
+  meta: {
+    fragment
+  }
+})
+
+/**
+ * Clears invite suggestions
+ */
+export const clearSuggestions = () => ({
+  type: ACTION_TYPE.CLEAR_SUGGESTIONS
+})

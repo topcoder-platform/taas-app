@@ -4,7 +4,6 @@ import {
   loadMembers,
   loadInvites,
   clearAll,
-  removeTeamMember,
 } from "../actions";
 
 /**

@@ -6,6 +6,7 @@ import { ACTION_TYPE } from "../actions";
 const initialState = {
   members: undefined,
   invites: undefined,
+  suggestions: [],
   loading: false,
   error: undefined,
   updating: false,
@@ -103,6 +104,34 @@ const reducer = (state = initialState, action) => {
         updating: false,
         error: action.payload,
       };
+
+    case ACTION_TYPE.LOAD_SUGGESTIONS_PENDING:
+      return {
+        ...state,
+        loading: true,
+        error: undefined,
+      }
+
+    case ACTION_TYPE.LOAD_SUGGESTIONS_SUCCESS:
+      return {
+        ...state,
+        suggestions: action.payload,
+        loading: false,
+        error: undefined,
+      }
+
+    case ACTION_TYPE.LOAD_SUGGESTIONS_ERROR:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload
+      }
+
+    case ACTION_TYPE.CLEAR_SUGGESTIONS:
+      return {
+        ...state,
+        suggestions: []
+      }
 
     default:
       return state;
