@@ -6,6 +6,7 @@ import PT from "prop-types";
 import "./styles.module.scss";
 import _ from "lodash";
 import Button from "components/Button";
+import Babge from "components/Babge";
 import {
   CANDIDATE_STATUS,
   CANDIDATE_STATUS_FILTERS,
@@ -15,7 +16,7 @@ import {
 const CandidatesStatusFilter = ({ currentStatus, onChange, candidates }) => {
   return (
     <div styleName="candidates-status-filter">
-      {CANDIDATE_STATUS_FILTERS.map((status) => (
+      {CANDIDATE_STATUS_FILTERS.map((status, index) => (
         <Button
           key={status}
           type={currentStatus === status ? "segment-selected" : "segment"}
@@ -23,6 +24,9 @@ const CandidatesStatusFilter = ({ currentStatus, onChange, candidates }) => {
         >
           {CANDIDATE_STATUS_TO_TEXT[status]} (
           {_.filter(candidates, { status }).length})
+          {index === 0 && _.filter(candidates, { status }).length && (
+            <Babge type="danger">Pending</Babge>
+          )}
         </Button>
       ))}
     </div>
