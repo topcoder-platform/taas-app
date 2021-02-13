@@ -71,69 +71,69 @@ const SkillsList = ({ requiredSkills, skills, limit = 3 }) => {
   }, [isOpen, setIsOpen]);
 
   return (
-    <div styleName="skills-list">
-      {_.map(skillsToShow, "name").join(", ")}
-      {skillsToHide.length > 0 && (
-        <>
-          {" and "}
-          <OutsideClickHandler onOutsideClick={close} display="inline">
-            <span
-              styleName="more"
-              onClick={toggle}
-              onMouseEnter={open}
-              onMouseLeave={close}
-              role="button"
-              tabIndex={0}
-              ref={setReferenceElement}
-            >
-              {skillsToHide.length > 0} more
-            </span>
+    <OutsideClickHandler onOutsideClick={close} display="inline">
+      <div
+        styleName="skills-list"
+        onClick={toggle}
+        onMouseEnter={open}
+        onMouseLeave={close}
+        role="button"
+        tabIndex={0}
+        ref={setReferenceElement}
+      >
+        {_.map(skillsToShow, "name").join(", ")}
 
-            {isOpen && (
-              <div
-                styleName="popover"
-                ref={setPopperElement}
-                style={styles.popper}
-                {...attributes.popper}
-              >
-                <div styleName="popover-content">
-                  {requiredSkills && (
-                    <div styleName="skills-section">
-                      <div styleName="skills-title">Required Job Skills</div>
-                      <ul styleName="skills-list">
-                        {!requiredSkills.length && <li>None</li>}
-                        {requiredSkills.map((skill) => (
-                          <li key={skill.id}>
-                            {_.find(skills, { id: skill.id }) ? (
-                              <IconCheck />
-                            ) : (
-                              <IconCross />
-                            )}{" "}
-                            {skill.name}
-                          </li>
-                        ))}
-                      </ul>
+        {skillsToHide.length > 0 && (
+          <>
+            {" and "}
+            <span styleName="more">{skillsToHide.length > 0} more</span>
+          </>
+        )}
+        <>
+          {isOpen && (
+            <div
+              styleName="popover"
+              ref={setPopperElement}
+              style={styles.popper}
+              {...attributes.popper}
+            >
+              <div styleName="popover-content">
+                {requiredSkills && (
+                  <div styleName="skills-section">
+                    <div styleName="skills-title">Required Job Skills</div>
+                    <ul styleName="skills-list">
+                      {!requiredSkills.length && <li>None</li>}
+                      {requiredSkills.map((skill) => (
+                        <li key={skill.id}>
+                          {_.find(skills, { id: skill.id }) ? (
+                            <IconCheck />
+                          ) : (
+                            <IconCross />
+                          )}{" "}
+                          {skill.name}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+                {otherSkills && (
+                  <div styleName="skills-section">
+                    <div styleName="skills-title">
+                      {showMatches ? "Other User Skills" : "Required Skills"}
                     </div>
-                  )}
-                  {otherSkills && (
-                    <div styleName="skills-section">
-                      <div styleName="skills-title">
-                        {showMatches ? "Other User Skills" : "Required Skills"}
-                      </div>
-                      <ul styleName="skills-list">
-                        {otherSkills.map((skill) => (
-                          <li key={skill.id}>{skill.name}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-                </div>
+                    <ul styleName="skills-list">
+                      {otherSkills.map((skill) => (
+                        <li key={skill.id}>{skill.name}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
               </div>
-            )}
-          </OutsideClickHandler>
+            </div>
+          )}
         </>
-      )}
-    </div>
+      </div>
+    </OutsideClickHandler>
   );
 };
 
