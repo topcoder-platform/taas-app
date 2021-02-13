@@ -3,7 +3,7 @@
  *
  * Show a list of position candidates with sort select and pagination.
  */
-import React, { useMemo, useState, useCallback } from "react";
+import React, { useMemo, useState, useCallback, useEffect } from "react";
 import PT from "prop-types";
 import _ from "lodash";
 import CardHeader from "components/CardHeader";
@@ -57,6 +57,11 @@ const populateSkillsMatched = (position, candidate) => ({
 const PositionCandidates = ({ position, candidateStatus, updateCandidate }) => {
   const { candidates } = position;
   const [sortBy, setSortBy] = useState(CANDIDATES_SORT_BY.SKILL_MATCHED);
+
+  useEffect(() => {
+    setPage(1);
+  }, [candidateStatus])
+
   const filteredCandidates = useMemo(
     () =>
       _.chain(candidates)
