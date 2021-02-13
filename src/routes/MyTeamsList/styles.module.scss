@@ -1,7 +1,9 @@
 @import "styles/include";
 
 .filter-input {
-  width: 380px;
+  &.overwrite-width {
+    width: 380px;
+  }
   background-color: #ffffff;
   border: 1px solid #aaaaaa;
   border-radius: 6px;

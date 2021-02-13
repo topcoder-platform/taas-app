@@ -96,7 +96,7 @@ const TeamMembers = ({ team }) => {
         aside={
           <Input
             placeholder="Filter by handle, name, role or skill"
-            styleName="filter-input"
+            styleName="filter-input overwrite-width"
             value={filter}
             onChange={onFilterChange}
           />
