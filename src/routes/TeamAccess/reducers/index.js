@@ -10,6 +10,7 @@ const initialState = {
   loading: false,
   error: undefined,
   updating: false,
+  inviteError: undefined
 };
 
 const reducer = (state = initialState, action) => {
@@ -131,6 +132,31 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         suggestions: []
+      }
+
+    case ACTION_TYPE.ADD_INVITES_PENDING:
+      return {
+        ...state,
+        updating: true,
+        inviteError: undefined
+      }
+
+    case ACTION_TYPE.ADD_INVITES_SUCCESS:
+      return {
+        ...state,
+        invites: [...state.invites, ...action.payload.success],
+        updating: false,
+        inviteError: action.payload.failed ? { 
+          type: "SOME_FAILED", 
+          failed: action.payload.failed
+        } : undefined
+      }
+
+    case ACTION_TYPE.ADD_INVITES_ERROR:
+      return {
+        ...state,
+        updating: false,
+        inviteError: action.payload
       }
 
     default:

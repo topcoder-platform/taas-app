@@ -3,6 +3,7 @@
  */
 
 import React, { useState } from "react";
+import _ from 'lodash';
 import PT from "prop-types";
 import CardHeader from "components/CardHeader";
 import Button from "components/Button";
@@ -21,6 +22,12 @@ function MemberList({ teamId, members, invitees }) {
   const [inviteOpen, setInviteOpen] = useState(false);
   const [isInvite, setIsInvite] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
+  
+  const validateInvites = (newInvites) => {
+    return _.some(newInvites, newInvite => {
+      (members.find(member => newInvite.label === member.handle) || invitees.find(invite => newInvite.label === invite.handle))
+    })
+  }
 
   const openDeleteModal = (member, isInvite = false) => {
     setIsInvite(isInvite);
@@ -114,7 +121,7 @@ function MemberList({ teamId, members, invitees }) {
         teamId={teamId}
         isInvite={isInvite}
       />
-      <AddModal open={inviteOpen} onClose={() => setInviteOpen(false)} />
+      <AddModal open={inviteOpen} onClose={() => setInviteOpen(false)} teamId={teamId} validateInvites={validateInvites} />
     </>
   );
 }

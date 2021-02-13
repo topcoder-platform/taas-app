@@ -135,3 +135,32 @@ export const getMemberSuggestions = (fragment) => {
   const url = `${config.API.V3}/members/_suggest/${fragment}`;
   return axios.get(url);
 }
+
+/**
+ * Post new team invites
+ * 
+ * @param {string|number} teamId team id
+ * @param {string[]} handles user handles to add
+ * @param {string[]} emails user emails to add
+ * @param {string} role role to assign to users
+ * 
+ * @returns {Promise<object>} object with successfully added invites, and failed invites
+ */
+export const postInvites = (teamId, handles, emails, role) => {
+  const url = `${config.API.V5}/projects/${teamId}/invites/?fields=id,projectId,userId,email,role,status,createdAt,updatedAt,createdBy,updatedBy,handle`;
+  const bodyObj = {};
+  if (handles && handles.length > 0) {
+    bodyObj.handles = handles;
+  }
+  if (emails && emails.length > 0 ) {
+    bodyObj.emails = emails;
+  }
+  bodyObj.role = role;
+
+  return new Promise((resolve, reject) => {
+    axios
+      .post(url, bodyObj, { validateStatus: status => ((status >= 200 && status < 300) || status === 403)})
+      .then((res) => resolve(res))
+      .catch((ex) => reject(ex))
+  })
+}

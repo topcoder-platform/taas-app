@@ -8,6 +8,7 @@ import {
   deleteTeamMember,
   deleteInvite,
   getMemberSuggestions,
+  postInvites
 } from "services/teams";
 
 export const ACTION_TYPE = {
@@ -31,6 +32,10 @@ export const ACTION_TYPE = {
   REMOVE_INVITE_PENDING: "REMOVE_INVITE_PENDING",
   REMOVE_INVITE_SUCCESS: "REMOVE_INVITE_SUCCESS",
   REMOVE_INVITE_ERROR: "REMOVE_INVITE_ERROR",
+  ADD_INVITES: "ADD_INVITES",
+  ADD_INVITES_PENDING: "ADD_INVITES_PENDING",
+  ADD_INVITES_SUCCESS: "ADD_INVITES_SUCCESS",
+  ADD_INVITES_ERROR: "ADD_INVITES_ERROR",
   CLEAR_ALL: "CLEAR_ALL",
   CLEAR_SUGGESTIONS: "CLEAR_SUGGESTIONS"
 };
@@ -141,4 +146,21 @@ export const loadSuggestions = fragment => ({
  */
 export const clearSuggestions = () => ({
   type: ACTION_TYPE.CLEAR_SUGGESTIONS
+})
+
+/**
+ * Adds invites to team
+ * 
+ * @param {string|number} teamId
+ * @param {string[]} handles
+ * @param {string[]} emails
+ * 
+ * @returns {Promise} list of successes and failures, or error
+ */
+export const addInvites = (teamId, handles, emails) => ({
+  type: ACTION_TYPE.ADD_INVITES,
+  payload: async () => {
+    const res = await postInvites(teamId, handles, emails, "customer");
+    return res.data;
+  }
 })
