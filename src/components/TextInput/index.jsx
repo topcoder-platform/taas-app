@@ -10,9 +10,7 @@ import "./styles.module.scss";
 function TextInput(props) {
   return (
     <input
-      styleName={`TextInput ${props.className} ${
-        props.readonly ? "readonly" : ""
-      }`}
+      styleName={`TextInput ${props.className} ${props.readonly ? "readonly" : ""}`}
       maxLength={props.maxLength}
       min={props.minValue}
       onChange={(event) => {
@@ -33,6 +31,7 @@ function TextInput(props) {
       readOnly={props.readonly ?? false}
       onBlur={props.onBlur}
       onFocus={props.onFocus}
+      step={props.type === "number" ? ".01" : null}
     />
   );
 }

@@ -10,13 +10,14 @@ import "./styles.module.scss";
 
 const DateInput = (props) => {
   return (
-    <div styleName="datepicker-wrapper">
+    <div styleName={`datepicker-wrapper ${props.className}`}>
       <DatePicker
         dateFormat="MM/dd/yyyy"
         placeholderText={props.placeholder}
         selected={props.value}
         onChange={props.onChange}
         onBlur={props.onBlur}
+        onCalendarClose={props.onBlur}
         onFocus={props.onFocus}
       />
     </div>

@@ -68,13 +68,19 @@ export const createConfigurationObject = (fields) => {
  * @returns {Function} configuration object
  */
 export const getValidator = (fields) => {
-  return (values) => {
+  return (values, inputs) => {
     const errors = {};
     fields
-      .filter((f) => f.isRequired)
+      .filter((f) => f.isRequired || f.customValidator)
       .forEach((f) => {
-        if (!values[f.name]) {
+        if (f.isRequired && !values[f.name]) {
           errors[f.name] = f.validationMessage;
+        }else if (f.customValidator){
+          const error = f.customValidator(f, fields, values);
+          if(error){
+            errors[f.name] = error;
+            f.input.onBlur();
+          }
         }
       });
     return errors;

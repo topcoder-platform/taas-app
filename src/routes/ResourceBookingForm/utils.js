@@ -3,6 +3,7 @@
  *
  * utility class
  */
+import moment from 'moment';
 import {
   STATUS_OPTIONS,
   FORM_ROW_TYPE,
@@ -45,12 +46,30 @@ export const getEditResourceBookingConfig = (onSubmit) => {
         type: FORM_FIELD_TYPE.DATE,
         name: "startDate",
         placeholder: "Start Date",
+        customValidator: (field, fields, values) => {
+          const startDate = values[field.name];
+          const endDate = values['endDate'];
+          if(startDate && endDate && moment(endDate).startOf('day').isBefore(moment(startDate).startOf('day'))){
+            return 'Start Date should not be after End Date';
+          }
+          return null;
+        }
       },
       {
         label: "End Date",
         type: FORM_FIELD_TYPE.DATE,
         name: "endDate",
         placeholder: "End Date",
+        customValidator: (field, fields, values) => {
+          const endDate = values[field.name];
+          const startDate = values['startDate'];
+          if(startDate && endDate && moment(endDate).startOf('day').isBefore(moment(startDate).startOf('day'))){
+            return 'End Date should not be before Start Date';
+          }else if(!startDate && endDate){
+            return 'End Date should not be before Start Date';
+          }
+          return null;
+        }
       },
       {
         label: "Status",
