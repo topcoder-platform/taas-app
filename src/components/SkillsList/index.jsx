@@ -3,7 +3,7 @@
  *
  * Shows list of skills with "N more" link which is showing tooltip with a full list of skills.
  */
-import React, { useCallback, useState, useMemo } from "react";
+import React, { useCallback, useState, useMemo, useEffect } from "react";
 import PT from "prop-types";
 import _ from "lodash";
 import "./styles.module.scss";
@@ -19,6 +19,9 @@ const SkillsList = ({ requiredSkills, skills, limit = 3 }) => {
   // if has requiredSkills, show two columns, eles show only one column
   const showMatches = !!requiredSkills;
   const [isOpen, setIsOpen] = useState(false);
+  const [isDelayClose, setIsDelayClose] = useState(false);
+  const [isPopoverEnter, setIsPopoverEnter] = useState(false);
+  const [timeId, setTimeId] = useState(null);
   const [referenceElement, setReferenceElement] = useState(null);
   const [popperElement, setPopperElement] = useState(null);
 
@@ -58,17 +61,52 @@ const SkillsList = ({ requiredSkills, skills, limit = 3 }) => {
     ],
   });
 
-  const close = useCallback(() => {
-    setIsOpen(false);
-  }, [setIsOpen]);
+  useEffect(() => {
+    if (isDelayClose) {
+      const timer = setTimeout(() => {
+        if (!isPopoverEnter) {
+          setIsOpen(false);
+          setIsDelayClose(false);
+          setIsPopoverEnter(false);
+        }
+      }, 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [isDelayClose, isPopoverEnter]);
+
+  const delayClose = useCallback(
+    (evt) => {
+      setIsDelayClose(true);
+    },
+    [setIsDelayClose]
+  );
+  const close = useCallback(
+    (evt) => {
+      setIsOpen(false);
+      setIsDelayClose(false);
+      setIsPopoverEnter(false);
+    },
+    [setIsOpen]
+  );
 
   const open = useCallback(() => {
     setIsOpen(true);
+    setIsDelayClose(false);
   }, [setIsOpen]);
 
   const toggle = useCallback(() => {
     setIsOpen(!isOpen);
   }, [isOpen, setIsOpen]);
+
+  const enterPopover = useCallback(() => {
+    setIsPopoverEnter(true);
+  }, [setIsPopoverEnter]);
+
+  const leavePopover = useCallback(() => {
+    setIsOpen(false);
+    setIsDelayClose(false);
+    setIsPopoverEnter(false);
+  }, [setIsPopoverEnter]);
 
   return (
     <OutsideClickHandler onOutsideClick={close} display="inline">
@@ -76,7 +114,7 @@ const SkillsList = ({ requiredSkills, skills, limit = 3 }) => {
         styleName="skills-list"
         onClick={toggle}
         onMouseEnter={open}
-        onMouseLeave={close}
+        onMouseLeave={delayClose}
         role="button"
         tabIndex={0}
         ref={setReferenceElement}
@@ -94,6 +132,8 @@ const SkillsList = ({ requiredSkills, skills, limit = 3 }) => {
             <div
               styleName="popover"
               ref={setPopperElement}
+              onMouseEnter={enterPopover}
+              onMouseLeave={leavePopover}
               style={styles.popper}
               {...attributes.popper}
             >
