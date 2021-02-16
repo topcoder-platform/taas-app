@@ -200,3 +200,23 @@ export const formatPageTitle = (pageTitle) => {
 
   return formattedPageTitle;
 };
+
+/**
+ * Format job date
+ *
+ * @param {string} startDate job startDate
+ * @param {number} duration  job duration
+ *
+ * @returns {string} formatted string
+ */
+export const formatJobDate = (startDate, duration) => {
+  const dateStr = startDate ? moment(startDate).format(DAY_FORMAT) : "";
+  if (startDate && duration) {
+    return `Requested starting ${dateStr} for ${duration} weeks`;
+  } else if (startDate) {
+    return `Requested starting ${dateStr}`;
+  } else if (duration) {
+    return `${duration} weeks`;
+  }
+  return "";
+};
