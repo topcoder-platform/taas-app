@@ -6,8 +6,11 @@
   padding: 0 24px 24px;
 }
 
-.filter-input.overwrite-width {
-  width: 380px;
+// overwrite the css
+input:not([type="checkbox"]).filter-input {
+  @media (min-width: 740px) {
+    width: 380px;
+  }
 }
 
 .controls {

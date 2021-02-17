@@ -66,7 +66,7 @@ const MyTeamsList = () => {
         aside={
           <Input
             placeholder="Filter by team name"
-            styleName="filter-input overwrite-width"
+            styleName="filter-input"
             onChange={onFilterChange}
           />
         }
