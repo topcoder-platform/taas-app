@@ -3,7 +3,7 @@
  *
  * Shows list of skills with "N more" link which is showing tooltip with a full list of skills.
  */
-import React, { useCallback, useState, useMemo } from "react";
+import React, { useCallback, useState, useMemo, useEffect } from "react";
 import PT from "prop-types";
 import _ from "lodash";
 import "./styles.module.scss";
@@ -19,6 +19,8 @@ const SkillsList = ({ requiredSkills, skills, limit = 3 }) => {
   // if has requiredSkills, show two columns, eles show only one column
   const showMatches = !!requiredSkills;
   const [isOpen, setIsOpen] = useState(false);
+  const [isDelayClose, setIsDelayClose] = useState(false);
+  const [isPopoverEnter, setIsPopoverEnter] = useState(false);
   const [referenceElement, setReferenceElement] = useState(null);
   const [popperElement, setPopperElement] = useState(null);
 
@@ -58,17 +60,38 @@ const SkillsList = ({ requiredSkills, skills, limit = 3 }) => {
     ],
   });
 
+  useEffect(() => {
+    if (isDelayClose) {
+      const timer = setTimeout(() => {
+        if (!isPopoverEnter) {
+          close();
+        }
+      }, 300);
+      return () => clearTimeout(timer);
+    }
+  }, [isDelayClose, isPopoverEnter, close]);
+
+  const delayClose = useCallback(() => {
+    setIsDelayClose(true);
+  }, [setIsDelayClose]);
   const close = useCallback(() => {
     setIsOpen(false);
+    setIsDelayClose(false);
+    setIsPopoverEnter(false);
   }, [setIsOpen]);
 
   const open = useCallback(() => {
     setIsOpen(true);
+    setIsDelayClose(false);
   }, [setIsOpen]);
 
   const toggle = useCallback(() => {
     setIsOpen(!isOpen);
   }, [isOpen, setIsOpen]);
+
+  const enterPopover = useCallback(() => {
+    setIsPopoverEnter(true);
+  }, [setIsPopoverEnter]);
 
   return (
     <OutsideClickHandler onOutsideClick={close} display="inline">
@@ -76,7 +99,7 @@ const SkillsList = ({ requiredSkills, skills, limit = 3 }) => {
         styleName="skills-list"
         onClick={toggle}
         onMouseEnter={open}
-        onMouseLeave={close}
+        onMouseLeave={delayClose}
         role="button"
         tabIndex={0}
         ref={setReferenceElement}
@@ -94,6 +117,8 @@ const SkillsList = ({ requiredSkills, skills, limit = 3 }) => {
             <div
               styleName="popover"
               ref={setPopperElement}
+              onMouseEnter={enterPopover}
+              onMouseLeave={close}
               style={styles.popper}
               {...attributes.popper}
             >
