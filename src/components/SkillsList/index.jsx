@@ -21,7 +21,6 @@ const SkillsList = ({ requiredSkills, skills, limit = 3 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isDelayClose, setIsDelayClose] = useState(false);
   const [isPopoverEnter, setIsPopoverEnter] = useState(false);
-  const [timeId, setTimeId] = useState(null);
   const [referenceElement, setReferenceElement] = useState(null);
   const [popperElement, setPopperElement] = useState(null);
 
@@ -65,14 +64,12 @@ const SkillsList = ({ requiredSkills, skills, limit = 3 }) => {
     if (isDelayClose) {
       const timer = setTimeout(() => {
         if (!isPopoverEnter) {
-          setIsOpen(false);
-          setIsDelayClose(false);
-          setIsPopoverEnter(false);
+          close();
         }
-      }, 1000);
+      }, 200);
       return () => clearTimeout(timer);
     }
-  }, [isDelayClose, isPopoverEnter]);
+  }, [isDelayClose, isPopoverEnter, close]);
 
   const delayClose = useCallback(
     (evt) => {
@@ -80,14 +77,11 @@ const SkillsList = ({ requiredSkills, skills, limit = 3 }) => {
     },
     [setIsDelayClose]
   );
-  const close = useCallback(
-    (evt) => {
-      setIsOpen(false);
-      setIsDelayClose(false);
-      setIsPopoverEnter(false);
-    },
-    [setIsOpen]
-  );
+  const close = useCallback(() => {
+    setIsOpen(false);
+    setIsDelayClose(false);
+    setIsPopoverEnter(false);
+  }, [setIsOpen]);
 
   const open = useCallback(() => {
     setIsOpen(true);
@@ -103,10 +97,8 @@ const SkillsList = ({ requiredSkills, skills, limit = 3 }) => {
   }, [setIsPopoverEnter]);
 
   const leavePopover = useCallback(() => {
-    setIsOpen(false);
-    setIsDelayClose(false);
-    setIsPopoverEnter(false);
-  }, [setIsPopoverEnter]);
+    close();
+  }, [close]);
 
   return (
     <OutsideClickHandler onOutsideClick={close} display="inline">
