@@ -66,17 +66,14 @@ const SkillsList = ({ requiredSkills, skills, limit = 3 }) => {
         if (!isPopoverEnter) {
           close();
         }
-      }, 200);
+      }, 300);
       return () => clearTimeout(timer);
     }
   }, [isDelayClose, isPopoverEnter, close]);
 
-  const delayClose = useCallback(
-    (evt) => {
-      setIsDelayClose(true);
-    },
-    [setIsDelayClose]
-  );
+  const delayClose = useCallback(() => {
+    setIsDelayClose(true);
+  }, [setIsDelayClose]);
   const close = useCallback(() => {
     setIsOpen(false);
     setIsDelayClose(false);
@@ -95,10 +92,6 @@ const SkillsList = ({ requiredSkills, skills, limit = 3 }) => {
   const enterPopover = useCallback(() => {
     setIsPopoverEnter(true);
   }, [setIsPopoverEnter]);
-
-  const leavePopover = useCallback(() => {
-    close();
-  }, [close]);
 
   return (
     <OutsideClickHandler onOutsideClick={close} display="inline">
@@ -125,7 +118,7 @@ const SkillsList = ({ requiredSkills, skills, limit = 3 }) => {
               styleName="popover"
               ref={setPopperElement}
               onMouseEnter={enterPopover}
-              onMouseLeave={leavePopover}
+              onMouseLeave={close}
               style={styles.popper}
               {...attributes.popper}
             >
