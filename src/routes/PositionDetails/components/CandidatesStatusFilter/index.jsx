@@ -24,9 +24,9 @@ const CandidatesStatusFilter = ({ currentStatus, onChange, candidates }) => {
         >
           {CANDIDATE_STATUS_TO_TEXT[status]} (
           {_.filter(candidates, { status }).length})
-          {index === 0 && _.filter(candidates, { status }).length && (
+          {index === 0 && _.filter(candidates, { status }).length ? (
             <Babge type="danger">Pending</Babge>
-          )}
+          ) : null}
         </Button>
       ))}
     </div>
