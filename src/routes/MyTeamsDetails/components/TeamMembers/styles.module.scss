@@ -6,11 +6,9 @@
   padding: 0 24px 24px;
 }
 
-// overwrite the css
+// adding "input:not([type="checkbox"])" to make sure that we override reset styles
 input:not([type="checkbox"]).filter-input {
-  @media (min-width: 740px) {
-    width: 380px;
-  }
+  width: 380px;
 }
 
 .controls {
@@ -226,10 +224,9 @@ input:not([type="checkbox"]).filter-input {
       width: 100%;
     }
   }
-}
 
-@media (max-width: 374px) {
-  .filter-input {
+  // adding "input:not([type="checkbox"])" to make sure that we override reset styles
+  input:not([type="checkbox"]).filter-input {
     width: 100%;
   }
 }

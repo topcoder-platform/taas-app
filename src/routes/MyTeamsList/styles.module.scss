@@ -1,13 +1,7 @@
 @import "styles/include";
 
-// overwrite the css
+// adding "input:not([type="checkbox"])" to make sure that we override reset styles
 input:not([type="checkbox"]).filter-input {
-  @media (min-width: 651px) {
-    width: 380px;
-  }
-}
-
-.filter-input {
   width: 380px;
   background-color: #ffffff;
   border: 1px solid #aaaaaa;
@@ -37,7 +31,8 @@ input:not([type="checkbox"]).filter-input {
 }
 
 @media (max-width: 650px) {
-  .filter-input {
+  // adding "input:not([type="checkbox"])" to make sure that we override reset styles
+  input:not([type="checkbox"]).filter-input {
     width: 100%;
   }
 }
