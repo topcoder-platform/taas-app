@@ -233,7 +233,10 @@ export const formatJobDate = (startDate, duration) => {
   const dateStr = startDate ? moment(startDate).format(DAY_FORMAT) : "";
 
   if (startDate && duration) {
-    return `Requested starting ${dateStr} for ${formatPlural(duration, "week")}`;
+    return `Requested starting ${dateStr} for ${formatPlural(
+      duration,
+      "week"
+    )}`;
   } else if (startDate) {
     return `Requested starting ${dateStr}`;
   } else if (duration) {
