@@ -120,6 +120,7 @@ TCForm.propTypes = {
         maxLength: PT.number,
         styleName: PT.string,
         readonly: PT.string,
+        showError: PT.bool
       })
     ).isRequired,
     onSubmit: PT.func,
