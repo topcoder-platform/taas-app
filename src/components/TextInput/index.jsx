@@ -20,7 +20,12 @@ function TextInput(props) {
           if (event.target.value >= props.minValue) {
             props.onChange(event.target.value);
           } else {
-            props.onChange(props.minValue);
+            if (props.isRequired) {
+              props.onChange(props.minValue);
+            } else {
+              // can delete the number
+              props.onChange("");
+            }
           }
         } else {
           props.onChange(event.target.value);
