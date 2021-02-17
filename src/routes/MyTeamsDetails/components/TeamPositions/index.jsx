@@ -62,7 +62,7 @@ const TeamPositions = ({ teamId, positions, resources }) => {
                     <Button
                       routeTo={`/taas/myteams/${teamId}/positions/${position.id}/candidates`}
                     >
-                      select candidates
+                      Review candidates
                     </Button>
                   )}
                 </div>
