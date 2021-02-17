@@ -1,5 +1,12 @@
 @import "styles/include";
 
+// overwrite the css
+input:not([type="checkbox"]).filter-input {
+  @media (min-width: 651px) {
+    width: 380px;
+  }
+}
+
 .filter-input {
   width: 380px;
   background-color: #ffffff;
