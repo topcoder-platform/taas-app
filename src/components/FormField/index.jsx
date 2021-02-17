@@ -35,7 +35,7 @@ const FormField = ({ field, isGroupField }) => {
               placeholder={field.placeholder}
               value={input.value ?? ""}
               type="text"
-              className={meta.error && (meta.touched || field.showError) ? "error" : ""}
+              className={meta.error && meta.touched ? "error" : ""}
               readonly={field.readonly}
               onChange={input.onChange}
               onBlur={input.onBlur}
@@ -51,7 +51,7 @@ const FormField = ({ field, isGroupField }) => {
               onChange={input.onChange}
               onBlur={input.onBlur}
               onFocus={input.onFocus}
-              className={meta.error && (meta.touched || field.showError) ? "error" : ""}
+              className={meta.error && meta.touched ? "error" : ""}
             />
           )}
           {field.type === FORM_FIELD_TYPE.TEXTAREA && (
@@ -61,7 +61,7 @@ const FormField = ({ field, isGroupField }) => {
               onChange={input.onChange}
               onBlur={input.onBlur}
               onFocus={input.onFocus}
-              className={meta.error && (meta.touched || field.showError) ? "error" : ""}
+              className={meta.error && meta.touched ? "error" : ""}
             />
           )}
           {field.type === FORM_FIELD_TYPE.DATE && (
@@ -71,7 +71,7 @@ const FormField = ({ field, isGroupField }) => {
               onChange={input.onChange}
               onBlur={input.onBlur}
               onFocus={input.onFocus}
-              className={meta.error && (meta.touched || field.showError) ? "error" : ""}
+              className={meta.error && meta.touched ? "error" : ""}
             />
           )}
           {field.type === FORM_FIELD_TYPE.SELECT && (
@@ -84,7 +84,7 @@ const FormField = ({ field, isGroupField }) => {
               onFocus={input.onFocus}
             />
           )}
-          {(field.isRequired || field.customValidator) && meta.error &&  (meta.touched || field.showError) && (
+          {(field.isRequired || field.customValidator) && meta.error &&  meta.touched && (
             <div styleName="field-error">{meta.error}</div>
           )}
         </div>
@@ -112,7 +112,6 @@ FormField.prototype = {
       maxLength: PT.number,
       styleName: PT.string,
       readonly: PT.string,
-      showError: PT.bool
     })
   ).isRequired,
   isGroupField: PT.bool,

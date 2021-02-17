@@ -52,10 +52,8 @@ export const getEditResourceBookingConfig = (onSubmit) => {
           const startDate = values[field.name];
           const endDate = values['endDate'];
           if(startDate && endDate && moment(endDate).startOf('day').isBefore(moment(startDate).startOf('day'))){
-            endDateField.showError = true;
             return 'Start Date should not be after End Date';
           }
-          endDateField.showError = false;
           return null;
         }
       },
@@ -69,10 +67,8 @@ export const getEditResourceBookingConfig = (onSubmit) => {
           const endDate = values[field.name];
           const startDate = values['startDate'];
           if(startDate && endDate && moment(endDate).startOf('day').isBefore(moment(startDate).startOf('day'))){
-            startDateField.showError = true;
             return 'End Date should not be before Start Date';
           }
-          startDateField.showError = false;
           return null;
         }
       },
