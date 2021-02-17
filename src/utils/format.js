@@ -210,17 +210,13 @@ export const formatPageTitle = (pageTitle) => {
  * @returns {string} open positions string
  */
 export const formatOpenPositions = (job, resources) => {
-  const jobs = _.filter(resources, (r) => {
-    return r.jobId === job.id;
-  });
-  if (jobs.length === 0) {
-    if (job.numPositions <= 1) {
-      return `${job.numPositions} open position`;
-    }
-    return `${job.numPositions} open positions`;
-  } else if (job.numPositions === 1) {
-    return `${jobs.length} / ${job.numPositions}  open position`;
+  const jobResources = _.filter(resources, { jobId: job.id });
+  if (jobResources.length === 0) {
+    return `${formatPlural(job.numPositions, "open position")}`;
   } else {
-    return `${jobs.length} / ${job.numPositions}  open positions`;
+    return `${jobResources.length} / ${formatPlural(
+      job.numPositions,
+      "open position"
+    )}`;
   }
 };

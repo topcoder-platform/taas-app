@@ -10,10 +10,10 @@ import SkillsList, { skillShape } from "components/SkillsList";
 import Button from "components/Button";
 import { POSITION_STATUS, POSITION_STATUS_TO_TEXT, RATE_TYPE } from "constants";
 import "./styles.module.scss";
-import { formatDateRange } from "utils/format";
+import { formatDateRange, formatOpenPositions } from "utils/format";
 import { Link } from "@reach/router";
 
-const TeamPositions = ({ teamId, positions, getOpenPositionsLabel }) => {
+const TeamPositions = ({ teamId, positions, resources }) => {
   return (
     <div styleName="team-positions">
       <div styleName="team-position-header">
@@ -41,7 +41,7 @@ const TeamPositions = ({ teamId, positions, getOpenPositionsLabel }) => {
                     <strong>{position.title}</strong>
                   </Link>
                   <SkillsList skills={position.skills} limit={5} />
-                  <div>{getOpenPositionsLabel(position)}</div>
+                  <div>{formatOpenPositions(position, resources)}</div>
                 </div>
                 <div styleName="table-group-first-inner">
                   <div styleName="table-cell cell-date">
@@ -79,7 +79,6 @@ const TeamPositions = ({ teamId, positions, getOpenPositionsLabel }) => {
 
 TeamPositions.propTypes = {
   teamId: PT.string,
-  getOpenPositionsLabel: PT.func,
   positions: PT.arrayOf(
     PT.shape({
       title: PT.string,
@@ -89,6 +88,16 @@ TeamPositions.propTypes = {
       startDate: PT.string,
       endDate: PT.string,
       status: PT.oneOf(Object.values(POSITION_STATUS)),
+    })
+  ),
+  resources: PT.arrayOf(
+    PT.shape({
+      id: PT.string,
+      handle: PT.string,
+      firstName: PT.string,
+      lastName: PT.string,
+      skills: PT.arrayOf(skillShape),
+      skillsMatched: PT.number,
     })
   ),
 };
