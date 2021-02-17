@@ -200,3 +200,50 @@ export const formatPageTitle = (pageTitle) => {
 
   return formattedPageTitle;
 };
+
+/**
+ * Format localTime
+ *
+ * @param {moment.Moment} localTime
+ *
+ * @returns {string} formatted localTime
+ */
+export const formatLocalTime = (localTime) => {
+  return localTime.format("h:mm a");
+};
+
+/**
+ * Get and format utc offset from localTime
+ *
+ * @param {moment.Moment} localTime
+ *
+ * @returns {string} UTC offset
+ *
+ */
+export const formatTimeOffset = (localTime) => {
+  const utcOff = localTime.utcOffset() / 60;
+  return "UTC" + moment().utcOffset(utcOff).format("Z");
+};
+
+/**
+ * Format working hours
+ *
+ * @param {string} time
+ *
+ * @returns {string} formatted time
+ *
+ */
+export const formatWorkTime = (time) => {
+  return moment({ hour: time.split(":")[0] }).format("h a");
+};
+
+/**
+ * Format invite time
+ *
+ * @param {string} invite created timestamp
+ *
+ * @returns {string} formatted date
+ */
+export const formatInviteTime = (time) => {
+  return moment(time).format("MMM D, YY");
+};

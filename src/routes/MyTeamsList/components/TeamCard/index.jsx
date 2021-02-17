@@ -5,7 +5,7 @@ import React from "react";
 import PT from "prop-types";
 import "./styles.module.scss";
 import _ from "lodash";
-import { Link } from "@reach/router";
+import { Link, navigate } from "@reach/router";
 import DataItem from "components/DataItem";
 import IconCalendar from "../../../../assets/images/icon-calendar.svg";
 import IconClock from "../../../../assets/images/icon-clock.svg";
@@ -31,6 +31,15 @@ const TeamCard = ({ team }) => {
               label: "Open in Connect",
               action: () => {
                 window.open(formatConnectProjectUrl(team.id));
+              },
+            },
+            {
+              separator: true,
+            },
+            {
+              label: "Manage Access",
+              action: () => {
+                navigate(`/taas/myteams/${team.id}/access`);
               },
             },
             {
