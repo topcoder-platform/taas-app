@@ -28,7 +28,11 @@ const MyTeamsDetails = ({ teamId }) => {
           <PageHeader title={team.name} backTo="/taas/myteams" />
           <TeamSummary team={team} />
           <TeamMembers team={team} />
-          <TeamPositions positions={team.jobs || []} teamId={teamId} />
+          <TeamPositions
+            positions={team.jobs || []}
+            teamId={teamId}
+            resources={team.resources}
+          />
         </>
       )}
     </Page>
