@@ -49,6 +49,7 @@ const FormField = ({ field, isGroupField }) => {
             <TextInput
               placeholder={field.placeholder}
               value={input?.value ?? ""}
+              isRequired={field.isRequired}
               type="number"
               minValue={field.minValue}
               onChange={input.onChange}

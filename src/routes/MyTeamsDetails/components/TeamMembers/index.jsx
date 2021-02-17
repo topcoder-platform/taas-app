@@ -7,6 +7,7 @@ import React, { useState, useCallback, useMemo } from "react";
 import PT from "prop-types";
 import "./styles.module.scss";
 import _ from "lodash";
+import { navigate } from "@reach/router";
 import User from "components/User";
 import CardHeader from "components/CardHeader";
 // import Rating from "components/Rating";
@@ -146,6 +147,17 @@ const TeamMembers = ({ team }) => {
                   <div styleName="table-cell cell-action">
                     <ActionsMenu
                       options={[
+                        {
+                          label: "Edit Member Details",
+                          action: () => {
+                            navigate(
+                              `/taas/myteams/${team.id}/rb/${member.id}/edit`
+                            );
+                          },
+                        },
+                        {
+                          separator: true,
+                        },
                         {
                           label: "Report an Issue",
                           action: () => {

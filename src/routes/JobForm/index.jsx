@@ -66,7 +66,7 @@ const JobForm = ({ teamId, jobId }) => {
       description: values.description,
       title: values.title,
       startDate: values.startDate,
-      endDate: values.endDate,
+      duration: values.duration,
       numPositions: values.numPositions,
       resourceType: values.resourceType,
       rateType: values.rateType,

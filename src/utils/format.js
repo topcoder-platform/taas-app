@@ -202,6 +202,50 @@ export const formatPageTitle = (pageTitle) => {
 };
 
 /**
+ * Format open positions.
+ *
+ * @param {Object} job job object
+ * @param {Array} resources resource list
+ *
+ * @returns {string} open positions string
+ */
+export const formatOpenPositions = (job, resources) => {
+  const jobResources = _.filter(resources, { jobId: job.id });
+  if (jobResources.length === 0) {
+    return `${formatPlural(job.numPositions, "open position")}`;
+  } else {
+    return `${jobResources.length} / ${formatPlural(
+      job.numPositions,
+      "open position"
+    )}`;
+  }
+};
+
+/**
+ * Format job date
+ *
+ * @param {string} startDate job startDate
+ * @param {number} duration  job duration
+ *
+ * @returns {string} formatted string
+ */
+export const formatJobDate = (startDate, duration) => {
+  const dateStr = startDate ? moment(startDate).format(DAY_FORMAT) : "";
+
+  if (startDate && duration) {
+    return `Requested starting ${dateStr} for ${formatPlural(
+      duration,
+      "week"
+    )}`;
+  } else if (startDate) {
+    return `Requested starting ${dateStr}`;
+  } else if (duration) {
+    return formatPlural(duration, "week");
+  }
+  return "TBD";
+};
+
+/**
  * Format localTime
  *
  * @param {moment.Moment} localTime
