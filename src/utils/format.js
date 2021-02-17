@@ -220,3 +220,25 @@ export const formatOpenPositions = (job, resources) => {
     )}`;
   }
 };
+
+/**
+ * Format job date
+ *
+ * @param {string} startDate job startDate
+ * @param {number} duration  job duration
+ *
+ * @returns {string} formatted string
+ */
+export const formatJobDate = (startDate, duration) => {
+  const dateStr = startDate ? moment(startDate).format(DAY_FORMAT) : "";
+
+  if (startDate && duration) {
+    return `Requested starting ${dateStr} for ${formatPlural(duration, "week")}`;
+  } else if (startDate) {
+    return `Requested starting ${dateStr}`;
+  } else if (duration) {
+    return formatPlural(duration, "week");
+  }
+
+  return "TBD";
+};
