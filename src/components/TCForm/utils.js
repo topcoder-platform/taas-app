@@ -75,9 +75,9 @@ export const getValidator = (fields) => {
       .forEach((f) => {
         if (f.isRequired && !values[f.name]) {
           errors[f.name] = f.validationMessage;
-        }else if (f.customValidator){
+        } else if (f.customValidator) {
           const error = f.customValidator(f, fields, values);
-          if(error){
+          if (error) {
             errors[f.name] = error;
           }
         }
