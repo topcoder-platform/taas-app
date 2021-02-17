@@ -74,6 +74,14 @@ export const BUTTON_TYPE = {
 };
 
 /**
+ * Supported Babge Types
+ */
+export const BABGE_TYPE = {
+  PRIMARY: "primary",
+  DANGER: "danger",
+};
+
+/**
  * Type of rate
  */
 export const RATE_TYPE = {
