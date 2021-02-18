@@ -19,11 +19,11 @@ const getSelectOptionByValue = (value, selectOptions) => {
     return {
       label: `Unsuppored value: ${value}`,
       value,
-    }
+    };
   }
 
-  return option
-}
+  return option;
+};
 
 /**
  * Extract value from field by type
@@ -39,8 +39,10 @@ const extractValue = (value, field) => {
   switch (field.type) {
     case FORM_FIELD_TYPE.SELECT: {
       return field.isMulti
-        ? value.map((valueItem) => getSelectOptionByValue(valueItem, field.selectOptions))
-        : getSelectOptionByValue(value, field.selectOptions)
+        ? value.map((valueItem) =>
+            getSelectOptionByValue(valueItem, field.selectOptions)
+          )
+        : getSelectOptionByValue(value, field.selectOptions);
     }
 
     case FORM_FIELD_TYPE.DATE: {
