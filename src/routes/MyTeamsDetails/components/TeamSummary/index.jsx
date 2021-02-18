@@ -10,7 +10,6 @@ import {
   formatConnectProjectUrl,
   formatMoney,
   formatRemainingTimeForTeam,
-  formatReportIssueUrl,
 } from "utils/format";
 import IconClock from "../../../../assets/images/icon-clock.svg";
 import IconMoney from "../../../../assets/images/icon-money.svg";
@@ -58,7 +57,9 @@ const TeamSummary = ({ team }) => {
         <Button
           type="warning"
           size="medium"
-          href={formatReportIssueUrl(`TaaS Issue: ${team.name}`)}
+          onClick={() => {
+            console.log(`Issue with ${team.name} reported`)
+          }}
           target="_blank"
         >
           REPORT AN ISSUE

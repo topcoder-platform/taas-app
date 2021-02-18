@@ -15,7 +15,6 @@ import {
   formatDateRange,
   formatMoney,
   formatRemainingTimeForTeam,
-  formatReportIssueUrl,
   formatConnectProjectUrl,
 } from "utils/format";
 import AvatarGroup from "components/AvatarGroup";
@@ -30,7 +29,7 @@ const TeamCard = ({ team }) => {
             {
               label: "Open in Connect",
               action: () => {
-                window.open(formatConnectProjectUrl(team.id));
+                console.log("Issue reported!")
               },
             },
             {
@@ -48,7 +47,7 @@ const TeamCard = ({ team }) => {
             {
               label: "Report an Issue",
               action: () => {
-                window.open(formatReportIssueUrl(`TaaS Issue: ${team.name}`));
+                console.log(`Issue with ${team.name} reported`);
               },
             },
           ]}

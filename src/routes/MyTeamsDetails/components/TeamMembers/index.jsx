@@ -18,7 +18,6 @@ import { TEAM_MEMBERS_PER_PAGE } from "constants";
 import {
   formatDateRange,
   formatMoney,
-  formatReportIssueUrl,
   formatRequestExtensionUrl,
 } from "utils/format";
 import Input from "components/Input";
@@ -148,13 +147,7 @@ const TeamMembers = ({ team }) => {
                       options={[
                         {
                           label: "Report an Issue",
-                          action: () => {
-                            window.open(
-                              formatReportIssueUrl(
-                                `Issue with ${member.handle} on ${team.name}`
-                              )
-                            );
-                          },
+                          action: () => {console.log(`Issue with ${member.handle} on ${team.name} reported`)},
                         },
                         {
                           label: "Request an Extension",
