@@ -162,7 +162,9 @@ const TeamMembers = ({ team }) => {
                         },
                         {
                           label: "Report an Issue",
-                          action: () => {showReportPopup(team.name, team.id, member.handle)},
+                          action: () => {
+                            showReportPopup(team.name, team.id, member.handle);
+                          },
                         },
                         {
                           label: "Request an Extension",

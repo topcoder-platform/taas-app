@@ -63,7 +63,7 @@ const ReactSelect = (props) => {
       borderRadius: "5px",
     }),
     dropdownIndicator: () => ({
-      display: "none"
+      display: "none",
     }),
   };
 

@@ -20,7 +20,6 @@ import { useReportPopup } from "components/ReportPopup/hooks/useReportPopup";
 import "./styles.module.scss";
 
 const TeamSummary = ({ team }) => {
-
   const showReportPopup = useReportPopup();
 
   return (

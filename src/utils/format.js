@@ -3,10 +3,7 @@
  */
 import _ from "lodash";
 import { RATE_TYPE } from "constants";
-import {
-  EMAIL_REQUEST_EXTENSION,
-  CONNECT_WEBSITE_URL,
-} from "../../config";
+import { EMAIL_REQUEST_EXTENSION, CONNECT_WEBSITE_URL } from "../../config";
 import moment from "moment";
 import { DAY_FORMAT } from "constants/";
 

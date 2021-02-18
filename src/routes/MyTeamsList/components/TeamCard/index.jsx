@@ -22,7 +22,6 @@ import ThreeDotsMenu from "components/ThreeDotsMenu";
 import { useReportPopup } from "components/ReportPopup/hooks/useReportPopup";
 
 const TeamCard = ({ team }) => {
-
   const showReportPopup = useReportPopup();
 
   return (
@@ -33,7 +32,7 @@ const TeamCard = ({ team }) => {
             {
               label: "Open in Connect",
               action: () => {
-                console.log("Issue reported!")
+                console.log("Issue reported!");
               },
             },
             {

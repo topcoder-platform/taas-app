@@ -61,7 +61,7 @@ const PositionCandidates = ({ position, candidateStatus, updateCandidate }) => {
 
   useEffect(() => {
     setPage(1);
-  }, [candidateStatus])
+  }, [candidateStatus]);
 
   const filteredCandidates = useMemo(
     () =>

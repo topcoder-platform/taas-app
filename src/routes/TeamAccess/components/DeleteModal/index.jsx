@@ -100,11 +100,7 @@ function DeleteModal({ selected, open, onClose, teamId, isInvite }) {
       button={button}
       disabled={loading}
     >
-      {loading ? (
-        <CenteredSpinner />
-      ) : (
-        <p>{displayText()}</p>
-      )}
+      {loading ? <CenteredSpinner /> : <p>{displayText()}</p>}
     </BaseModal>
   );
 }

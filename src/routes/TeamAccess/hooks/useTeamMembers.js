@@ -1,10 +1,6 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  loadMembers,
-  loadInvites,
-  clearAll,
-} from "../actions";
+import { loadMembers, loadInvites, clearAll } from "../actions";
 
 /**
  * Hook which provides state and actions

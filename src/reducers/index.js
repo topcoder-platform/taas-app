@@ -11,7 +11,7 @@ const rootReducer = combineReducers({
   toastr: toastrReducer,
   positionDetails: positionDetailsReducer,
   teamMembers: teamMembersReducer,
-  reportPopup: reportPopupReducer
+  reportPopup: reportPopupReducer,
 });
 
 export default rootReducer;
