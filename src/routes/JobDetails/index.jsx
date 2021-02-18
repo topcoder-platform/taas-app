@@ -31,10 +31,19 @@ const JobDetails = ({ teamId, jobId }) => {
     if (!!skills && !!job) {
       setSkillSet(
         job.skills
-          ?.map((val) => {
-            const skill = skills.find((sk) => sk.id === val);
+          // map skill ids to names
+          ?.map((skillId) => {
+            const skill = _.find(skills, { id: skillId });
+
+            if (!skill) {
+              console.warn(`Couldn't find name for skill id "${skillId}" of the job "${job.id}".`)
+              return null
+            }
+
             return skill.name;
           })
+          // remove `null` values for skills when we couldn't find the name
+          .filter((skillName) => !!skillName)
           .join(", ")
       );
     }
