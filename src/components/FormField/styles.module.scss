@@ -3,7 +3,7 @@
 
 .job-field-label {
   color: #aaaaaa;
-  font-family: Roboto;
+  @include font-roboto;
   font-size: 12px;
   line-height: 24px;
   text-align: left;
@@ -42,14 +42,13 @@ input:read-only {
 }
 
 .field-error {
-  font-family: "Roboto", Helvetica, Arial, sans-serif;
-  font-weight: 400;
+  @include font-roboto;
   width: 100%;
   min-height: 40px;
   line-height: 20px;
   padding: 9px 10px;
   margin: 10px 0 5px;
-  font-size: 15px;
+  font-size: 14px;
   color: #ff5b52;
   border: 1px solid #ffd5d1;
   cursor: auto;
