@@ -1,31 +1,33 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React, { useCallback, useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux';
+
+import { closeReport, submitReport } from "./actions";
 import BaseModal from "components/BaseModal"
 import TextArea from "components/TextArea"
 import Button from "../Button";
 
-function ReportPopup(props) {
-  const {} = props
+function ReportPopup() {
 
-  const onClose = () => console.log("close the modal");
+  const {isOpen, teamName, memberHandle } = useSelector(state => state.reportPopup);
 
-  const title = "Issue Report - BLAHAH"
+  const dispatch = useDispatch();
+  const [textVal, setTextVal] = useState("");
+  const [isDisabled, setIsDisabled] = useState(true);
 
-  const button = <Button onClick={onClose} size="medium" isSubmit >Submit</Button>
+  const button = <Button onClick={() => closeModal()} size="medium" >Submit</Button>
 
-  const isDisabled = false;
-
-  const textVal = '';
+  const closeModal = useCallback(() => {
+    dispatch(closeReport());
+  }, [dispatch])
 
   return (
-    <BaseModal open={true} onClose={onClose} title={title} button={button} disabled={isDisabled}>
-      <TextArea value={textVal} placeholder="Describe your issue" />
+    <BaseModal 
+      open={isOpen} 
+      onClose={closeModal} 
+      title={`Issue Report - ${teamName}${memberHandle ? " - " + memberHandle : ""}`} button={button} disabled={isDisabled}>
+      <TextArea value={textVal} onChange={setTextVal}placeholder="Describe your issue" />
     </BaseModal> 
   )
 }
 
-ReportPopup.propTypes = {
-
-}
-
-export default ReportPopup
+export default ReportPopup;

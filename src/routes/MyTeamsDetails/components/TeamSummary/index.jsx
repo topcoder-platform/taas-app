@@ -15,10 +15,14 @@ import IconClock from "../../../../assets/images/icon-clock.svg";
 import IconMoney from "../../../../assets/images/icon-money.svg";
 // import IconRating from "../../../../assets/images/icon-rating.svg";
 import Button from "components/Button";
+import { useReportPopup } from "components/ReportPopup/hooks/useReportPopup";
 // import Rating from "components/Rating";
 import "./styles.module.scss";
 
 const TeamSummary = ({ team }) => {
+
+  const showReportPopup = useReportPopup();
+
   return (
     <div styleName="team-summary">
       <div styleName="data-items">
@@ -58,7 +62,7 @@ const TeamSummary = ({ team }) => {
           type="warning"
           size="medium"
           onClick={() => {
-            console.log(`Issue with ${team.name} reported`)
+            showReportPopup(team.name, team.id);
           }}
           target="_blank"
         >

@@ -15,6 +15,7 @@ import TeamSummary from "./components/TeamSummary";
 import TeamMembers from "./components/TeamMembers";
 import TeamPositions from "./components/TeamPositions";
 import withAuthentication from "../../hoc/withAuthentication";
+import ReportPopup from "components/ReportPopup";
 
 const MyTeamsDetails = ({ teamId }) => {
   const [team, loadingError] = useData(getTeamById, teamId);
@@ -31,6 +32,7 @@ const MyTeamsDetails = ({ teamId }) => {
           <TeamPositions positions={team.jobs || []} teamId={teamId} />
         </>
       )}
+      <ReportPopup />
     </Page>
   );
 };

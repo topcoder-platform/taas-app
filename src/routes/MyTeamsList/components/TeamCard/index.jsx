@@ -19,8 +19,12 @@ import {
 } from "utils/format";
 import AvatarGroup from "components/AvatarGroup";
 import ThreeDotsMenu from "components/ThreeDotsMenu";
+import { useReportPopup } from "components/ReportPopup/hooks/useReportPopup";
 
 const TeamCard = ({ team }) => {
+
+  const showReportPopup = useReportPopup();
+
   return (
     <div styleName="team-card">
       <div styleName="three-dots-menu">
@@ -47,7 +51,7 @@ const TeamCard = ({ team }) => {
             {
               label: "Report an Issue",
               action: () => {
-                console.log(`Issue with ${team.name} reported`);
+                showReportPopup(team.name, team.id);
               },
             },
           ]}

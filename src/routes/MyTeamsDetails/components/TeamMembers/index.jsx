@@ -22,10 +22,13 @@ import {
 } from "utils/format";
 import Input from "components/Input";
 import { skillShape } from "components/SkillsList";
+import { useReportPopup } from "components/ReportPopup/hooks/useReportPopup";
 
 const TeamMembers = ({ team }) => {
   const { resources, jobs } = team;
   const [filter, setFilter] = useState("");
+
+  const showReportPopup = useReportPopup();
 
   const filteredMembers = useMemo(
     () =>
@@ -147,7 +150,7 @@ const TeamMembers = ({ team }) => {
                       options={[
                         {
                           label: "Report an Issue",
-                          action: () => {console.log(`Issue with ${member.handle} on ${team.name} reported`)},
+                          action: () => {showReportPopup(team.name, team.id, member.handle)},
                         },
                         {
                           label: "Request an Extension",
