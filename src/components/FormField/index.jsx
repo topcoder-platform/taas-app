@@ -13,12 +13,12 @@ import ReactSelect from "../../components/ReactSelect";
 import DateInput from "../../components/DateInput";
 import "./styles.module.scss";
 
-const FormField = ({ field, isGroupField }) => {
+const FormField = ({ field }) => {
   return (
     <Field name={field.name}>
       {({ input, meta }) => (
-        <div styleName={isGroupField ? "field-group-field" : ""}>
-          { !field.readonly && (             
+        <div>
+          { !field.readonly && (
             <label
               styleName={
                 (input.value != "undefined" && input.value !== null && input.value !== "") || meta.active

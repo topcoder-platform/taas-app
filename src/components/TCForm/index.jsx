@@ -56,14 +56,13 @@ const TCForm = ({
                     <>
                       {row.type === FORM_ROW_TYPE.GROUP && (
                         <div styleName="field-group">
-                          {row.fields.map((field) => {
-                            return (
+                          {row.fields.map((field) => (
+                            <div styleName="field-group-field" key={field.name}>
                               <FormField
                                 field={fields[field]}
-                                isGroupField={true}
                               />
-                            );
-                          })}
+                            </div>
+                          ))}
                         </div>
                       )}
                       {row.type === FORM_ROW_TYPE.SINGLE &&
