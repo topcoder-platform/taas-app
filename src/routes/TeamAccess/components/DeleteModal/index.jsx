@@ -1,11 +1,11 @@
 import React, { useCallback, useState } from "react";
 import { useDispatch } from "react-redux";
 import { toastr } from "react-redux-toastr";
-import Loader from "react-loader-spinner";
 import BaseModal from "components/BaseModal";
 import Button from "components/Button";
 import { removeTeamMember, removeInvite } from "../../actions";
 import "./styles.module.scss";
+import CenteredSpinner from "components/CenteredSpinner";
 
 const MEMBER_TITLE = "You're about to delete a member from the team";
 const INVITE_TITLE = "You're about to remove an invitation";
@@ -101,9 +101,7 @@ function DeleteModal({ selected, open, onClose, teamId, isInvite }) {
       disabled={loading}
     >
       {loading ? (
-        <div styleName="loader-container">
-          <Loader type="TailSpin" color="#00BFFF" height={80} width={80} />
-        </div>
+        <CenteredSpinner />
       ) : (
         <p>{displayText()}</p>
       )}

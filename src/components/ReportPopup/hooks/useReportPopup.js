@@ -4,7 +4,7 @@ import { openReport } from "../actions";
 export const useReportPopup = () => {
   const dispatch = useDispatch();
 
-  return (teamName, memberHandle) => {
-    dispatch(openReport(teamName, memberHandle));
+  return (teamName, teamId, memberHandle) => {
+    dispatch(openReport(teamName, teamId, memberHandle));
   }
 }
