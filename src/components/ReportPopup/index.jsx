@@ -25,8 +25,7 @@ function ReportPopup() {
     setIsLoading(true);
 
     postReport(teamName, teamId, textVal, memberHandle)
-      .then((res) => {
-        console.log(res);
+      .then(() => {
         setIsLoading(false);
         closeModal();
         toastr.success("Report submitted successfully");
@@ -50,6 +49,7 @@ function ReportPopup() {
 
   const closeModal = useCallback(() => {
     dispatch(closeReport());
+    setTextVal("");
   }, [dispatch]);
 
   return (
