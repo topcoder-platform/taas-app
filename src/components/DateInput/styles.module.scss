@@ -4,6 +4,12 @@
   & > div {
     width: 100%;
   }
+  &.error {
+    input{
+      border-color: #fe665d;
+    }
+    
+  }
 }
 
 .datepicker-wrapper > div:nth-child(2) > div:nth-child(2) {

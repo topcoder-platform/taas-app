@@ -106,6 +106,7 @@ TCForm.propTypes = {
         label: PT.string,
         type: PT.oneOf(Object.values(FORM_FIELD_TYPE)).isRequired,
         isRequired: PT.bool,
+        customValidator: PT.func,
         validationMessage: PT.string,
         name: PT.string.isRequired,
         component: PT.element,

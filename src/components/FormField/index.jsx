@@ -72,6 +72,7 @@ const FormField = ({ field, isGroupField }) => {
               onChange={input.onChange}
               onBlur={input.onBlur}
               onFocus={input.onFocus}
+              className={meta.error && meta.touched ? "error" : ""}
             />
           )}
           {field.type === FORM_FIELD_TYPE.SELECT && (
@@ -84,7 +85,7 @@ const FormField = ({ field, isGroupField }) => {
               onFocus={input.onFocus}
             />
           )}
-          {field.isRequired && meta.error &&  meta.touched && (
+          {(field.isRequired || field.customValidator) && meta.error &&  meta.touched && (
             <div styleName="field-error">{meta.error}</div>
           )}
         </div>
