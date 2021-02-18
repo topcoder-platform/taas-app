@@ -164,3 +164,29 @@ export const postInvites = (teamId, handles, emails, role) => {
       .catch((ex) => reject(ex))
   })
 }
+
+/**
+ * Post an issue report
+ * 
+ * @param {string} teamName team name
+ * @param {string|number} teamId team id
+ * @param {string} memberHandle member handle
+ */
+export const postReport = (teamName, teamId, reportText, memberHandle) => {
+  const url = `${config.API.V5}/taas-teams/email`
+  const bodyObj = {
+    template: "team-issue-report",
+    data: {
+      projectName: teamName,
+      projectId: teamId,
+      reportText
+    }
+  }
+
+  if (memberHandle) {
+    bodyObj.template = "member-issue-report",
+    bodyObj.data.userHandle = memberHandle
+  }
+
+  return axios.post(url, bodyObj);
+}

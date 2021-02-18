@@ -4,7 +4,6 @@
 import _ from "lodash";
 import { RATE_TYPE } from "constants";
 import {
-  EMAIL_REPORT_ISSUE,
   EMAIL_REQUEST_EXTENSION,
   CONNECT_WEBSITE_URL,
 } from "../../config";
@@ -125,17 +124,6 @@ export const formatFullName = (firstName, lastName) => {
   }
 
   return fullName;
-};
-
-/**
- * Format Report an Issue URL (mailto:)
- *
- * @param {string} subject email subject
- *
- * @returns {string} report an issue URL
- */
-export const formatReportIssueUrl = (subject) => {
-  return `mailto:${EMAIL_REPORT_ISSUE}?subject=${encodeURIComponent(subject)}`;
 };
 
 /**
