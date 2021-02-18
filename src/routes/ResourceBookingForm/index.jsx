@@ -6,6 +6,7 @@
  */
 import React, { useState, useEffect } from "react";
 import PT from "prop-types";
+import _ from "lodash";
 import { toastr } from "react-redux-toastr";
 import Page from "../../components/Page";
 import PageHeader from "../../components/PageHeader";
@@ -14,7 +15,7 @@ import {
   getReourceBookingById,
   updateReourceBooking,
 } from "services/resourceBookings";
-import { getPositionDetails } from "services/teams";
+import { getTeamById } from "services/teams";
 import LoadingIndicator from "../../components/LoadingIndicator";
 import withAuthentication from "../../hoc/withAuthentication";
 import TCForm from "../../components/TCForm";
@@ -25,6 +26,7 @@ const ResourceBookingDetails = ({ teamId, resourceBookingId }) => {
   const [submitting, setSubmitting] = useState(false);
   const [jobId, setJobId] = useState(null);
   const [formData, setFormData] = useState(null);
+  const [team, loadingTeamError] = useData(getTeamById, teamId);
   const [rb, loadingError] = useData(getReourceBookingById, resourceBookingId);
 
   useEffect(() => {
@@ -34,20 +36,27 @@ const ResourceBookingDetails = ({ teamId, resourceBookingId }) => {
   }, [rb]);
 
   useEffect(() => {
-    if (jobId) {
-      getPositionDetails(teamId, jobId).then((response) => {
-        const candidate = response.data.candidates?.find(
-          (x) => x.userId === rb.userId
-        );
-        const data = {
-          title: response.data.title,
-          ...candidate,
-          ...rb,
-        };
-        setFormData(data);
-      });
+    if (team && rb) {
+      const resource = _.find(
+        team.resources,
+        (r) => r.id === resourceBookingId
+      );
+
+      let job;
+      if (resource.jobId) {
+        job = _.find(team.jobs, { id: resource.jobId });
+      }
+
+      const jobTitle = _.get(job, "title", "<Not Assigned>");
+
+      const data = {
+        jobTitle,
+        ...resource,
+        ...rb,
+      };
+      setFormData(data);
     }
-  }, [jobId, rb, teamId]);
+  }, [rb, team, resourceBookingId]);
 
   const onSubmit = async (values) => {
     const data = getRequestData(values);

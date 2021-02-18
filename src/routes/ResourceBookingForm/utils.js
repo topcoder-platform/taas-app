@@ -12,8 +12,8 @@ import {
 } from "../../constants";
 
 const EDIT_ResourceBooking_ROWS = [
-  { type: FORM_ROW_TYPE.SINGLE, fields: ["title"] },
   { type: FORM_ROW_TYPE.SINGLE, fields: ["handle"] },
+  { type: FORM_ROW_TYPE.SINGLE, fields: ["jobTitle"] },
   { type: FORM_ROW_TYPE.GROUP, fields: ["startDate", "endDate"] },
   { type: FORM_ROW_TYPE.GROUP, fields: ["customerRate", "memberRate"] },
   { type: FORM_ROW_TYPE.SINGLE, fields: ["status"] },
@@ -26,8 +26,8 @@ const EDIT_ResourceBooking_ROWS = [
 export const getEditResourceBookingConfig = (onSubmit) => {
   return {
     fields: [
-      { readonly: true, type: FORM_FIELD_TYPE.TEXT, name: "title" },
       { readonly: true, type: FORM_FIELD_TYPE.TEXT, name: "handle" },
+      { readonly: true, type: FORM_FIELD_TYPE.TEXT, name: "jobTitle" },
       {
         label: "Client Rate",
         type: FORM_FIELD_TYPE.NUMBER,
