@@ -5,6 +5,9 @@ import { closeReport, submitReport } from "./actions";
 import BaseModal from "components/BaseModal"
 import TextArea from "components/TextArea"
 import Button from "../Button";
+import { postReport } from "services/teams";
+
+
 
 function ReportPopup() {
 
@@ -14,7 +17,11 @@ function ReportPopup() {
   const [textVal, setTextVal] = useState("");
   const [isDisabled, setIsDisabled] = useState(true);
 
-  const button = <Button onClick={() => closeModal()} size="medium" >Submit</Button>
+  const submitReport = () => {
+
+  }
+
+  const button = <Button onClick={() => closeModal()} size="medium" isSubmit>Submit</Button>
 
   const closeModal = useCallback(() => {
     dispatch(closeReport());
