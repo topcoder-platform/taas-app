@@ -20,48 +20,54 @@ import ResourceDetails from "./ResourceDetails";
 import "./styles.module.scss";
 
 const ResourceBookingDetails = ({ teamId, resourceBookingId }) => {
-  const [rb, loadingError] = useData(getReourceBookingById, resourceBookingId);
+  const [resource, loadingError] = useData(getReourceBookingById, resourceBookingId);
   const [team, loadingTeamError] = useData(getTeamById, teamId);
+  const [jobTitle, setJobTitle] = useState("")
+  const [member, setMember] = useState("")
 
-  const member = useMemo(() => {
+  useEffect(() => {
     if (team) {
-      const resource = _.find(
+      const resourceWithMemberDetails = _.find(
         team.resources,
-        (r) => r.id === resourceBookingId
+        { id: resourceBookingId }
       );
-      let job;
-      if (resource.jobId) {
-        job = _.find(team.jobs, { id: resource.jobId });
+
+      // resource inside Team object has all the member details we need
+      setMember(resourceWithMemberDetails);
+
+      if (resourceWithMemberDetails.jobId) {
+        const job = _.find(team.jobs, { id: resourceWithMemberDetails.jobId });
+        setJobTitle(_.get(job, "title", `<Not Found> ${resourceWithMemberDetails.jobId}`));
+      } else {
+        setJobTitle("<Not Assigned>")
       }
-      resource.jobTitle = _.get(job, "title", "<Not Assigned>");
-      return resource;
     }
   }, [team, resourceBookingId]);
 
   return (
     <Page title="Member Details">
       {!member ? (
-        <LoadingIndicator error={loadingError} />
+        <LoadingIndicator error={loadingError || loadingTeamError} />
       ) : (
-        <>
-          <PageHeader
-            title="Member Details"
-            backTo={`/taas/myteams/${teamId}`}
-          />
-          <div styleName="content-wrapper">
-            <ResourceSummary candidate={member} />
-            <ResourceDetails resource={{ ...rb, title: member.jobTitle }} />
-            <div styleName="actions">
-              <Button
-                size="medium"
-                routeTo={`/taas/myteams/${teamId}/rb/${rb.id}/edit`}
-              >
-                Edit Member Details
+          <>
+            <PageHeader
+              title="Member Details"
+              backTo={`/taas/myteams/${teamId}`}
+            />
+            <div styleName="content-wrapper">
+              <ResourceSummary member={member} />
+              <ResourceDetails resource={resource} jobTitle={jobTitle} />
+              <div styleName="actions">
+                <Button
+                  size="medium"
+                  routeTo={`/taas/myteams/${teamId}/rb/${resource.id}/edit`}
+                >
+                  Edit Member Details
               </Button>
+              </div>
             </div>
-          </div>
-        </>
-      )}
+          </>
+        )}
     </Page>
   );
 };

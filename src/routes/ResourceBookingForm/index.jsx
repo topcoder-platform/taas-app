@@ -4,7 +4,7 @@
  * Page for edit resource booking details.
  * It gets `teamId` and `resourceBookingId` from the router.
  */
-import React, { useState, useEffect } from "react";
+import React, { useState, useMemo } from "react";
 import PT from "prop-types";
 import _ from "lodash";
 import { toastr } from "react-redux-toastr";
@@ -24,37 +24,31 @@ import "./styles.module.scss";
 
 const ResourceBookingDetails = ({ teamId, resourceBookingId }) => {
   const [submitting, setSubmitting] = useState(false);
-  const [jobId, setJobId] = useState(null);
-  const [formData, setFormData] = useState(null);
   const [team, loadingTeamError] = useData(getTeamById, teamId);
   const [rb, loadingError] = useData(getReourceBookingById, resourceBookingId);
 
-  useEffect(() => {
-    if (!!rb) {
-      setJobId(rb.jobId);
-    }
-  }, [rb]);
-
-  useEffect(() => {
+  const formData = useMemo(() => {
     if (team && rb) {
       const resource = _.find(
         team.resources,
-        (r) => r.id === resourceBookingId
+        { id: resourceBookingId }
       );
 
-      let job;
+      const data = {
+        ...rb,
+        // resource inside Team object has all the member details we need
+        // so we can get user handle from there
+        handle: resource.handle,
+      };
+
       if (resource.jobId) {
-        job = _.find(team.jobs, { id: resource.jobId });
+        const job = _.find(team.jobs, { id: resource.jobId });
+        data.jobTitle = _.get(job, "title", `<Not Found> ${resource.jobId}`);
+      } else {
+        data.jobTitle = "<Not Assigned>";
       }
 
-      const jobTitle = _.get(job, "title", "<Not Assigned>");
-
-      const data = {
-        jobTitle,
-        ...resource,
-        ...rb,
-      };
-      setFormData(data);
+      return data;
     }
   }, [rb, team, resourceBookingId]);
 
@@ -89,25 +83,25 @@ const ResourceBookingDetails = ({ teamId, resourceBookingId }) => {
   return (
     <Page title="Edit Member Details">
       {!formData ? (
-        <LoadingIndicator error={loadingError} />
+        <LoadingIndicator error={loadingError || loadingTeamError} />
       ) : (
-        <>
-          <PageHeader
-            title="Edit Member Details"
-            backTo={`/taas/myteams/${teamId}/rb/${rb.id}`}
-          />
-          <div styleName="rb-modification-details">
-            <TCForm
-              configuration={getEditResourceBookingConfig(onSubmit)}
-              initialValue={formData}
-              submitButton={{ text: "Save" }}
-              backButton={{ text: "Cancel", backTo: `/taas/myteams/${teamId}` }}
-              submitting={submitting}
-              setSubmitting={setSubmitting}
+          <>
+            <PageHeader
+              title="Edit Member Details"
+              backTo={`/taas/myteams/${teamId}/rb/${rb.id}`}
             />
-          </div>
-        </>
-      )}
+            <div styleName="rb-modification-details">
+              <TCForm
+                configuration={getEditResourceBookingConfig(onSubmit)}
+                initialValue={formData}
+                submitButton={{ text: "Save" }}
+                backButton={{ text: "Cancel", backTo: `/taas/myteams/${teamId}` }}
+                submitting={submitting}
+                setSubmitting={setSubmitting}
+              />
+            </div>
+          </>
+        )}
     </Page>
   );
 };

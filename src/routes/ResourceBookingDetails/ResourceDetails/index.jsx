@@ -12,7 +12,7 @@ import IconComputer from "../../../assets/images/icon-computer.svg";
 import IconBag from "../../../assets/images/icon-bag.svg";
 import "./styles.module.scss";
 
-const ResourceDetails = ({ resource }) => {
+const ResourceDetails = ({ resource, jobTitle }) => {
   return (
     <div styleName="resource-details">
       <div styleName="table">
@@ -21,7 +21,7 @@ const ResourceDetails = ({ resource }) => {
             <DataItem
               icon={<IconComputer />}
               title="Job Title"
-              children={resource.title}
+              children={jobTitle}
             />
           </div>
           <div styleName="table-cell">
@@ -68,8 +68,8 @@ const ResourceDetails = ({ resource }) => {
 };
 
 ResourceDetails.propTypes = {
+  jobTitle: PT.string,
   resource: PT.shape({
-    title: PT.string,
     startDate: PT.string,
     endDate: PT.string,
     id: PT.string,
