@@ -79,7 +79,7 @@ export const getEditJobConfig = (skillOptions, onSubmit) => {
         placeholder: "Start Date",
       },
       {
-        label: "Duration",
+        label: "Duration (weekly)",
         type: FORM_FIELD_TYPE.NUMBER,
         name: "duration",
         minValue: 1,
@@ -93,7 +93,7 @@ export const getEditJobConfig = (skillOptions, onSubmit) => {
         placeholder: "Resource Type",
       },
       {
-        label: "Rate Type",
+        label: "Resource Rate Frequency",
         type: FORM_FIELD_TYPE.SELECT,
         name: "rateType",
         selectOptions: RATE_TYPE_OPTIONS,

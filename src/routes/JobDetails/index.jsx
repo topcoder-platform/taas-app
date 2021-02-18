@@ -73,13 +73,13 @@ const JobDetails = ({ teamId, jobId }) => {
               <DataItem title="Start Date" icon={<IconDescription />}>
                 {formatDate(job.startDate)}
               </DataItem>
-              <DataItem title="Duration" icon={<IconDescription />}>
+              <DataItem title="Duration (weekly)" icon={<IconDescription />}>
                 {job.duration || "TBD"}
               </DataItem>
               <DataItem title="Resource Type" icon={<IconDescription />}>
                 {job.resourceType}
               </DataItem>
-              <DataItem title="Rate Type" icon={<IconDescription />}>
+              <DataItem title="Resource Rate Frequency" icon={<IconDescription />}>
                 {job.rateType}
               </DataItem>
               <DataItem title="Workload" icon={<IconDescription />}>
