@@ -67,18 +67,19 @@ const ResourceBookingDetails = ({ teamId, resourceBookingId }) => {
     );
   };
 
-  const getRequestData = (values) => {
-    return {
-      projectId: values.projectId,
-      startDate: values.startDate,
-      endDate: values.endDate,
-      memberRate: values.memberRate,
-      customerRate: values.customerRate,
-      status: values.status,
-      userId: values.userId,
-      rateType: values.rateType,
-    };
-  };
+  // as we are using `PUT` method (not `PATCH`) we have send ALL the fields
+  // fields which we don't send would become `null` otherwise
+  const getRequestData = (values) => _.pick(values, [
+    'projectId',
+    'userId',
+    'jobId',
+    'status',
+    'startDate',
+    'endDate',
+    'memberRate',
+    'customerRate',
+    'rateType',
+  ]);
 
   return (
     <Page title="Edit Member Details">

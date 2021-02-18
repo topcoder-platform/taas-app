@@ -59,22 +59,22 @@ const JobForm = ({ teamId, jobId }) => {
     }
   };
 
-  const getRequestData = (values) => {
-    return {
-      projectId: values.projectId,
-      externalId: values.externalId,
-      description: values.description,
-      title: values.title,
-      startDate: values.startDate,
-      duration: values.duration,
-      numPositions: values.numPositions,
-      resourceType: values.resourceType,
-      rateType: values.rateType,
-      workload: values.workload,
-      skills: values.skills,
-      status: values.status,
-    };
-  };
+  // as we are using `PUT` method (not `PATCH`) we have send ALL the fields
+  // fields which we don't send would become `null` otherwise
+  const getRequestData = (values) => _.pick(values, [
+    'projectId',
+    'externalId',
+    'description',
+    'title',
+    'startDate',
+    'duration',
+    'numPositions',
+    'resourceType',
+    'rateType',
+    'workload',
+    'skills',
+    'status',
+  ]);
 
   useEffect(() => {
     if (skills && job && !options) {
