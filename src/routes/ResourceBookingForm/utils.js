@@ -11,7 +11,7 @@ import {
   FORM_FIELD_TYPE,
 } from "../../constants";
 
-const EDIT_ResourceBooking_ROWS = [
+const EDIT_RESOURCEBOOKING_ROWS = [
   { type: FORM_ROW_TYPE.SINGLE, fields: ["handle"] },
   { type: FORM_ROW_TYPE.SINGLE, fields: ["jobTitle"] },
   { type: FORM_ROW_TYPE.GROUP, fields: ["startDate", "endDate"] },
@@ -96,6 +96,6 @@ export const getEditResourceBookingConfig = (onSubmit) => {
       },
     ],
     onSubmit: onSubmit,
-    rows: EDIT_ResourceBooking_ROWS,
+    rows: EDIT_RESOURCE_BOOKING_ROWS,
   };
 };
