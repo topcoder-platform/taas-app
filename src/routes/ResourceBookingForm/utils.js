@@ -34,6 +34,7 @@ export const getEditResourceBookingConfig = (onSubmit) => {
         name: "customerRate",
         minValue: 0,
         placeholder: "Client Rate",
+        step: 0.01,
       },
       {
         label: "Member Rate",
@@ -41,6 +42,7 @@ export const getEditResourceBookingConfig = (onSubmit) => {
         name: "memberRate",
         minValue: 0,
         placeholder: "Member Rate",
+        step: 0.01,
       },
       {
         label: "Start Date",

@@ -53,6 +53,7 @@ const FormField = ({ field }) => {
               onBlur={input.onBlur}
               onFocus={input.onFocus}
               className={meta.error && meta.touched ? "error" : ""}
+              step={field.step}
             />
           )}
           {field.type === FORM_FIELD_TYPE.TEXTAREA && (

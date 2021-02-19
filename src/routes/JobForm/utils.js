@@ -84,6 +84,7 @@ export const getEditJobConfig = (skillOptions, onSubmit) => {
         name: "duration",
         minValue: 1,
         placeholder: "Duration",
+        step: 1,
       },
       {
         label: "Resource Type",

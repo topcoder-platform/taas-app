@@ -37,7 +37,7 @@ function TextInput(props) {
       readOnly={props.readonly ?? false}
       onBlur={props.onBlur}
       onFocus={props.onFocus}
-      step={props.type === "number" ? ".01" : null}
+      step={props.step}
     />
   );
 }
@@ -47,6 +47,7 @@ TextInput.defaultProps = {
   maxLength: Number.MAX_VALUE,
   placeholder: "",
   minValue: 0,
+  step: null,
 };
 
 TextInput.propTypes = {

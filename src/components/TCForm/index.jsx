@@ -119,6 +119,7 @@ TCForm.propTypes = {
         maxLength: PT.number,
         styleName: PT.string,
         readonly: PT.string,
+        step: PT.number,
       })
     ).isRequired,
     onSubmit: PT.func,
