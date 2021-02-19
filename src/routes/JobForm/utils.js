@@ -52,6 +52,7 @@ export const getEditJobConfig = (skillOptions, onSubmit) => {
         name: "numPositions",
         minValue: 1,
         placeholder: "Number Of Opening",
+        step: 1,
       },
       {
         label: "Job Skills",
