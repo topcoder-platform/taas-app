@@ -46,7 +46,7 @@ const ResourceBookingDetails = ({ teamId, resourceBookingId }) => {
 
   return (
     <Page title="Member Details">
-      {!member ? (
+      {!(member && resource) ? (
         <LoadingIndicator error={loadingError || loadingTeamError} />
       ) : (
           <>

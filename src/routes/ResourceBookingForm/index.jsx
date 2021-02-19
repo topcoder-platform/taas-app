@@ -89,7 +89,7 @@ const ResourceBookingDetails = ({ teamId, resourceBookingId }) => {
           <>
             <PageHeader
               title="Edit Member Details"
-              backTo={`/taas/myteams/${teamId}/rb/${rb.id}`}
+              backTo={`/taas/myteams/${teamId}/rb/${resourceBookingId}`}
             />
             <div styleName="rb-modification-details">
               <TCForm
