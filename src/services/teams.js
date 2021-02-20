@@ -181,7 +181,7 @@ export const postReport = (teamName, teamId, reportText, memberHandle) => {
     template: "team-issue-report",
     data: {
       projectName: teamName,
-      projected: teamId,
+      projectId: teamId,
       reportText,
     },
   };

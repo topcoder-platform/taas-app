@@ -32,7 +32,14 @@ function ReportPopup() {
       })
       .catch((err) => {
         setIsLoading(false);
-        toastr.error("Report failed", err.message);
+
+        // Response interceptor passes only error body
+        // use this to identify server-side errors
+        if (err instanceof Error) {
+          toastr.error("Report failed");
+        } else {
+          toastr.error("Report failed", err.message);
+        }
       });
   };
 
