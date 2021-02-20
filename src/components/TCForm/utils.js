@@ -5,6 +5,27 @@ import _ from "lodash";
 import { FORM_FIELD_TYPE } from "../../constants";
 
 /**
+ * Returns the option from list of option by value
+ *
+ * @param {any} value value of option
+ * @param {[{ label: string, value: any }]} selectOptions list of option
+ *
+ * @returns {{ label: string, value: any }} select option
+ */
+const getSelectOptionByValue = (value, selectOptions) => {
+  const option = _.find(selectOptions, { value });
+
+  if (!option) {
+    return {
+      label: `Unsuppored value: ${value}`,
+      value,
+    };
+  }
+
+  return option;
+};
+
+/**
  * Extract value from field by type
  * @param {any} value value
  * @param {any} field field
@@ -18,12 +39,16 @@ const extractValue = (value, field) => {
   switch (field.type) {
     case FORM_FIELD_TYPE.SELECT: {
       return field.isMulti
-        ? value.map((x) => field.selectOptions.find((y) => y.value === x))
-        : field.selectOptions.find((y) => y.value === value);
+        ? value.map((valueItem) =>
+            getSelectOptionByValue(valueItem, field.selectOptions)
+          )
+        : getSelectOptionByValue(value, field.selectOptions);
     }
+
     case FORM_FIELD_TYPE.DATE: {
       return new Date(value);
     }
+
     default: {
       return value;
     }
@@ -71,10 +96,15 @@ export const getValidator = (fields) => {
   return (values) => {
     const errors = {};
     fields
-      .filter((f) => f.isRequired)
+      .filter((f) => f.isRequired || f.customValidator)
       .forEach((f) => {
-        if (!values[f.name]) {
+        if (f.isRequired && !values[f.name]) {
           errors[f.name] = f.validationMessage;
+        } else if (f.customValidator) {
+          const error = f.customValidator(f, fields, values);
+          if (error) {
+            errors[f.name] = error;
+          }
         }
       });
     return errors;

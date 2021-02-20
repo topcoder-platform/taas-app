@@ -8,14 +8,14 @@ import PT from "prop-types";
 import User from "components/User";
 import "./styles.module.scss";
 
-const ResourceSummary = ({ candidate }) => {
+const ResourceSummary = ({ member }) => {
   return (
     <div styleName="resource-summary">
       <div styleName="resource-summary-wrapper">
         <User
           user={{
-            ...candidate,
-            photoUrl: candidate.photo_url,
+            ...member,
+            photoUrl: member.photo_url,
           }}
         />
       </div>
@@ -24,7 +24,7 @@ const ResourceSummary = ({ candidate }) => {
 };
 
 ResourceSummary.propTypes = {
-  candidate: PT.shape({
+  member: PT.shape({
     firstName: PT.string,
     handle: PT.string,
     id: PT.string,

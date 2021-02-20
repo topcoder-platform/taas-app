@@ -13,12 +13,12 @@ import ReactSelect from "../../components/ReactSelect";
 import DateInput from "../../components/DateInput";
 import "./styles.module.scss";
 
-const FormField = ({ field, isGroupField }) => {
+const FormField = ({ field }) => {
   return (
     <Field name={field.name}>
       {({ input, meta }) => (
-        <div styleName={isGroupField ? "field-group-field" : ""}>
-          {!field.readonly && (
+        <div>
+          { !field.readonly && (
             <label
               styleName={
                 (input.value != "undefined" &&
@@ -56,6 +56,7 @@ const FormField = ({ field, isGroupField }) => {
               onBlur={input.onBlur}
               onFocus={input.onFocus}
               className={meta.error && meta.touched ? "error" : ""}
+              step={field.step}
             />
           )}
           {field.type === FORM_FIELD_TYPE.TEXTAREA && (
@@ -75,6 +76,7 @@ const FormField = ({ field, isGroupField }) => {
               onChange={input.onChange}
               onBlur={input.onBlur}
               onFocus={input.onFocus}
+              className={meta.error && meta.touched ? "error" : ""}
             />
           )}
           {field.type === FORM_FIELD_TYPE.SELECT && (
@@ -87,7 +89,7 @@ const FormField = ({ field, isGroupField }) => {
               onFocus={input.onFocus}
             />
           )}
-          {field.isRequired && meta.error && meta.touched && (
+          {(field.isRequired || field.customValidator) && meta.error &&  meta.touched && (
             <div styleName="field-error">{meta.error}</div>
           )}
         </div>

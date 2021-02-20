@@ -3,7 +3,7 @@
  *
  * Page for the list of candidates for position.
  */
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import PT from "prop-types";
 import Page from "components/Page";
 import LoadingIndicator from "components/LoadingIndicator";
@@ -16,7 +16,8 @@ import { useTeamPositionsState } from "./hooks/useTeamPositionsState";
 import "./styles.module.scss";
 
 const PositionDetails = ({ teamId, positionId }) => {
-  const [candidateStatus, setCandidateStatus] = useState(CANDIDATE_STATUS.OPEN);
+  // be dafault show "Interested" tab
+  const [candidateStatus, setCandidateStatus] = useState(CANDIDATE_STATUS.SHORTLIST);
   const {
     state: { position, error },
     updateCandidate,
@@ -28,6 +29,13 @@ const PositionDetails = ({ teamId, positionId }) => {
     },
     [setCandidateStatus]
   );
+
+  // if there are some candidates to review, then show "To Review" tab by default
+  useEffect(() => {
+    if (position && _.filter(position.candidates, { status: CANDIDATE_STATUS.OPEN }).length > 0) {
+      setCandidateStatus(CANDIDATE_STATUS.OPEN)
+    }
+  }, [position])
 
   return (
     <Page title="Job Details">

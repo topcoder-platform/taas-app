@@ -31,10 +31,19 @@ const JobDetails = ({ teamId, jobId }) => {
     if (!!skills && !!job) {
       setSkillSet(
         job.skills
-          ?.map((val) => {
-            const skill = skills.find((sk) => sk.id === val);
+          // map skill ids to names
+          ?.map((skillId) => {
+            const skill = _.find(skills, { id: skillId });
+
+            if (!skill) {
+              console.warn(`Couldn't find name for skill id "${skillId}" of the job "${job.id}".`)
+              return null
+            }
+
             return skill.name;
           })
+          // remove `null` values for skills when we couldn't find the name
+          .filter((skillName) => !!skillName)
           .join(", ")
       );
     }
@@ -64,13 +73,13 @@ const JobDetails = ({ teamId, jobId }) => {
               <DataItem title="Start Date" icon={<IconDescription />}>
                 {formatDate(job.startDate)}
               </DataItem>
-              <DataItem title="Duration" icon={<IconDescription />}>
+              <DataItem title="Duration (weekly)" icon={<IconDescription />}>
                 {job.duration || "TBD"}
               </DataItem>
               <DataItem title="Resource Type" icon={<IconDescription />}>
                 {job.resourceType}
               </DataItem>
-              <DataItem title="Rate Type" icon={<IconDescription />}>
+              <DataItem title="Resource Rate Frequency" icon={<IconDescription />}>
                 {job.rateType}
               </DataItem>
               <DataItem title="Workload" icon={<IconDescription />}>

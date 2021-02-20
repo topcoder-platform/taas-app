@@ -4,8 +4,9 @@
  * Page for edit resource booking details.
  * It gets `teamId` and `resourceBookingId` from the router.
  */
-import React, { useState, useEffect } from "react";
+import React, { useState, useMemo } from "react";
 import PT from "prop-types";
+import _ from "lodash";
 import { toastr } from "react-redux-toastr";
 import Page from "../../components/Page";
 import PageHeader from "../../components/PageHeader";
@@ -14,7 +15,7 @@ import {
   getReourceBookingById,
   updateReourceBooking,
 } from "services/resourceBookings";
-import { getPositionDetails } from "services/teams";
+import { getTeamById } from "services/teams";
 import LoadingIndicator from "../../components/LoadingIndicator";
 import withAuthentication from "../../hoc/withAuthentication";
 import TCForm from "../../components/TCForm";
@@ -23,31 +24,33 @@ import "./styles.module.scss";
 
 const ResourceBookingDetails = ({ teamId, resourceBookingId }) => {
   const [submitting, setSubmitting] = useState(false);
-  const [jobId, setJobId] = useState(null);
-  const [formData, setFormData] = useState(null);
+  const [team, loadingTeamError] = useData(getTeamById, teamId);
   const [rb, loadingError] = useData(getReourceBookingById, resourceBookingId);
 
-  useEffect(() => {
-    if (!!rb) {
-      setJobId(rb.jobId);
-    }
-  }, [rb]);
+  const formData = useMemo(() => {
+    if (team && rb) {
+      const resource = _.find(
+        team.resources,
+        { id: resourceBookingId }
+      );
 
-  useEffect(() => {
-    if (jobId) {
-      getPositionDetails(teamId, jobId).then((response) => {
-        const candidate = response.data.candidates?.find(
-          (x) => x.userId === rb.userId
-        );
-        const data = {
-          title: response.data.title,
-          ...candidate,
-          ...rb,
-        };
-        setFormData(data);
-      });
+      const data = {
+        ...rb,
+        // resource inside Team object has all the member details we need
+        // so we can get user handle from there
+        handle: resource.handle,
+      };
+
+      if (resource.jobId) {
+        const job = _.find(team.jobs, { id: resource.jobId });
+        data.jobTitle = _.get(job, "title", `<Not Found> ${resource.jobId}`);
+      } else {
+        data.jobTitle = "<Not Assigned>";
+      }
+
+      return data;
     }
-  }, [jobId, rb, teamId]);
+  }, [rb, team, resourceBookingId]);
 
   const onSubmit = async (values) => {
     const data = getRequestData(values);
@@ -64,41 +67,42 @@ const ResourceBookingDetails = ({ teamId, resourceBookingId }) => {
     );
   };
 
-  const getRequestData = (values) => {
-    return {
-      projectId: values.projectId,
-      startDate: values.startDate,
-      endDate: values.endDate,
-      memberRate: values.memberRate,
-      customerRate: values.customerRate,
-      status: values.status,
-      userId: values.userId,
-      rateType: values.rateType,
-    };
-  };
+  // as we are using `PUT` method (not `PATCH`) we have send ALL the fields
+  // fields which we don't send would become `null` otherwise
+  const getRequestData = (values) => _.pick(values, [
+    'projectId',
+    'userId',
+    'jobId',
+    'status',
+    'startDate',
+    'endDate',
+    'memberRate',
+    'customerRate',
+    'rateType',
+  ]);
 
   return (
     <Page title="Edit Member Details">
       {!formData ? (
-        <LoadingIndicator error={loadingError} />
+        <LoadingIndicator error={loadingError || loadingTeamError} />
       ) : (
-        <>
-          <PageHeader
-            title="Edit Member Details"
-            backTo={`/taas/myteams/${teamId}/rb/${rb.id}`}
-          />
-          <div styleName="rb-modification-details">
-            <TCForm
-              configuration={getEditResourceBookingConfig(onSubmit)}
-              initialValue={formData}
-              submitButton={{ text: "Save" }}
-              backButton={{ text: "Cancel", backTo: `/taas/myteams/${teamId}` }}
-              submitting={submitting}
-              setSubmitting={setSubmitting}
+          <>
+            <PageHeader
+              title="Edit Member Details"
+              backTo={`/taas/myteams/${teamId}/rb/${resourceBookingId}`}
             />
-          </div>
-        </>
-      )}
+            <div styleName="rb-modification-details">
+              <TCForm
+                configuration={getEditResourceBookingConfig(onSubmit)}
+                initialValue={formData}
+                submitButton={{ text: "Save" }}
+                backButton={{ text: "Cancel", backTo: `/taas/myteams/${teamId}` }}
+                submitting={submitting}
+                setSubmitting={setSubmitting}
+              />
+            </div>
+          </>
+        )}
     </Page>
   );
 };

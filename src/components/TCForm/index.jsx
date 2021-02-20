@@ -56,14 +56,13 @@ const TCForm = ({
                     <>
                       {row.type === FORM_ROW_TYPE.GROUP && (
                         <div styleName="field-group">
-                          {row.fields.map((field) => {
-                            return (
+                          {row.fields.map((field) => (
+                            <div styleName="field-group-field" key={field.name}>
                               <FormField
                                 field={fields[field]}
-                                isGroupField={true}
                               />
-                            );
-                          })}
+                            </div>
+                          ))}
                         </div>
                       )}
                       {row.type === FORM_ROW_TYPE.SINGLE &&
@@ -106,6 +105,7 @@ TCForm.propTypes = {
         label: PT.string,
         type: PT.oneOf(Object.values(FORM_FIELD_TYPE)).isRequired,
         isRequired: PT.bool,
+        customValidator: PT.func,
         validationMessage: PT.string,
         name: PT.string.isRequired,
         component: PT.element,
@@ -119,6 +119,7 @@ TCForm.propTypes = {
         maxLength: PT.number,
         styleName: PT.string,
         readonly: PT.string,
+        step: PT.number,
       })
     ).isRequired,
     onSubmit: PT.func,
