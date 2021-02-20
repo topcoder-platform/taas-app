@@ -10,7 +10,7 @@ const initialState = {
   loading: false,
   error: undefined,
   updating: false,
-  inviteError: undefined
+  inviteError: undefined,
 };
 
 const reducer = (state = initialState, action) => {
@@ -111,7 +111,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         loading: true,
         error: undefined,
-      }
+      };
 
     case ACTION_TYPE.LOAD_SUGGESTIONS_SUCCESS:
       return {
@@ -119,45 +119,47 @@ const reducer = (state = initialState, action) => {
         suggestions: action.payload,
         loading: false,
         error: undefined,
-      }
+      };
 
     case ACTION_TYPE.LOAD_SUGGESTIONS_ERROR:
       return {
         ...state,
         loading: false,
-        error: action.payload
-      }
+        error: action.payload,
+      };
 
     case ACTION_TYPE.CLEAR_SUGGESTIONS:
       return {
         ...state,
-        suggestions: []
-      }
+        suggestions: [],
+      };
 
     case ACTION_TYPE.ADD_INVITES_PENDING:
       return {
         ...state,
         updating: true,
-        inviteError: undefined
-      }
+        inviteError: undefined,
+      };
 
     case ACTION_TYPE.ADD_INVITES_SUCCESS:
       return {
         ...state,
         invites: [...state.invites, ...action.payload.success],
         updating: false,
-        inviteError: action.payload.failed ? { 
-          type: "SOME_FAILED", 
-          failed: action.payload.failed
-        } : undefined
-      }
+        inviteError: action.payload.failed
+          ? {
+              type: "SOME_FAILED",
+              failed: action.payload.failed,
+            }
+          : undefined,
+      };
 
     case ACTION_TYPE.ADD_INVITES_ERROR:
       return {
         ...state,
         updating: false,
-        inviteError: action.payload
-      }
+        inviteError: action.payload,
+      };
 
     default:
       return state;
