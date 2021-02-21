@@ -1,5 +1,5 @@
 import axios from "axios";
-import store from "../store";
+import _ from "lodash";
 import { getAuthUserTokens } from "@topcoder/micro-frontends-navbar-app";
 
 export const axiosInstance = axios.create({
@@ -15,9 +15,7 @@ axiosInstance.interceptors.request.use((config) => {
       config.headers["Authorization"] = `Bearer ${token}`;
       return config;
     })
-    .catch((err) => {
-      return config;
-    });
+    .catch(() => config);
 });
 
 // response interceptor to handle error
@@ -27,7 +25,13 @@ axiosInstance.interceptors.response.use(
     return config;
   },
   (error) => {
-    // return the response body
-    return Promise.reject(error.response.data);
+    const serverErrorMessage = _.get(error, "response.data.message");
+
+    // if there is server error message, then return it inside `message` property of error
+    if (serverErrorMessage) {
+      error.message = serverErrorMessage;
+    }
+
+    return Promise.reject(error);
   }
 );
