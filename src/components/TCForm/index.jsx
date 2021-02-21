@@ -58,9 +58,7 @@ const TCForm = ({
                         <div styleName="field-group">
                           {row.fields.map((field) => (
                             <div styleName="field-group-field" key={field.name}>
-                              <FormField
-                                field={fields[field]}
-                              />
+                              <FormField field={fields[field]} />
                             </div>
                           ))}
                         </div>

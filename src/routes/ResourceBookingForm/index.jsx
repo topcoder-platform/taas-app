@@ -29,10 +29,7 @@ const ResourceBookingDetails = ({ teamId, resourceBookingId }) => {
 
   const formData = useMemo(() => {
     if (team && rb) {
-      const resource = _.find(
-        team.resources,
-        { id: resourceBookingId }
-      );
+      const resource = _.find(team.resources, { id: resourceBookingId });
 
       const data = {
         ...rb,
@@ -69,40 +66,41 @@ const ResourceBookingDetails = ({ teamId, resourceBookingId }) => {
 
   // as we are using `PUT` method (not `PATCH`) we have send ALL the fields
   // fields which we don't send would become `null` otherwise
-  const getRequestData = (values) => _.pick(values, [
-    'projectId',
-    'userId',
-    'jobId',
-    'status',
-    'startDate',
-    'endDate',
-    'memberRate',
-    'customerRate',
-    'rateType',
-  ]);
+  const getRequestData = (values) =>
+    _.pick(values, [
+      "projectId",
+      "userId",
+      "jobId",
+      "status",
+      "startDate",
+      "endDate",
+      "memberRate",
+      "customerRate",
+      "rateType",
+    ]);
 
   return (
     <Page title="Edit Member Details">
       {!formData ? (
         <LoadingIndicator error={loadingError || loadingTeamError} />
       ) : (
-          <>
-            <PageHeader
-              title="Edit Member Details"
-              backTo={`/taas/myteams/${teamId}/rb/${resourceBookingId}`}
+        <>
+          <PageHeader
+            title="Edit Member Details"
+            backTo={`/taas/myteams/${teamId}/rb/${resourceBookingId}`}
+          />
+          <div styleName="rb-modification-details">
+            <TCForm
+              configuration={getEditResourceBookingConfig(onSubmit)}
+              initialValue={formData}
+              submitButton={{ text: "Save" }}
+              backButton={{ text: "Cancel", backTo: `/taas/myteams/${teamId}` }}
+              submitting={submitting}
+              setSubmitting={setSubmitting}
             />
-            <div styleName="rb-modification-details">
-              <TCForm
-                configuration={getEditResourceBookingConfig(onSubmit)}
-                initialValue={formData}
-                submitButton={{ text: "Save" }}
-                backButton={{ text: "Cancel", backTo: `/taas/myteams/${teamId}` }}
-                submitting={submitting}
-                setSubmitting={setSubmitting}
-              />
-            </div>
-          </>
-        )}
+          </div>
+        </>
+      )}
     </Page>
   );
 };

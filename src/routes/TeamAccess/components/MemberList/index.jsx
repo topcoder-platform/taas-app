@@ -20,7 +20,6 @@ import DeleteModal from "../DeleteModal";
 function MemberList({ teamId, members, invitees }) {
   const [selectedToDelete, setSelectedToDelete] = useState(null);
   const [inviteOpen, setInviteOpen] = useState(false);
-  const [isInvite, setIsInvite] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
 
   const validateInvites = (newInvites) => {
@@ -30,8 +29,7 @@ function MemberList({ teamId, members, invitees }) {
     });
   };
 
-  const openDeleteModal = (member, isInvite = false) => {
-    setIsInvite(isInvite);
+  const openDeleteModal = (member) => {
     setSelectedToDelete(member);
     setDeleteOpen(true);
   };
@@ -101,12 +99,6 @@ function MemberList({ teamId, members, invitees }) {
                       Invited {formatInviteTime(invitee.createdAt)}
                     </div>
                   </div>
-                  <button
-                    onClick={() => openDeleteModal(invitee, true)}
-                    styleName="delete"
-                  >
-                    &times;
-                  </button>
                 </div>
               </div>
             ))}
@@ -120,7 +112,6 @@ function MemberList({ teamId, members, invitees }) {
         open={deleteOpen}
         onClose={() => setDeleteOpen(false)}
         teamId={teamId}
-        isInvite={isInvite}
       />
       <AddModal
         open={inviteOpen}

@@ -10,7 +10,7 @@ const initialState = {
   loading: false,
   error: undefined,
   updating: false,
-  inviteError: undefined,
+  addError: undefined,
 };
 
 const reducer = (state = initialState, action) => {
@@ -84,28 +84,6 @@ const reducer = (state = initialState, action) => {
         error: action.payload,
       };
 
-    case ACTION_TYPE.REMOVE_INVITE_PENDING:
-      return {
-        ...state,
-        updating: true,
-        error: undefined,
-      };
-
-    case ACTION_TYPE.REMOVE_INVITE_SUCCESS:
-      return {
-        ...state,
-        invites: state.invites.filter((invite) => invite.id !== action.payload),
-        updating: false,
-        error: undefined,
-      };
-
-    case ACTION_TYPE.REMOVE_INVITE_ERROR:
-      return {
-        ...state,
-        updating: false,
-        error: action.payload,
-      };
-
     case ACTION_TYPE.LOAD_SUGGESTIONS_PENDING:
       return {
         ...state,
@@ -134,19 +112,19 @@ const reducer = (state = initialState, action) => {
         suggestions: [],
       };
 
-    case ACTION_TYPE.ADD_INVITES_PENDING:
+    case ACTION_TYPE.ADD_MEMBERS_PENDING:
       return {
         ...state,
         updating: true,
-        inviteError: undefined,
+        addError: undefined,
       };
 
-    case ACTION_TYPE.ADD_INVITES_SUCCESS:
+    case ACTION_TYPE.ADD_MEMBERS_SUCCESS:
       return {
         ...state,
-        invites: [...state.invites, ...action.payload.success],
+        members: [...state.members, ...action.payload.success],
         updating: false,
-        inviteError: action.payload.failed
+        addError: action.payload.failed
           ? {
               type: "SOME_FAILED",
               failed: action.payload.failed,
@@ -154,11 +132,11 @@ const reducer = (state = initialState, action) => {
           : undefined,
       };
 
-    case ACTION_TYPE.ADD_INVITES_ERROR:
+    case ACTION_TYPE.ADD_MEMBERS_ERROR:
       return {
         ...state,
         updating: false,
-        inviteError: action.payload,
+        addError: action.payload,
       };
 
     default:

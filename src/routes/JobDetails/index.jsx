@@ -36,8 +36,10 @@ const JobDetails = ({ teamId, jobId }) => {
             const skill = _.find(skills, { id: skillId });
 
             if (!skill) {
-              console.warn(`Couldn't find name for skill id "${skillId}" of the job "${job.id}".`)
-              return null
+              console.warn(
+                `Couldn't find name for skill id "${skillId}" of the job "${job.id}".`
+              );
+              return null;
             }
 
             return skill.name;
@@ -79,7 +81,10 @@ const JobDetails = ({ teamId, jobId }) => {
               <DataItem title="Resource Type" icon={<IconDescription />}>
                 {job.resourceType}
               </DataItem>
-              <DataItem title="Resource Rate Frequency" icon={<IconDescription />}>
+              <DataItem
+                title="Resource Rate Frequency"
+                icon={<IconDescription />}
+              >
                 {job.rateType}
               </DataItem>
               <DataItem title="Workload" icon={<IconDescription />}>

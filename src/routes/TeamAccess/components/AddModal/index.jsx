@@ -2,7 +2,7 @@ import React, { useCallback, useState } from "react";
 import _ from "lodash";
 import { useDispatch, useSelector } from "react-redux";
 import { toastr } from "react-redux-toastr";
-import { loadSuggestions, clearSuggestions, addInvites } from "../../actions";
+import { loadSuggestions, clearSuggestions, addMembers } from "../../actions";
 import Button from "components/Button";
 import BaseModal from "components/BaseModal";
 import ReactSelect from "components/ReactSelect";
@@ -60,7 +60,7 @@ function AddModal({ open, onClose, teamId, validateInvites }) {
 
     setLoading(true);
 
-    dispatch(addInvites(teamId, handles, emails)).then((res) => {
+    dispatch(addMembers(teamId, handles, emails)).then((res) => {
       setLoading(false);
       if (!res.value.failed) {
         const numInvites = res.value.success.length;
@@ -120,7 +120,7 @@ function AddModal({ open, onClose, teamId, validateInvites }) {
       onClick={submitInvites}
       disabled={loading || selectedMembers.length < 1}
     >
-      Invite
+      Add
     </Button>
   );
 
@@ -129,7 +129,7 @@ function AddModal({ open, onClose, teamId, validateInvites }) {
       open={open}
       onClose={handleClose}
       button={inviteButton}
-      title="Invite more people"
+      title="Add more people"
       disabled={loading}
     >
       <ReactSelect
