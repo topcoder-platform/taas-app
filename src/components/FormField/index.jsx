@@ -21,7 +21,10 @@ const FormField = ({ field }) => {
           { !field.readonly && (
             <label
               styleName={
-                (input.value != "undefined" && input.value !== null && input.value !== "") || meta.active
+                (input.value != "undefined" &&
+                  input.value !== null &&
+                  input.value !== "") ||
+                meta.active
                   ? "job-field-label"
                   : "job-field-label job-field-no-label"
               }

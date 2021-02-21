@@ -19,15 +19,17 @@ import { TEAM_MEMBERS_PER_PAGE } from "constants";
 import {
   formatDateRange,
   formatMoney,
-  formatReportIssueUrl,
   formatRequestExtensionUrl,
 } from "utils/format";
 import Input from "components/Input";
 import { skillShape } from "components/SkillsList";
+import { useReportPopup } from "components/ReportPopup/hooks/useReportPopup";
 
 const TeamMembers = ({ team }) => {
   const { resources, jobs } = team;
   const [filter, setFilter] = useState("");
+
+  const showReportPopup = useReportPopup();
 
   const filteredMembers = useMemo(
     () =>
@@ -161,11 +163,7 @@ const TeamMembers = ({ team }) => {
                         {
                           label: "Report an Issue",
                           action: () => {
-                            window.open(
-                              formatReportIssueUrl(
-                                `Issue with ${member.handle} on ${team.name}`
-                              )
-                            );
+                            showReportPopup(team.name, team.id, member.handle);
                           },
                         },
                         {

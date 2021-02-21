@@ -3,11 +3,7 @@
  */
 import _ from "lodash";
 import { RATE_TYPE } from "constants";
-import {
-  EMAIL_REPORT_ISSUE,
-  EMAIL_REQUEST_EXTENSION,
-  CONNECT_WEBSITE_URL,
-} from "../../config";
+import { EMAIL_REQUEST_EXTENSION, CONNECT_WEBSITE_URL } from "../../config";
 import moment from "moment";
 import { DAY_FORMAT } from "constants/";
 
@@ -128,17 +124,6 @@ export const formatFullName = (firstName, lastName) => {
 };
 
 /**
- * Format Report an Issue URL (mailto:)
- *
- * @param {string} subject email subject
- *
- * @returns {string} report an issue URL
- */
-export const formatReportIssueUrl = (subject) => {
-  return `mailto:${EMAIL_REPORT_ISSUE}?subject=${encodeURIComponent(subject)}`;
-};
-
-/**
  * Format Request an Extension URL (mailto:)
  *
  * @param {string} subject email subject
@@ -242,6 +227,52 @@ export const formatJobDate = (startDate, duration) => {
   } else if (duration) {
     return formatPlural(duration, "week");
   }
-
   return "TBD";
+};
+
+/**
+ * Format localTime
+ *
+ * @param {moment.Moment} localTime
+ *
+ * @returns {string} formatted localTime
+ */
+export const formatLocalTime = (localTime) => {
+  return localTime.format("h:mm a");
+};
+
+/**
+ * Get and format utc offset from localTime
+ *
+ * @param {moment.Moment} localTime
+ *
+ * @returns {string} UTC offset
+ *
+ */
+export const formatTimeOffset = (localTime) => {
+  const utcOff = localTime.utcOffset() / 60;
+  return "UTC" + moment().utcOffset(utcOff).format("Z");
+};
+
+/**
+ * Format working hours
+ *
+ * @param {string} time
+ *
+ * @returns {string} formatted time
+ *
+ */
+export const formatWorkTime = (time) => {
+  return moment({ hour: time.split(":")[0] }).format("h a");
+};
+
+/**
+ * Format invite time
+ *
+ * @param {string} invite created timestamp
+ *
+ * @returns {string} formatted date
+ */
+export const formatInviteTime = (time) => {
+  return moment(time).format("MMM D, YY");
 };

@@ -5,7 +5,7 @@ import React from "react";
 import PT from "prop-types";
 import "./styles.module.scss";
 import _ from "lodash";
-import { Link } from "@reach/router";
+import { Link, navigate } from "@reach/router";
 import DataItem from "components/DataItem";
 import IconCalendar from "../../../../assets/images/icon-calendar.svg";
 import IconClock from "../../../../assets/images/icon-clock.svg";
@@ -15,13 +15,15 @@ import {
   formatDateRange,
   formatMoney,
   formatRemainingTimeForTeam,
-  formatReportIssueUrl,
   formatConnectProjectUrl,
 } from "utils/format";
 import AvatarGroup from "components/AvatarGroup";
 import ThreeDotsMenu from "components/ThreeDotsMenu";
+import { useReportPopup } from "components/ReportPopup/hooks/useReportPopup";
 
 const TeamCard = ({ team }) => {
+  const showReportPopup = useReportPopup();
+
   return (
     <div styleName="team-card">
       <div styleName="three-dots-menu">
@@ -30,7 +32,16 @@ const TeamCard = ({ team }) => {
             {
               label: "Open in Connect",
               action: () => {
-                window.open(formatConnectProjectUrl(team.id));
+                console.log("Issue reported!");
+              },
+            },
+            {
+              separator: true,
+            },
+            {
+              label: "Manage Access",
+              action: () => {
+                navigate(`/taas/myteams/${team.id}/access`);
               },
             },
             {
@@ -39,7 +50,7 @@ const TeamCard = ({ team }) => {
             {
               label: "Report an Issue",
               action: () => {
-                window.open(formatReportIssueUrl(`TaaS Issue: ${team.name}`));
+                showReportPopup(team.name, team.id);
               },
             },
           ]}
