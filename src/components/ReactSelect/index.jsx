@@ -6,6 +6,7 @@
 import React from "react";
 import PT from "prop-types";
 import Select from "react-select";
+import CreatableSelect from "react-select/creatable"
 import "./styles.module.scss";
 
 const ReactSelect = (props) => {
@@ -69,6 +70,22 @@ const ReactSelect = (props) => {
 
   return (
     <div styleName="select-wrapper">
+      {props.isCreatable ? (
+      <CreatableSelect
+        value={props.value}
+        styles={customStyles}
+        onChange={props.onChange}
+        options={props.options}
+        styleName={props.error ? "error" : ""}
+        isMulti={props.isMulti}
+        onBlur={props.onBlur}
+        onFocus={props.onFocus}
+        placeholder={props.placeholder}
+        onInputChange={props.onInputChange}
+        noOptionsMessage={() => props.noOptionsText}
+        createOptionPosition="first"
+      />
+      ) : (
       <Select
         value={props.value}
         styles={customStyles}
@@ -80,9 +97,11 @@ const ReactSelect = (props) => {
         onFocus={props.onFocus}
         placeholder={props.placeholder}
         onInputChange={props.onInputChange}
+        noOptionsMessage={() => props.noOptionsText}
       />
+      )}
     </div>
-  );
+    )
 };
 
 ReactSelect.propTypes = {
@@ -100,6 +119,8 @@ ReactSelect.propTypes = {
       label: PT.string.isRequired,
     }).isRequired
   ),
+  isCreatable: PT.bool,
+  noOptionsText: PT.string
 };
 
 export default ReactSelect;

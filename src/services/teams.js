@@ -155,7 +155,10 @@ export const postReport = (teamName, teamId, reportText, memberHandle) => {
  */
 export const postMembers = (teamId, handles, emails) => {
   const url = `${config.API.V5}/taas-teams/${teamId}/members`;
-  const bodyObj = {};
+  const bodyObj = {
+    handles: [],
+    emails: [],
+  };
   if (handles && handles.length > 0) {
     bodyObj.handles = handles;
   }

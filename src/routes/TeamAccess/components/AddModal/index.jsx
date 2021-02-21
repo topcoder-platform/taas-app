@@ -43,6 +43,7 @@ function AddModal({ open, onClose, teamId, validateInvites }) {
 
   const handleClose = useCallback(() => {
     setSelectedMembers([]);
+    setError(undefined);
     onClose();
   }, [onClose]);
 
@@ -71,7 +72,11 @@ function AddModal({ open, onClose, teamId, validateInvites }) {
           `Successfully added ${numInvites} invite${plural}`
         );
       }
-    });
+    })
+    .catch(err => {
+      setLoading(false);
+      setError(err);
+    })
   }, [dispatch, selectedMembers, teamId]);
 
   const onInputChange = useCallback(
@@ -131,6 +136,7 @@ function AddModal({ open, onClose, teamId, validateInvites }) {
       button={inviteButton}
       title="Add more people"
       disabled={loading}
+      extraModalStyle={{ overflowY: "visible" }}
     >
       <ReactSelect
         value={selectedMembers}
@@ -138,7 +144,9 @@ function AddModal({ open, onClose, teamId, validateInvites }) {
         options={options}
         onInputChange={onInputChange}
         isMulti
-        placeholder="Enter one or more user handles"
+        placeholder="Enter email address(es) or user handles"
+        isCreatable
+        noOptionsText="Type to search"
       />
       {error && error.message}
     </BaseModal>

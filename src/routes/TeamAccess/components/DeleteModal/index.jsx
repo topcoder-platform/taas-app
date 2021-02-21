@@ -4,7 +4,6 @@ import { toastr } from "react-redux-toastr";
 import BaseModal from "components/BaseModal";
 import Button from "components/Button";
 import { removeTeamMember } from "../../actions";
-import "./styles.module.scss";
 import CenteredSpinner from "components/CenteredSpinner";
 
 const MEMBER_TITLE = "You're about to delete a member from the team";

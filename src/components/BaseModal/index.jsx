@@ -27,14 +27,14 @@ const containerStyle = {
   padding: "10px",
 };
 
-function BaseModal({ open, onClose, children, title, button, disabled }) {
+function BaseModal({ open, onClose, children, title, button, disabled, extraModalStyle }) {
   return (
     <Modal
       open={open}
       onClose={onClose}
       closeIcon={<IconCross width="15px" height="15px" />}
       styles={{
-        modal: modalStyle,
+        modal: { ...modalStyle, ...extraModalStyle },
         modalContainer: containerStyle,
       }}
       center={true}
@@ -63,6 +63,7 @@ BaseModal.propTypes = {
   title: PT.string,
   button: PT.element,
   disabled: PT.bool,
+  extraModalStyle: PT.object
 };
 
 export default BaseModal;
