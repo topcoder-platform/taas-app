@@ -80,6 +80,7 @@ const ReactSelect = (props) => {
         onFocus={props.onFocus}
         placeholder={props.placeholder}
         onInputChange={props.onInputChange}
+        isDisabled={props.disabled}
       />
     </div>
   );
@@ -100,6 +101,7 @@ ReactSelect.propTypes = {
       label: PT.string.isRequired,
     }).isRequired
   ),
+  disabled: PT.bool,
 };
 
 export default ReactSelect;

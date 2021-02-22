@@ -4,7 +4,7 @@
  * Page for resource booking details.
  * It gets `teamId` and `resourceBookingId` from the router.
  */
-import React, { useMemo, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import PT from "prop-types";
 import _ from "lodash";
 import Page from "../../components/Page";
@@ -18,28 +18,34 @@ import Button from "../../components/Button";
 import ResourceSummary from "./ResourceSummary";
 import ResourceDetails from "./ResourceDetails";
 import "./styles.module.scss";
+import { hasPermission } from "utils/permissions";
+import { PERMISSIONS } from "constants/permissions";
 
 const ResourceBookingDetails = ({ teamId, resourceBookingId }) => {
-  const [resource, loadingError] = useData(getReourceBookingById, resourceBookingId);
+  const [resource, loadingError] = useData(
+    getReourceBookingById,
+    resourceBookingId
+  );
   const [team, loadingTeamError] = useData(getTeamById, teamId);
-  const [jobTitle, setJobTitle] = useState("")
-  const [member, setMember] = useState("")
+  const [jobTitle, setJobTitle] = useState("");
+  const [member, setMember] = useState("");
 
   useEffect(() => {
     if (team) {
-      const resourceWithMemberDetails = _.find(
-        team.resources,
-        { id: resourceBookingId }
-      );
+      const resourceWithMemberDetails = _.find(team.resources, {
+        id: resourceBookingId,
+      });
 
       // resource inside Team object has all the member details we need
       setMember(resourceWithMemberDetails);
 
       if (resourceWithMemberDetails.jobId) {
         const job = _.find(team.jobs, { id: resourceWithMemberDetails.jobId });
-        setJobTitle(_.get(job, "title", `<Not Found> ${resourceWithMemberDetails.jobId}`));
+        setJobTitle(
+          _.get(job, "title", `<Not Found> ${resourceWithMemberDetails.jobId}`)
+        );
       } else {
-        setJobTitle("<Not Assigned>")
+        setJobTitle("<Not Assigned>");
       }
     }
   }, [team, resourceBookingId]);
@@ -49,25 +55,27 @@ const ResourceBookingDetails = ({ teamId, resourceBookingId }) => {
       {!(member && resource) ? (
         <LoadingIndicator error={loadingError || loadingTeamError} />
       ) : (
-          <>
-            <PageHeader
-              title="Member Details"
-              backTo={`/taas/myteams/${teamId}`}
-            />
-            <div styleName="content-wrapper">
-              <ResourceSummary member={member} />
-              <ResourceDetails resource={resource} jobTitle={jobTitle} />
+        <>
+          <PageHeader
+            title="Member Details"
+            backTo={`/taas/myteams/${teamId}`}
+          />
+          <div styleName="content-wrapper">
+            <ResourceSummary member={member} />
+            <ResourceDetails resource={resource} jobTitle={jobTitle} />
+            {hasPermission(PERMISSIONS.EDIT_RESOURCE_BOOKING) && (
               <div styleName="actions">
                 <Button
                   size="medium"
                   routeTo={`/taas/myteams/${teamId}/rb/${resource.id}/edit`}
                 >
                   Edit Member Details
-              </Button>
+                </Button>
               </div>
-            </div>
-          </>
-        )}
+            )}
+          </div>
+        </>
+      )}
     </Page>
   );
 };

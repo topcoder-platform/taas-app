@@ -87,6 +87,7 @@ const FormField = ({ field }) => {
               onChange={input.onChange}
               onBlur={input.onBlur}
               onFocus={input.onFocus}
+              disabled={field.disabled}
             />
           )}
           {(field.isRequired || field.customValidator) && meta.error &&  meta.touched && (

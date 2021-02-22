@@ -4,6 +4,7 @@
  * Shows form, field and actions.
  */
 import React, { useState, useEffect } from "react";
+import _ from "lodash";
 import PT from "prop-types";
 import { FORM_ROW_TYPE, FORM_FIELD_TYPE } from "../../constants";
 import { Form } from "react-final-form";
@@ -56,19 +57,24 @@ const TCForm = ({
                     <>
                       {row.type === FORM_ROW_TYPE.GROUP && (
                         <div styleName="field-group">
-                          {row.fields.map((field) => (
-                            <div styleName="field-group-field" key={field.name}>
-                              <FormField
-                                field={fields[field]}
-                              />
-                            </div>
-                          ))}
+                          {row.fields.map((field) =>
+                            !fields[field].hidden ? (
+                              <div
+                                styleName="field-group-field"
+                                key={field.name}
+                              >
+                                <FormField field={fields[field]} />
+                              </div>
+                            ) : null
+                          )}
                         </div>
                       )}
                       {row.type === FORM_ROW_TYPE.SINGLE &&
-                        row.fields.map((field) => {
-                          return <FormField field={fields[field]} />;
-                        })}
+                        row.fields.map((field) =>
+                          !fields[field].hidden ? (
+                            <FormField field={fields[field]} />
+                          ) : null
+                        )}
                     </>
                   );
                 })}

@@ -4,6 +4,7 @@
  * Shows dropdown menu with actions.
  */
 import React, { useState, useCallback } from "react";
+import _ from "lodash";
 import PT from "prop-types";
 import "./styles.module.scss";
 import OutsideClickHandler from "react-outside-click-handler";
@@ -89,7 +90,7 @@ const ActionsMenu = ({ options = [] }) => {
           {...attributes.popper}
         >
           <div styleName="list">
-            {options.map((option, index) => {
+            {_.reject(options, "hidden").map((option, index) => {
               if (option.separator) {
                 return <div key={index} styleName="separator" />;
               } else {
@@ -124,6 +125,7 @@ ActionsMenu.propTypes = {
       label: PT.string,
       action: PT.func,
       separator: PT.bool,
+      hidden: PT.bool,
     })
   ),
 };
