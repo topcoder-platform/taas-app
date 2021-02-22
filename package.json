@@ -81,7 +81,8 @@
     "redux": "^4.0.5",
     "redux-logger": "^3.0.6",
     "redux-promise-middleware": "^6.1.2",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "tc-auth-lib": "topcoder-platform/tc-auth-lib#1.0.4"
   },
   "browserslist": [
     "last 1 version",

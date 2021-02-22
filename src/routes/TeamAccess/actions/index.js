@@ -6,9 +6,8 @@ import {
   getTeamMembers,
   getTeamInvitees,
   deleteTeamMember,
-  deleteInvite,
   getMemberSuggestions,
-  postInvites,
+  postMembers,
 } from "services/teams";
 
 export const ACTION_TYPE = {
@@ -28,14 +27,10 @@ export const ACTION_TYPE = {
   REMOVE_MEMBER_PENDING: "REMOVE_MEMBER_PENDING",
   REMOVE_MEMBER_SUCCESS: "REMOVE_MEMBER_SUCCESS",
   REMOVE_MEMBER_ERROR: "REMOVE_MEMBER_ERROR",
-  REMOVE_INVITE: "REMOVE_INVITE",
-  REMOVE_INVITE_PENDING: "REMOVE_INVITE_PENDING",
-  REMOVE_INVITE_SUCCESS: "REMOVE_INVITE_SUCCESS",
-  REMOVE_INVITE_ERROR: "REMOVE_INVITE_ERROR",
-  ADD_INVITES: "ADD_INVITES",
-  ADD_INVITES_PENDING: "ADD_INVITES_PENDING",
-  ADD_INVITES_SUCCESS: "ADD_INVITES_SUCCESS",
-  ADD_INVITES_ERROR: "ADD_INVITES_ERROR",
+  ADD_MEMBERS: "ADD_MEMBERS",
+  ADD_MEMBERS_PENDING: "ADD_MEMBERS_PENDING",
+  ADD_MEMBERS_SUCCESS: "ADD_MEMBERS_SUCCESS",
+  ADD_MEMBERS_ERROR: "ADD_MEMBERS_ERROR",
   CLEAR_ALL: "CLEAR_ALL",
   CLEAR_SUGGESTIONS: "CLEAR_SUGGESTIONS",
 };
@@ -104,26 +99,6 @@ export const removeTeamMember = (teamId, memberId) => ({
 });
 
 /**
- * Removes an invite
- *
- * @param {string|number} teamId
- * @param {string|number} REMOVE_INVITE_PENDING
- *
- * @returns {Promise} deleted invite id or error
- */
-export const removeInvite = (teamId, inviteId) => ({
-  type: ACTION_TYPE.REMOVE_INVITE,
-  payload: async () => {
-    const res = await deleteInvite(teamId, inviteId);
-    return res.data;
-  },
-  meta: {
-    teamId,
-    inviteId,
-  },
-});
-
-/**
  * Loads suggestions for invites
  *
  * @param {string} fragment
@@ -149,7 +124,7 @@ export const clearSuggestions = () => ({
 });
 
 /**
- * Adds invites to team
+ * Adds members to team
  *
  * @param {string|number} teamId
  * @param {string[]} handles
@@ -157,10 +132,10 @@ export const clearSuggestions = () => ({
  *
  * @returns {Promise} list of successes and failures, or error
  */
-export const addInvites = (teamId, handles, emails) => ({
-  type: ACTION_TYPE.ADD_INVITES,
+export const addMembers = (teamId, handles, emails) => ({
+  type: ACTION_TYPE.ADD_MEMBERS,
   payload: async () => {
-    const res = await postInvites(teamId, handles, emails, "customer");
+    const res = await postMembers(teamId, handles, emails);
     return res.data;
   },
 });

@@ -17,7 +17,9 @@ import "./styles.module.scss";
 
 const PositionDetails = ({ teamId, positionId }) => {
   // be dafault show "Interested" tab
-  const [candidateStatus, setCandidateStatus] = useState(CANDIDATE_STATUS.SHORTLIST);
+  const [candidateStatus, setCandidateStatus] = useState(
+    CANDIDATE_STATUS.SHORTLIST
+  );
   const {
     state: { position, error },
     updateCandidate,
@@ -32,10 +34,14 @@ const PositionDetails = ({ teamId, positionId }) => {
 
   // if there are some candidates to review, then show "To Review" tab by default
   useEffect(() => {
-    if (position && _.filter(position.candidates, { status: CANDIDATE_STATUS.OPEN }).length > 0) {
-      setCandidateStatus(CANDIDATE_STATUS.OPEN)
+    if (
+      position &&
+      _.filter(position.candidates, { status: CANDIDATE_STATUS.OPEN }).length >
+        0
+    ) {
+      setCandidateStatus(CANDIDATE_STATUS.OPEN);
     }
-  }, [position])
+  }, [position]);
 
   return (
     <Page title="Job Details">
