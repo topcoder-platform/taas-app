@@ -24,6 +24,8 @@ import {
 import Input from "components/Input";
 import { skillShape } from "components/SkillsList";
 import { useReportPopup } from "components/ReportPopup/hooks/useReportPopup";
+import { hasPermission } from "utils/permissions";
+import { PERMISSIONS } from "constants/permissions";
 
 const TeamMembers = ({ team }) => {
   const { resources, jobs } = team;
@@ -156,9 +158,11 @@ const TeamMembers = ({ team }) => {
                               `/taas/myteams/${team.id}/rb/${member.id}/edit`
                             );
                           },
+                          hidden: !hasPermission(PERMISSIONS.EDIT_RESOURCE_BOOKING),
                         },
                         {
                           separator: true,
+                          hidden: !hasPermission(PERMISSIONS.EDIT_RESOURCE_BOOKING),
                         },
                         {
                           label: "Report an Issue",

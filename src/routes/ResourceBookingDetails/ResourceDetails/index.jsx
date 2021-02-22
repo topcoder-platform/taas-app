@@ -11,6 +11,8 @@ import IconMoney from "../../../assets/images/icon-money.svg";
 import IconComputer from "../../../assets/images/icon-computer.svg";
 import IconBag from "../../../assets/images/icon-bag.svg";
 import "./styles.module.scss";
+import { PERMISSIONS } from "constants/permissions";
+import { hasPermission } from "utils/permissions";
 
 const ResourceDetails = ({ resource, jobTitle }) => {
   return (
@@ -55,11 +57,13 @@ const ResourceDetails = ({ resource, jobTitle }) => {
             />
           </div>
           <div styleName="table-cell">
-            <DataItem
-              icon={<IconMoney />}
-              title="Member Rate"
-              children={formatMoney(resource.memberRate)}
-            />
+            {hasPermission(PERMISSIONS.ACCESS_RESOURCE_BOOKING_MEMBER_RATE) && (
+              <DataItem
+                icon={<IconMoney />}
+                title="Member Rate"
+                children={formatMoney(resource.memberRate)}
+              />
+            )}
           </div>
         </div>
       </div>

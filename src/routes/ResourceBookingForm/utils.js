@@ -10,6 +10,8 @@ import {
   FORM_ROW_TYPE,
   FORM_FIELD_TYPE,
 } from "../../constants";
+import { hasPermission } from "utils/permissions";
+import { PERMISSIONS } from "constants/permissions";
 
 const EDIT_RESOURCE_BOOKING_ROWS = [
   { type: FORM_ROW_TYPE.SINGLE, fields: ["handle"] },
@@ -43,6 +45,7 @@ export const getEditResourceBookingConfig = (onSubmit) => {
         minValue: 0,
         placeholder: "Member Rate",
         step: 0.01,
+        hidden: !hasPermission(PERMISSIONS.ACCESS_RESOURCE_BOOKING_MEMBER_RATE),
       },
       {
         label: "Start Date",

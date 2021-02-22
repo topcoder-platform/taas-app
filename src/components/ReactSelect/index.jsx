@@ -84,6 +84,7 @@ const ReactSelect = (props) => {
           onInputChange={props.onInputChange}
           noOptionsMessage={() => props.noOptionsText}
           createOptionPosition="first"
+          isDisabled={props.disabled}
         />
       ) : (
         <Select
@@ -98,6 +99,7 @@ const ReactSelect = (props) => {
           placeholder={props.placeholder}
           onInputChange={props.onInputChange}
           noOptionsMessage={() => props.noOptionsText}
+          isDisabled={props.disabled}
         />
       )}
     </div>
@@ -121,6 +123,7 @@ ReactSelect.propTypes = {
   ),
   isCreatable: PT.bool,
   noOptionsText: PT.string,
+  disabled: PT.bool,
 };
 
 export default ReactSelect;

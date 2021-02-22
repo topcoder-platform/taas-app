@@ -4,7 +4,7 @@
  * Page for resource booking details.
  * It gets `teamId` and `resourceBookingId` from the router.
  */
-import React, { useMemo, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import PT from "prop-types";
 import _ from "lodash";
 import Page from "../../components/Page";
@@ -18,6 +18,8 @@ import Button from "../../components/Button";
 import ResourceSummary from "./ResourceSummary";
 import ResourceDetails from "./ResourceDetails";
 import "./styles.module.scss";
+import { hasPermission } from "utils/permissions";
+import { PERMISSIONS } from "constants/permissions";
 
 const ResourceBookingDetails = ({ teamId, resourceBookingId }) => {
   const [resource, loadingError] = useData(
@@ -61,14 +63,16 @@ const ResourceBookingDetails = ({ teamId, resourceBookingId }) => {
           <div styleName="content-wrapper">
             <ResourceSummary member={member} />
             <ResourceDetails resource={resource} jobTitle={jobTitle} />
-            <div styleName="actions">
-              <Button
-                size="medium"
-                routeTo={`/taas/myteams/${teamId}/rb/${resource.id}/edit`}
-              >
-                Edit Member Details
-              </Button>
-            </div>
+            {hasPermission(PERMISSIONS.EDIT_RESOURCE_BOOKING) && (
+              <div styleName="actions">
+                <Button
+                  size="medium"
+                  routeTo={`/taas/myteams/${teamId}/rb/${resource.id}/edit`}
+                >
+                  Edit Member Details
+                </Button>
+              </div>
+            )}
           </div>
         </>
       )}

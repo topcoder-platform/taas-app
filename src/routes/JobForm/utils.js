@@ -1,6 +1,8 @@
 /**
  * JobForm utilities
  */
+import { PERMISSIONS } from "constants/permissions";
+import { hasPermission } from "utils/permissions";
 import {
   RATE_TYPE_OPTIONS,
   STATUS_OPTIONS,
@@ -101,6 +103,7 @@ export const getEditJobConfig = (skillOptions, onSubmit) => {
         validationMessage: "Please, select Status",
         name: "status",
         selectOptions: STATUS_OPTIONS,
+        disabled: !hasPermission(PERMISSIONS.EDIT_JOB_STATUS),
       },
     ],
     onSubmit: onSubmit,
