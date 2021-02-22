@@ -11,11 +11,21 @@ import "./styles.module.scss";
 import Avatar from "components/Avatar";
 import { Link } from "@reach/router";
 
+import { 
+  ROLE_ADMINISTRATOR, 
+  ROLE_CONNECT_ADMIN, 
+  ROLE_CONNECT_MANAGER, 
+  ROLE_CONNECT_ACCOUNT_MANAGER, 
+  ROLE_CONNECT_COPILOT_MANAGER,
+  ROLE_CONNECT_COPILOT, 
+} from "constants";
+
 import TimeSection from "../TimeSection";
 import { formatInviteTime } from "utils/format";
 import IconDirectArrow from "../../../../assets/images/icon-direct-arrow.svg";
 import AddModal from "../AddModal";
 import DeleteModal from "../DeleteModal";
+import { useTCRoles } from "../../hooks/useTCRoles";
 
 function checkForMatches(newMember, memberList) {
   const label = newMember.label;
@@ -29,10 +39,30 @@ function checkForMatches(newMember, memberList) {
   return memberList.find(member => member.handle === label);
 }
 
+function hasRequiredRole(memberRoles, neededRoles) {
+  return _.some(memberRoles, role => {
+    const loweredRole = role.toLowerCase();
+    return neededRoles.find(needed => {
+      const lowNeeded = needed.toLowerCase();
+      console.log(loweredRole, lowNeeded)
+      return loweredRole === lowNeeded;
+    });
+  })
+}
+
+const SEE_SUGGESTION_ROLES = [
+  ROLE_ADMINISTRATOR,
+  ROLE_CONNECT_ADMIN,
+  ROLE_CONNECT_MANAGER,
+  ROLE_CONNECT_ACCOUNT_MANAGER,
+  ROLE_CONNECT_COPILOT_MANAGER,
+]
+
 function MemberList({ teamId, members, invitees }) {
   const [selectedToDelete, setSelectedToDelete] = useState(null);
   const [addOpen, setAddOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
+  const roles = useTCRoles();
 
   const validateAdds = useCallback((newMembers) => {
     return _.some(newMembers, (newMember) => {
@@ -45,6 +75,11 @@ function MemberList({ teamId, members, invitees }) {
     setSelectedToDelete(member);
     setDeleteOpen(true);
   };
+
+  const shouldShowSuggestions = useCallback(() => {
+
+    return hasRequiredRole(roles, SEE_SUGGESTION_ROLES);
+  }, [roles])
 
   return (
     <>
@@ -130,6 +165,7 @@ function MemberList({ teamId, members, invitees }) {
         onClose={() => setAddOpen(false)}
         teamId={teamId}
         validateAdds={validateAdds}
+        showSuggestions={shouldShowSuggestions()}
       />
     </>
   );

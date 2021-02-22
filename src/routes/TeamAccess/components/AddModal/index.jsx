@@ -38,7 +38,7 @@ const groupErrors = (errorList) => {
   return messages.map(msg => `${msg.users.join(", ")}: ${msg.message}`)
 }
 
-function AddModal({ open, onClose, teamId, validateAdds }) {
+function AddModal({ open, onClose, teamId, validateAdds, showSuggestions }) {
   const [loading, setLoading] = useState(false);
   const [validationError, setValidationError] = useState(false);
   const [responseErrors, setResponseErrors] = useState([]);
@@ -128,14 +128,16 @@ function AddModal({ open, onClose, teamId, validateAdds }) {
         return "";
       }
 
-      // load suggestions
-      if (val.length >= SUGGESTION_TRIGGER_LENGTH) {
-        debouncedLoadSuggestions(val);
-      } else {
-        dispatch(clearSuggestions());
+      // load suggestions if role allows
+      if (showSuggestions) {
+        if (val.length >= SUGGESTION_TRIGGER_LENGTH) {
+          debouncedLoadSuggestions(val);
+        } else {
+          dispatch(clearSuggestions());
+        }
       }
     },
-    [dispatch, selectedMembers]
+    [dispatch, selectedMembers, showSuggestions]
   );
 
   const onUpdate = useCallback(
@@ -189,7 +191,7 @@ function AddModal({ open, onClose, teamId, validateAdds }) {
         isCreatable
         noOptionsText="Type to search"
       />
-      {validationError && <div styleName="error-message">Project member(s) can't be invited again. Please remove them from list</div>}
+      {validationError && <div styleName="error-message">Project member(s) can't be added again. Please remove them from list</div>}
       {responseErrors.length > 0 && <div styleName="error-message">{responseErrors.map(err => (<p>{err}</p>))}</div>}
     </BaseModal>
   );
