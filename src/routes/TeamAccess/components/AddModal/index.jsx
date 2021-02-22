@@ -10,10 +10,38 @@ import "./styles.module.scss";
 
 const SUGGESTION_TRIGGER_LENGTH = 3;
 
+const filterFailed = (members, failedList) => {
+  return members.filter(member  => {
+    return _.some(failedList, failedMem => {
+      if (failedMem.email) {
+        return failedMem.email === member.label;
+      }
+      return failedMem.handle === member.label;
+    })
+  })
+}
+
+const groupErrors = (errorList) => {
+  const grouped = _.groupBy(errorList, 'error');
+
+  const messages = Object.keys(grouped).map(error => {
+    const labels = grouped[error].map(failure => (
+      failure.email ? failure.email : failure.handle
+    ))
+
+    return ({
+      message: error,
+      users: labels
+    })
+  })
+
+  return messages.map(msg => `${msg.users.join(", ")}: ${msg.message}`)
+}
+
 function AddModal({ open, onClose, teamId, validateAdds }) {
   const [loading, setLoading] = useState(false);
   const [validationError, setValidationError] = useState(false);
-  const [error, setError] = useState();
+  const [responseErrors, setResponseErrors] = useState([]);
   const [selectedMembers, setSelectedMembers] = useState([]);
   const options = useSelector((state) =>
     state.teamMembers.suggestions.map((sugg) => ({
@@ -33,7 +61,8 @@ function AddModal({ open, onClose, teamId, validateAdds }) {
 
   const handleClose = useCallback(() => {
     setSelectedMembers([]);
-    setError(undefined);
+    setValidationError(false);
+    setResponseErrors([]);
     onClose();
   }, [onClose]);
 
@@ -53,19 +82,36 @@ function AddModal({ open, onClose, teamId, validateAdds }) {
 
     dispatch(addMembers(teamId, handles, emails)).then((res) => {
       setLoading(false);
-      if (!res.value.failed || !res.value.failed.length) {
-        const numInvites = res.value.success.length;
-        const plural = numInvites !== 1 ? "s" : "";
-        handleClose();
+      const { success, failed } = res.value;
+      if (success.length) {
+        const numAdds = success.length;
+        const plural = numAdds !== 1 ? "s" : "";
         toastr.success(
-          "Invites Added",
-          `Successfully added ${numInvites} invite${plural}`
+          "Members Added",
+          `Successfully added ${numAdds} member${plural}`
         );
       }
+
+      if (failed.length) {
+        const remaining = filterFailed(selectedMembers, failed);
+        const errors = groupErrors(failed);
+
+        setSelectedMembers(remaining);
+        setResponseErrors(errors);
+      } else  {
+        handleClose();
+      }
+
     })
     .catch(err => {
       setLoading(false);
-      setError(err);
+
+      // Display message from server error, else display generic message
+      if (!!err.response) {
+        setResponseErrors([err.message]);
+      } else {
+        setResponseErrors(["Error occured when adding members"]);
+      }
     })
   }, [dispatch, selectedMembers, teamId]);
 
@@ -89,7 +135,7 @@ function AddModal({ open, onClose, teamId, validateAdds }) {
         dispatch(clearSuggestions());
       }
     },
-    [dispatch]
+    [dispatch, selectedMembers]
   );
 
   const onUpdate = useCallback(
@@ -105,6 +151,8 @@ function AddModal({ open, onClose, teamId, validateAdds }) {
 
       if (isAlreadySelected) setValidationError(true);
       else setValidationError(false);
+
+      setResponseErrors([]);
 
       dispatch(clearSuggestions());
     },
@@ -141,11 +189,8 @@ function AddModal({ open, onClose, teamId, validateAdds }) {
         isCreatable
         noOptionsText="Type to search"
       />
-      {validationError &&
-        <div styleName="error-section">
-          <div styleName="error-message">Project member(s) can't be invited again. Please remove them from list</div>
-        </div>
-      }
+      {validationError && <div styleName="error-message">Project member(s) can't be invited again. Please remove them from list</div>}
+      {responseErrors.length > 0 && <div styleName="error-message">{responseErrors.map(err => (<p>{err}</p>))}</div>}
     </BaseModal>
   );
 }
