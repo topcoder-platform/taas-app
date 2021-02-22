@@ -18,7 +18,7 @@ const FormField = ({ field }) => {
     <Field name={field.name}>
       {({ input, meta }) => (
         <div>
-          { !field.readonly && (
+          {!field.readonly && (
             <label
               styleName={
                 (input.value != "undefined" &&
@@ -90,9 +90,9 @@ const FormField = ({ field }) => {
               disabled={field.disabled}
             />
           )}
-          {(field.isRequired || field.customValidator) && meta.error &&  meta.touched && (
-            <div styleName="field-error">{meta.error}</div>
-          )}
+          {(field.isRequired || field.customValidator) &&
+            meta.error &&
+            meta.touched && <div styleName="field-error">{meta.error}</div>}
         </div>
       )}
     </Field>

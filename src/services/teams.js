@@ -107,24 +107,6 @@ export const deleteTeamMember = (teamId, memberId) => {
 };
 
 /**
- * Delete Invite
- *
- * @param {string|number} teamId team id
- * @param {string|number} inviteId invite id
- *
- * @returns {Promise} inviteId or error
- */
-export const deleteInvite = (teamId, inviteId) => {
-  const url = `${config.API.V5}/projects/${teamId}/invites/${inviteId}`;
-  return new Promise((resolve, reject) => {
-    axios
-      .delete(url)
-      .then(() => resolve({ data: inviteId }))
-      .catch((ex) => reject(ex));
-  });
-};
-
-/**
  * Get member suggestions
  *
  * @param {string} fragment text for suggestions
@@ -134,38 +116,6 @@ export const deleteInvite = (teamId, inviteId) => {
 export const getMemberSuggestions = (fragment) => {
   const url = `${config.API.V3}/members/_suggest/${fragment}`;
   return axios.get(url);
-};
-
-/**
- * Post new team invites
- *
- * @param {string|number} teamId team id
- * @param {string[]} handles user handles to add
- * @param {string[]} emails user emails to add
- * @param {string} role role to assign to users
- *
- * @returns {Promise<object>} object with successfully added invites, and failed invites
- */
-export const postInvites = (teamId, handles, emails, role) => {
-  const url = `${config.API.V5}/projects/${teamId}/invites/?fields=id,projectId,userId,email,role,status,createdAt,updatedAt,createdBy,updatedBy,handle`;
-  const bodyObj = {};
-  if (handles && handles.length > 0) {
-    bodyObj.handles = handles;
-  }
-  if (emails && emails.length > 0) {
-    bodyObj.emails = emails;
-  }
-  bodyObj.role = role;
-
-  return new Promise((resolve, reject) => {
-    axios
-      .post(url, bodyObj, {
-        validateStatus: (status) =>
-          (status >= 200 && status < 300) || status === 403,
-      })
-      .then((res) => resolve(res))
-      .catch((ex) => reject(ex));
-  });
 };
 
 /**
@@ -189,6 +139,29 @@ export const postReport = (teamName, teamId, reportText, memberHandle) => {
   if (memberHandle) {
     (bodyObj.template = "member-issue-report"),
       (bodyObj.data.userHandle = memberHandle);
+  }
+
+  return axios.post(url, bodyObj);
+};
+
+/**
+ * Post new team members
+ *
+ * @param {string|number} teamId team id
+ * @param {string[]} handles user handles to add
+ * @param {string[]} emails user emails to add
+ *
+ * @returns {Promise<object>} object with successfully added members and failed adds
+ */
+export const postMembers = (teamId, handles, emails) => {
+  const url = `${config.API.V5}/taas-teams/${teamId}/members`;
+  const bodyObj = {};
+
+  if (handles && handles.length > 0) {
+    bodyObj.handles = handles;
+  }
+  if (emails && emails.length > 0) {
+    bodyObj.emails = emails;
   }
 
   return axios.post(url, bodyObj);

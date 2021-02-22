@@ -3,35 +3,24 @@
  */
 
 import React, { useState } from "react";
-import _ from "lodash";
 import PT from "prop-types";
 import CardHeader from "components/CardHeader";
 import Button from "components/Button";
 import "./styles.module.scss";
 import Avatar from "components/Avatar";
 import { Link } from "@reach/router";
-
 import TimeSection from "../TimeSection";
 import { formatInviteTime } from "utils/format";
 import IconDirectArrow from "../../../../assets/images/icon-direct-arrow.svg";
-import AddModal from "../AddModal";
 import DeleteModal from "../DeleteModal";
+import AddModalContainer from "../AddModalContainer";
 
-function MemberList({ teamId, members, invitees }) {
+const MemberList = ({ teamId, members, invitees }) => {
   const [selectedToDelete, setSelectedToDelete] = useState(null);
-  const [inviteOpen, setInviteOpen] = useState(false);
-  const [isInvite, setIsInvite] = useState(false);
+  const [addOpen, setAddOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
 
-  const validateInvites = (newInvites) => {
-    return _.some(newInvites, (newInvite) => {
-      members.find((member) => newInvite.label === member.handle) ||
-        invitees.find((invite) => newInvite.label === invite.handle);
-    });
-  };
-
-  const openDeleteModal = (member, isInvite = false) => {
-    setIsInvite(isInvite);
+  const openDeleteModal = (member) => {
     setSelectedToDelete(member);
     setDeleteOpen(true);
   };
@@ -42,7 +31,7 @@ function MemberList({ teamId, members, invitees }) {
         <div styleName="list-header">
           <CardHeader title="Project Access" />
           <div styleName="actions">
-            <Button onClick={() => setInviteOpen(true)}>+Add</Button>
+            <Button onClick={() => setAddOpen(true)}>+Add</Button>
           </div>
         </div>
         {members.length > 0 || invitees.length > 0 ? (
@@ -101,12 +90,6 @@ function MemberList({ teamId, members, invitees }) {
                       Invited {formatInviteTime(invitee.createdAt)}
                     </div>
                   </div>
-                  <button
-                    onClick={() => openDeleteModal(invitee, true)}
-                    styleName="delete"
-                  >
-                    &times;
-                  </button>
                 </div>
               </div>
             ))}
@@ -120,17 +103,17 @@ function MemberList({ teamId, members, invitees }) {
         open={deleteOpen}
         onClose={() => setDeleteOpen(false)}
         teamId={teamId}
-        isInvite={isInvite}
       />
-      <AddModal
-        open={inviteOpen}
-        onClose={() => setInviteOpen(false)}
+      <AddModalContainer
+        members={members}
+        invitees={invitees}
         teamId={teamId}
-        validateInvites={validateInvites}
+        addOpen={addOpen}
+        setAddOpen={setAddOpen}
       />
     </>
   );
-}
+};
 
 MemberList.propTypes = {
   teamId: PT.string,

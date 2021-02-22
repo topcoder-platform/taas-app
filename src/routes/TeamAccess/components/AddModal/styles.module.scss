@@ -1,0 +1,15 @@
+@import "styles/include";
+
+.error-message {
+  @include font-roboto;
+  font-style: italic;
+  font-size: 13px;
+  color: #ff5b52;
+  display: block;
+  width: fit-content;
+  margin: 24px auto;
+  padding: 10px;
+  border: 1px solid #ffd4d1;
+  border-radius: 2px;
+  background: #fff4f4;
+}

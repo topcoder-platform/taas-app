@@ -31,7 +31,7 @@ DateInput.propTypes = {
   placeholder: PT.string,
   onBlur: PT.func,
   onFocus: PT.func,
-  className: PT.string
+  className: PT.string,
 };
 
 export default DateInput;

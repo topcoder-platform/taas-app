@@ -11,7 +11,7 @@ import "./styles.module.scss";
 function TextInput(props) {
   return (
     <input
-      styleName={cn("TextInput", props.className, {"readonly": props.readonly})}
+      styleName={cn("TextInput", props.className, { readonly: props.readonly })}
       maxLength={props.maxLength}
       min={props.minValue}
       onChange={(event) => {

@@ -6,6 +6,7 @@
 import React from "react";
 import PT from "prop-types";
 import Select from "react-select";
+import CreatableSelect from "react-select/creatable";
 import "./styles.module.scss";
 
 const ReactSelect = (props) => {
@@ -69,19 +70,38 @@ const ReactSelect = (props) => {
 
   return (
     <div styleName="select-wrapper">
-      <Select
-        value={props.value}
-        styles={customStyles}
-        onChange={props.onChange}
-        options={props.options}
-        styleName={props.error ? "error" : ""}
-        isMulti={props.isMulti}
-        onBlur={props.onBlur}
-        onFocus={props.onFocus}
-        placeholder={props.placeholder}
-        onInputChange={props.onInputChange}
-        isDisabled={props.disabled}
-      />
+      {props.isCreatable ? (
+        <CreatableSelect
+          value={props.value}
+          styles={customStyles}
+          onChange={props.onChange}
+          options={props.options}
+          styleName={props.error ? "error" : ""}
+          isMulti={props.isMulti}
+          onBlur={props.onBlur}
+          onFocus={props.onFocus}
+          placeholder={props.placeholder}
+          onInputChange={props.onInputChange}
+          noOptionsMessage={() => props.noOptionsText}
+          createOptionPosition="first"
+          isDisabled={props.disabled}
+        />
+      ) : (
+        <Select
+          value={props.value}
+          styles={customStyles}
+          onChange={props.onChange}
+          options={props.options}
+          styleName={props.error ? "error" : ""}
+          isMulti={props.isMulti}
+          onBlur={props.onBlur}
+          onFocus={props.onFocus}
+          placeholder={props.placeholder}
+          onInputChange={props.onInputChange}
+          noOptionsMessage={() => props.noOptionsText}
+          isDisabled={props.disabled}
+        />
+      )}
     </div>
   );
 };
@@ -101,6 +121,8 @@ ReactSelect.propTypes = {
       label: PT.string.isRequired,
     }).isRequired
   ),
+  isCreatable: PT.bool,
+  noOptionsText: PT.string,
   disabled: PT.bool,
 };
 
