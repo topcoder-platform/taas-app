@@ -155,10 +155,8 @@ export const postReport = (teamName, teamId, reportText, memberHandle) => {
  */
 export const postMembers = (teamId, handles, emails) => {
   const url = `${config.API.V5}/taas-teams/${teamId}/members`;
-  const bodyObj = {
-    handles: [],
-    emails: [],
-  };
+  const bodyObj = {};
+
   if (handles && handles.length > 0) {
     bodyObj.handles = handles;
   }
@@ -166,13 +164,5 @@ export const postMembers = (teamId, handles, emails) => {
     bodyObj.emails = emails;
   }
 
-  return new Promise((resolve, reject) => {
-    axios
-      .post(url, bodyObj, {
-        validateStatus: (status) =>
-          (status >= 200 && status < 300) || status === 403,
-      })
-      .then((res) => resolve(res))
-      .catch((ex) => reject(ex));
-  });
+  return axios.post(url, bodyObj);
 };

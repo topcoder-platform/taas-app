@@ -6,11 +6,13 @@ import { loadSuggestions, clearSuggestions, addMembers } from "../../actions";
 import Button from "components/Button";
 import BaseModal from "components/BaseModal";
 import ReactSelect from "components/ReactSelect";
+import "./styles.module.scss";
 
 const SUGGESTION_TRIGGER_LENGTH = 3;
 
-function AddModal({ open, onClose, teamId, validateInvites }) {
+function AddModal({ open, onClose, teamId, validateAdds }) {
   const [loading, setLoading] = useState(false);
+  const [validationError, setValidationError] = useState(false);
   const [error, setError] = useState();
   const [selectedMembers, setSelectedMembers] = useState([]);
   const options = useSelector((state) =>
@@ -29,31 +31,19 @@ function AddModal({ open, onClose, teamId, validateInvites }) {
     { leading: true }
   );
 
-  const validateSelection = () => {
-    if (validateInvites(selectedMembers)) {
-      setError(
-        new Error(
-          "Project members can't be invited again. Please remove them from list"
-        )
-      );
-    } else {
-      setError(undefined);
-    }
-  };
-
   const handleClose = useCallback(() => {
     setSelectedMembers([]);
     setError(undefined);
     onClose();
   }, [onClose]);
 
-  const submitInvites = useCallback(() => {
+  const submitAdds = useCallback(() => {
     const handles = [];
     const emails = [];
     selectedMembers.forEach((member) => {
       const val = member.label;
       if (member.isEmail) {
-        emails.push(val);
+        emails.push(val.toLowerCase());
       } else {
         handles.push(val);
       }
@@ -63,7 +53,7 @@ function AddModal({ open, onClose, teamId, validateInvites }) {
 
     dispatch(addMembers(teamId, handles, emails)).then((res) => {
       setLoading(false);
-      if (!res.value.failed) {
+      if (!res.value.failed || !res.value.failed.length) {
         const numInvites = res.value.success.length;
         const plural = numInvites !== 1 ? "s" : "";
         handleClose();
@@ -111,19 +101,22 @@ function AddModal({ open, onClose, teamId, validateInvites }) {
 
       setSelectedMembers(normalizedArr);
 
-      validateSelection();
+      const isAlreadySelected = validateAdds(normalizedArr);
+
+      if (isAlreadySelected) setValidationError(true);
+      else setValidationError(false);
 
       dispatch(clearSuggestions());
     },
-    [dispatch]
+    [dispatch, validateAdds]
   );
 
-  const inviteButton = (
+  const addButton = (
     <Button
       type="primary"
       size="medium"
-      onClick={submitInvites}
-      disabled={loading || selectedMembers.length < 1}
+      onClick={submitAdds}
+      disabled={loading || selectedMembers.length < 1 || validationError}
     >
       Add
     </Button>
@@ -133,7 +126,7 @@ function AddModal({ open, onClose, teamId, validateInvites }) {
     <BaseModal
       open={open}
       onClose={handleClose}
-      button={inviteButton}
+      button={addButton}
       title="Add more people"
       disabled={loading}
       extraModalStyle={{ overflowY: "visible" }}
@@ -148,7 +141,11 @@ function AddModal({ open, onClose, teamId, validateInvites }) {
         isCreatable
         noOptionsText="Type to search"
       />
-      {error && error.message}
+      {validationError &&
+        <div styleName="error-section">
+          <div styleName="error-message">Project member(s) can't be invited again. Please remove them from list</div>
+        </div>
+      }
     </BaseModal>
   );
 }

@@ -2,7 +2,7 @@
  * Lists team members and invitees
  */
 
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import _ from "lodash";
 import PT from "prop-types";
 import CardHeader from "components/CardHeader";
@@ -17,17 +17,29 @@ import IconDirectArrow from "../../../../assets/images/icon-direct-arrow.svg";
 import AddModal from "../AddModal";
 import DeleteModal from "../DeleteModal";
 
+function checkForMatches(newMember, memberList) {
+  const label = newMember.label;
+
+  if (newMember.isEmail) {
+    const lowered = label.toLowerCase();
+    return memberList.find(member => {
+      return member.email === lowered
+    });
+  }
+  return memberList.find(member => member.handle === label);
+}
+
 function MemberList({ teamId, members, invitees }) {
   const [selectedToDelete, setSelectedToDelete] = useState(null);
-  const [inviteOpen, setInviteOpen] = useState(false);
+  const [addOpen, setAddOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
 
-  const validateInvites = (newInvites) => {
-    return _.some(newInvites, (newInvite) => {
-      members.find((member) => newInvite.label === member.handle) ||
-        invitees.find((invite) => newInvite.label === invite.handle);
+  const validateAdds = useCallback((newMembers) => {
+    return _.some(newMembers, (newMember) => {
+      return (checkForMatches(newMember, members) ||
+        checkForMatches(newMember, invitees))
     });
-  };
+  }, [members, invitees])
 
   const openDeleteModal = (member) => {
     setSelectedToDelete(member);
@@ -40,7 +52,7 @@ function MemberList({ teamId, members, invitees }) {
         <div styleName="list-header">
           <CardHeader title="Project Access" />
           <div styleName="actions">
-            <Button onClick={() => setInviteOpen(true)}>+Add</Button>
+            <Button onClick={() => setAddOpen(true)}>+Add</Button>
           </div>
         </div>
         {members.length > 0 || invitees.length > 0 ? (
@@ -114,10 +126,10 @@ function MemberList({ teamId, members, invitees }) {
         teamId={teamId}
       />
       <AddModal
-        open={inviteOpen}
-        onClose={() => setInviteOpen(false)}
+        open={addOpen}
+        onClose={() => setAddOpen(false)}
         teamId={teamId}
-        validateInvites={validateInvites}
+        validateAdds={validateAdds}
       />
     </>
   );
