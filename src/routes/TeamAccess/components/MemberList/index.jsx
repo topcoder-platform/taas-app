@@ -2,84 +2,28 @@
  * Lists team members and invitees
  */
 
-import React, { useCallback, useState } from "react";
-import _ from "lodash";
+import React, { useState } from "react";
 import PT from "prop-types";
 import CardHeader from "components/CardHeader";
 import Button from "components/Button";
 import "./styles.module.scss";
 import Avatar from "components/Avatar";
 import { Link } from "@reach/router";
-
-import { 
-  ROLE_ADMINISTRATOR, 
-  ROLE_CONNECT_ADMIN, 
-  ROLE_CONNECT_MANAGER, 
-  ROLE_CONNECT_ACCOUNT_MANAGER, 
-  ROLE_CONNECT_COPILOT_MANAGER,
-  ROLE_CONNECT_COPILOT, 
-} from "constants";
-
 import TimeSection from "../TimeSection";
 import { formatInviteTime } from "utils/format";
 import IconDirectArrow from "../../../../assets/images/icon-direct-arrow.svg";
-import AddModal from "../AddModal";
 import DeleteModal from "../DeleteModal";
-import { useTCRoles } from "../../hooks/useTCRoles";
+import AddModalContainer from "../AddModalContainer";
 
-function checkForMatches(newMember, memberList) {
-  const label = newMember.label;
-
-  if (newMember.isEmail) {
-    const lowered = label.toLowerCase();
-    return memberList.find(member => {
-      return member.email === lowered
-    });
-  }
-  return memberList.find(member => member.handle === label);
-}
-
-function hasRequiredRole(memberRoles, neededRoles) {
-  return _.some(memberRoles, role => {
-    const loweredRole = role.toLowerCase();
-    return neededRoles.find(needed => {
-      const lowNeeded = needed.toLowerCase();
-      console.log(loweredRole, lowNeeded)
-      return loweredRole === lowNeeded;
-    });
-  })
-}
-
-const SEE_SUGGESTION_ROLES = [
-  ROLE_ADMINISTRATOR,
-  ROLE_CONNECT_ADMIN,
-  ROLE_CONNECT_MANAGER,
-  ROLE_CONNECT_ACCOUNT_MANAGER,
-  ROLE_CONNECT_COPILOT_MANAGER,
-]
-
-function MemberList({ teamId, members, invitees }) {
+const MemberList = ({ teamId, members, invitees }) => {
   const [selectedToDelete, setSelectedToDelete] = useState(null);
   const [addOpen, setAddOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
-  const roles = useTCRoles();
-
-  const validateAdds = useCallback((newMembers) => {
-    return _.some(newMembers, (newMember) => {
-      return (checkForMatches(newMember, members) ||
-        checkForMatches(newMember, invitees))
-    });
-  }, [members, invitees])
 
   const openDeleteModal = (member) => {
     setSelectedToDelete(member);
     setDeleteOpen(true);
   };
-
-  const shouldShowSuggestions = useCallback(() => {
-
-    return hasRequiredRole(roles, SEE_SUGGESTION_ROLES);
-  }, [roles])
 
   return (
     <>
@@ -160,16 +104,16 @@ function MemberList({ teamId, members, invitees }) {
         onClose={() => setDeleteOpen(false)}
         teamId={teamId}
       />
-      <AddModal
-        open={addOpen}
-        onClose={() => setAddOpen(false)}
+      <AddModalContainer
+        members={members}
+        invitees={invitees}
         teamId={teamId}
-        validateAdds={validateAdds}
-        showSuggestions={shouldShowSuggestions()}
+        addOpen={addOpen}
+        setAddOpen={setAddOpen}
       />
     </>
   );
-}
+};
 
 MemberList.propTypes = {
   teamId: PT.string,

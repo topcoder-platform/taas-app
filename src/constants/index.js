@@ -224,18 +224,28 @@ export const STATUS_OPTIONS = [
 ];
 
 /*
- * TopCoder User Roles
+ * TopCoder user roles
  */
-export const ROLE_TOPCODER_USER = 'Topcoder User'
-export const ROLE_CONNECT_COPILOT = 'Connect Copilot'
-export const ROLE_CONNECT_MANAGER = 'Connect Manager'
-export const ROLE_CONNECT_ACCOUNT_MANAGER = 'Connect Account Manager'
-export const ROLE_CONNECT_ADMIN = 'Connect Admin'
-export const ROLE_ADMINISTRATOR = 'administrator'
-export const ROLE_CONNECT_COPILOT_MANAGER = 'Connect Copilot Manager'
-export const ROLE_BUSINESS_DEVELOPMENT_REPRESENTATIVE = 'Business Development Representative'
-export const ROLE_PRESALES = 'Presales'
-export const ROLE_ACCOUNT_EXECUTIVE = 'Account Executive'
-export const ROLE_PROGRAM_MANAGER = 'Program Manager'
-export const ROLE_SOLUTION_ARCHITECT = 'Solution Architect'
-export const ROLE_PROJECT_MANAGER = 'Project Manager'
+export const ROLE_TOPCODER_USER = "Topcoder User";
+export const ROLE_CONNECT_COPILOT = "Connect Copilot";
+export const ROLE_CONNECT_MANAGER = "Connect Manager";
+export const ROLE_CONNECT_ACCOUNT_MANAGER = "Connect Account Manager";
+export const ROLE_CONNECT_ADMIN = "Connect Admin";
+export const ROLE_ADMINISTRATOR = "administrator";
+export const ROLE_CONNECT_COPILOT_MANAGER = "Connect Copilot Manager";
+export const ROLE_BUSINESS_DEVELOPMENT_REPRESENTATIVE =
+  "Business Development Representative";
+export const ROLE_PRESALES = "Presales";
+export const ROLE_ACCOUNT_EXECUTIVE = "Account Executive";
+export const ROLE_PROGRAM_MANAGER = "Program Manager";
+export const ROLE_SOLUTION_ARCHITECT = "Solution Architect";
+export const ROLE_PROJECT_MANAGER = "Project Manager";
+
+// User roles that can see suggestions when adding new members to project
+export const SEE_SUGGESTION_ROLES = [
+  ROLE_ADMINISTRATOR,
+  ROLE_CONNECT_ADMIN,
+  ROLE_CONNECT_MANAGER,
+  ROLE_CONNECT_ACCOUNT_MANAGER,
+  ROLE_CONNECT_COPILOT_MANAGER,
+];

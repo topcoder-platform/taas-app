@@ -27,7 +27,15 @@ const containerStyle = {
   padding: "10px",
 };
 
-function BaseModal({ open, onClose, children, title, button, disabled, extraModalStyle }) {
+function BaseModal({
+  open,
+  onClose,
+  children,
+  title,
+  button,
+  disabled,
+  extraModalStyle,
+}) {
   return (
     <Modal
       open={open}
@@ -63,7 +71,7 @@ BaseModal.propTypes = {
   title: PT.string,
   button: PT.element,
   disabled: PT.bool,
-  extraModalStyle: PT.object
+  extraModalStyle: PT.object,
 };
 
 export default BaseModal;

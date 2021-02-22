@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from "react";
 import _ from "lodash";
+import PT from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import { toastr } from "react-redux-toastr";
 import { loadSuggestions, clearSuggestions, addMembers } from "../../actions";
@@ -8,37 +9,51 @@ import BaseModal from "components/BaseModal";
 import ReactSelect from "components/ReactSelect";
 import "./styles.module.scss";
 
+// Minimum length of input for suggestions to trigger
 const SUGGESTION_TRIGGER_LENGTH = 3;
 
+/**
+ * Filters selected members, keeping those who could not be added to team
+ * @param {Object[]} members The list of selected members
+ * @param {Object[]} failedList The list of members who could not be added
+ *
+ * @returns {Object[]} The filtered list
+ */
 const filterFailed = (members, failedList) => {
-  return members.filter(member  => {
-    return _.some(failedList, failedMem => {
+  return members.filter((member) => {
+    return _.some(failedList, (failedMem) => {
       if (failedMem.email) {
         return failedMem.email === member.label;
       }
       return failedMem.handle === member.label;
-    })
-  })
-}
+    });
+  });
+};
 
+/**
+ * Groups users by error message so they can be displayed together
+ * @param {Object[]} errorList A list of errors returned from server
+ *
+ * @returns {string[]} A list of messages, ready to be displayed
+ */
 const groupErrors = (errorList) => {
-  const grouped = _.groupBy(errorList, 'error');
+  const grouped = _.groupBy(errorList, "error");
 
-  const messages = Object.keys(grouped).map(error => {
-    const labels = grouped[error].map(failure => (
+  const messages = Object.keys(grouped).map((error) => {
+    const labels = grouped[error].map((failure) =>
       failure.email ? failure.email : failure.handle
-    ))
+    );
 
-    return ({
+    return {
       message: error,
-      users: labels
-    })
-  })
+      users: labels,
+    };
+  });
 
-  return messages.map(msg => `${msg.users.join(", ")}: ${msg.message}`)
-}
+  return messages.map((msg) => `${msg.users.join(", ")}: ${msg.message}`);
+};
 
-function AddModal({ open, onClose, teamId, validateAdds, showSuggestions }) {
+const AddModal = ({ open, onClose, teamId, validateAdds, showSuggestions }) => {
   const [loading, setLoading] = useState(false);
   const [validationError, setValidationError] = useState(false);
   const [responseErrors, setResponseErrors] = useState([]);
@@ -80,39 +95,39 @@ function AddModal({ open, onClose, teamId, validateAdds, showSuggestions }) {
 
     setLoading(true);
 
-    dispatch(addMembers(teamId, handles, emails)).then((res) => {
-      setLoading(false);
-      const { success, failed } = res.value;
-      if (success.length) {
-        const numAdds = success.length;
-        const plural = numAdds !== 1 ? "s" : "";
-        toastr.success(
-          "Members Added",
-          `Successfully added ${numAdds} member${plural}`
-        );
-      }
+    dispatch(addMembers(teamId, handles, emails))
+      .then((res) => {
+        setLoading(false);
+        const { success, failed } = res.value;
+        if (success.length) {
+          const numAdds = success.length;
+          const plural = numAdds !== 1 ? "s" : "";
+          toastr.success(
+            "Members Added",
+            `Successfully added ${numAdds} member${plural}`
+          );
+        }
 
-      if (failed.length) {
-        const remaining = filterFailed(selectedMembers, failed);
-        const errors = groupErrors(failed);
+        if (failed.length) {
+          const remaining = filterFailed(selectedMembers, failed);
+          const errors = groupErrors(failed);
 
-        setSelectedMembers(remaining);
-        setResponseErrors(errors);
-      } else  {
-        handleClose();
-      }
+          setSelectedMembers(remaining);
+          setResponseErrors(errors);
+        } else {
+          handleClose();
+        }
+      })
+      .catch((err) => {
+        setLoading(false);
 
-    })
-    .catch(err => {
-      setLoading(false);
-
-      // Display message from server error, else display generic message
-      if (!!err.response) {
-        setResponseErrors([err.message]);
-      } else {
-        setResponseErrors(["Error occured when adding members"]);
-      }
-    })
+        // Display message from server error, else display generic message
+        if (!!err.response) {
+          setResponseErrors([err.message]);
+        } else {
+          setResponseErrors(["Error occured when adding members"]);
+        }
+      });
   }, [dispatch, selectedMembers, teamId]);
 
   const onInputChange = useCallback(
@@ -191,10 +206,28 @@ function AddModal({ open, onClose, teamId, validateAdds, showSuggestions }) {
         isCreatable
         noOptionsText="Type to search"
       />
-      {validationError && <div styleName="error-message">Project member(s) can't be added again. Please remove them from list</div>}
-      {responseErrors.length > 0 && <div styleName="error-message">{responseErrors.map(err => (<p>{err}</p>))}</div>}
+      {validationError && (
+        <div styleName="error-message">
+          Project member(s) can't be added again. Please remove them from list
+        </div>
+      )}
+      {responseErrors.length > 0 && (
+        <div styleName="error-message">
+          {responseErrors.map((err) => (
+            <p>{err}</p>
+          ))}
+        </div>
+      )}
     </BaseModal>
   );
-}
+};
+
+AddModal.propTypes = {
+  open: PT.bool,
+  onClose: PT.func,
+  teamId: PT.string,
+  validateAdds: PT.func,
+  showSuggestions: PT.bool,
+};
 
 export default AddModal;
