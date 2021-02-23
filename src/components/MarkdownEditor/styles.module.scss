@@ -1,8 +1,6 @@
 @import "styles/include";
 
 .editor-container {
-  margin-top: 10px;
-
   :global {
     // reset style for heading list in  headings selection popup
     .tui-popup-body {
@@ -20,11 +18,18 @@
 
     // reset border color
     .tui-editor-defaultUI {
-      border: 1px solid #aaaaab
+      border: 1px solid #aaaaab;
+      border-radius: 4px;
+      overflow: hidden;
     }
 
     .te-toolbar-section {
-      border-bottom: 1px solid #aaaaab
+      border-bottom: 1px solid #aaaaab;
+      height: 40px;
+    }
+
+    .tui-editor-defaultUI-toolbar {
+      margin-top: (40px - 32px) / 2; // center buttons inside the toolbar
     }
 
     // hide uplodd file
