@@ -94,7 +94,7 @@ export const PERMISSIONS = {
   UPDATE_JOB_CANDIDATE: {
     meta: {
       group: "Job Candidate",
-      title: 'Update Job Candidate',
+      title: "Update Job Candidate",
     },
     projectRoles: true,
     topcoderRoles: [TOPCODER_ROLE.BOOKING_MANAGER, TOPCODER_ROLE.ADMINISTRATOR],

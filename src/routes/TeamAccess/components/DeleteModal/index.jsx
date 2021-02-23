@@ -1,26 +1,50 @@
-import React, { useCallback, useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useCallback, useMemo, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { toastr } from "react-redux-toastr";
 import BaseModal from "components/BaseModal";
 import Button from "components/Button";
 import { removeTeamMember } from "../../actions";
 import CenteredSpinner from "components/CenteredSpinner";
 
-const MEMBER_TITLE = "You're about to delete a member from the team";
+const getTitle = (isSelf) =>
+  isSelf
+    ? "You're about to leave the team"
+    : "You're about to delete a member from the team";
 
-const DELETE_MEMBER_TITLE = "Deleting Member...";
+const getDeletingTitle = (isSelf) =>
+  isSelf ? "Leaving Team..." : "Deleting Member...";
+
+const getText = (isSelf, userHandleOrEmail) =>
+  isSelf
+    ? `You are about to remove yourself from the team. You might lose
+    access to the team and couldn't see or interact with it anymore. Do
+    you still want to leave the team?`
+    : `You are about to remove ${userHandleOrEmail} from your team. They might lose all
+access to the team and couldn't see or interact with it anymore. Do
+you still want to remove the member?`;
+
+const getSuccessTitle = (isSelf) =>
+  isSelf ? "Team Left" : "Member Removed";
+
+const getSuccessText = (isSelf, userHandleOrEmail) =>
+  isSelf ? "You have successfully left the team" : `You have successfully removed ${userHandleOrEmail} from the team`;
+
+const getFailedTitle = (isSelf) =>
+  isSelf ? "Failed to Leave the Team" : "Failed to Remove Member";
+
+const getDeleteButtonText = (isSelf) =>
+  isSelf ? "Leave Team" : "Remove Member";
 
 function DeleteModal({ selected, open, onClose, teamId }) {
   const [loading, setLoading] = useState(false);
+  const { userId } = useSelector((state) => state.authUser);
 
-  let handle;
-  if (selected) {
-    if (selected.handle) {
-      handle = selected.handle;
-    } else {
-      handle = selected.email;
+  const isSelf = useMemo(() => selected && selected.userId === userId, [selected, userId]);
+  const userHandleOrEmail = useMemo(() => {
+    if (selected) {
+      return selected.handle ? selected.handle : selected.email;
     }
-  }
+  }, [selected]);
 
   const dispatch = useDispatch();
 
@@ -30,35 +54,29 @@ function DeleteModal({ selected, open, onClose, teamId }) {
       .then(() => {
         setLoading(false);
         toastr.success(
-          "Member Removed",
-          `You have successfully removed ${handle} from the team`
+          getSuccessTitle(isSelf),
+          getSuccessText(isSelf, userHandleOrEmail)
         );
         onClose();
+        if (isSelf) {
+          // redirect to the team list after leaving the team just in case if the current user lost access
+          window.history.pushState({}, null, `/taas/myteams`);
+        }
       })
       .catch((err) => {
         setLoading(false);
-        toastr.error("Failed to Remove Member", err.message);
+        toastr.error(getFailedTitle(isSelf), err.message);
       });
-  }, [dispatch, selected]);
-
-  const displayText = useCallback(() => {
-    return (
-      "You are about to remove " +
-      handle +
-      " from your team. They will lose all rights to the project " +
-      "and can't see or interact with it anymore. Do you still " +
-      "want to remove the member?"
-    );
-  }, [selected]);
+  }, [dispatch, selected, isSelf]);
 
   const button = (
     <Button
       type="warning"
       size="medium"
-      onClick={() => deleteMember()}
+      onClick={deleteMember}
       disabled={loading}
     >
-      Remove member
+      {getDeleteButtonText(isSelf)}
     </Button>
   );
 
@@ -66,11 +84,15 @@ function DeleteModal({ selected, open, onClose, teamId }) {
     <BaseModal
       open={open}
       onClose={onClose}
-      title={loading ? DELETE_MEMBER_TITLE : MEMBER_TITLE}
+      title={loading ? getDeletingTitle(isSelf) : getTitle(isSelf)}
       button={button}
       disabled={loading}
     >
-      {loading ? <CenteredSpinner /> : <p>{displayText()}</p>}
+      {loading ? (
+        <CenteredSpinner />
+      ) : (
+        <p>{getText(isSelf, userHandleOrEmail)}</p>
+      )}
     </BaseModal>
   );
 }

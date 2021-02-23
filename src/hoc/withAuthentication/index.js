@@ -28,9 +28,13 @@ import { useParams } from "@reach/router";
 export default function withAuthentication(Component) {
   const AuthenticatedComponent = (props) => {
     const dispatch = useDispatch();
-    const { isLoggedIn, authError, teamId, teamMembersLoaded, teamMembersLoadingError } = useSelector(
-      (state) => state.authUser
-    );
+    const {
+      isLoggedIn,
+      authError,
+      teamId,
+      teamMembersLoaded,
+      teamMembersLoadingError,
+    } = useSelector((state) => state.authUser);
     const params = useParams();
 
     /*
@@ -87,10 +91,15 @@ export default function withAuthentication(Component) {
         {/* Show loading indicator until we know if user is logged-in or no.
             Also, show loading indicator if we need to know team members but haven't loaded them yet.
             In we got error during this process, show error */}
-        {isLoggedIn === null || (params.teamId && !teamMembersLoaded) && <LoadingIndicator error={authError || teamMembersLoadingError} />}
+        {isLoggedIn === null ||
+          (params.teamId && !teamMembersLoaded && (
+            <LoadingIndicator error={authError || teamMembersLoadingError} />
+          ))}
 
         {/* Show component only if user is logged-in and if we don't need team members or we already loaded them */}
-        {isLoggedIn === true && (!params.teamId || teamMembersLoaded) ? <Component {...props} /> : null}
+        {isLoggedIn === true && (!params.teamId || teamMembersLoaded) ? (
+          <Component {...props} />
+        ) : null}
       </>
     );
   };
