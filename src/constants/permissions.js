@@ -80,6 +80,15 @@ export const PERMISSIONS = {
   /**
    * Job
    */
+  UPDATE_JOB_NOT_OWN: {
+    meta: {
+      group: "Job",
+      title: "Edit Job (not own)",
+      description: "Who can edit job created by some other user.",
+    },
+    topcoderRoles: [TOPCODER_ROLE.BOOKING_MANAGER, TOPCODER_ROLE.ADMINISTRATOR],
+  },
+
   UPDATE_JOB_STATUS: {
     meta: {
       group: "Job",

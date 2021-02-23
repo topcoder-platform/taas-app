@@ -22,6 +22,8 @@ import IconOpenings from "../../assets/images/icon-openings.svg";
 import Button from "../../components/Button";
 import { formatDate } from "utils/format";
 import "./styles.module.scss";
+import { hasPermission } from "utils/permissions";
+import { PERMISSIONS } from "constants/permissions";
 
 const JobDetails = ({ teamId, jobId }) => {
   const [job, loadingError] = useData(getJobById, jobId);
@@ -95,16 +97,18 @@ const JobDetails = ({ teamId, jobId }) => {
                 {job.status}
               </DataItem>
             </div>
-            <div styleName="actions">
-              <Button
-                target="_blank"
-                size="medium"
-                className="editButton"
-                routeTo={`/taas/myteams/${teamId}/positions/${job.id}/edit`}
-              >
-                Edit Job Details
-              </Button>
-            </div>
+            {hasPermission(PERMISSIONS.UPDATE_JOB_NOT_OWN) && (
+              <div styleName="actions">
+                <Button
+                  target="_blank"
+                  size="medium"
+                  className="editButton"
+                  routeTo={`/taas/myteams/${teamId}/positions/${job.id}/edit`}
+                >
+                  Edit Job Details
+                </Button>
+              </div>
+            )}
           </div>
         </>
       )}
