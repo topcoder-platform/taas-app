@@ -13,7 +13,7 @@ import {
 import { hasPermission } from "utils/permissions";
 import { PERMISSIONS } from "constants/permissions";
 
-const EDIT_RESOURCE_BOOKING_ROWS = [
+const UPDATE_RESOURCE_BOOKING_ROWS = [
   { type: FORM_ROW_TYPE.SINGLE, fields: ["handle"] },
   { type: FORM_ROW_TYPE.SINGLE, fields: ["jobTitle"] },
   { type: FORM_ROW_TYPE.GROUP, fields: ["startDate", "endDate"] },
@@ -99,6 +99,6 @@ export const getEditResourceBookingConfig = (onSubmit) => {
       },
     ],
     onSubmit: onSubmit,
-    rows: EDIT_RESOURCE_BOOKING_ROWS,
+    rows: UPDATE_RESOURCE_BOOKING_ROWS,
   };
 };

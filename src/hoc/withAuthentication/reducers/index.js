@@ -15,6 +15,7 @@ const initialState = {
   teamMembers: undefined,
   teamMembersLoading: undefined,
   teamMembersLoadingError: undefined,
+  teamMembersLoaded: false,
 };
 
 const authInitialState = _.pick(initialState, [
@@ -56,6 +57,7 @@ const reducer = (state = initialState, action) => {
         teamMembers: initialState.teamMembersLoadingError,
         teamMembersLoading: true,
         teamMembersLoadingError: initialState.teamMembersLoadingError,
+        teamMembersLoaded: false,
       };
 
     case ACTION_TYPE.AUTH_LOAD_TEAM_MEMBERS_SUCCESS: {
@@ -65,6 +67,7 @@ const reducer = (state = initialState, action) => {
           ...state,
           teamMembersLoading: false,
           teamMembers: action.payload,
+          teamMembersLoaded: true,
         };
       }
 
@@ -78,6 +81,7 @@ const reducer = (state = initialState, action) => {
           ...state,
           teamMembersLoading: false,
           teamMembersLoadingError: action.payload,
+          teamMembersLoaded: false,
         };
       }
 

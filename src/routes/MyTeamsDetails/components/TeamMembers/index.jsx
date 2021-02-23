@@ -158,11 +158,11 @@ const TeamMembers = ({ team }) => {
                               `/taas/myteams/${team.id}/rb/${member.id}/edit`
                             );
                           },
-                          hidden: !hasPermission(PERMISSIONS.EDIT_RESOURCE_BOOKING),
+                          hidden: !hasPermission(PERMISSIONS.UPDATE_RESOURCE_BOOKING),
                         },
                         {
                           separator: true,
-                          hidden: !hasPermission(PERMISSIONS.EDIT_RESOURCE_BOOKING),
+                          hidden: !hasPermission(PERMISSIONS.UPDATE_RESOURCE_BOOKING),
                         },
                         {
                           label: "Report an Issue",

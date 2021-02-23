@@ -23,6 +23,8 @@ import Pagination from "components/Pagination";
 import IconResume from "../../../../assets/images/icon-resume.svg";
 import { toastr } from "react-redux-toastr";
 import { getJobById } from "services/jobs";
+import { PERMISSIONS } from "constants/permissions";
+import { hasPermission } from "utils/permissions";
 
 /**
  * Generates a function to sort candidates
@@ -192,7 +194,7 @@ const PositionCandidates = ({ position, candidateStatus, updateCandidate }) => {
                 )}
               </div>
               <div styleName="table-cell cell-action">
-                {candidateStatus === CANDIDATE_STATUS.OPEN && (
+                {candidateStatus === CANDIDATE_STATUS.OPEN && hasPermission(PERMISSIONS.UPDATE_JOB_CANDIDATE) && (
                   <>
                     Interested in this candidate?
                     <div styleName="actions">

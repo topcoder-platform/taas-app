@@ -9,7 +9,7 @@
  *
  * Examples of CORRECT permission naming and meaning:
  *    - `VIEW_PROJECT`
- *    - `EDIT_MILESTONE`
+ *    - `UPDATE_MILESTONE`
  *    - `DELETE_WORK`
  *
  * Examples of INCORRECT permissions naming and meaning:
@@ -78,9 +78,32 @@ export const PROJECT_ROLE = {
 
 export const PERMISSIONS = {
   /**
+   * Job
+   */
+  UPDATE_JOB_STATUS: {
+    meta: {
+      group: "Job",
+      title: 'Edit Job "status"',
+    },
+    topcoderRoles: [TOPCODER_ROLE.BOOKING_MANAGER, TOPCODER_ROLE.ADMINISTRATOR],
+  },
+
+  /**
+   * Job Candidate
+   */
+  UPDATE_JOB_CANDIDATE: {
+    meta: {
+      group: "Job Candidate",
+      title: 'Update Job Candidate',
+    },
+    projectRoles: true,
+    topcoderRoles: [TOPCODER_ROLE.BOOKING_MANAGER, TOPCODER_ROLE.ADMINISTRATOR],
+  },
+
+  /**
    * Resource Booking
    */
-  EDIT_RESOURCE_BOOKING: {
+  UPDATE_RESOURCE_BOOKING: {
     meta: {
       group: "Resource Booking",
       title: "Edit Resource Booking",
@@ -92,17 +115,6 @@ export const PERMISSIONS = {
     meta: {
       group: "Resource Booking",
       title: "Access Member Rate (view and edit)",
-    },
-    topcoderRoles: [TOPCODER_ROLE.BOOKING_MANAGER, TOPCODER_ROLE.ADMINISTRATOR],
-  },
-
-  /**
-   * Job
-   */
-  EDIT_JOB_STATUS: {
-    meta: {
-      group: "Job",
-      title: 'Edit Job "status"',
     },
     topcoderRoles: [TOPCODER_ROLE.BOOKING_MANAGER, TOPCODER_ROLE.ADMINISTRATOR],
   },
