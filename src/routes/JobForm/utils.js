@@ -42,7 +42,7 @@ export const getEditJobConfig = (skillOptions, onSubmit) => {
       },
       {
         label: "Job Description",
-        type: FORM_FIELD_TYPE.TEXTAREA,
+        type: FORM_FIELD_TYPE.MARKDOWNEDITOR,
         name: "description",
         placeholder: "Job Description",
       },

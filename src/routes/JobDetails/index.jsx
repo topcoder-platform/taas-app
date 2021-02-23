@@ -12,6 +12,7 @@ import { useData } from "hooks/useData";
 import { getJobById } from "services/jobs";
 import { getSkills } from "services/skills";
 import LoadingIndicator from "../../components/LoadingIndicator";
+import MarkdownEditorViewer from "../../components/MarkdownEditorViewer";
 import withAuthentication from "../../hoc/withAuthentication";
 import DataItem from "../../components/DataItem";
 import IconSkill from "../../assets/images/icon-skill.svg";
@@ -64,7 +65,7 @@ const JobDetails = ({ teamId, jobId }) => {
                 {job.title}
               </DataItem>
               <DataItem title="Job Description" icon={<IconDescription />}>
-                {job.description}
+                <MarkdownEditorViewer value={job.description} />
               </DataItem>
               <DataItem title="Number of Openings" icon={<IconOpenings />}>
                 {job.numPositions}

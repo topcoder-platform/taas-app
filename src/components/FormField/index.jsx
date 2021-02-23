@@ -9,6 +9,7 @@ import { Field } from "react-final-form";
 import { FORM_FIELD_TYPE } from "../../constants";
 import TextInput from "../../components/TextInput";
 import TextArea from "../../components/TextArea";
+import MarkdownEditor from "../../components/MarkdownEditor";
 import ReactSelect from "../../components/ReactSelect";
 import DateInput from "../../components/DateInput";
 import "./styles.module.scss";
@@ -57,6 +58,16 @@ const FormField = ({ field }) => {
               onFocus={input.onFocus}
               className={meta.error && meta.touched ? "error" : ""}
               step={field.step}
+            />
+          )}
+          {field.type === FORM_FIELD_TYPE.MARKDOWNEDITOR && (
+            <MarkdownEditor
+              placeholder={field.placeholder}
+              value={input?.value ?? ""}
+              onChange={input.onChange}
+              onBlur={input.onBlur}
+              onFocus={input.onFocus}
+              className={meta.error && meta.touched ? "error" : ""}
             />
           )}
           {field.type === FORM_FIELD_TYPE.TEXTAREA && (

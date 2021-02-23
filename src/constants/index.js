@@ -209,6 +209,7 @@ export const ACTION_TYPE = {
 export const FORM_FIELD_TYPE = {
   TEXT: "text",
   TEXTAREA: "textarea",
+  MARKDOWNEDITOR: "markdowneditor",
   NUMBER: "number",
   SELECT: "select",
   MULTISELECT: "multiselect",
