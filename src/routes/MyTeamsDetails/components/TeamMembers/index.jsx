@@ -152,7 +152,7 @@ const TeamMembers = ({ team }) => {
                     <ActionsMenu
                       options={[
                         {
-                          label: "Edit Member Details",
+                          label: "Edit Resource Booking",
                           action: () => {
                             navigate(
                               `/taas/myteams/${team.id}/rb/${member.id}/edit`

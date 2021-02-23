@@ -51,13 +51,13 @@ const ResourceBookingDetails = ({ teamId, resourceBookingId }) => {
   }, [team, resourceBookingId]);
 
   return (
-    <Page title="Member Details">
+    <Page title="Resource Booking">
       {!(member && resource) ? (
         <LoadingIndicator error={loadingError || loadingTeamError} />
       ) : (
         <>
           <PageHeader
-            title="Member Details"
+            title="Resource Booking"
             backTo={`/taas/myteams/${teamId}`}
           />
           <div styleName="content-wrapper">
@@ -69,7 +69,7 @@ const ResourceBookingDetails = ({ teamId, resourceBookingId }) => {
                   size="medium"
                   routeTo={`/taas/myteams/${teamId}/rb/${resource.id}/edit`}
                 >
-                  Edit Member Details
+                  Edit Resource Booking
                 </Button>
               </div>
             )}

@@ -80,13 +80,13 @@ const ResourceBookingDetails = ({ teamId, resourceBookingId }) => {
     ]);
 
   return (
-    <Page title="Edit Member Details">
+    <Page title="Edit Resource Booking">
       {!formData ? (
         <LoadingIndicator error={loadingError || loadingTeamError} />
       ) : (
         <>
           <PageHeader
-            title="Edit Member Details"
+            title="Edit Resource Booking"
             backTo={`/taas/myteams/${teamId}/rb/${resourceBookingId}`}
           />
           <div styleName="rb-modification-details">
