@@ -28,7 +28,7 @@ class TuiEditor extends React.Component {
         const eventName = key[2].toLowerCase() + key.slice(3);
         // off function has issue
         // when add `onFocus` function, the headings popup will not hide automatically
-        // this.editorInst.off(eventName, props[key]);
+        // this.editorInst.off(eventName);
         this.editorInst.on(eventName, props[key]);
       });
   }
@@ -40,6 +40,15 @@ class TuiEditor extends React.Component {
     });
 
     this.bindEventHandlers(this.props);
+  }
+
+  componentWillUnmount() {
+    Object.keys(this.props)
+    .filter((key) => /^on[A-Z][a-zA-Z]+/.test(key))
+    .forEach((key) => {
+      const eventName = key[2].toLowerCase() + key.slice(3);
+      this.editorInst.off(eventName);
+    });
   }
 
   shouldComponentUpdate(nextProps) {
@@ -54,7 +63,10 @@ class TuiEditor extends React.Component {
       instance.changePreviewStyle(previewStyle);
     }
 
-    this.bindEventHandlers(nextProps, this.props);
+    // this looks like a bed idea to re-subscribe all the event on each re-render
+    // also, note, that we had to disable this.editorInst.off(eventName);
+    // otherwise popup for choosing Headings never closes
+    // this.bindEventHandlers(nextProps, this.props);
 
     return false;
   }

@@ -10,7 +10,13 @@
         font-weight: revert;
         line-height: revert;
       }
-    }    
+    }
+
+    .tui-editor-contents {
+      b {
+        font-weight: bold;
+      }
+    }
 
     // reset border color
     .tui-editor-defaultUI {

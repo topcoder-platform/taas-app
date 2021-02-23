@@ -2,7 +2,7 @@
  * MarkdownEditor
  */
 
-import React, { useState, useCallback, useRef } from "react";
+import React, { useCallback, useRef } from "react";
 import PropTypes from "prop-types";
 import cn from "classnames";
 import TuiEditor from "../TuiEditor";
@@ -12,9 +12,9 @@ const MarkdownEditor = (props) => {
   const editorElement = useRef(null);
 
   const onChange = useCallback(() => {
-    const mk = editorElement.current.editorInst.getMarkdown();
-    props.onChange(mk);
-  }, []);
+    const markdown = editorElement.current.editorInst.getMarkdown();
+    props.onChange(markdown);
+  }, [props.onChange]);
 
   return (
     <div className={cn(styles["editor-container"], props.className)}>

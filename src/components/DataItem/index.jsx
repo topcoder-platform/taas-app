@@ -13,7 +13,13 @@ const DataItem = ({ icon, title, children }) => {
       {icon}
       <div styleName="data">
         <div styleName="title">{title}</div>
-        <div styleName="value">{children}</div>
+        {/* if `children` is pure text, then we apply styling to it
+            but otherwise with don't apply styling */}
+        {_.isString(children) ? (
+          <div styleName="value">{children}</div>
+        ) : (
+          <div styleName="value-component">{children}</div>
+        )}
       </div>
     </div>
   );
