@@ -104,7 +104,7 @@ const AddModal = ({ open, onClose, teamId, validateAdds, showSuggestions }) => {
           const numAdds = success.length;
           toastr.success(
             "Members Added",
-            `Successfully added ${numAdds} ${formatPlural(numAdds, 'member')}`
+            `Successfully added ${formatPlural(numAdds, 'member')}`
           );
         }
 
