@@ -1,0 +1,37 @@
+@import "styles/include";
+
+.editor-container {
+  margin-top: 10px;
+
+  :global {
+    // reset style for heading list in  headings selection popup
+    .tui-popup-body {
+      h1,h2,h3,h4,h4,h5,h6 {
+        font-weight: revert;
+        line-height: revert;
+      }
+    }    
+
+    // reset border color
+    .tui-editor-defaultUI {
+      border: 1px solid #aaaaab
+    }
+
+    .te-toolbar-section {
+      border-bottom: 1px solid #aaaaab
+    }
+
+    // hide uplodd file
+    .tui-editor-popup{
+        box-shadow: 0px 0px 15px 5px rgba(0,0,0,0.26);
+    }
+
+    .te-popup-add-image .te-tab button, .te-popup-add-image .te-file-type{
+      display: none !important;
+    }
+
+    .te-popup-add-image .te-url-type{
+      display: block !important;
+    }
+  }
+}
