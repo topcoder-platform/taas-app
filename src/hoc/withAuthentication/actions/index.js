@@ -1,11 +1,7 @@
 /**
  * Auth User actions
  */
-
-export const ACTION_TYPE = {
-  AUTH_USER_SUCCESS: "AUTH_USER_SUCCESS",
-  AUTH_USER_ERROR: "AUTH_USER_ERROR",
-};
+import { ACTION_TYPE } from "constants";
 
 /**
  * Action to set auth user data
@@ -21,6 +17,14 @@ export const authUserSuccess = (tokenData) => ({
  * Action to set auth user error
  */
 export const authUserError = (error) => ({
+  type: ACTION_TYPE.AUTH_USER_ERROR,
+  payload: error,
+});
+
+/**
+ * Action to load project/team members
+ */
+export const loadTeamMembers = (error) => ({
   type: ACTION_TYPE.AUTH_USER_ERROR,
   payload: error,
 });

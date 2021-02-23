@@ -1,7 +1,7 @@
 /**
  * Reducer for Team Access page
  */
-import { ACTION_TYPE } from "../actions";
+import { ACTION_TYPE } from "constants";
 
 const initialState = {
   members: undefined,
@@ -15,7 +15,7 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case ACTION_TYPE.CLEAR_ALL:
+    case ACTION_TYPE.RESET_MEMBERS_STATE:
       return initialState;
 
     case ACTION_TYPE.LOAD_MEMBERS_PENDING:
@@ -84,14 +84,14 @@ const reducer = (state = initialState, action) => {
         error: action.payload,
       };
 
-    case ACTION_TYPE.LOAD_SUGGESTIONS_PENDING:
+    case ACTION_TYPE.LOAD_MEMBERS_SUGGESTIONS_PENDING:
       return {
         ...state,
         loading: true,
         error: undefined,
       };
 
-    case ACTION_TYPE.LOAD_SUGGESTIONS_SUCCESS:
+    case ACTION_TYPE.LOAD_MEMBERS_SUGGESTIONS_SUCCESS:
       return {
         ...state,
         suggestions: action.payload,
@@ -99,14 +99,14 @@ const reducer = (state = initialState, action) => {
         error: undefined,
       };
 
-    case ACTION_TYPE.LOAD_SUGGESTIONS_ERROR:
+    case ACTION_TYPE.LOAD_MEMBERS_SUGGESTIONS_ERROR:
       return {
         ...state,
         loading: false,
         error: action.payload,
       };
 
-    case ACTION_TYPE.CLEAR_SUGGESTIONS:
+    case ACTION_TYPE.CLEAR_MEMBERS_SUGGESTIONS:
       return {
         ...state,
         suggestions: [],

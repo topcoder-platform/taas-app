@@ -2,7 +2,7 @@
  * Reducer for Report popup
  */
 
-import { ACTION_TYPE } from "../actions";
+import { ACTION_TYPE } from "constants";
 
 const initialState = {
   teamName: undefined,

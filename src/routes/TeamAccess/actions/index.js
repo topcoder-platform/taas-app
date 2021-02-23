@@ -9,31 +9,7 @@ import {
   getMemberSuggestions,
   postMembers,
 } from "services/teams";
-
-export const ACTION_TYPE = {
-  LOAD_MEMBERS: "LOAD_MEMBERS",
-  LOAD_MEMBERS_PENDING: "LOAD_MEMBERS_PENDING",
-  LOAD_MEMBERS_SUCCESS: "LOAD_MEMBERS_SUCCESS",
-  LOAD_MEMBERS_ERROR: "LOAD_MEMBERS_ERROR",
-  LOAD_INVITES: "LOAD_INVITES",
-  LOAD_INVITES_PENDING: "LOAD_INVITES_PENDING",
-  LOAD_INVITES_SUCCESS: "LOAD_INVITES_SUCCESS",
-  LOAD_INVITES_ERROR: "LOAD_INVITES_ERROR",
-  LOAD_SUGGESTIONS: "LOAD_SUGGESTIONS",
-  LOAD_SUGGESTIONS_PENDING: "LOAD_SUGGESTIONS_PENDING",
-  LOAD_SUGGESTIONS_SUCCESS: "LOAD_SUGGESTIONS_SUCCESS",
-  LOAD_SUGGESTIONS_ERROR: "LOAD_SUGGESTIONS_ERROR",
-  REMOVE_MEMBER: "REMOVE_MEMBER",
-  REMOVE_MEMBER_PENDING: "REMOVE_MEMBER_PENDING",
-  REMOVE_MEMBER_SUCCESS: "REMOVE_MEMBER_SUCCESS",
-  REMOVE_MEMBER_ERROR: "REMOVE_MEMBER_ERROR",
-  ADD_MEMBERS: "ADD_MEMBERS",
-  ADD_MEMBERS_PENDING: "ADD_MEMBERS_PENDING",
-  ADD_MEMBERS_SUCCESS: "ADD_MEMBERS_SUCCESS",
-  ADD_MEMBERS_ERROR: "ADD_MEMBERS_ERROR",
-  CLEAR_ALL: "CLEAR_ALL",
-  CLEAR_SUGGESTIONS: "CLEAR_SUGGESTIONS",
-};
+import { ACTION_TYPE } from "constants"
 
 /**
  * Loads team members
@@ -75,7 +51,7 @@ export const loadInvites = (teamId) => ({
  * Clear team members state
  */
 export const clearAll = () => ({
-  type: ACTION_TYPE.CLEAR_ALL,
+  type: ACTION_TYPE.RESET_MEMBERS_STATE,
 });
 
 /**
@@ -106,7 +82,7 @@ export const removeTeamMember = (teamId, memberId) => ({
  * @returns {Promise<object[]>} list of suggestions or error
  */
 export const loadSuggestions = (fragment) => ({
-  type: ACTION_TYPE.LOAD_SUGGESTIONS,
+  type: ACTION_TYPE.LOAD_MEMBERS_SUGGESTIONS,
   payload: async () => {
     const res = await getMemberSuggestions(fragment);
     return res.data.result.content;
@@ -120,7 +96,7 @@ export const loadSuggestions = (fragment) => ({
  * Clears invite suggestions
  */
 export const clearSuggestions = () => ({
-  type: ACTION_TYPE.CLEAR_SUGGESTIONS,
+  type: ACTION_TYPE.CLEAR_MEMBERS_SUGGESTIONS,
 });
 
 /**

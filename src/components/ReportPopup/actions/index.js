@@ -1,11 +1,7 @@
 /**
  * Report popup actions
  */
-
-export const ACTION_TYPE = {
-  OPEN_REPORT: "OPEN_REPORT",
-  CLOSE_REPORT: "CLOSE_REPORT",
-};
+import { ACTION_TYPE } from "constants";
 
 /**
  * Action to populate the report info and open a report popup

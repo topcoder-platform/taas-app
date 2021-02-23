@@ -2,7 +2,7 @@
  * Reducer for `authUser`
  */
 
-import { ACTION_TYPE } from "../actions";
+import { ACTION_TYPE } from "constants";
 
 const initialState = {
   isLoggedIn: null,
