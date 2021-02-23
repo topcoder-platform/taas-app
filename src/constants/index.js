@@ -169,6 +169,12 @@ export const ACTION_TYPE = {
    */
   AUTH_USER_SUCCESS: "AUTH_USER_SUCCESS",
   AUTH_USER_ERROR: "AUTH_USER_ERROR",
+  // load team members for authentication/permission purposes
+  AUTH_LOAD_TEAM_MEMBERS: "AUTH_LOAD_TEAM_MEMBERS",
+  AUTH_LOAD_TEAM_MEMBERS_PENDING: "AUTH_LOAD_TEAM_MEMBERS_PENDING",
+  AUTH_LOAD_TEAM_MEMBERS_SUCCESS: "AUTH_LOAD_TEAM_MEMBERS_SUCCESS",
+  AUTH_LOAD_TEAM_MEMBERS_ERROR: "AUTH_LOAD_TEAM_MEMBERS_ERROR",
+  AUTH_CLEAR_TEAM_MEMBERS: "AUTH_CLEAR_TEAM_MEMBERS",
 
   /*
     Report Popup
@@ -204,7 +210,7 @@ export const ACTION_TYPE = {
 };
 
 /**
- * All fonr field types
+ * All form field types
  */
 export const FORM_FIELD_TYPE = {
   TEXT: "text",
