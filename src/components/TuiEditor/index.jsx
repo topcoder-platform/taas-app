@@ -1,30 +1,68 @@
 /*
  * TuiEditor
+ * wrap toast-ui editor with react
  */
-
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
-import cn from "classnames";
-import { Editor } from "@toast-ui/react-editor";
-import styles from "./styles.module.scss";
+import Editor from "@toast-ui/editor";
 
-const TuiEditor = (props) => {
-  const [editorElement, setEditorElement] = useState(null);
-  const onChange = () => {
-    const mk = editorElement.editorInst.getMarkdown();
-    props.onChange(mk);
-  };
-  return (
-    <div className={cn(styles["editor-container"], props.className)}>
-      <Editor
-        {...props}
-        ref={setEditorElement}
-        onChange={onChange}
-        initialValue={props.value}
-      />
-    </div>
-  );
-};
+class TuiEditor extends React.Component {
+  constructor(props) {
+    super(props);
+    this.rootEl = React.createRef();
+    this.editorInst = null;
+  }
+
+  getRootElement() {
+    return this.rootEl.current;
+  }
+
+  getInstance() {
+    return this.editorInst;
+  }
+
+  bindEventHandlers(props) {
+    Object.keys(this.props)
+      .filter((key) => /^on[A-Z][a-zA-Z]+/.test(key))
+      .forEach((key) => {
+        const eventName = key[2].toLowerCase() + key.slice(3);
+        // off function has issue
+        // when add `onFocus` function, the headings popup will not hide automatically
+        // this.editorInst.off(eventName, props[key]);
+        this.editorInst.on(eventName, props[key]);
+      });
+  }
+
+  componentDidMount() {
+    this.editorInst = new Editor({
+      el: this.rootEl.current,
+      ...this.props,
+    });
+
+    this.bindEventHandlers(this.props);
+  }
+
+  shouldComponentUpdate(nextProps) {
+    const instance = this.getInstance();
+    const { height, previewStyle } = nextProps;
+
+    if (this.props.height !== height) {
+      instance.height(height);
+    }
+
+    if (this.props.previewStyle !== previewStyle) {
+      instance.changePreviewStyle(previewStyle);
+    }
+
+    this.bindEventHandlers(nextProps, this.props);
+
+    return false;
+  }
+
+  render() {
+    return <div ref={this.rootEl} />;
+  }
+}
 
 TuiEditor.defaultProps = {
   height: "320px",
@@ -44,8 +82,7 @@ TuiEditor.defaultProps = {
 
 TuiEditor.propTypes = {
   // Editor's initial value
-  value: PropTypes.string,
-  className: PropTypes.string,
+  initialValue: PropTypes.string,
   // Markdown editor's preview style (tab, vertical)
   previewStyle: PropTypes.string.isRequired,
   // Editor's height style value. Height is applied as border-box ex) '300px', '100%', 'auto'

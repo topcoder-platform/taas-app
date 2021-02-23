@@ -168,7 +168,7 @@ export const ACTION_TYPE = {
 export const FORM_FIELD_TYPE = {
   TEXT: "text",
   TEXTAREA: "textarea",
-  TUIEDITOR: "tuieditor",
+  MARKDOWNEDITOR: "markdowneditor",
   NUMBER: "number",
   SELECT: "select",
   MULTISELECT: "multiselect",
