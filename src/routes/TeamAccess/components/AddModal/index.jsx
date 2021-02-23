@@ -8,6 +8,7 @@ import Button from "components/Button";
 import BaseModal from "components/BaseModal";
 import ReactSelect from "components/ReactSelect";
 import "./styles.module.scss";
+import { formatPlural } from "utils/format";
 
 // Minimum length of input for suggestions to trigger
 const SUGGESTION_TRIGGER_LENGTH = 3;
@@ -101,10 +102,9 @@ const AddModal = ({ open, onClose, teamId, validateAdds, showSuggestions }) => {
         const { success, failed } = res.value;
         if (success.length) {
           const numAdds = success.length;
-          const plural = numAdds !== 1 ? "s" : "";
           toastr.success(
             "Members Added",
-            `Successfully added ${numAdds} member${plural}`
+            `Successfully added ${numAdds} ${formatPlural(numAdds, 'member')}`
           );
         }
 
@@ -125,7 +125,7 @@ const AddModal = ({ open, onClose, teamId, validateAdds, showSuggestions }) => {
         if (!!err.response) {
           setResponseErrors([err.message]);
         } else {
-          setResponseErrors(["Error occured when adding members"]);
+          setResponseErrors(["Error occurred when adding members"]);
         }
       });
   }, [dispatch, selectedMembers, teamId]);

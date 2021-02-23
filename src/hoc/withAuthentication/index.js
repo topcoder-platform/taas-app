@@ -8,7 +8,7 @@ import _ from "lodash";
 import { getAuthUserTokens, login } from "@topcoder/micro-frontends-navbar-app";
 import LoadingIndicator from "../../components/LoadingIndicator";
 import { authUserSuccess, authUserError } from "./actions";
-import { decodeToken } from "utils/helpers";
+import { decodeToken } from "tc-auth-lib";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function withAuthentication(Component) {

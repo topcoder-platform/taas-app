@@ -57,6 +57,8 @@ export const TOPCODER_ROLE = {
   CONNECT_MANAGER: "Connect Manager",
   ADMINISTRATOR: "administrator",
   TOPCODER_USER: "Topcoder User",
+  CONNECT_ADMIN: "Connect Admin",
+  COPILOT_MANAGER: "Connect Copilot Manager",
 };
 
 /**
@@ -75,6 +77,9 @@ export const PROJECT_ROLE = {
  */
 
 export const PERMISSIONS = {
+  /**
+   * Resource Booking
+   */
   EDIT_RESOURCE_BOOKING: {
     meta: {
       group: "Resource Booking",
@@ -91,11 +96,32 @@ export const PERMISSIONS = {
     topcoderRoles: [TOPCODER_ROLE.BOOKING_MANAGER, TOPCODER_ROLE.ADMINISTRATOR],
   },
 
+  /**
+   * Job
+   */
   EDIT_JOB_STATUS: {
     meta: {
       group: "Job",
       title: 'Edit Job "status"',
     },
     topcoderRoles: [TOPCODER_ROLE.BOOKING_MANAGER, TOPCODER_ROLE.ADMINISTRATOR],
+  },
+
+  /**
+   * Team
+   */
+  SEE_MEMBER_SUGGESTIONS: {
+    meta: {
+      group: "Team",
+      title: "See Member Suggestions",
+      description: "When entering user handle in the invite field.",
+    },
+    topcoderRoles: [
+      TOPCODER_ROLE.BOOKING_MANAGER,
+      TOPCODER_ROLE.ADMINISTRATOR,
+      TOPCODER_ROLE.CONNECT_ADMIN,
+      TOPCODER_ROLE.CONNECT_MANAGER,
+      TOPCODER_ROLE.COPILOT_MANAGER,
+    ],
   },
 };

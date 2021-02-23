@@ -5,9 +5,9 @@
 import React, { useCallback } from "react";
 import _ from "lodash";
 import PT from "prop-types";
-import { SEE_SUGGESTION_ROLES } from "constants";
 import AddModal from "../AddModal";
-import { useTCRoles } from "../../hooks/useTCRoles";
+import { hasPermission } from "utils/permissions";
+import { PERMISSIONS } from "constants/permissions";
 
 /**
  * Checks if a member to be added is already on the team
@@ -28,24 +28,6 @@ const checkForMatches = (newMember, memberList) => {
   return memberList.find((member) => member.handle === label);
 };
 
-/**
- * Checks if member has any of the allowed roles
- * @param {string[]} memberRoles A list of the member's roles
- * @param {string[]} neededRoles A list of allowed roles
- *
- * @returns {boolean} true if member has at least one allowed role, false otherwise
- */
-const hasRequiredRole = (memberRoles, neededRoles) => {
-  return _.some(memberRoles, (role) => {
-    const loweredRole = role.toLowerCase();
-    return neededRoles.find((needed) => {
-      const lowNeeded = needed.toLowerCase();
-      console.log(loweredRole, lowNeeded);
-      return loweredRole === lowNeeded;
-    });
-  });
-};
-
 const AddModalContainer = ({
   members,
   invitees,
@@ -53,8 +35,6 @@ const AddModalContainer = ({
   addOpen,
   setAddOpen,
 }) => {
-  const roles = useTCRoles();
-
   const validateAdds = useCallback(
     (newMembers) => {
       return _.some(newMembers, (newMember) => {
@@ -67,17 +47,13 @@ const AddModalContainer = ({
     [members, invitees]
   );
 
-  const shouldShowSuggestions = useCallback(() => {
-    return hasRequiredRole(roles, SEE_SUGGESTION_ROLES);
-  }, [roles]);
-
   return (
     <AddModal
       open={addOpen}
       onClose={() => setAddOpen(false)}
       teamId={teamId}
       validateAdds={validateAdds}
-      showSuggestions={shouldShowSuggestions()}
+      showSuggestions={hasPermission(PERMISSIONS.SEE_MEMBER_SUGGESTIONS)}
     />
   );
 };
