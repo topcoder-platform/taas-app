@@ -9,7 +9,7 @@ import {
   getMemberSuggestions,
   postMembers,
 } from "services/teams";
-import { ACTION_TYPE } from "constants"
+import { ACTION_TYPE } from "constants";
 
 /**
  * Loads team members

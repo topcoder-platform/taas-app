@@ -53,8 +53,20 @@ import store from "../store";
  */
 export const hasPermission = (permission, entities = {}) => {
   const user = entities.user || _.get(store.getState(), "authUser", {});
-  // TODO: at the moment there is no place in Redux Store where we store project, so we have to always pass it manually
-  const project = entities.project || null;
+  let project = entities.project;
+
+  // if project was not provided directly, then try to build it
+  // based on the team members which might be loaded to the Redux Store
+  // into `authUser.teamMembers` (this only happens for pages which have URL param `:teamId`)
+  if (!project) {
+    const teamMembers = _.get(store.getState(), "authUser.teamMembers");
+
+    if (teamMembers) {
+      project = {
+        members: teamMembers,
+      };
+    }
+  }
 
   const allowRule = permission.allowRule ? permission.allowRule : permission;
   const denyRule = permission.denyRule ? permission.denyRule : null;

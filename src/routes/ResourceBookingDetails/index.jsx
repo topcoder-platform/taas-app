@@ -63,7 +63,7 @@ const ResourceBookingDetails = ({ teamId, resourceBookingId }) => {
           <div styleName="content-wrapper">
             <ResourceSummary member={member} />
             <ResourceDetails resource={resource} jobTitle={jobTitle} />
-            {hasPermission(PERMISSIONS.EDIT_RESOURCE_BOOKING) && (
+            {hasPermission(PERMISSIONS.UPDATE_RESOURCE_BOOKING) && (
               <div styleName="actions">
                 <Button
                   size="medium"

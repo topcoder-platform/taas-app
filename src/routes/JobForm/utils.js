@@ -103,7 +103,7 @@ export const getEditJobConfig = (skillOptions, onSubmit) => {
         validationMessage: "Please, select Status",
         name: "status",
         selectOptions: STATUS_OPTIONS,
-        disabled: !hasPermission(PERMISSIONS.EDIT_JOB_STATUS),
+        disabled: !hasPermission(PERMISSIONS.UPDATE_JOB_STATUS),
       },
     ],
     onSubmit: onSubmit,
