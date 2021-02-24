@@ -1,17 +1,46 @@
 import React, { useCallback, useState } from "react";
 import _ from "lodash";
 import PT from "prop-types";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { toastr } from "react-redux-toastr";
-import { loadSuggestions, clearSuggestions, addMembers } from "../../actions";
+import { addMembers } from "../../actions";
 import Button from "components/Button";
 import BaseModal from "components/BaseModal";
-import ReactSelect from "components/ReactSelect";
+import AsyncSelect from "components/AsyncSelect";
 import "./styles.module.scss";
 import { formatPlural } from "utils/format";
+import { getMemberSuggestions } from "services/teams";
 
-// Minimum length of input for suggestions to trigger
-const SUGGESTION_TRIGGER_LENGTH = 3;
+/**
+ * Fetches suggestions based on input in select box
+ * @param {string} inputVal Input from select
+ * 
+ * @returns {Promise<Array>} A promise that resolves to list of suggested users 
+ */
+const loadSuggestions = inputVal => {
+  return getMemberSuggestions(inputVal)
+    .then(res => {
+      const users = _.get(res, "data.result.content", []);
+      return users.map(user => ({
+        label: user.handle,
+        value: user.handle
+      }))
+    })
+    .catch(() => {
+      console.warn("could not get suggestions");
+      return [];
+    }) 
+}
+
+/**
+ * Function to call if user does not have permission to see suggestions
+ * @returns {Promise<Array>} Promise resolving to empty array
+ */
+const emptySuggestions = () => {
+  return new Promise(resolve => {
+    resolve([]);
+  })
+}
 
 /**
  * Filters selected members, keeping those who could not be added to team
@@ -59,21 +88,8 @@ const AddModal = ({ open, onClose, teamId, validateAdds, showSuggestions }) => {
   const [validationError, setValidationError] = useState(false);
   const [responseErrors, setResponseErrors] = useState([]);
   const [selectedMembers, setSelectedMembers] = useState([]);
-  const options = useSelector((state) =>
-    state.teamMembers.suggestions.map((sugg) => ({
-      label: sugg.handle,
-      value: sugg.handle,
-    }))
-  );
-  const dispatch = useDispatch();
 
-  const debouncedLoadSuggestions = _.debounce(
-    (arg) => {
-      dispatch(loadSuggestions(arg));
-    },
-    500,
-    { leading: true }
-  );
+  const dispatch = useDispatch();
 
   const handleClose = useCallback(() => {
     setSelectedMembers([]);
@@ -142,17 +158,8 @@ const AddModal = ({ open, onClose, teamId, validateAdds, showSuggestions }) => {
         onUpdate([...selectedMembers, { label: val, value: val }]);
         return "";
       }
-
-      // load suggestions if role allows
-      if (showSuggestions) {
-        if (val.length >= SUGGESTION_TRIGGER_LENGTH) {
-          debouncedLoadSuggestions(val);
-        } else {
-          dispatch(clearSuggestions());
-        }
-      }
     },
-    [dispatch, selectedMembers, showSuggestions]
+    [selectedMembers]
   );
 
   const onUpdate = useCallback(
@@ -170,10 +177,8 @@ const AddModal = ({ open, onClose, teamId, validateAdds, showSuggestions }) => {
       else setValidationError(false);
 
       setResponseErrors([]);
-
-      dispatch(clearSuggestions());
     },
-    [dispatch, validateAdds]
+    [validateAdds]
   );
 
   const addButton = (
@@ -196,15 +201,17 @@ const AddModal = ({ open, onClose, teamId, validateAdds, showSuggestions }) => {
       disabled={loading}
       extraModalStyle={{ overflowY: "visible" }}
     >
-      <ReactSelect
+      <AsyncSelect
         value={selectedMembers}
         onChange={onUpdate}
-        options={options}
+        cacheOptions
         onInputChange={onInputChange}
         isMulti
         placeholder="Enter email address(es) or user handles"
-        isCreatable
         noOptionsText="Type to search"
+        loadingText="Loading..."
+        loadOptions={showSuggestions ? loadSuggestions: emptySuggestions}
+        defaultOptions={[]}
       />
       {validationError && (
         <div styleName="error-message">

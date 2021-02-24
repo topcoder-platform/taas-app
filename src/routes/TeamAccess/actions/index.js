@@ -6,7 +6,6 @@ import {
   getTeamMembers,
   getTeamInvitees,
   deleteTeamMember,
-  getMemberSuggestions,
   postMembers,
 } from "services/teams";
 import { ACTION_TYPE } from "constants";
@@ -72,31 +71,6 @@ export const removeTeamMember = (teamId, memberId) => ({
     teamId,
     memberId,
   },
-});
-
-/**
- * Loads suggestions for invites
- *
- * @param {string} fragment
- *
- * @returns {Promise<object[]>} list of suggestions or error
- */
-export const loadSuggestions = (fragment) => ({
-  type: ACTION_TYPE.LOAD_MEMBERS_SUGGESTIONS,
-  payload: async () => {
-    const res = await getMemberSuggestions(fragment);
-    return res.data.result.content;
-  },
-  meta: {
-    fragment,
-  },
-});
-
-/**
- * Clears invite suggestions
- */
-export const clearSuggestions = () => ({
-  type: ACTION_TYPE.CLEAR_MEMBERS_SUGGESTIONS,
 });
 
 /**

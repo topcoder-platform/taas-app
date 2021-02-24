@@ -6,7 +6,6 @@ import { ACTION_TYPE } from "constants";
 const initialState = {
   members: undefined,
   invites: undefined,
-  suggestions: [],
   loading: false,
   error: undefined,
   updating: false,
@@ -82,34 +81,6 @@ const reducer = (state = initialState, action) => {
         ...state,
         updating: false,
         error: action.payload,
-      };
-
-    case ACTION_TYPE.LOAD_MEMBERS_SUGGESTIONS_PENDING:
-      return {
-        ...state,
-        loading: true,
-        error: undefined,
-      };
-
-    case ACTION_TYPE.LOAD_MEMBERS_SUGGESTIONS_SUCCESS:
-      return {
-        ...state,
-        suggestions: action.payload,
-        loading: false,
-        error: undefined,
-      };
-
-    case ACTION_TYPE.LOAD_MEMBERS_SUGGESTIONS_ERROR:
-      return {
-        ...state,
-        loading: false,
-        error: action.payload,
-      };
-
-    case ACTION_TYPE.CLEAR_MEMBERS_SUGGESTIONS:
-      return {
-        ...state,
-        suggestions: [],
       };
 
     case ACTION_TYPE.ADD_MEMBERS_PENDING:

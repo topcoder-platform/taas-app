@@ -1,15 +1,14 @@
 /**
- * ReactSelect
+ * AsyncSelect
  *
- * A wrapper of react select control.
+ * A wrapper for react-select's AsyncCreatableSelect.
  */
 import React from "react";
 import PT from "prop-types";
-import Select from "react-select";
-import CreatableSelect from "react-select/creatable";
+import AsyncCreatableSelect from "react-select/async-creatable";
 import "./styles.module.scss";
 
-const ReactSelect = (props) => {
+const AsyncSelect = (props) => {
   const customStyles = {
     control: (provided, state) => ({
       ...provided,
@@ -70,11 +69,10 @@ const ReactSelect = (props) => {
 
   return (
     <div styleName="select-wrapper">
-      <Select
+      <AsyncCreatableSelect
         value={props.value}
         styles={customStyles}
         onChange={props.onChange}
-        options={props.options}
         styleName={props.error ? "error" : ""}
         isMulti={props.isMulti}
         onBlur={props.onBlur}
@@ -82,29 +80,32 @@ const ReactSelect = (props) => {
         placeholder={props.placeholder}
         onInputChange={props.onInputChange}
         noOptionsMessage={() => props.noOptionsText}
+        loadingMessage={() => props.loadingText}
         isDisabled={props.disabled}
+        cacheOptions={props.cacheOptions}
+        loadOptions={props.loadOptions}
+        defaultOptions={props.defaultOptions}
       />
     </div>
-  );
-};
+  )
+}
 
-ReactSelect.propTypes = {
-  value: PT.string.isRequired,
-  onChange: PT.func.isRequired,
+AsyncSelect.propTypes = {
+  value: PT.string,
+  onChange: PT.func,
   placeholder: PT.string,
   error: PT.string,
   isMulti: PT.bool,
   onBlur: PT.func,
   onFocus: PT.func,
   onInputChange: PT.func,
-  options: PT.arrayOf(
-    PT.shape({
-      value: PT.string.isRequired,
-      label: PT.string.isRequired,
-    }).isRequired
-  ),
+  cacheOptions: PT.bool,
+  onInputChange: PT.func,
   noOptionsText: PT.string,
+  loadingText: PT.string,
+  loadOptions: PT.func,
+  defaultOptions: PT.bool || PT.array,
   disabled: PT.bool,
-};
+}
 
-export default ReactSelect;
+export default AsyncSelect;
