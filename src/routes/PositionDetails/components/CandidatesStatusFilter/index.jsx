@@ -9,20 +9,20 @@ import Button from "components/Button";
 import {
   CANDIDATE_STATUS,
   CANDIDATE_STATUS_FILTERS,
-  CANDIDATE_STATUS_TO_TEXT,
+  CANDIDATE_STATUS_FILTER_KEY,
 } from "constants";
 
-const CandidatesStatusFilter = ({ currentStatus, onChange, candidates }) => {
+const CandidatesStatusFilter = ({ statusFilterKey, onChange, candidates }) => {
   return (
     <div styleName="candidates-status-filter">
-      {CANDIDATE_STATUS_FILTERS.map((status) => (
+      {CANDIDATE_STATUS_FILTERS.map((statusFilter) => (
         <Button
-          key={status}
-          type={currentStatus === status ? "segment-selected" : "segment"}
-          onClick={() => onChange(status)}
+          key={statusFilter.key}
+          type={statusFilterKey === statusFilter.key ? "segment-selected" : "segment"}
+          onClick={() => onChange(statusFilter)}
         >
-          {CANDIDATE_STATUS_TO_TEXT[status]} (
-          {_.filter(candidates, { status }).length})
+          {statusFilter.buttonText} (
+          {_.filter(candidates, (candidate) => statusFilter.statuses.includes(candidate.status)).length})
         </Button>
       ))}
     </div>
@@ -30,7 +30,7 @@ const CandidatesStatusFilter = ({ currentStatus, onChange, candidates }) => {
 };
 
 CandidatesStatusFilter.propTypes = {
-  currentStatus: PT.oneOf(Object.values(CANDIDATE_STATUS)),
+  statusFilterKey: PT.oneOf(Object.values(CANDIDATE_STATUS_FILTER_KEY)),
   onChange: PT.func,
   candidates: PT.arrayOf(
     PT.shape({
