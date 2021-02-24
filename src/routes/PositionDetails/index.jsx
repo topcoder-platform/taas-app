@@ -8,7 +8,7 @@ import PT from "prop-types";
 import LayoutContainer from "components/LayoutContainer";
 import LoadingIndicator from "components/LoadingIndicator";
 import PageHeader from "components/PageHeader";
-import { CANDIDATE_STATUS } from "constants";
+import { CANDIDATE_STATUS_FILTER_KEY } from "constants";
 import withAuthentication from "../../hoc/withAuthentication";
 import PositionCandidates from "./components/PositionCandidates";
 import CandidatesStatusFilter from "./components/CandidatesStatusFilter";
@@ -16,17 +16,17 @@ import { useTeamPositionsState } from "./hooks/useTeamPositionsState";
 import "./styles.module.scss";
 
 const PositionDetails = ({ teamId, positionId }) => {
-  const [candidateStatus, setCandidateStatus] = useState(CANDIDATE_STATUS.OPEN);
+  const [candidateStatusFilterKey, setCandidateStatusFilterKey] = useState(CANDIDATE_STATUS_FILTER_KEY.TO_REVIEW);
   const {
     state: { position, error },
     updateCandidate,
   } = useTeamPositionsState(teamId, positionId);
 
   const onCandidateStatusChange = useCallback(
-    (status) => {
-      setCandidateStatus(status);
+    (statusFilter) => {
+      setCandidateStatusFilterKey(statusFilter.key);
     },
-    [setCandidateStatus]
+    [setCandidateStatusFilterKey]
   );
 
   return (
@@ -41,14 +41,14 @@ const PositionDetails = ({ teamId, positionId }) => {
             aside={
               <CandidatesStatusFilter
                 onChange={onCandidateStatusChange}
-                currentStatus={candidateStatus}
+                statusFilterKey={candidateStatusFilterKey}
                 candidates={position.candidates}
               />
             }
           />
           <PositionCandidates
             position={position}
-            candidateStatus={candidateStatus}
+            statusFilterKey={candidateStatusFilterKey}
             updateCandidate={updateCandidate}
           />
         </>
