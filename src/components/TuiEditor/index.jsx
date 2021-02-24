@@ -40,6 +40,12 @@ class TuiEditor extends React.Component {
     });
 
     this.bindEventHandlers(this.props);
+    // automatically add `https://` when show the link dialog
+    this.editorInst.eventManager.listen('openPopupAddLink', (linkData)=> {
+      if (!linkData) {
+        this.editorInst.eventManager.emit('openPopupAddLink',{url:'https://'})
+      }
+    })
   }
 
   componentWillUnmount() {
@@ -49,6 +55,7 @@ class TuiEditor extends React.Component {
       const eventName = key[2].toLowerCase() + key.slice(3);
       this.editorInst.off(eventName);
     });
+    this.editorInst.off('openPopupAddLink')
   }
 
   shouldComponentUpdate(nextProps) {
