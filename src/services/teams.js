@@ -67,7 +67,7 @@ export const patchPositionCandidate = (candidateId, partialCandidateData) => {
  */
 export const getTeamMembers = (teamId) => {
   return axios.get(
-    `${config.API.V5}/projects/${teamId}/members/` +
+    `${config.API.V5}/taas-teams/${teamId}/members/` +
       "?fields=id,userId,role,createdAt,updatedAt,createdBy,updatedBy" +
       ",handle,photoURL,workingHourStart,workingHourEnd,timeZone,email"
   );
@@ -82,7 +82,7 @@ export const getTeamMembers = (teamId) => {
  */
 export const getTeamInvitees = (teamId) => {
   return axios.get(
-    `${config.API.V5}/projects/${teamId}/invites/` +
+    `${config.API.V5}/taas-teams/${teamId}/invites/` +
       "?fields=id,projectId,userId,email,role,status,createdAt,updatedAt" +
       ",createdBy,updatedBy,handle"
   );
@@ -97,7 +97,7 @@ export const getTeamInvitees = (teamId) => {
  * @returns {Promise<memberId>} memberId
  */
 export const deleteTeamMember = (teamId, memberId) => {
-  const url = `${config.API.V5}/projects/${teamId}/members/${memberId}/`;
+  const url = `${config.API.V5}/taas-teams/${teamId}/members/${memberId}/`;
   return new Promise((resolve, reject) => {
     axios
       .delete(url)

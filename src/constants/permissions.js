@@ -138,7 +138,6 @@ export const PERMISSIONS = {
       description: "When entering user handle in the invite field.",
     },
     topcoderRoles: [
-      TOPCODER_ROLE.BOOKING_MANAGER,
       TOPCODER_ROLE.ADMINISTRATOR,
       TOPCODER_ROLE.CONNECT_ADMIN,
       TOPCODER_ROLE.CONNECT_MANAGER,
