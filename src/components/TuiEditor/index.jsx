@@ -40,22 +40,38 @@ class TuiEditor extends React.Component {
     });
 
     this.bindEventHandlers(this.props);
-    // automatically add `https://` when show the link dialog
-    this.editorInst.eventManager.listen('openPopupAddLink', (linkData)=> {
-      if (!linkData) {
-        this.editorInst.eventManager.emit('openPopupAddLink',{url:'https://'})
+    this.addFormatLinkListener();
+  }
+
+  /*
+   * automatically add `https://` when  the link is not prefixed with http(s)://
+   */
+  addFormatLinkListener() {
+    const eventManager = this.editorInst.eventManager.events;
+    const handlers = eventManager.get("command");
+    const formatLinkHandler = (eventType, linkData) => {
+      // intercept the command
+      if (eventType === "AddLink") {
+        if (!/^http(s?):\/\//.test(linkData.url)) {
+          linkData.url = "https://" + linkData.url;
+        }
       }
-    })
+      return linkData;
+    };
+
+    // must move format handler before the original handlers
+    handlers.unshift(formatLinkHandler);
+    eventManager.set("command", handlers);
   }
 
   componentWillUnmount() {
     Object.keys(this.props)
-    .filter((key) => /^on[A-Z][a-zA-Z]+/.test(key))
-    .forEach((key) => {
-      const eventName = key[2].toLowerCase() + key.slice(3);
-      this.editorInst.off(eventName);
-    });
-    this.editorInst.off('openPopupAddLink')
+      .filter((key) => /^on[A-Z][a-zA-Z]+/.test(key))
+      .forEach((key) => {
+        const eventName = key[2].toLowerCase() + key.slice(3);
+        this.editorInst.off(eventName);
+      });
+    this.editorInst.off("command");
   }
 
   shouldComponentUpdate(nextProps) {
