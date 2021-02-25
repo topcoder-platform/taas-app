@@ -74,9 +74,9 @@ export const BUTTON_TYPE = {
 };
 
 /**
- * Supported Babge Types
+ * Supported Badge Types
  */
-export const BABGE_TYPE = {
+export const BADGE_TYPE = {
   PRIMARY: "primary",
   DANGER: "danger",
 };
@@ -99,34 +99,40 @@ export const CANDIDATE_STATUS = {
   SELECTED: "selected",
   SHORTLIST: "shortlist",
   REJECTED: "rejected",
+  INTERVIEW: "interview",
 };
 
 /**
- * Mapping between candidate status "server value" and human readable value
+ * Candidate status filters keys
  */
-export const CANDIDATE_STATUS_TO_TEXT = {
-  [CANDIDATE_STATUS.OPEN]: "To Review",
-  [CANDIDATE_STATUS.SELECTED]: "Selected",
-  [CANDIDATE_STATUS.SHORTLIST]: "Interested",
-  [CANDIDATE_STATUS.REJECTED]: "Not Interested",
+export const CANDIDATE_STATUS_FILTER_KEY = {
+  TO_REVIEW: "TO_REVIEW",
+  INTERESTED: "INTERESTED",
+  NOT_INTERESTED: "NOT_INTERESTED",
 };
 
 /**
- * Mapping between candidate status "server value" and list title text
- */
-export const CANDIDATE_STATUS_TO_TITLE_TEXT = {
-  [CANDIDATE_STATUS.OPEN]: "Candidates to Review",
-  [CANDIDATE_STATUS.SHORTLIST]: "Interested Candidates",
-  [CANDIDATE_STATUS.REJECTED]: "Not Interested Candidates",
-};
-
-/**
- * Which candidate status filters to show on the open position details page
+ * Candidate status filters
  */
 export const CANDIDATE_STATUS_FILTERS = [
-  CANDIDATE_STATUS.OPEN,
-  CANDIDATE_STATUS.SHORTLIST,
-  CANDIDATE_STATUS.REJECTED,
+  {
+    key: CANDIDATE_STATUS_FILTER_KEY.TO_REVIEW,
+    buttonText: "To Review",
+    title: "Candidates to Review",
+    statuses: [CANDIDATE_STATUS.OPEN],
+  },
+  {
+    key: CANDIDATE_STATUS_FILTER_KEY.INTERESTED,
+    buttonText: "Interested",
+    title: "Interested Candidates",
+    statuses: [CANDIDATE_STATUS.SHORTLIST, CANDIDATE_STATUS.INTERVIEW],
+  },
+  {
+    key: CANDIDATE_STATUS_FILTER_KEY.NOT_INTERESTED,
+    buttonText: "Not Interested",
+    title: "Not Interested Candidates",
+    statuses: [CANDIDATE_STATUS.REJECTED],
+  },
 ];
 
 /**

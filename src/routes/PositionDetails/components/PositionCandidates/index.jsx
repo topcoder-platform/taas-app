@@ -10,7 +10,8 @@ import CardHeader from "components/CardHeader";
 import "./styles.module.scss";
 import Select from "components/Select";
 import {
-  CANDIDATE_STATUS_TO_TITLE_TEXT,
+  CANDIDATE_STATUS_FILTERS,
+  CANDIDATE_STATUS_FILTER_KEY,
   CANDIDATES_SORT_OPTIONS,
   CANDIDATES_SORT_BY,
   CANDIDATE_STATUS,
@@ -57,24 +58,21 @@ const populateSkillsMatched = (position, candidate) => ({
   skillsMatched: _.intersectionBy(position.skills, candidate.skills, "id"),
 });
 
-const PositionCandidates = ({ position, candidateStatus, updateCandidate }) => {
+const PositionCandidates = ({ position, statusFilterKey, updateCandidate }) => {
   const { candidates } = position;
   const [sortBy, setSortBy] = useState(CANDIDATES_SORT_BY.SKILL_MATCHED);
-
-  useEffect(() => {
-    setPage(1);
-  }, [candidateStatus]);
+  const statusFilter = useMemo(() =>
+    _.find(CANDIDATE_STATUS_FILTERS, { key: statusFilterKey })
+  , [statusFilterKey]);
 
   const filteredCandidates = useMemo(
     () =>
       _.chain(candidates)
         .map((candidate) => populateSkillsMatched(position, candidate))
-        .filter({
-          status: candidateStatus,
-        })
+        .filter((candidate) => statusFilter.statuses.includes(candidate.status))
         .value()
         .sort(createSortCandidatesMethod(sortBy)),
-    [candidates, candidateStatus, sortBy, position]
+    [candidates, statusFilter, sortBy, position]
   );
 
   const onSortByChange = useCallback(
@@ -93,6 +91,10 @@ const PositionCandidates = ({ position, candidateStatus, updateCandidate }) => {
     setPerPage(newPerPage);
     setPage(newPage);
   }, [perPage, setPerPage, page, setPage]);
+
+  useEffect(() => {
+    setPage(1);
+  }, [statusFilterKey]);
 
   const pagesTotal = Math.ceil(filteredCandidates.length / perPage);
 
@@ -147,7 +149,7 @@ const PositionCandidates = ({ position, candidateStatus, updateCandidate }) => {
   return (
     <div styleName="position-candidates">
       <CardHeader
-        title={`${CANDIDATE_STATUS_TO_TITLE_TEXT[candidateStatus]} (${filteredCandidates.length})`}
+        title={`${statusFilter.title} (${filteredCandidates.length})`}
         aside={
           <Select
             options={CANDIDATES_SORT_OPTIONS}
@@ -160,7 +162,7 @@ const PositionCandidates = ({ position, candidateStatus, updateCandidate }) => {
 
       {filteredCandidates.length === 0 && (
         <div styleName="no-candidates">
-          No {CANDIDATE_STATUS_TO_TITLE_TEXT[candidateStatus]}
+          No {statusFilter.title}
         </div>
       )}
       {filteredCandidates.length > 0 && (
@@ -194,7 +196,7 @@ const PositionCandidates = ({ position, candidateStatus, updateCandidate }) => {
                 )}
               </div>
               <div styleName="table-cell cell-action">
-                {candidateStatus === CANDIDATE_STATUS.OPEN && hasPermission(PERMISSIONS.UPDATE_JOB_CANDIDATE) && (
+                {statusFilterKey === CANDIDATE_STATUS_FILTER_KEY.TO_REVIEW && hasPermission(PERMISSIONS.UPDATE_JOB_CANDIDATE) && (
                   <>
                     Interested in this candidate?
                     <div styleName="actions">
@@ -247,7 +249,7 @@ const PositionCandidates = ({ position, candidateStatus, updateCandidate }) => {
 
 PositionCandidates.propType = {
   position: PT.object,
-  candidateStatus: PT.oneOf(Object.values(CANDIDATE_STATUS)),
+  statusFilterKey: PT.oneOf(Object.values(CANDIDATE_STATUS_FILTER_KEY)),
 };
 
 export default PositionCandidates;

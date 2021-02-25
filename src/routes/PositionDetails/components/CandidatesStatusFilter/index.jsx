@@ -6,35 +6,39 @@ import PT from "prop-types";
 import "./styles.module.scss";
 import _ from "lodash";
 import Button from "components/Button";
-import Babge from "components/Babge";
+import Badge from "components/Badge";
 import {
   CANDIDATE_STATUS,
   CANDIDATE_STATUS_FILTERS,
-  CANDIDATE_STATUS_TO_TEXT,
+  CANDIDATE_STATUS_FILTER_KEY,
 } from "constants";
 
-const CandidatesStatusFilter = ({ currentStatus, onChange, candidates }) => {
+const CandidatesStatusFilter = ({ statusFilterKey, onChange, candidates }) => {
   return (
     <div styleName="candidates-status-filter">
-      {CANDIDATE_STATUS_FILTERS.map((status, index) => (
-        <Button
-          key={status}
-          type={currentStatus === status ? "segment-selected" : "segment"}
-          onClick={() => onChange(status)}
-        >
-          {CANDIDATE_STATUS_TO_TEXT[status]} (
-          {_.filter(candidates, { status }).length})
-          {index === 0 && _.filter(candidates, { status }).length ? (
-            <Babge type="danger">Pending</Babge>
-          ) : null}
-        </Button>
-      ))}
+      {CANDIDATE_STATUS_FILTERS.map((statusFilter) => {
+        const count = _.filter(candidates, (candidate) => statusFilter.statuses.includes(candidate.status)).length;
+
+        return (
+          <Button
+            key={statusFilter.key}
+            type={statusFilterKey === statusFilter.key ? "segment-selected" : "segment"}
+            onClick={() => onChange(statusFilter)}
+          >
+            {statusFilter.buttonText} (
+            {count})
+            {statusFilter.key === CANDIDATE_STATUS_FILTER_KEY.TO_REVIEW && count > 0 && (
+              <Badge type="danger">Pending</Badge>
+            )}
+          </Button>
+        )
+    })}
     </div>
   );
 };
 
 CandidatesStatusFilter.propTypes = {
-  currentStatus: PT.oneOf(Object.values(CANDIDATE_STATUS)),
+  statusFilterKey: PT.oneOf(Object.values(CANDIDATE_STATUS_FILTER_KEY)),
   onChange: PT.func,
   candidates: PT.arrayOf(
     PT.shape({

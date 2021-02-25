@@ -8,17 +8,24 @@ import PT from "prop-types";
 import Page from "components/Page";
 import LoadingIndicator from "components/LoadingIndicator";
 import PageHeader from "components/PageHeader";
-import { CANDIDATE_STATUS } from "constants";
+import {
+  CANDIDATE_STATUS_FILTER_KEY,
+  CANDIDATE_STATUS_FILTERS,
+} from "constants";
 import withAuthentication from "../../hoc/withAuthentication";
 import PositionCandidates from "./components/PositionCandidates";
 import CandidatesStatusFilter from "./components/CandidatesStatusFilter";
 import { useTeamPositionsState } from "./hooks/useTeamPositionsState";
 import "./styles.module.scss";
 
+const inReviewStatusFilter = _.find(CANDIDATE_STATUS_FILTERS, {
+  key: CANDIDATE_STATUS_FILTER_KEY.TO_REVIEW,
+});
+
 const PositionDetails = ({ teamId, positionId }) => {
-  // be dafault show "Interested" tab
-  const [candidateStatus, setCandidateStatus] = useState(
-    CANDIDATE_STATUS.SHORTLIST
+  // by default show "interested" tab
+  const [candidateStatusFilterKey, setCandidateStatusFilterKey] = useState(
+    CANDIDATE_STATUS_FILTER_KEY.INTERESTED
   );
   const {
     state: { position, error },
@@ -26,20 +33,21 @@ const PositionDetails = ({ teamId, positionId }) => {
   } = useTeamPositionsState(teamId, positionId);
 
   const onCandidateStatusChange = useCallback(
-    (status) => {
-      setCandidateStatus(status);
+    (statusFilter) => {
+      setCandidateStatusFilterKey(statusFilter.key);
     },
-    [setCandidateStatus]
+    [setCandidateStatusFilterKey]
   );
 
   // if there are some candidates to review, then show "To Review" tab by default
   useEffect(() => {
     if (
       position &&
-      _.filter(position.candidates, { status: CANDIDATE_STATUS.OPEN }).length >
-        0
+      _.filter(position.candidates, (candidate) =>
+        inReviewStatusFilter.statuses.includes(candidate.status)
+      ).length > 0
     ) {
-      setCandidateStatus(CANDIDATE_STATUS.OPEN);
+      setCandidateStatusFilterKey(CANDIDATE_STATUS_FILTER_KEY.TO_REVIEW);
     }
   }, [position]);
 
@@ -55,14 +63,14 @@ const PositionDetails = ({ teamId, positionId }) => {
             aside={
               <CandidatesStatusFilter
                 onChange={onCandidateStatusChange}
-                currentStatus={candidateStatus}
+                statusFilterKey={candidateStatusFilterKey}
                 candidates={position.candidates}
               />
             }
           />
           <PositionCandidates
             position={position}
-            candidateStatus={candidateStatus}
+            statusFilterKey={candidateStatusFilterKey}
             updateCandidate={updateCandidate}
           />
         </>
