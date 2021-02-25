@@ -267,6 +267,17 @@ export const WORKLOAD_OPTIONS = [
 ];
 
 /**
+ * resourceType options
+ */
+export const RESOURCE_TYPE_OPTIONS = [
+  { value: null, label: "" },
+  { value: "designer", label: "designer" },
+  { value: "software-developer", label: "software developer" },
+  { value: "data-scientist", label: "data scientist" },
+  { value: "data-engineer", label: "data engineer" },
+];
+
+/**
  * status options
  */
 export const STATUS_OPTIONS = [
