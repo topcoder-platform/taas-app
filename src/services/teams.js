@@ -154,7 +154,11 @@ export const postReport = (teamName, teamId, reportText, memberHandle) => {
  * @returns {Promise<object>} object with successfully added members and failed adds
  */
 export const postMembers = (teamId, handles, emails) => {
-  const url = `${config.API.V5}/taas-teams/${teamId}/members`;
+  const url =
+    `${config.API.V5}/taas-teams/${teamId}/members` +
+    "?fields=id,userId,role,createdAt,updatedAt,createdBy,updatedBy" +
+    ",handle,photoURL,workingHourStart,workingHourEnd,timeZone,email";
+
   const bodyObj = {};
 
   if (handles && handles.length > 0) {
