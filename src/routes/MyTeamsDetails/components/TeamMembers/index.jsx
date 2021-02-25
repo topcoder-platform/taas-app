@@ -7,6 +7,7 @@ import React, { useState, useCallback, useMemo } from "react";
 import PT from "prop-types";
 import "./styles.module.scss";
 import _ from "lodash";
+import { navigate } from "@reach/router";
 import User from "components/User";
 import CardHeader from "components/CardHeader";
 // import Rating from "components/Rating";
@@ -18,15 +19,19 @@ import { TEAM_MEMBERS_PER_PAGE } from "constants";
 import {
   formatDateRange,
   formatMoney,
-  formatReportIssueUrl,
   formatRequestExtensionUrl,
 } from "utils/format";
 import Input from "components/Input";
 import { skillShape } from "components/SkillsList";
+import { useReportPopup } from "components/ReportPopup/hooks/useReportPopup";
+import { hasPermission } from "utils/permissions";
+import { PERMISSIONS } from "constants/permissions";
 
 const TeamMembers = ({ team }) => {
   const { resources, jobs } = team;
   const [filter, setFilter] = useState("");
+
+  const showReportPopup = useReportPopup();
 
   const filteredMembers = useMemo(
     () =>
@@ -116,6 +121,7 @@ const TeamMembers = ({ team }) => {
                       ...member,
                       photoUrl: member.photo_url,
                     }}
+                    handleLinkTo={`/taas/myteams/${team.id}/rb/${member.id}`}
                   />
                 </div>
                 <div styleName="table-group-first-inner">
@@ -146,13 +152,22 @@ const TeamMembers = ({ team }) => {
                     <ActionsMenu
                       options={[
                         {
+                          label: "Edit Resource Booking",
+                          action: () => {
+                            navigate(
+                              `/taas/myteams/${team.id}/rb/${member.id}/edit`
+                            );
+                          },
+                          hidden: !hasPermission(PERMISSIONS.UPDATE_RESOURCE_BOOKING),
+                        },
+                        {
+                          separator: true,
+                          hidden: !hasPermission(PERMISSIONS.UPDATE_RESOURCE_BOOKING),
+                        },
+                        {
                           label: "Report an Issue",
                           action: () => {
-                            window.open(
-                              formatReportIssueUrl(
-                                `Issue with ${member.handle} on ${team.name}`
-                              )
-                            );
+                            showReportPopup(team.name, team.id, member.handle);
                           },
                         },
                         {

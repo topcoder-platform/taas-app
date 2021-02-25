@@ -1,0 +1,21 @@
+@import "styles/include";
+
+.badge {
+  @include font-roboto;
+  padding: 0 8px;
+  line-height: 20px;
+  border-radius: 5px;
+  height: 20px;
+  color: #ffffff;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  text-align: left;
+}
+
+.type-primary {
+  background-color: #0ab88a;
+}
+
+.type-danger {
+  background-color: #ef476f;
+}

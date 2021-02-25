@@ -1,0 +1,101 @@
+@import "styles/include";
+
+.member-list {
+  @include rounded-card;
+  padding: 0 24px 24px;
+}
+
+.list-header {
+  @include rounded-card;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  border-bottom: 1px solid #e9e9e9;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 20px 0;
+  border-radius: 20px;
+}
+
+.table {
+  @include table;
+}
+
+.table-row {
+  @include table-row;
+  flex-wrap: wrap;
+  border: none;
+  &:last-child {
+    border: none;
+  }
+  justify-content: flex-start;
+  margin-right: 8px + 16px;
+}
+
+.table-group {
+  @include table-group;
+}
+
+.table-cell {
+  @include table-cell;
+  flex: initial;
+  a {
+    font-weight: bold;
+  }
+}
+
+.delete {
+  box-sizing: border-box;
+  background-color: #fff;
+  border: 1px solid #555555;
+  color: #555;
+  border-radius: 50%;
+  height: 16px;
+  width: 16px;
+  font-size: 16px;
+  line-height: 16px;
+  padding: 0;
+  position: absolute;
+  top: 30px;
+  right: 8px;
+}
+
+.avatar-name {
+  flex: 1 2 320px;
+}
+
+.invite-avatar {
+  position: relative;
+}
+
+.direct-arrow {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  text-align: center;
+  background-color: #404041;
+  border-radius: 80%;
+  width: 14px;
+  height: 14px;
+  padding: 3px;
+  path {
+    fill: white;
+  }
+}
+
+.row-container {
+  position: relative;
+}
+
+.invite-date {
+  margin-left: 60px;
+  flex: 1 1 400px;
+}
+@media (max-width: 1305px) {
+  .invite-date {
+    margin-left: 0;
+  }
+}

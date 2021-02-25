@@ -1,12 +1,13 @@
 @import "styles/include";
 
-.filter-input {
+// adding "input:not([type="checkbox"])" to make sure that we override reset styles
+input:not([type="checkbox"]).filter-input {
   width: 380px;
-  background-color: #FFFFFF;
-  border: 1px solid #AAAAAA;
+  background-color: #ffffff;
+  border: 1px solid #aaaaaa;
   border-radius: 6px;
   box-sizing: border-box;
-  color: #2A2A2A;
+  color: #2a2a2a;
   font-size: 14px;
   height: 40px;
   line-height: 38px;
@@ -14,7 +15,7 @@
   padding: 0 15px;
 
   &::placeholder {
-    color: #AAAAAA;
+    color: #aaaaaa;
   }
 }
 
@@ -30,7 +31,8 @@
 }
 
 @media (max-width: 650px) {
-  .filter-input {
+  // adding "input:not([type="checkbox"])" to make sure that we override reset styles
+  input:not([type="checkbox"]).filter-input {
     width: 100%;
   }
 }

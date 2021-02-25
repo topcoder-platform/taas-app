@@ -6,7 +6,8 @@
   padding: 0 24px 24px;
 }
 
-.filter-input {
+// adding "input:not([type="checkbox"])" to make sure that we override reset styles
+input:not([type="checkbox"]).filter-input {
   width: 380px;
 }
 
@@ -223,10 +224,9 @@
       width: 100%;
     }
   }
-}
 
-@media (max-width: 374px) {
-  .filter-input {
+  // adding "input:not([type="checkbox"])" to make sure that we override reset styles
+  input:not([type="checkbox"]).filter-input {
     width: 100%;
   }
 }

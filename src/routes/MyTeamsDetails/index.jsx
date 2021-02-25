@@ -6,7 +6,7 @@
  */
 import React from "react";
 import PT from "prop-types";
-import LayoutContainer from "components/LayoutContainer";
+import Page from "components/Page";
 import PageHeader from "components/PageHeader";
 import { useData } from "hooks/useData";
 import { getTeamById } from "services/teams";
@@ -15,12 +15,13 @@ import TeamSummary from "./components/TeamSummary";
 import TeamMembers from "./components/TeamMembers";
 import TeamPositions from "./components/TeamPositions";
 import withAuthentication from "../../hoc/withAuthentication";
+import ReportPopup from "components/ReportPopup";
 
 const MyTeamsDetails = ({ teamId }) => {
   const [team, loadingError] = useData(getTeamById, teamId);
 
   return (
-    <LayoutContainer>
+    <Page title="Team Details">
       {!team ? (
         <LoadingIndicator error={loadingError} />
       ) : (
@@ -28,10 +29,15 @@ const MyTeamsDetails = ({ teamId }) => {
           <PageHeader title={team.name} backTo="/taas/myteams" />
           <TeamSummary team={team} />
           <TeamMembers team={team} />
-          <TeamPositions positions={team.jobs || []} teamId={teamId} />
+          <TeamPositions
+            positions={team.jobs || []}
+            teamId={teamId}
+            resources={team.resources}
+          />
         </>
       )}
-    </LayoutContainer>
+      <ReportPopup />
+    </Page>
   );
 };
 

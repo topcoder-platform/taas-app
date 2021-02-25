@@ -10,16 +10,18 @@ import {
   formatConnectProjectUrl,
   formatMoney,
   formatRemainingTimeForTeam,
-  formatReportIssueUrl,
 } from "utils/format";
 import IconClock from "../../../../assets/images/icon-clock.svg";
 import IconMoney from "../../../../assets/images/icon-money.svg";
 // import IconRating from "../../../../assets/images/icon-rating.svg";
 import Button from "components/Button";
+import { useReportPopup } from "components/ReportPopup/hooks/useReportPopup";
 // import Rating from "components/Rating";
 import "./styles.module.scss";
 
 const TeamSummary = ({ team }) => {
+  const showReportPopup = useReportPopup();
+
   return (
     <div styleName="team-summary">
       <div styleName="data-items">
@@ -41,6 +43,13 @@ const TeamSummary = ({ team }) => {
 
       <div styleName="actions">
         <Button
+          routeTo={`/taas/myteams/${team.id}/access`}
+          type="secondary"
+          size="medium"
+        >
+          Manage Access
+        </Button>
+        <Button
           href={formatConnectProjectUrl(team.id)}
           target="_blank"
           type="secondary"
@@ -51,7 +60,9 @@ const TeamSummary = ({ team }) => {
         <Button
           type="warning"
           size="medium"
-          href={formatReportIssueUrl(`TaaS Issue: ${team.name}`)}
+          onClick={() => {
+            showReportPopup(team.name, team.id);
+          }}
           target="_blank"
         >
           REPORT AN ISSUE

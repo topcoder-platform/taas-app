@@ -1,0 +1,10 @@
+@import "styles/include";
+@import "~react-datepicker/dist/react-datepicker.css";
+
+.job-modification-details {
+  @include rounded-card;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 0 24px 20px;
+}

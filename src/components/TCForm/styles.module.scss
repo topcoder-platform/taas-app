@@ -1,0 +1,82 @@
+@import "styles/include";
+@import "~react-datepicker/dist/react-datepicker.css";
+
+.tc-form {
+  width: 100%;
+}
+
+.job-form-fields-container {
+  padding: 40px 0px 20px;
+
+  input:not([type="checkbox"]),
+  textarea {
+    margin-bottom: 0px;
+  }
+}
+
+.job-form-fields-wrapper {
+  width: 100%;
+  max-width: 640px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.field-group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.field-group-field {
+  padding: 0 10px;
+  width: 50%;
+}
+
+.field-group-field:first-child {
+  padding-left: 0;
+}
+
+.field-group-field:last-child {
+  padding-right: 0;
+}
+
+.form-actions {
+  border-top: 1px solid #e9e9e9;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  padding: 16px 0 16px;
+
+  :first-child {
+    margin-left: auto;
+  }
+
+  button {
+    height: 40px;
+    border-radius: 20px;
+    line-height: 40px;
+  }
+
+  a {
+    margin-left: 15px;
+  }
+}
+
+.datepicker-wrapper {
+  & > div {
+    width: 100%;
+  }
+}
+
+.datepicker-wrapper > div:nth-child(2) > div:nth-child(2) {
+  z-index: 100;
+}
+
+@media (max-width: 650px) {
+  .field-group-field {
+    padding: 0;
+    width: 100%;
+  }
+}

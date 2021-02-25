@@ -1,0 +1,27 @@
+@import "styles/include";
+
+.rb-summary {
+  @include rounded-card;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 0 24px 20px;
+}
+
+.content-wrapper {
+  background-color: #ffffff;
+  border-radius: 8px;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  padding: 16px 0;
+  padding-right: 25px;
+  :first-child {
+    margin-left: auto;
+  }
+}

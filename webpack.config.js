@@ -1,10 +1,14 @@
 /* global __dirname */
+const webpack = require("webpack");
 const webpackMerge = require("webpack-merge");
 const singleSpaDefaults = require("webpack-config-single-spa-react");
 const path = require("path");
 const autoprefixer = require("autoprefixer");
 
-const cssLocalIdent = "teams_[path][name]___[local]___[hash:base64:6]";
+const cssLocalIdent =
+  process.env.APPMODE === "production"
+    ? "[hash:base64:6]"
+    : "teams_[path][name]___[local]___[hash:base64:6]";
 
 module.exports = (webpackConfigEnv) => {
   const defaultConfig = singleSpaDefaults({
@@ -14,6 +18,10 @@ module.exports = (webpackConfigEnv) => {
   });
 
   return webpackMerge.smart(defaultConfig, {
+    output: {
+      // path: path.resolve(__dirname, 'dist'),
+      publicPath: "taas-app",
+    },
     // modify the webpack config however you'd like to by adding to this object
     module: {
       rules: [
@@ -65,5 +73,10 @@ module.exports = (webpackConfigEnv) => {
         services: path.resolve(__dirname, "src/services"),
       },
     },
+    plugins: [
+      // ignore moment locales to reduce bundle size by 64kb gzipped
+      // see solution details https://stackoverflow.com/questions/25384360/how-to-prevent-moment-js-from-loading-locales-with-webpack/25426019#25426019
+      new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+    ],
   });
 };

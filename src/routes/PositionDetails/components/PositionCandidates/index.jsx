@@ -3,7 +3,7 @@
  *
  * Show a list of position candidates with sort select and pagination.
  */
-import React, { useMemo, useState, useCallback } from "react";
+import React, { useMemo, useState, useCallback, useEffect } from "react";
 import PT from "prop-types";
 import _ from "lodash";
 import CardHeader from "components/CardHeader";
@@ -23,6 +23,9 @@ import Button from "components/Button";
 import Pagination from "components/Pagination";
 import IconResume from "../../../../assets/images/icon-resume.svg";
 import { toastr } from "react-redux-toastr";
+import { getJobById } from "services/jobs";
+import { PERMISSIONS } from "constants/permissions";
+import { hasPermission } from "utils/permissions";
 
 /**
  * Generates a function to sort candidates
@@ -61,6 +64,7 @@ const PositionCandidates = ({ position, statusFilterKey, updateCandidate }) => {
   const statusFilter = useMemo(() =>
     _.find(CANDIDATE_STATUS_FILTERS, { key: statusFilterKey })
   , [statusFilterKey]);
+
   const filteredCandidates = useMemo(
     () =>
       _.chain(candidates)
@@ -87,6 +91,10 @@ const PositionCandidates = ({ position, statusFilterKey, updateCandidate }) => {
     setPerPage(newPerPage);
     setPage(newPage);
   }, [perPage, setPerPage, page, setPage]);
+
+  useEffect(() => {
+    setPage(1);
+  }, [statusFilterKey]);
 
   const pagesTotal = Math.ceil(filteredCandidates.length / perPage);
 
@@ -160,7 +168,7 @@ const PositionCandidates = ({ position, statusFilterKey, updateCandidate }) => {
       {filteredCandidates.length > 0 && (
         <div styleName="table">
           {pageCandidates.map((candidate) => (
-            <div styleName="table-row" key={candidate.userId}>
+            <div styleName="table-row" key={candidate.id}>
               <div styleName="table-cell cell-user">
                 <User
                   user={{
@@ -188,7 +196,7 @@ const PositionCandidates = ({ position, statusFilterKey, updateCandidate }) => {
                 )}
               </div>
               <div styleName="table-cell cell-action">
-                {statusFilterKey === CANDIDATE_STATUS_FILTER_KEY.TO_REVIEW && (
+                {statusFilterKey === CANDIDATE_STATUS_FILTER_KEY.TO_REVIEW && hasPermission(PERMISSIONS.UPDATE_JOB_CANDIDATE) && (
                   <>
                     Interested in this candidate?
                     <div styleName="actions">

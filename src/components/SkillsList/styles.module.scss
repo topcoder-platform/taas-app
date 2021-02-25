@@ -1,7 +1,7 @@
 @import "styles/include";
 
 .more {
-  color: #0D61BF;
+  color: #0d61bf;
   cursor: pointer;
   outline: none;
   white-space: nowrap;
@@ -10,6 +10,7 @@
 .skills-list {
   font-size: 14px;
   line-height: 22px;
+  outline: none;
 }
 
 .popover {
@@ -22,10 +23,12 @@
 
 .popover-content {
   display: flex;
-  padding: 24px;
+  flex-wrap: wrap;
+  padding: 4px 24px 24px;
 }
 
 .skills-section {
+  margin-top: 20px;
   padding-right: 32px;
 }
 

@@ -10,25 +10,42 @@ import SkillsList, { skillShape } from "components/SkillsList";
 import Button from "components/Button";
 import { POSITION_STATUS, POSITION_STATUS_TO_TEXT, RATE_TYPE } from "constants";
 import "./styles.module.scss";
-import { formatDateRange } from "utils/format";
+import { formatJobDate, formatOpenPositions } from "utils/format";
+import { Link } from "@reach/router";
 
-const TeamPositions = ({ teamId, positions }) => {
+const TeamPositions = ({ teamId, positions, resources }) => {
   return (
     <div styleName="team-positions">
-      <CardHeader title="Open Positions" />
-
+      <div styleName="team-position-header">
+        <CardHeader title="Open Positions" />
+        <div styleName="actions">
+          <Button
+            type="secondary"
+            size="medium"
+            routeTo={`/taas/myteams/${teamId}/positions/new`}
+          >
+            Create Position
+          </Button>
+        </div>
+      </div>
       {positions.length > 0 ? (
         <div styleName="table">
           {positions.map((position, index) => (
             <div styleName="table-row" key={index}>
               <div styleName="table-group-first">
                 <div styleName="table-cell cell-skills">
-                  <strong>{position.title}</strong>
+                  <Link
+                    styleName="job-title"
+                    to={`/taas/myteams/${teamId}/positions/${position.id}`}
+                  >
+                    <strong>{position.title}</strong>
+                  </Link>
                   <SkillsList skills={position.skills} limit={5} />
+                  <div>{formatOpenPositions(position, resources)}</div>
                 </div>
                 <div styleName="table-group-first-inner">
                   <div styleName="table-cell cell-date">
-                    {formatDateRange(position.startDate, position.endDate)}
+                    {formatJobDate(position.startDate, position.duration)}
                   </div>
                   <div styleName="table-cell cell-money">
                     {/* Hide rate as we don't have data for it */}
@@ -43,9 +60,9 @@ const TeamPositions = ({ teamId, positions }) => {
                 <div styleName="table-cell cell-action">
                   {position.status === POSITION_STATUS.IN_REVIEW && (
                     <Button
-                      routeTo={`/taas/myteams/${teamId}/positions/${position.id}`}
+                      routeTo={`/taas/myteams/${teamId}/positions/${position.id}/candidates`}
                     >
-                      select candidates
+                      Review candidates
                     </Button>
                   )}
                 </div>
@@ -71,6 +88,16 @@ TeamPositions.propTypes = {
       startDate: PT.string,
       endDate: PT.string,
       status: PT.oneOf(Object.values(POSITION_STATUS)),
+    })
+  ),
+  resources: PT.arrayOf(
+    PT.shape({
+      id: PT.string,
+      handle: PT.string,
+      firstName: PT.string,
+      lastName: PT.string,
+      skills: PT.arrayOf(skillShape),
+      skillsMatched: PT.number,
     })
   ),
 };

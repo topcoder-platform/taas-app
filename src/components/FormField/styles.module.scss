@@ -1,0 +1,54 @@
+@import "styles/include";
+@import "~react-datepicker/dist/react-datepicker.css";
+
+.job-field-label {
+  color: #aaaaaa;
+  @include font-roboto;
+  font-size: 12px;
+  line-height: 24px;
+  text-align: left;
+  position: relative;
+  left: 11px;
+  top: 12px;
+  background: white;
+  z-index: 1;
+  padding: 0 3px;
+}
+
+.job-field-no-label {
+  z-index: -1 !important;
+}
+
+input:not([type="checkbox"]),
+textarea {
+  margin-bottom: 0px;
+  &::placeholder {
+    color: #aaaaaa;
+    font-family: Roboto;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 22px;
+    text-align: left;
+    text-transform: none;
+  }
+}
+
+input:read-only {
+  margin-top: 24px;
+}
+
+.field-error {
+  @include font-roboto;
+  width: 100%;
+  min-height: 40px;
+  line-height: 20px;
+  padding: 9px 10px;
+  margin: 10px 0 5px;
+  font-size: 14px;
+  color: #ff5b52;
+  border: 1px solid #ffd5d1;
+  cursor: auto;
+  outline: none;
+  -webkit-transition: 0.15s all;
+  transition: 0.15s all;
+}
