@@ -168,7 +168,7 @@ const PositionCandidates = ({ position, statusFilterKey, updateCandidate }) => {
       {filteredCandidates.length > 0 && (
         <div styleName="table">
           {pageCandidates.map((candidate) => (
-            <div styleName="table-row" key={candidate.userId}>
+            <div styleName="table-row" key={candidate.id}>
               <div styleName="table-cell cell-user">
                 <User
                   user={{
