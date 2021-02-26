@@ -19,11 +19,14 @@ import { TEAM_MEMBERS_PER_PAGE } from "constants";
 import {
   formatDateRange,
   formatMoney,
-  formatRequestExtensionUrl,
+  formatReportData,
+  formatReportPopup,
+  formatExtensionData,
+  formatExtensionPopup,
 } from "utils/format";
 import Input from "components/Input";
 import { skillShape } from "components/SkillsList";
-import { useReportPopup } from "components/ReportPopup/hooks/useReportPopup";
+import { useEmailPopup } from "components/EmailPopup/hooks/useEmailPopup";
 import { hasPermission } from "utils/permissions";
 import { PERMISSIONS } from "constants/permissions";
 
@@ -31,7 +34,7 @@ const TeamMembers = ({ team }) => {
   const { resources, jobs } = team;
   const [filter, setFilter] = useState("");
 
-  const showReportPopup = useReportPopup();
+  const showEmailPopup = useEmailPopup();
 
   const filteredMembers = useMemo(
     () =>
@@ -158,24 +161,38 @@ const TeamMembers = ({ team }) => {
                               `/taas/myteams/${team.id}/rb/${member.id}/edit`
                             );
                           },
-                          hidden: !hasPermission(PERMISSIONS.UPDATE_RESOURCE_BOOKING),
+                          hidden: !hasPermission(
+                            PERMISSIONS.UPDATE_RESOURCE_BOOKING
+                          ),
                         },
                         {
                           separator: true,
-                          hidden: !hasPermission(PERMISSIONS.UPDATE_RESOURCE_BOOKING),
+                          hidden: !hasPermission(
+                            PERMISSIONS.UPDATE_RESOURCE_BOOKING
+                          ),
                         },
                         {
                           label: "Report an Issue",
                           action: () => {
-                            showReportPopup(team.name, team.id, member.handle);
+                            showEmailPopup(
+                              formatReportPopup(team.name, member.handle),
+                              formatReportData(
+                                team.name,
+                                team.id,
+                                member.handle
+                              )
+                            );
                           },
                         },
                         {
                           label: "Request an Extension",
                           action: () => {
-                            window.open(
-                              formatRequestExtensionUrl(
-                                `Request extension for ${member.handle} on ${team.name}`
+                            showEmailPopup(
+                              formatExtensionPopup(team.name, member.handle),
+                              formatExtensionData(
+                                team.name,
+                                team.id,
+                                member.handle
                               )
                             );
                           },
