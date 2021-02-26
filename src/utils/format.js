@@ -124,16 +124,90 @@ export const formatFullName = (firstName, lastName) => {
 };
 
 /**
- * Format Request an Extension URL (mailto:)
+ * Formats popup options for reports
+ * @param {string} teamName Team name
+ * @param {string} memberHandle Member Handle
  *
- * @param {string} subject email subject
- *
- * @returns {string} request an extension URL
+ * @returns {Object} Popup Options
  */
-export const formatRequestExtensionUrl = (subject) => {
-  return `mailto:${EMAIL_REQUEST_EXTENSION}?subject=${encodeURIComponent(
-    subject
-  )}`;
+export const formatReportPopup = (teamName, memberHandle) => {
+  return {
+    title: `Issue Report - ${teamName}${
+      !!memberHandle ? " - " + memberHandle : ""
+    }`,
+    textPlaceholder: "Describe your issue",
+    textDataField: "data.reportText",
+    successTitle: "Report submitted successfully",
+    errorTitle: "Report failed",
+  };
+};
+
+/**
+ * Formats popup options for extension requests
+ * @param {string} teamName Team name
+ * @param {string} memberHandle Member Handle
+ *
+ * @returns {Object} Popup Options
+ */
+export const formatExtensionPopup = (teamName, memberHandle) => {
+  return {
+    title: `Extension Request - ${teamName}${
+      memberHandle ? " - " + memberHandle : ""
+    }`,
+    textPlaceholder: "Add any comments...",
+    textDataField: "data.text",
+    successTitle: "Extension request submitted successfully",
+    errorTitle: "Extension request failed",
+  };
+};
+
+/**
+ * Formats data for sending email reports
+ * @param {string} teamName Team name
+ * @param {string|number} teamId Team ID
+ * @param {string} memberHandle Member handle
+ *
+ * @returns {Object} Data object for report
+ */
+export const formatReportData = (teamName, teamId, memberHandle) => {
+  const data = {
+    template: "team-issue-report",
+    data: {
+      projectName: teamName,
+      projectId: teamId,
+    },
+  };
+
+  if (!!memberHandle) {
+    _.set(data, "template", "member-issue-report");
+    _.set(data, "data.userHandle", memberHandle);
+  }
+
+  return data;
+};
+
+/**
+ * Formats data for sending email extension requests
+ * @param {string} teamName Team name
+ * @param {string|number} teamId Team ID
+ * @param {string} memberHandle Member handle
+ *
+ * @returns {Object} Data object for extension request
+ */
+export const formatExtensionData = (teamName, teamId, memberHandle) => {
+  const data = {
+    template: "extension-request",
+    data: {
+      projectName: teamName,
+      projectId: teamId,
+    },
+  };
+
+  if (!!memberHandle) {
+    _.set(data, "data.userHandle", memberHandle);
+  }
+
+  return data;
 };
 
 /**

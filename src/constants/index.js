@@ -183,10 +183,10 @@ export const ACTION_TYPE = {
   AUTH_CLEAR_TEAM_MEMBERS: "AUTH_CLEAR_TEAM_MEMBERS",
 
   /*
-    Report Popup
+    Email Popup
    */
-  OPEN_REPORT: "OPEN_REPORT",
-  CLOSE_REPORT: "CLOSE_REPORT",
+  OPEN_EMAIL_POPUP: "OPEN_EMAIL_POPUP",
+  CLOSE_EMAIL_POPUP: "CLOSE_EMAIL_POPUP",
 
   /*
     Team (project) Members
