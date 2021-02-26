@@ -34,7 +34,7 @@ const TeamCard = ({ team }) => {
             {
               label: "Open in Connect",
               action: () => {
-                console.log("Issue reported!");
+                window.open(formatConnectProjectUrl(team.id));
               },
             },
             {
