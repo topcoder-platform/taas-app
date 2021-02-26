@@ -26,24 +26,26 @@ function EmailPopup() {
   const submitEmail = () => {
     setIsLoading(true);
 
-    _.set(data, popupOptions.textDataField, textVal);
+    const postData = _.merge({}, data);
 
-    postEmail(data)
+    _.set(postData, popupOptions.textDataField, textVal);
+
+    postEmail(postData)
       .then(() => {
         setIsLoading(false);
         closeModal();
-        toastr.success("Email submitted successfully");
+        toastr.success(popupOptions.successTitle);
       })
       .catch((err) => {
         setIsLoading(false);
 
-        toastr.error("Email failed to send", err.message);
+        toastr.error(popupOptions.errorTitle, err.message);
       });
   };
 
   const button = (
     <Button
-      onClick={() => submitEmail()}
+      onClick={submitEmail}
       size="medium"
       isSubmit
       disabled={textVal.trim().length < 1 || isLoading}

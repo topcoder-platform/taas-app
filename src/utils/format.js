@@ -137,6 +137,8 @@ export const formatReportPopup = (teamName, memberHandle) => {
     }`,
     textPlaceholder: "Describe your issue",
     textDataField: "data.reportText",
+    successTitle: "Report submitted successfully",
+    errorTitle: "Report failed",
   };
 };
 
@@ -154,6 +156,8 @@ export const formatExtensionPopup = (teamName, memberHandle) => {
     }`,
     textPlaceholder: "Add any comments...",
     textDataField: "data.text",
+    successTitle: "Extension request submitted successfully",
+    errorTitle: "Extension request failed",
   };
 };
 
@@ -175,8 +179,8 @@ export const formatReportData = (teamName, teamId, memberHandle) => {
   };
 
   if (!!memberHandle) {
-    _.set(data, "template", "member-issue-report"),
-      _.set(data, "data.userHandle", memberHandle);
+    _.set(data, "template", "member-issue-report");
+    _.set(data, "data.userHandle", memberHandle);
   }
 
   return data;
