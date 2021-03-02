@@ -276,3 +276,9 @@ export const STATUS_OPTIONS = [
   { value: "closed", label: "closed" },
   { value: "cancelled", label: "cancelled" },
 ];
+
+/*
+ * show error message below the markdown editor when the markedown editor is disabled
+ */
+export const DISABLED_DESCRIPTION_MESSAGE =
+  "You may not edit a Job Description that is currently posted to Topcoder.com. Please contact support@topcoder.com.";
