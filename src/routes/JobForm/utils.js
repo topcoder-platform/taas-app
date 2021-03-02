@@ -26,9 +26,14 @@ const EDIT_JOB_ROWS = [
 /**
  * return edit job configuration
  * @param {any} skillOptions skill options
+ * @param {boolean} isMarkdownEditorDisabled is markedownEditor disabled
  * @param {func} onSubmit submit callback
  */
-export const getEditJobConfig = (skillOptions, onSubmit) => {
+export const getEditJobConfig = (
+  skillOptions,
+  isMarkdownEditorDisabled,
+  onSubmit
+) => {
   return {
     fields: [
       {
@@ -44,6 +49,7 @@ export const getEditJobConfig = (skillOptions, onSubmit) => {
         label: "Job Description",
         type: FORM_FIELD_TYPE.MARKDOWNEDITOR,
         name: "description",
+        disabled: isMarkdownEditorDisabled,
         placeholder: "Job Description",
       },
       {
