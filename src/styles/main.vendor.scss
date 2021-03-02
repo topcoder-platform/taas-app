@@ -7,4 +7,22 @@
 
 // toast-ui.editor styles
 @import "~codemirror/lib/codemirror.css";
-@import "~@toast-ui/editor/dist/toastui-editor.css"
+@import "~@toast-ui/editor/dist/toastui-editor.css";
+
+// custom styles for TuiEditor
+.tui-editor-contents {
+  b {
+    font-weight: bold;
+  }
+
+  code {
+    background-color: transparent;
+    color: inherit;
+  }
+
+  pre {
+    background-color: transparent;
+    color: inherit;
+    padding: 0;
+  }
+}
