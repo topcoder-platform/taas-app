@@ -33,24 +33,6 @@ const MarkdownEditor = (props) => {
         ref={editorElement}
         onChange={onChange}
         initialValue={props.value}
-        toolbarItems={[
-          'heading',
-          'bold',
-          'italic',
-          'strike',
-          'code',
-          'divider',
-          'quote',
-          'codeblock',
-          'hr',
-          'divider',
-          'ul',
-          'ol',
-          'divider',
-          'image',
-          'link',
-        ]}
-        plugins={[]}
       />
     </div>
   );
