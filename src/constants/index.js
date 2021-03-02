@@ -271,10 +271,10 @@ export const WORKLOAD_OPTIONS = [
  */
 export const RESOURCE_TYPE_OPTIONS = [
   { value: null, label: "" },
-  { value: "designer", label: "designer" },
-  { value: "software-developer", label: "software developer" },
-  { value: "data-scientist", label: "data scientist" },
-  { value: "data-engineer", label: "data engineer" },
+  { value: "designer", label: "Designer" },
+  { value: "software-developer", label: "Software Developer" },
+  { value: "data-scientist", label: "Data Scientist" },
+  { value: "data-engineer", label: "Data Engineer" },
 ];
 
 /**
