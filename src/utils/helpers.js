@@ -17,3 +17,24 @@ export const delay = (duration) =>
   new Promise((resolve) => {
     setTimeout(resolve, duration);
   });
+
+/**
+ * Returns the option from list of option by value
+ *
+ * @param {any} value value of option
+ * @param {[{ label: string, value: any }]} selectOptions list of option
+ *
+ * @returns {{ label: string, value: any }} select option
+ */
+export const getSelectOptionByValue = (value, selectOptions) => {
+  const option = _.find(selectOptions, { value });
+
+  if (!option) {
+    return {
+      label: `Unsuppored value: ${value}`,
+      value,
+    };
+  }
+
+  return option;
+};

@@ -12,6 +12,7 @@ import PageHeader from "../../components/PageHeader";
 import { useData } from "hooks/useData";
 import { getJobById } from "services/jobs";
 import { getSkills } from "services/skills";
+import { getSelectOptionByValue } from "utils/helpers";
 import LoadingIndicator from "../../components/LoadingIndicator";
 import MarkdownEditorViewer from "../../components/MarkdownEditorViewer";
 import withAuthentication from "../../hoc/withAuthentication";
@@ -85,9 +86,9 @@ const JobDetails = ({ teamId, jobId }) => {
               </DataItem>
               <DataItem title="Resource Type" icon={<IconDescription />}>
                 {_.get(
-                  _.find(
-                    RESOURCE_TYPE_OPTIONS,
-                    (t) => t.value === job.resourceType
+                  getSelectOptionByValue(
+                    job.resourceType,
+                    RESOURCE_TYPE_OPTIONS
                   ),
                   "label"
                 )}
