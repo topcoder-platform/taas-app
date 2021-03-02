@@ -47,16 +47,21 @@ class TuiEditor extends React.Component {
    * automatically add `https://` when  the link is not prefixed with http(s)://
    */
   addFormatLinkListener() {
-    this.editorInst.on(
-      "convertorAfterHtmlToMarkdownConverted",
-      (inputMarkdown) => {
-        const outputMarkdown = inputMarkdown.replace(
-          /\[([^\]]*)\]\((?!http)([^\)]+)\)/g,
-          "[$1](https://$2)"
-        );
-        return outputMarkdown;
+    const eventManager = this.editorInst.eventManager.events;
+    const handlers = eventManager.get("command");
+    const formatLinkHandler = (eventType, linkData) => {
+      // intercept the command
+      if (eventType === "AddLink") {
+        if (!/^http(s?):\/\//.test(linkData.url)) {
+          linkData.url = "https://" + linkData.url;
+        }
       }
-    );
+      return linkData;
+    };
+
+    // must move format handler before the original handlers
+    handlers.unshift(formatLinkHandler);
+    eventManager.set("command", handlers);
   }
 
   componentWillUnmount() {
@@ -66,7 +71,7 @@ class TuiEditor extends React.Component {
         const eventName = key[2].toLowerCase() + key.slice(3);
         this.editorInst.off(eventName);
       });
-    this.editorInst.off("convertorAfterHtmlToMarkdownConverted");
+    this.editorInst.off("command");
   }
 
   shouldComponentUpdate(nextProps) {
