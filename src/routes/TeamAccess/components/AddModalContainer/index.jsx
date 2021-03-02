@@ -18,14 +18,14 @@ import { PERMISSIONS } from "constants/permissions";
  */
 const checkForMatches = (newMember, memberList) => {
   const label = newMember.label;
+  const lowered = label.toLowerCase();
 
   if (newMember.isEmail) {
-    const lowered = label.toLowerCase();
     return memberList.find((member) => {
-      return member.email === lowered;
+      return member.email && member.email.toLowerCase() === lowered;
     });
   }
-  return memberList.find((member) => member.handle === label);
+  return memberList.find((member) => member.handle && member.handle.toLowerCase() === lowered);
 };
 
 const AddModalContainer = ({

@@ -16,13 +16,15 @@ import {
   formatMoney,
   formatRemainingTimeForTeam,
   formatConnectProjectUrl,
+  formatReportPopup,
+  formatReportData,
 } from "utils/format";
 import AvatarGroup from "components/AvatarGroup";
 import ThreeDotsMenu from "components/ThreeDotsMenu";
-import { useReportPopup } from "components/ReportPopup/hooks/useReportPopup";
+import { useEmailPopup } from "components/EmailPopup/hooks/useEmailPopup";
 
 const TeamCard = ({ team }) => {
-  const showReportPopup = useReportPopup();
+  const showReportPopup = useEmailPopup();
 
   return (
     <div styleName="team-card">
@@ -32,7 +34,7 @@ const TeamCard = ({ team }) => {
             {
               label: "Open in Connect",
               action: () => {
-                console.log("Issue reported!");
+                window.open(formatConnectProjectUrl(team.id));
               },
             },
             {
@@ -50,7 +52,10 @@ const TeamCard = ({ team }) => {
             {
               label: "Report an Issue",
               action: () => {
-                showReportPopup(team.name, team.id);
+                showReportPopup(
+                  formatReportPopup(team.name),
+                  formatReportData(team.name, team.id)
+                );
               },
             },
           ]}

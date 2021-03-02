@@ -18,7 +18,7 @@ import { useDebounce } from "react-use";
 import { TEAMS_PER_PAGE } from "constants";
 import "./styles.module.scss";
 import { INPUT_DEBOUNCE_DELAY } from "constants/";
-import ReportPopup from "components/ReportPopup";
+import EmailPopup from "components/EmailPopup";
 
 const MyTeamsList = () => {
   let [myTeams, setMyTeams] = useState(null);
@@ -96,7 +96,7 @@ const MyTeamsList = () => {
           )}
         </>
       )}
-      <ReportPopup />
+      <EmailPopup />
     </Page>
   );
 };

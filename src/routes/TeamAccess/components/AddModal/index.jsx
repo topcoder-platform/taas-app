@@ -14,8 +14,8 @@ import { getMemberSuggestions } from "services/teams";
 /**
  * Fetches suggestions based on input in select box
  * @param {string} inputVal Input from select
- * 
- * @returns {Promise<Array>} A promise that resolves to list of suggested users 
+ *
+ * @returns {Promise<Array>} A promise that resolves to list of suggested users
  */
 const loadSuggestions = inputVal => {
   return getMemberSuggestions(inputVal)
@@ -29,7 +29,7 @@ const loadSuggestions = inputVal => {
     .catch(() => {
       console.warn("could not get suggestions");
       return [];
-    }) 
+    })
 }
 
 /**
@@ -104,7 +104,7 @@ const AddModal = ({ open, onClose, teamId, validateAdds, showSuggestions }) => {
     selectedMembers.forEach((member) => {
       const val = member.label;
       if (member.isEmail) {
-        emails.push(val.toLowerCase());
+        emails.push(val);
       } else {
         handles.push(val);
       }

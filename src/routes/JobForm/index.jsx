@@ -105,7 +105,11 @@ const JobForm = ({ teamId, jobId }) => {
           />
           <div styleName="job-modification-details">
             <TCForm
-              configuration={getEditJobConfig(options, onSubmit)}
+              configuration={getEditJobConfig(
+                options,
+                job.isApplicationPageActive,
+                onSubmit
+              )}
               initialValue={job}
               submitButton={{ text: isEdit ? "Save" : "Create" }}
               backButton={{

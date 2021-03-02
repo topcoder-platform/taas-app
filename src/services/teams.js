@@ -119,29 +119,14 @@ export const getMemberSuggestions = (fragment) => {
 };
 
 /**
- * Post an issue report
+ * Post an email
  *
- * @param {string} teamName team name
- * @param {string|number} teamId team id
- * @param {string} memberHandle member handle
+ * @param {Object} data Body object containing template name and email data
  */
-export const postReport = (teamName, teamId, reportText, memberHandle) => {
+export const postEmail = (data) => {
   const url = `${config.API.V5}/taas-teams/email`;
-  const bodyObj = {
-    template: "team-issue-report",
-    data: {
-      projectName: teamName,
-      projectId: teamId,
-      reportText,
-    },
-  };
 
-  if (memberHandle) {
-    (bodyObj.template = "member-issue-report"),
-      (bodyObj.data.userHandle = memberHandle);
-  }
-
-  return axios.post(url, bodyObj);
+  return axios.post(url, data);
 };
 
 /**
@@ -154,7 +139,11 @@ export const postReport = (teamName, teamId, reportText, memberHandle) => {
  * @returns {Promise<object>} object with successfully added members and failed adds
  */
 export const postMembers = (teamId, handles, emails) => {
-  const url = `${config.API.V5}/taas-teams/${teamId}/members`;
+  const url =
+    `${config.API.V5}/taas-teams/${teamId}/members` +
+    "?fields=id,userId,role,createdAt,updatedAt,createdBy,updatedBy" +
+    ",handle,photoURL,workingHourStart,workingHourEnd,timeZone,email";
+
   const bodyObj = {};
 
   if (handles && handles.length > 0) {
