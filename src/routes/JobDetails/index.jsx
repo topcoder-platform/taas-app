@@ -6,11 +6,13 @@
  */
 import React, { useEffect, useState } from "react";
 import PT from "prop-types";
+import _ from "lodash";
 import Page from "../../components/Page";
 import PageHeader from "../../components/PageHeader";
 import { useData } from "hooks/useData";
 import { getJobById } from "services/jobs";
 import { getSkills } from "services/skills";
+import { getSelectOptionByValue } from "utils/helpers";
 import LoadingIndicator from "../../components/LoadingIndicator";
 import MarkdownEditorViewer from "../../components/MarkdownEditorViewer";
 import withAuthentication from "../../hoc/withAuthentication";
@@ -20,6 +22,7 @@ import IconComputer from "../../assets/images/icon-computer.svg";
 import IconDescription from "../../assets/images/icon-description.svg";
 import IconOpenings from "../../assets/images/icon-openings.svg";
 import Button from "../../components/Button";
+import { RESOURCE_TYPE_OPTIONS } from "../../constants";
 import { formatDate } from "utils/format";
 import "./styles.module.scss";
 import { hasPermission } from "utils/permissions";
@@ -82,7 +85,13 @@ const JobDetails = ({ teamId, jobId }) => {
                 {job.duration || "TBD"}
               </DataItem>
               <DataItem title="Resource Type" icon={<IconDescription />}>
-                {job.resourceType}
+                {_.get(
+                  getSelectOptionByValue(
+                    job.resourceType,
+                    RESOURCE_TYPE_OPTIONS
+                  ),
+                  "label"
+                )}
               </DataItem>
               <DataItem
                 title="Resource Rate Frequency"

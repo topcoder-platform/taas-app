@@ -7,6 +7,7 @@ import {
   RATE_TYPE_OPTIONS,
   STATUS_OPTIONS,
   WORKLOAD_OPTIONS,
+  RESOURCE_TYPE_OPTIONS,
   FORM_ROW_TYPE,
   FORM_FIELD_TYPE,
 } from "../../constants";
@@ -85,10 +86,9 @@ export const getEditJobConfig = (
       },
       {
         label: "Resource Type",
-        type: FORM_FIELD_TYPE.TEXT,
+        type: FORM_FIELD_TYPE.SELECT,
         name: "resourceType",
-        maxLength: 255,
-        placeholder: "Resource Type",
+        selectOptions: RESOURCE_TYPE_OPTIONS,
       },
       {
         label: "Resource Rate Frequency",
