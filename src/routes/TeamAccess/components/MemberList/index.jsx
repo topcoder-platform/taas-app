@@ -7,11 +7,9 @@ import PT from "prop-types";
 import CardHeader from "components/CardHeader";
 import Button from "components/Button";
 import "./styles.module.scss";
-import Avatar from "components/Avatar";
-import { Link } from "@reach/router";
+import User from "components/User";
 import TimeSection from "../TimeSection";
 import { formatInviteTime } from "utils/format";
-import IconDirectArrow from "../../../../assets/images/icon-direct-arrow.svg";
 import DeleteModal from "../DeleteModal";
 import AddModalContainer from "../AddModalContainer";
 
@@ -40,17 +38,13 @@ const MemberList = ({ teamId, members, invitees }) => {
               <div styleName="row-container">
                 <div styleName="table-row">
                   <div styleName="table-group avatar-name">
-                    <div styleName="table-cell">
-                      <Avatar
-                        photoUrl={member.photoURL}
-                        handle={member.handle || member.email}
-                      />
-                    </div>
-                    <div styleName="table-cell">
-                      <Link to={`/taas/myteams/${teamId}/rb/${member.id}`}>
-                        {member.handle || member.email}
-                      </Link>
-                    </div>
+                    <User
+                      user={{
+                        ...member,
+                        photoUrl: member.photoURL,
+                      }}
+                      hideFullName
+                    />
                   </div>
                   <TimeSection
                     start={member.workingHourStart}
@@ -70,20 +64,15 @@ const MemberList = ({ teamId, members, invitees }) => {
               <div styleName="row-container">
                 <div styleName="table-row">
                   <div styleName="table-group avatar-name">
-                    <div styleName="table-cell">
-                      <div styleName="invite-avatar">
-                        <Avatar
-                          photoUrl={invitee.photoURL}
-                          handle={invitee.handle || invitee.email}
-                        />
-                        <IconDirectArrow styleName="direct-arrow" />
-                      </div>
-                    </div>
-                    <div styleName="table-cell">
-                      <Link to={`/taas/myteams/${teamId}/rb/${invitee.id}`}>
-                        {invitee.handle || invitee.email}
-                      </Link>
-                    </div>
+                    <User
+                      user={{
+                        ...invitee,
+                        photoUrl: invitee.photoURL,
+                        handle: invitee.handle || invitee.email,
+                      }}
+                      showArrow
+                      hideFullName
+                    />
                   </div>
                   <div styleName="table-group invite-date">
                     <div styleName="table-cell">

@@ -9,12 +9,14 @@ import PT from "prop-types";
 import "./styles.module.scss";
 import { formatFullName } from "utils/format";
 import { TOPCODER_COMMUNITY_WEBSITE_URL } from "../../../config";
+import IconDirectArrow from "../../assets/images/icon-direct-arrow.svg";
 import { Link } from "@reach/router";
 
-const User = ({ user, hideFullName = false, handleLinkTo }) => {
+const User = ({ showArrow, user, hideFullName = false, handleLinkTo }) => {
   return (
     <div styleName="user">
       <Avatar {...user} />
+      {showArrow ? <IconDirectArrow styleName="direct-arrow" /> : null}
       <div styleName="user-details">
         {/* if "handleLinkTo" is provided, use it as internal link, otherwise as external profile link */}
         {handleLinkTo ? (
@@ -47,6 +49,7 @@ User.propTypes = {
   }),
   hideFullName: PT.bool,
   handleLinkTo: PT.string,
+  showArrow: PT.bool,
 };
 
 export default User;
