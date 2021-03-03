@@ -38,13 +38,15 @@ const MemberList = ({ teamId, members, invitees }) => {
               <div styleName="row-container">
                 <div styleName="table-row">
                   <div styleName="table-group avatar-name">
-                    <User
-                      user={{
-                        ...member,
-                        photoUrl: member.photoURL,
-                      }}
-                      hideFullName
-                    />
+                    <div styleName="table-cell">
+                      <User
+                        user={{
+                          ...member,
+                          photoUrl: member.photoURL,
+                        }}
+                        hideFullName
+                      />
+                    </div>
                   </div>
                   <TimeSection
                     start={member.workingHourStart}
@@ -64,15 +66,17 @@ const MemberList = ({ teamId, members, invitees }) => {
               <div styleName="row-container">
                 <div styleName="table-row">
                   <div styleName="table-group avatar-name">
-                    <User
-                      user={{
-                        ...invitee,
-                        photoUrl: invitee.photoURL,
-                        handle: invitee.handle || invitee.email,
-                      }}
-                      showArrow
-                      hideFullName
-                    />
+                    <div styleName="table-cell">
+                      <User
+                        user={{
+                          ...invitee,
+                          photoUrl: invitee.photoURL,
+                          handle: invitee.handle || invitee.email,
+                        }}
+                        showArrow
+                        hideFullName
+                      />
+                    </div>
                   </div>
                   <div styleName="table-group invite-date">
                     <div styleName="table-cell">
