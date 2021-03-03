@@ -73,6 +73,8 @@ const MemberList = ({ teamId, members, invitees }) => {
                           photoUrl: invitee.photoURL,
                           handle: invitee.handle || invitee.email,
                         }}
+                        // if we don't know the handle of invited user, then don't add link
+                        noLink={!invitee.handle}
                         showArrow
                         hideFullName
                       />

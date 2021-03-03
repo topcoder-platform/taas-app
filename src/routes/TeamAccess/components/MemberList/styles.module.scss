@@ -42,9 +42,6 @@
 .table-cell {
   @include table-cell;
   flex: initial;
-  a {
-    font-weight: bold;
-  }
 }
 
 .delete {

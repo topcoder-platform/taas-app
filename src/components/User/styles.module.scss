@@ -4,6 +4,10 @@
   align-items: center;
   display: flex;
   position: relative;
+
+  strong {
+    font-weight: bold;
+  }
 }
 
 .direct-arrow {
