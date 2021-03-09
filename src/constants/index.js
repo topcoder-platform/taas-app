@@ -183,10 +183,10 @@ export const ACTION_TYPE = {
   AUTH_CLEAR_TEAM_MEMBERS: "AUTH_CLEAR_TEAM_MEMBERS",
 
   /*
-    Report Popup
+    Email Popup
    */
-  OPEN_REPORT: "OPEN_REPORT",
-  CLOSE_REPORT: "CLOSE_REPORT",
+  OPEN_EMAIL_POPUP: "OPEN_EMAIL_POPUP",
+  CLOSE_EMAIL_POPUP: "CLOSE_EMAIL_POPUP",
 
   /*
     Team (project) Members
@@ -267,6 +267,17 @@ export const WORKLOAD_OPTIONS = [
 ];
 
 /**
+ * resourceType options
+ */
+export const RESOURCE_TYPE_OPTIONS = [
+  { value: null, label: "" },
+  { value: "designer", label: "Designer" },
+  { value: "software-developer", label: "Software Developer" },
+  { value: "data-scientist", label: "Data Scientist" },
+  { value: "data-engineer", label: "Data Engineer" },
+];
+
+/**
  * status options
  */
 export const STATUS_OPTIONS = [
@@ -276,3 +287,9 @@ export const STATUS_OPTIONS = [
   { value: "closed", label: "closed" },
   { value: "cancelled", label: "cancelled" },
 ];
+
+/*
+ * show error message below the markdown editor when the markedown editor is disabled
+ */
+export const DISABLED_DESCRIPTION_MESSAGE =
+  "You may not edit a Job Description that is currently posted to Topcoder.com. Please contact support@topcoder.com.";

@@ -31,6 +31,12 @@ class TuiEditor extends React.Component {
         // this.editorInst.off(eventName);
         this.editorInst.on(eventName, props[key]);
       });
+
+    // always add `https` to the links if link was added without `http` or `https`
+    this.editorInst.on('convertorAfterHtmlToMarkdownConverted', (inputMarkdown) => {
+      const outputMarkdown = inputMarkdown.replace(/\[([^\]]*)\]\((?!https?)([^\)]+)\)/g, "[$1](https://$2)")
+      return outputMarkdown;
+    });
   }
 
   componentDidMount() {
@@ -44,11 +50,13 @@ class TuiEditor extends React.Component {
 
   componentWillUnmount() {
     Object.keys(this.props)
-    .filter((key) => /^on[A-Z][a-zA-Z]+/.test(key))
-    .forEach((key) => {
-      const eventName = key[2].toLowerCase() + key.slice(3);
-      this.editorInst.off(eventName);
-    });
+      .filter((key) => /^on[A-Z][a-zA-Z]+/.test(key))
+      .forEach((key) => {
+        const eventName = key[2].toLowerCase() + key.slice(3);
+        this.editorInst.off(eventName);
+      });
+
+    this.editorInst.off('convertorAfterHtmlToMarkdownConverted');
   }
 
   shouldComponentUpdate(nextProps) {

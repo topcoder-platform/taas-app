@@ -7,6 +7,7 @@ import {
   RATE_TYPE_OPTIONS,
   STATUS_OPTIONS,
   WORKLOAD_OPTIONS,
+  RESOURCE_TYPE_OPTIONS,
   FORM_ROW_TYPE,
   FORM_FIELD_TYPE,
 } from "../../constants";
@@ -26,9 +27,14 @@ const EDIT_JOB_ROWS = [
 /**
  * return edit job configuration
  * @param {any} skillOptions skill options
+ * @param {boolean} isMarkdownEditorDisabled is markedownEditor disabled
  * @param {func} onSubmit submit callback
  */
-export const getEditJobConfig = (skillOptions, onSubmit) => {
+export const getEditJobConfig = (
+  skillOptions,
+  isMarkdownEditorDisabled,
+  onSubmit
+) => {
   return {
     fields: [
       {
@@ -44,6 +50,7 @@ export const getEditJobConfig = (skillOptions, onSubmit) => {
         label: "Job Description",
         type: FORM_FIELD_TYPE.MARKDOWNEDITOR,
         name: "description",
+        disabled: isMarkdownEditorDisabled,
         placeholder: "Job Description",
       },
       {
@@ -79,10 +86,9 @@ export const getEditJobConfig = (skillOptions, onSubmit) => {
       },
       {
         label: "Resource Type",
-        type: FORM_FIELD_TYPE.TEXT,
+        type: FORM_FIELD_TYPE.SELECT,
         name: "resourceType",
-        maxLength: 255,
-        placeholder: "Resource Type",
+        selectOptions: RESOURCE_TYPE_OPTIONS,
       },
       {
         label: "Resource Rate Frequency",

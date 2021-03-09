@@ -10,17 +10,19 @@ import {
   formatConnectProjectUrl,
   formatMoney,
   formatRemainingTimeForTeam,
+  formatReportPopup,
+  formatReportData,
 } from "utils/format";
 import IconClock from "../../../../assets/images/icon-clock.svg";
 import IconMoney from "../../../../assets/images/icon-money.svg";
 // import IconRating from "../../../../assets/images/icon-rating.svg";
 import Button from "components/Button";
-import { useReportPopup } from "components/ReportPopup/hooks/useReportPopup";
+import { useEmailPopup } from "components/EmailPopup/hooks/useEmailPopup";
 // import Rating from "components/Rating";
 import "./styles.module.scss";
 
 const TeamSummary = ({ team }) => {
-  const showReportPopup = useReportPopup();
+  const showReportPopup = useEmailPopup();
 
   return (
     <div styleName="team-summary">
@@ -61,7 +63,10 @@ const TeamSummary = ({ team }) => {
           type="warning"
           size="medium"
           onClick={() => {
-            showReportPopup(team.name, team.id);
+            showReportPopup(
+              formatReportPopup(team.name),
+              formatReportData(team.name, team.id)
+            );
           }}
           target="_blank"
         >

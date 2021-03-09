@@ -3,8 +3,28 @@
 .user {
   align-items: center;
   display: flex;
+  position: relative;
+
+  strong {
+    font-weight: bold;
+  }
 }
 
+.direct-arrow {
+  position: absolute;
+  left: 20px;
+  top: 24px;
+  bottom: 0;
+  text-align: center;
+  background-color: #404041;
+  border-radius: 80%;
+  width: 14px;
+  height: 14px;
+  padding: 3px;
+  path {
+    fill: white;
+  }
+}
 .user-details {
   margin-left: 16px;
 }
