@@ -1,7 +1,7 @@
 /* global process */
 
 module.exports = (() => {
-  const env = process.env.APPENV || "dev";
+  const env = process.env.APPENV || "prod";
 
   console.info(`APPENV: "${env}"`);
 
