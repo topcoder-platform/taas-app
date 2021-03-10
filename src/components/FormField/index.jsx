@@ -37,6 +37,7 @@ const FormField = ({ field }) => {
             <TextInput
               maxLength={field.maxLength}
               placeholder={field.placeholder}
+              disabled={field.disabled}
               value={input.value ?? ""}
               type="text"
               className={meta.error && meta.touched ? "error" : ""}
@@ -52,6 +53,7 @@ const FormField = ({ field }) => {
               value={input?.value ?? ""}
               isRequired={field.isRequired}
               type="number"
+              disabled={field.disabled}
               minValue={field.minValue}
               onChange={input.onChange}
               onBlur={input.onBlur}
@@ -86,6 +88,7 @@ const FormField = ({ field }) => {
               placeholder={field.placeholder}
               value={input?.value ?? ""}
               onChange={input.onChange}
+              disabled={field.disabled}
               onBlur={input.onBlur}
               onFocus={input.onFocus}
               className={meta.error && meta.touched ? "error" : ""}

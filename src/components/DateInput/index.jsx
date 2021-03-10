@@ -16,6 +16,7 @@ const DateInput = (props) => {
         dateFormat="MM/dd/yyyy"
         placeholderText={props.placeholder}
         selected={props.value}
+        disabled={props.disabled}
         onChange={props.onChange}
         onBlur={props.onBlur}
         onCalendarClose={props.onBlur}
@@ -28,6 +29,7 @@ const DateInput = (props) => {
 DateInput.propTypes = {
   value: PT.string,
   onChange: PT.func.isRequired,
+  disabled: PT.bool,
   placeholder: PT.string,
   onBlur: PT.func,
   onFocus: PT.func,
