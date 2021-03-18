@@ -2,13 +2,18 @@
 
 .editor-viewer {
     > div:first-child {
-      border: 1px solid #aaaaab;
+      // border: 1px solid #aaaaab;
       border-radius: 4px;
       overflow: hidden;
       box-sizing: border-box;
       padding: 16px 25px 0px 25px;
       height: 280px;
       overflow-y: auto;
+      border: 0;
+      background: #fafafb;
+      box-shadow: none;
+      color: #6b6b6b;
+      -webkit-text-fill-color: #808080;
     }
     .message {
       @include font-roboto;

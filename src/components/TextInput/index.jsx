@@ -14,6 +14,7 @@ function TextInput(props) {
       styleName={cn("TextInput", props.className, { readonly: props.readonly })}
       maxLength={props.maxLength}
       min={props.minValue}
+      disabled={props.disabled}
       onChange={(event) => {
         if (props.type === "number") {
           if (event.target.value >= props.minValue) {
@@ -47,6 +48,7 @@ TextInput.defaultProps = {
   maxLength: Number.MAX_VALUE,
   placeholder: "",
   minValue: 0,
+  disabled: false,
   step: null,
 };
 
@@ -58,6 +60,7 @@ TextInput.propTypes = {
   onFocus: PT.func,
   placeholder: PT.string,
   value: PT.string.isRequired,
+  disabled: PT.bool,
   type: PT.string.isRequired,
   readonly: PT.bool,
   minValue: PT.number,
