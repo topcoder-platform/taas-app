@@ -66,6 +66,7 @@ const FormField = ({ field }) => {
             <MarkdownEditor
               placeholder={field.placeholder}
               value={input?.value ?? ""}
+              errorMessage={field.errorMessage}
               disabled={field.disabled}
               onChange={input.onChange}
               onBlur={input.onBlur}

@@ -3,6 +3,7 @@
  */
 import { PERMISSIONS } from "constants/permissions";
 import { hasPermission } from "utils/permissions";
+import { DISABLED_DESCRIPTION_MESSAGE } from "constants";
 import {
   RATE_TYPE_OPTIONS,
   STATUS_OPTIONS,
@@ -54,6 +55,7 @@ export const getEditJobConfig = (
         type: FORM_FIELD_TYPE.MARKDOWNEDITOR,
         name: "description",
         disabled: isMarkdownEditorDisabled || onlyEnableStatus,
+        errorMessage: isMarkdownEditorDisabled && DISABLED_DESCRIPTION_MESSAGE,
         placeholder: "Job Description",
       },
       {
