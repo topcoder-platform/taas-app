@@ -63,11 +63,16 @@ const ReactSelect = (props) => {
       ...provided,
       margin: "3px 3px",
       color: state.isDisabled ? "#808080" : "#AAAAAA",
+      paddingRight: state.isDisabled ? "6px" : "0",
       fontFamily: "Roboto",
       fontSize: "14px",
       lineHeight: "22px",
       textAlign: "left",
       borderRadius: "5px",
+    }),
+    multiValueRemove: (provided, state) => ({
+      ...provided,
+      display: state.isDisabled ? "none" : provided.display,
     }),
     dropdownIndicator: () => ({
       display: "none",
