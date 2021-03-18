@@ -15,7 +15,8 @@ import config from "../../config";
 export const getMyTeams = (name, page = 1, perPage) => {
   let query = `page=${page}&perPage=${perPage}`;
   if (name) {
-    query += `&name=*${name}*`; // wrap with asterisks to search by substrings
+    // wrap with quotes to fix issue https://github.com/topcoder-platform/taas-app/issues/46
+    query += `&name="${name}"`;
   }
 
   return axios.get(`${config.API.V5}/taas-teams?${query}`);
