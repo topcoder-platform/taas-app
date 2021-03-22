@@ -24,3 +24,7 @@
     box-shadow: none !important;
   }
 }
+
+input.TextInput:not([type="checkbox"]):disabled {
+  border: 1px solid #ddd;
+}
