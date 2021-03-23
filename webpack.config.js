@@ -77,6 +77,11 @@ module.exports = (webpackConfigEnv) => {
       // ignore moment locales to reduce bundle size by 64kb gzipped
       // see solution details https://stackoverflow.com/questions/25384360/how-to-prevent-moment-js-from-loading-locales-with-webpack/25426019#25426019
       new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+      new webpack.DefinePlugin({
+        'process.env': {
+          APPENV: JSON.stringify(process.env.APPENV),
+        },
+      }),
     ],
   });
 };
