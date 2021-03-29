@@ -1,14 +1,16 @@
 @import "styles/include";
 
+// we use viewer mode to show editor when it's "disabled"
 .editor-viewer {
     > div:first-child {
-      border: 1px solid #aaaaab;
+      border: 1px solid #ddd;
       border-radius: 4px;
       overflow: hidden;
       box-sizing: border-box;
       padding: 16px 25px 0px 25px;
       height: 280px;
       overflow-y: auto;
+      background: #fafafb;
     }
     .message {
       @include font-roboto;

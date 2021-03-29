@@ -3,6 +3,7 @@
  */
 import { PERMISSIONS } from "constants/permissions";
 import { hasPermission } from "utils/permissions";
+import { DISABLED_DESCRIPTION_MESSAGE } from "constants";
 import {
   RATE_TYPE_OPTIONS,
   STATUS_OPTIONS,
@@ -28,11 +29,13 @@ const EDIT_JOB_ROWS = [
  * return edit job configuration
  * @param {any} skillOptions skill options
  * @param {boolean} isMarkdownEditorDisabled is markedownEditor disabled
+ * @param {onlyEnableStatus}  only can select status field
  * @param {func} onSubmit submit callback
  */
 export const getEditJobConfig = (
   skillOptions,
   isMarkdownEditorDisabled,
+  onlyEnableStatus,
   onSubmit
 ) => {
   return {
@@ -44,13 +47,15 @@ export const getEditJobConfig = (
         validationMessage: "Please, enter Job Name",
         name: "title",
         maxLength: 128,
+        disabled: onlyEnableStatus,
         placeholder: "Job Name",
       },
       {
         label: "Job Description",
         type: FORM_FIELD_TYPE.MARKDOWNEDITOR,
         name: "description",
-        disabled: isMarkdownEditorDisabled,
+        disabled: isMarkdownEditorDisabled || onlyEnableStatus,
+        errorMessage: isMarkdownEditorDisabled && DISABLED_DESCRIPTION_MESSAGE,
         placeholder: "Job Description",
       },
       {
@@ -61,6 +66,7 @@ export const getEditJobConfig = (
         name: "numPositions",
         minValue: 1,
         placeholder: "Number Of Opening",
+        disabled: onlyEnableStatus,
         step: 1,
       },
       {
@@ -68,12 +74,14 @@ export const getEditJobConfig = (
         type: FORM_FIELD_TYPE.SELECT,
         isMulti: true,
         name: "skills",
+        disabled: onlyEnableStatus,
         selectOptions: skillOptions,
       },
       {
         label: "Start Date",
         type: FORM_FIELD_TYPE.DATE,
         name: "startDate",
+        disabled: onlyEnableStatus,
         placeholder: "Start Date",
       },
       {
@@ -82,24 +90,28 @@ export const getEditJobConfig = (
         name: "duration",
         minValue: 1,
         placeholder: "Duration",
+        disabled: onlyEnableStatus,
         step: 1,
       },
       {
         label: "Resource Type",
         type: FORM_FIELD_TYPE.SELECT,
         name: "resourceType",
+        disabled: onlyEnableStatus,
         selectOptions: RESOURCE_TYPE_OPTIONS,
       },
       {
         label: "Resource Rate Frequency",
         type: FORM_FIELD_TYPE.SELECT,
         name: "rateType",
+        disabled: onlyEnableStatus,
         selectOptions: RATE_TYPE_OPTIONS,
       },
       {
         label: "Workload",
         type: FORM_FIELD_TYPE.SELECT,
         name: "workload",
+        disabled: onlyEnableStatus,
         selectOptions: WORKLOAD_OPTIONS,
       },
       {

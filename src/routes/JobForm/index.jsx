@@ -108,6 +108,11 @@ const JobForm = ({ teamId, jobId }) => {
               configuration={getEditJobConfig(
                 options,
                 job.isApplicationPageActive,
+                isEdit
+                  ? job.status === "assigned" ||
+                      job.status === "closed" ||
+                      job.status === "cancelled"
+                  : false,
                 onSubmit
               )}
               initialValue={job}

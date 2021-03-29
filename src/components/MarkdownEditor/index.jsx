@@ -8,7 +8,6 @@ import cn from "classnames";
 import TuiEditor from "../TuiEditor";
 import MarkdownEditorViewer from "../MarkdownEditorViewer";
 import styles from "./styles.module.scss";
-import { DISABLED_DESCRIPTION_MESSAGE } from "constants";
 
 const MarkdownEditor = (props) => {
   const editorElement = useRef(null);
@@ -21,7 +20,9 @@ const MarkdownEditor = (props) => {
     return (
       <div styleName="editor-viewer">
         <MarkdownEditorViewer {...props} />
-        <div styleName="message">{DISABLED_DESCRIPTION_MESSAGE}</div>
+        {props.errorMessage && (
+          <div styleName="message">{props.errorMessage}</div>
+        )}
       </div>
     );
   }
@@ -34,21 +35,21 @@ const MarkdownEditor = (props) => {
         onChange={onChange}
         initialValue={props.value}
         toolbarItems={[
-          'heading',
-          'bold',
-          'italic',
-          'strike',
-          'code',
-          'divider',
-          'quote',
-          'codeblock',
-          'hr',
-          'divider',
-          'ul',
-          'ol',
-          'divider',
-          'image',
-          'link',
+          "heading",
+          "bold",
+          "italic",
+          "strike",
+          "code",
+          "divider",
+          "quote",
+          "codeblock",
+          "hr",
+          "divider",
+          "ul",
+          "ol",
+          "divider",
+          "image",
+          "link",
         ]}
         plugins={[]}
       />
@@ -59,6 +60,7 @@ const MarkdownEditor = (props) => {
 MarkdownEditor.propTypes = {
   value: PropTypes.string,
   disabled: PropTypes.bool,
+  errorMessage: PropTypes.string,
   className: PropTypes.string,
   onChange: PropTypes.func,
   onFocus: PropTypes.func,

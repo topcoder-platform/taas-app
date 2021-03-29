@@ -9,6 +9,10 @@
       border-color: #fe665d;
     }
   }
+
+  input:disabled:not(:focus) {
+    border: 1px solid #ddd;
+  }
 }
 
 .datepicker-wrapper > div:nth-child(2) > div:nth-child(2) {

@@ -14,9 +14,11 @@ const ReactSelect = (props) => {
     control: (provided, state) => ({
       ...provided,
       minHeight: "40px",
-      border: "1px solid #aaaaab",
+      border:state.isDisabled ? "1px solid #ddd" : "1px solid #aaaaab",
       borderColor: state.isFocused ? "#55a5ff" : "#aaaaab",
       boxShadow: state.isFocused ? "0 0 2px 1px #cee6ff" : provided.boxShadow,
+      backgroundColor: state.isDisabled ? "#fafafb" : provided.backgroundColor,
+      color: state.isDisabled ? "#6b6b6b" : provided.color,
     }),
     menu: (provided) => ({
       ...provided,
@@ -53,15 +55,20 @@ const ReactSelect = (props) => {
       textAlign: "left",
       fontWeight: "400",
     }),
-    multiValue: (provided) => ({
+    multiValue: (provided, state) => ({
       ...provided,
       margin: "3px 3px",
-      color: "#AAAAAA",
+      color: state.isDisabled ? "#808080" : "#AAAAAA",
+      paddingRight: state.isDisabled ? "6px" : "0",
       fontFamily: "Roboto",
       fontSize: "14px",
       lineHeight: "22px",
       textAlign: "left",
       borderRadius: "5px",
+    }),
+    multiValueRemove: (provided, state) => ({
+      ...provided,
+      display: state.isDisabled ? "none" : provided.display,
     }),
     dropdownIndicator: () => ({
       display: "none",
