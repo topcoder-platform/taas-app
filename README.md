@@ -121,14 +121,14 @@ Some config files are using domain `local.topcoder-dev.com`. You can change it t
    ```
 
 3. Run **TaaS** micro-app:
-  ```sh
-  # inside folder "taas-app" run:
+   ```sh
+   # inside folder "taas-app" run:
 
-  nvm use # or make sure to use Node 10
-  npm i   # to install dependencies
+   nvm use # or make sure to use Node 10
+   npm i   # to install dependencies
 
-  npm run dev
-  ```
+   npm run dev
+   ```
 
 - Now open in the browser http://localhost:8080/taas/myteams.
 - If you are not logged-in yet, you should be redirected to the login page.
