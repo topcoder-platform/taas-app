@@ -100,6 +100,7 @@ export const CANDIDATE_STATUS = {
   SHORTLIST: "shortlist",
   REJECTED: "rejected",
   INTERVIEW: "interview",
+  TOPCODER_REJECTED: "topcoder-rejected",
 };
 
 /**
@@ -131,7 +132,7 @@ export const CANDIDATE_STATUS_FILTERS = [
     key: CANDIDATE_STATUS_FILTER_KEY.NOT_INTERESTED,
     buttonText: "Not Interested",
     title: "Not Interested Candidates",
-    statuses: [CANDIDATE_STATUS.REJECTED],
+    statuses: [CANDIDATE_STATUS.REJECTED, CANDIDATE_STATUS.TOPCODER_REJECTED],
   },
 ];
 
