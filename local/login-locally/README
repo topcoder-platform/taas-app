@@ -1,0 +1,11 @@
+1. Run any static files server inside this directory, for example:
+   - `npx http-server . -p 5000`
+   - `php -S localhost:5000`
+2. Run your application on http://localhost:3000.
+3. Now you can open http://localhost:5000 in browser and click login (wait it a little bit, it may take time to redirect you). After you login, you should be redirected back to http://localhost:3000
+
+PS. You may also download latest version of `setupAuth0WithRedirect.js` file from here - https://github.com/topcoder-platform/tc-auth-lib/blob/dev/web-assets/js/setupAuth0WithRedirect.js
+
+
+
+
