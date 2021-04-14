@@ -26,6 +26,7 @@ import { toastr } from "react-redux-toastr";
 import { getJobById } from "services/jobs";
 import { PERMISSIONS } from "constants/permissions";
 import { hasPermission } from "utils/permissions";
+import ActionsMenu from "components/ActionsMenu";
 
 /**
  * Generates a function to sort candidates
@@ -61,9 +62,10 @@ const populateSkillsMatched = (position, candidate) => ({
 const PositionCandidates = ({ position, statusFilterKey, updateCandidate }) => {
   const { candidates } = position;
   const [sortBy, setSortBy] = useState(CANDIDATES_SORT_BY.SKILL_MATCHED);
-  const statusFilter = useMemo(() =>
-    _.find(CANDIDATE_STATUS_FILTERS, { key: statusFilterKey })
-  , [statusFilterKey]);
+  const statusFilter = useMemo(
+    () => _.find(CANDIDATE_STATUS_FILTERS, { key: statusFilterKey }),
+    [statusFilterKey]
+  );
 
   const filteredCandidates = useMemo(
     () =>
@@ -161,9 +163,7 @@ const PositionCandidates = ({ position, statusFilterKey, updateCandidate }) => {
       />
 
       {filteredCandidates.length === 0 && (
-        <div styleName="no-candidates">
-          No {statusFilter.title}
-        </div>
+        <div styleName="no-candidates">No {statusFilter.title}</div>
       )}
       {filteredCandidates.length > 0 && (
         <div styleName="table">
@@ -196,27 +196,40 @@ const PositionCandidates = ({ position, statusFilterKey, updateCandidate }) => {
                 )}
               </div>
               <div styleName="table-cell cell-action">
-                {statusFilterKey === CANDIDATE_STATUS_FILTER_KEY.TO_REVIEW && hasPermission(PERMISSIONS.UPDATE_JOB_CANDIDATE) && (
-                  <>
-                    Interested in this candidate?
+                {statusFilterKey === CANDIDATE_STATUS_FILTER_KEY.TO_REVIEW &&
+                  hasPermission(PERMISSIONS.UPDATE_JOB_CANDIDATE) && (
                     <div styleName="actions">
-                      <Button
-                        type="secondary"
-                        onClick={() => markCandidateRejected(candidate.id)}
-                        disabled={candidate.updating}
-                      >
-                        No
-                      </Button>
-                      <Button
-                        type="primary"
-                        onClick={() => markCandidateShortlisted(candidate.id)}
-                        disabled={candidate.updating}
-                      >
-                        Yes
-                      </Button>
+                      <ActionsMenu
+                        options={[
+                          {
+                            label: "Schedule Interview",
+                            action: () => {
+                              alert("TODO: Interview Scheduled!!!");
+                            },
+                          },
+                          {
+                            label: "Decline Candidate",
+                            action: () => {
+                              markCandidateRejected(candidate.id);
+                            },
+                          },
+                          {
+                            label: "Select Candidate",
+                            action: () => {
+                              markCandidateShortlisted(candidate.id);
+                            },
+                          },
+                        ]}
+                      />
                     </div>
-                  </>
-                )}
+                  )}
+                {statusFilterKey === CANDIDATE_STATUS_FILTER_KEY.INTERESTED &&
+                  hasPermission(PERMISSIONS.UPDATE_JOB_CANDIDATE) && (
+                    <div styleName="actions">
+                      <Button>Schedule Another Interview</Button>
+                      <Button type="secondary">View Previous Interviews</Button>
+                    </div>
+                  )}
               </div>
             </div>
           ))}
