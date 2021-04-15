@@ -27,6 +27,7 @@ import { getJobById } from "services/jobs";
 import { PERMISSIONS } from "constants/permissions";
 import { hasPermission } from "utils/permissions";
 import ActionsMenu from "components/ActionsMenu";
+import LatestInterview from "../LatestInterview";
 
 /**
  * Generates a function to sort candidates
@@ -195,6 +196,11 @@ const PositionCandidates = ({ position, statusFilterKey, updateCandidate }) => {
                   </a>
                 )}
               </div>
+              {statusFilterKey === CANDIDATE_STATUS_FILTER_KEY.INTERESTED && (
+                <div styleName="table-cell cell-prev-interviews">
+                  <LatestInterview interviews={candidate.interviews} />
+                </div>
+              )}
               <div styleName="table-cell cell-action">
                 {statusFilterKey === CANDIDATE_STATUS_FILTER_KEY.TO_REVIEW &&
                   hasPermission(PERMISSIONS.UPDATE_JOB_CANDIDATE) && (
@@ -227,7 +233,11 @@ const PositionCandidates = ({ position, statusFilterKey, updateCandidate }) => {
                   hasPermission(PERMISSIONS.UPDATE_JOB_CANDIDATE) && (
                     <div styleName="actions">
                       <Button>Schedule Another Interview</Button>
-                      <Button type="secondary">View Previous Interviews</Button>
+                      {candidate.interviews.length > 0 && (
+                        <Button type="secondary">
+                          View Previous Interviews
+                        </Button>
+                      )}
                     </div>
                   )}
               </div>
