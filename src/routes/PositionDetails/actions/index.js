@@ -1,8 +1,10 @@
 /**
  * Position Details page actions
  */
+import _ from "lodash";
 import { getPositionDetails, patchPositionCandidate } from "services/teams";
 import { ACTION_TYPE } from "constants";
+import { getFakeInterviews } from "utils/helpers";
 
 /**
  * Load Team Position details (team job)
@@ -16,6 +18,12 @@ export const loadPosition = (teamId, positionId) => ({
   type: ACTION_TYPE.LOAD_POSITION,
   payload: async () => {
     const response = await getPositionDetails(teamId, positionId);
+
+    // inject mock interview data to candidates list
+    for (const candidate of response.data.candidates) {
+      const fakeInterviews = getFakeInterviews(candidate);
+      _.set(candidate, "interviews", fakeInterviews);
+    }
 
     return response.data;
   },
