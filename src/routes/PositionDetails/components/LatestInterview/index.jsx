@@ -14,7 +14,7 @@ function LatestInterview({ interviews }) {
     <>
       <p styleName="small">Interview Round {latestInterview.round}</p>
       <p styleName="strong">{latestInterview.status}</p>
-      <p>{formatDate(latestInterview.startTimeStamp)}</p>
+      <p>{formatDate(latestInterview.startTimestamp)}</p>
     </>
   );
 }

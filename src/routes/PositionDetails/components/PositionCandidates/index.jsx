@@ -28,6 +28,7 @@ import { PERMISSIONS } from "constants/permissions";
 import { hasPermission } from "utils/permissions";
 import ActionsMenu from "components/ActionsMenu";
 import LatestInterview from "../LatestInterview";
+import PreviousInterviewsPopup from "../PreviousInterviewsPopup";
 
 /**
  * Generates a function to sort candidates
@@ -61,6 +62,14 @@ const populateSkillsMatched = (position, candidate) => ({
 });
 
 const PositionCandidates = ({ position, statusFilterKey, updateCandidate }) => {
+  const [prevInterviewsOpen, setPrevInterviewsOpen] = useState(false);
+  const [selectedCandidate, setSelectedCandidate] = useState(null);
+
+  const openPrevInterviewsPopup = (candidate) => {
+    setSelectedCandidate(candidate);
+    setPrevInterviewsOpen(true);
+  };
+
   const { candidates } = position;
   const [sortBy, setSortBy] = useState(CANDIDATES_SORT_BY.SKILL_MATCHED);
   const statusFilter = useMemo(
@@ -150,123 +159,133 @@ const PositionCandidates = ({ position, statusFilterKey, updateCandidate }) => {
   );
 
   return (
-    <div styleName="position-candidates">
-      <CardHeader
-        title={`${statusFilter.title} (${filteredCandidates.length})`}
-        aside={
-          <Select
-            options={CANDIDATES_SORT_OPTIONS}
-            value={sortBy}
-            onChange={onSortByChange}
-            styleName="sort-select"
-          />
-        }
-      />
-
-      {filteredCandidates.length === 0 && (
-        <div styleName="no-candidates">No {statusFilter.title}</div>
-      )}
-      {filteredCandidates.length > 0 && (
-        <div styleName="table">
-          {pageCandidates.map((candidate) => (
-            <div styleName="table-row" key={candidate.id}>
-              <div styleName="table-cell cell-user">
-                <User
-                  user={{
-                    ...candidate,
-                    photoUrl: candidate.photo_url,
-                  }}
-                  hideFullName
-                />
-              </div>
-              <div styleName="table-cell cell-skills">
-                <SkillsSummary
-                  skills={candidate.skills}
-                  requiredSkills={position.skills}
-                  limit={7}
-                />
-                {candidate.resume && (
-                  <a
-                    href={`${candidate.resume}`}
-                    styleName="resume-link"
-                    target="_blank"
-                  >
-                    <IconResume />
-                    Download Resume
-                  </a>
-                )}
-              </div>
-              {statusFilterKey === CANDIDATE_STATUS_FILTER_KEY.INTERESTED && (
-                <div styleName="table-cell cell-prev-interviews">
-                  <LatestInterview interviews={candidate.interviews} />
-                </div>
-              )}
-              <div styleName="table-cell cell-action">
-                {statusFilterKey === CANDIDATE_STATUS_FILTER_KEY.TO_REVIEW &&
-                  hasPermission(PERMISSIONS.UPDATE_JOB_CANDIDATE) && (
-                    <div styleName="actions">
-                      <ActionsMenu
-                        options={[
-                          {
-                            label: "Schedule Interview",
-                            action: () => {
-                              alert("TODO: Interview Scheduled!!!");
-                            },
-                          },
-                          {
-                            label: "Decline Candidate",
-                            action: () => {
-                              markCandidateRejected(candidate.id);
-                            },
-                          },
-                          {
-                            label: "Select Candidate",
-                            action: () => {
-                              markCandidateShortlisted(candidate.id);
-                            },
-                          },
-                        ]}
-                      />
-                    </div>
-                  )}
-                {statusFilterKey === CANDIDATE_STATUS_FILTER_KEY.INTERESTED &&
-                  hasPermission(PERMISSIONS.UPDATE_JOB_CANDIDATE) && (
-                    <div styleName="actions">
-                      <Button>Schedule Another Interview</Button>
-                      {candidate.interviews.length > 0 && (
-                        <Button type="secondary">
-                          View Previous Interviews
-                        </Button>
-                      )}
-                    </div>
-                  )}
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
-
-      <div styleName="controls">
-        <Button
-          type="secondary"
-          onClick={showMore}
-          disabled={
-            filteredCandidates.length === 0 || // if no candidates to show
-            page === pagesTotal // if we are already on the last page
+    <>
+      <div styleName="position-candidates">
+        <CardHeader
+          title={`${statusFilter.title} (${filteredCandidates.length})`}
+          aside={
+            <Select
+              options={CANDIDATES_SORT_OPTIONS}
+              value={sortBy}
+              onChange={onSortByChange}
+              styleName="sort-select"
+            />
           }
-        >
-          Show More
-        </Button>
-        {filteredCandidates.length > 0 && (
-          <Pagination
-            total={filteredCandidates.length}
-            currentPage={page}
-            perPage={perPage}
-            onPageClick={onPageClick}
-          />
+        />
+
+        {filteredCandidates.length === 0 && (
+          <div styleName="no-candidates">No {statusFilter.title}</div>
         )}
+        {filteredCandidates.length > 0 && (
+          <div styleName="table">
+            {pageCandidates.map((candidate) => (
+              <div styleName="table-row" key={candidate.id}>
+                <div styleName="table-cell cell-user">
+                  <User
+                    user={{
+                      ...candidate,
+                      photoUrl: candidate.photo_url,
+                    }}
+                    hideFullName
+                  />
+                </div>
+                <div styleName="table-cell cell-skills">
+                  <SkillsSummary
+                    skills={candidate.skills}
+                    requiredSkills={position.skills}
+                    limit={7}
+                  />
+                  {candidate.resume && (
+                    <a
+                      href={`${candidate.resume}`}
+                      styleName="resume-link"
+                      target="_blank"
+                    >
+                      <IconResume />
+                      Download Resume
+                    </a>
+                  )}
+                </div>
+                {statusFilterKey === CANDIDATE_STATUS_FILTER_KEY.INTERESTED && (
+                  <div styleName="table-cell cell-prev-interviews">
+                    <LatestInterview interviews={candidate.interviews} />
+                  </div>
+                )}
+                <div styleName="table-cell cell-action">
+                  {statusFilterKey === CANDIDATE_STATUS_FILTER_KEY.TO_REVIEW &&
+                    hasPermission(PERMISSIONS.UPDATE_JOB_CANDIDATE) && (
+                      <div styleName="actions">
+                        <ActionsMenu
+                          options={[
+                            {
+                              label: "Schedule Interview",
+                              action: () => {
+                                alert("TODO: Interview Scheduled!!!");
+                              },
+                            },
+                            {
+                              label: "Decline Candidate",
+                              action: () => {
+                                markCandidateRejected(candidate.id);
+                              },
+                            },
+                            {
+                              label: "Select Candidate",
+                              action: () => {
+                                markCandidateShortlisted(candidate.id);
+                              },
+                            },
+                          ]}
+                        />
+                      </div>
+                    )}
+                  {statusFilterKey === CANDIDATE_STATUS_FILTER_KEY.INTERESTED &&
+                    hasPermission(PERMISSIONS.UPDATE_JOB_CANDIDATE) && (
+                      <div styleName="actions">
+                        <Button>Schedule Another Interview</Button>
+                        {candidate.interviews.length > 0 && (
+                          <Button
+                            type="secondary"
+                            onClick={() => openPrevInterviewsPopup(candidate)}
+                          >
+                            View Previous Interviews
+                          </Button>
+                        )}
+                      </div>
+                    )}
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        <div styleName="controls">
+          <Button
+            type="secondary"
+            onClick={showMore}
+            disabled={
+              filteredCandidates.length === 0 || // if no candidates to show
+              page === pagesTotal // if we are already on the last page
+            }
+          >
+            Show More
+          </Button>
+          {filteredCandidates.length > 0 && (
+            <Pagination
+              total={filteredCandidates.length}
+              currentPage={page}
+              perPage={perPage}
+              onPageClick={onPageClick}
+            />
+          )}
+        </div>
       </div>
-    </div>
+      <PreviousInterviewsPopup
+        open={prevInterviewsOpen}
+        onClose={() => setPrevInterviewsOpen(false)}
+        candidate={selectedCandidate}
+      />
+    </>
   );
 };
 

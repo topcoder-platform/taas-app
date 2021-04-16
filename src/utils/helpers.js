@@ -49,23 +49,23 @@ export const getSelectOptionByValue = (value, selectOptions) => {
  */
 export const rollDice = (lowNum, highNum) => {
   const diffPlusOne = highNum - lowNum + 1;
-  return Math.floor(Math.random() * diffPlusOne);
+  return Math.floor(Math.random() * diffPlusOne + lowNum);
 };
 
 export const getFakeInterviews = (candidate) => {
   // decide how many interviews to return
-  const numInterviews = rollDice(0, 3);
+  const numInterviews = rollDice(1, 3);
 
   const interviews = [];
   for (let i = 0; i < numInterviews; i++) {
     const numEmails = rollDice(1, 5);
-    const emails = _.times(numEmails, faker.internet.email);
+    const emails = _.times(numEmails, faker.internet.exampleEmail);
 
     const interview = {
       id: faker.datatype.uuid(),
       googleCalendarId: "",
       attendeesList: emails,
-      startTimeStamp: faker.date.recent(),
+      startTimestamp: faker.date.recent(),
       custommessage: "",
       xaiTemplate: "",
       jobCandidates: candidate.id,

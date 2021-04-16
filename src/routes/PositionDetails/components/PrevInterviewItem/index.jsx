@@ -1,0 +1,30 @@
+import React from "react";
+import PT from "prop-types";
+import { formatDate } from "utils/format";
+import Accordion from "components/Accordion";
+
+function PrevInterviewItem(props) {
+  const { date, round, emails } = props;
+
+  return (
+    <Accordion
+      title={`Interview Round ${round}`}
+      subhead={formatDate(date)}
+      sidebar={`${emails.length} Attendees`}
+    >
+      <ul>
+        {emails.map((email) => (
+          <li>{email}</li>
+        ))}
+      </ul>
+    </Accordion>
+  );
+}
+
+PrevInterviewItem.propTypes = {
+  date: PT.string.isRequired,
+  round: PT.number.isRequired,
+  emails: PT.arrayOf(PT.string).isRequired,
+};
+
+export default PrevInterviewItem;

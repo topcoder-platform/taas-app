@@ -1,0 +1,53 @@
+@import "styles/include";
+
+.accordion {
+  cursor: pointer;
+  width: 100%;
+  border: none;
+  outline: none;
+  background-color: #fff;
+  color: #2a2a2a;
+  display: flex;
+  text-align: left;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 15px 0 10px 0;
+
+  p {
+    @include font-roboto;
+    font-size: 14px;
+  }
+}
+
+.accordion:before {
+  display: inline-block;
+  content: '';
+  height: 10px;
+  width: 10px;
+  margin-right: 12px;
+  border-bottom: 2px solid #137D60;
+  border-right: 2px solid #137D60;
+  transform: rotate(-45deg);
+}
+
+.heading {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.title {
+  @include font-barlow;
+  font-weight: 600;
+  font-size: 20px;
+  margin: 0;
+  padding: 0;
+  text-transform: uppercase;
+}
+
+.panel {
+  display: block;
+}
