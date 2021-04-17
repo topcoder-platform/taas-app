@@ -1,3 +1,8 @@
+/**
+ * An expandable item which can be used
+ * repeatadly to form an accordion style display
+ */
+
 import React, { useState } from "react";
 import PT from "prop-types";
 import "./styles.module.scss";
@@ -7,8 +12,13 @@ function Accordion(props) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div>
-      <button onClick={() => setIsOpen(!isOpen)} styleName="accordion">
+    <div styleName="accordion">
+      <button onClick={() => setIsOpen(!isOpen)} styleName="button">
+        {isOpen ? (
+          <div styleName="down-arrow" />
+        ) : (
+          <div styleName="right-arrow" />
+        )}
         <div styleName="heading">
           <div>
             <h4 styleName="title">{title}</h4>

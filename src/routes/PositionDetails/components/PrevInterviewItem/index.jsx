@@ -2,6 +2,7 @@ import React from "react";
 import PT from "prop-types";
 import { formatDate } from "utils/format";
 import Accordion from "components/Accordion";
+import "./styles.module.scss";
 
 function PrevInterviewItem(props) {
   const { date, round, emails } = props;
@@ -14,7 +15,7 @@ function PrevInterviewItem(props) {
     >
       <ul>
         {emails.map((email) => (
-          <li>{email}</li>
+          <li styleName="email">{email}</li>
         ))}
       </ul>
     </Accordion>
