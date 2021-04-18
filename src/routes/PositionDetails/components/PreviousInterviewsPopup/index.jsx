@@ -9,7 +9,11 @@ function PreviousInterviewsPopup(props) {
   const { candidate, open, onClose } = props;
 
   const showPrevInterviews = (interviews) => {
-    return interviews.map((interview) => (
+    const sortedInterviews = interviews
+      .slice()
+      .sort((a, b) => a.round - b.round);
+
+    return sortedInterviews.map((interview) => (
       <PrevInterviewItem
         key={interview.id}
         round={interview.round}

@@ -28,6 +28,7 @@ import { PERMISSIONS } from "constants/permissions";
 import { hasPermission } from "utils/permissions";
 import ActionsMenu from "components/ActionsMenu";
 import LatestInterview from "../LatestInterview";
+import InterviewDetailsPopup from "../InterviewDetailsPopup";
 import PreviousInterviewsPopup from "../PreviousInterviewsPopup";
 
 /**
@@ -62,8 +63,14 @@ const populateSkillsMatched = (position, candidate) => ({
 });
 
 const PositionCandidates = ({ position, statusFilterKey, updateCandidate }) => {
+  const [interviewDetailsOpen, setInterviewDetailsOpen] = useState(false);
   const [prevInterviewsOpen, setPrevInterviewsOpen] = useState(false);
   const [selectedCandidate, setSelectedCandidate] = useState(null);
+
+  const openInterviewDetailsPopup = (candidate) => {
+    setSelectedCandidate(candidate);
+    setInterviewDetailsOpen(true);
+  };
 
   const openPrevInterviewsPopup = (candidate) => {
     setSelectedCandidate(candidate);
@@ -220,19 +227,22 @@ const PositionCandidates = ({ position, statusFilterKey, updateCandidate }) => {
                             {
                               label: "Schedule Interview",
                               action: () => {
-                                alert("TODO: Interview Scheduled!!!");
+                                openInterviewDetailsPopup(candidate);
+                              },
+                            },
+                            {
+                              separator: true,
+                            },
+                            {
+                              label: "Select Candidate",
+                              action: () => {
+                                markCandidateShortlisted(candidate.id);
                               },
                             },
                             {
                               label: "Decline Candidate",
                               action: () => {
                                 markCandidateRejected(candidate.id);
-                              },
-                            },
-                            {
-                              label: "Select Candidate",
-                              action: () => {
-                                markCandidateShortlisted(candidate.id);
                               },
                             },
                           ]}
@@ -283,6 +293,11 @@ const PositionCandidates = ({ position, statusFilterKey, updateCandidate }) => {
       <PreviousInterviewsPopup
         open={prevInterviewsOpen}
         onClose={() => setPrevInterviewsOpen(false)}
+        candidate={selectedCandidate}
+      />
+      <InterviewDetailsPopup
+        open={interviewDetailsOpen}
+        onClose={() => setInterviewDetailsOpen(false)}
         candidate={selectedCandidate}
       />
     </>
