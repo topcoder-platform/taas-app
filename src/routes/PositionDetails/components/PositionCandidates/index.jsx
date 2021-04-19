@@ -31,6 +31,7 @@ import LatestInterview from "../LatestInterview";
 import InterviewDetailsPopup from "../InterviewDetailsPopup";
 import PreviousInterviewsPopup from "../PreviousInterviewsPopup";
 import InterviewConfirmPopup from "../InterviewConfirmPopup";
+import SelectCandidatePopup from "../SelectCandidatePopup";
 
 /**
  * Generates a function to sort candidates
@@ -68,6 +69,8 @@ const PositionCandidates = ({ position, statusFilterKey, updateCandidate }) => {
   const [prevInterviewsOpen, setPrevInterviewsOpen] = useState(false);
   const [selectedCandidate, setSelectedCandidate] = useState(null);
   const [interviewConfirmOpen, setInterviewConfirmOpen] = useState(false);
+  const [selectCandidateOpen, setSelectCandidateOpen] = useState(false);
+  const [isReject, setIsReject] = useState(false);
 
   const openInterviewDetailsPopup = (candidate) => {
     setSelectedCandidate(candidate);
@@ -77,6 +80,12 @@ const PositionCandidates = ({ position, statusFilterKey, updateCandidate }) => {
   const openPrevInterviewsPopup = (candidate) => {
     setSelectedCandidate(candidate);
     setPrevInterviewsOpen(true);
+  };
+
+  const openSelectCandidatePopup = (candidate, isReject) => {
+    setSelectedCandidate(candidate);
+    isReject ? setIsReject(true) : setIsReject(false);
+    setSelectCandidateOpen(true);
   };
 
   const { candidates } = position;
@@ -133,17 +142,19 @@ const PositionCandidates = ({ position, statusFilterKey, updateCandidate }) => {
 
   const markCandidateShortlisted = useCallback(
     (candidateId) => {
-      updateCandidate(candidateId, {
+      return updateCandidate(candidateId, {
         status: CANDIDATE_STATUS.SHORTLIST,
       })
         .then(() => {
           toastr.success("Candidate is marked as interested.");
+          setSelectCandidateOpen(false);
         })
         .catch((error) => {
           toastr.error(
             "Failed to mark candidate as interested",
             error.toString()
           );
+          setSelectCandidateOpen(false);
         });
     },
     [updateCandidate]
@@ -151,17 +162,19 @@ const PositionCandidates = ({ position, statusFilterKey, updateCandidate }) => {
 
   const markCandidateRejected = useCallback(
     (candidateId) => {
-      updateCandidate(candidateId, {
+      return updateCandidate(candidateId, {
         status: CANDIDATE_STATUS.REJECTED,
       })
         .then(() => {
           toastr.success("Candidate is marked as not interested.");
+          setSelectCandidateOpen(false);
         })
         .catch((error) => {
           toastr.error(
             "Failed to mark candidate as not interested",
             error.toString()
           );
+          setSelectCandidateOpen(false);
         });
     },
     [updateCandidate]
@@ -238,13 +251,13 @@ const PositionCandidates = ({ position, statusFilterKey, updateCandidate }) => {
                             {
                               label: "Select Candidate",
                               action: () => {
-                                markCandidateShortlisted(candidate.id);
+                                openSelectCandidatePopup(candidate);
                               },
                             },
                             {
                               label: "Decline Candidate",
                               action: () => {
-                                markCandidateRejected(candidate.id);
+                                openSelectCandidatePopup(candidate, true);
                               },
                             },
                           ]}
@@ -310,6 +323,14 @@ const PositionCandidates = ({ position, statusFilterKey, updateCandidate }) => {
       <InterviewConfirmPopup
         open={interviewConfirmOpen}
         onClose={() => setInterviewConfirmOpen(false)}
+      />
+      <SelectCandidatePopup
+        candidate={selectedCandidate}
+        open={selectCandidateOpen}
+        isReject={isReject}
+        shortList={markCandidateShortlisted}
+        reject={markCandidateRejected}
+        closeModal={() => setSelectCandidateOpen(false)}
       />
     </>
   );

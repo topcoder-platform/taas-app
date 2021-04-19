@@ -30,17 +30,13 @@ function PreviousInterviewsPopup(props) {
       ) : (
         <>
           <div styleName="user">
-            {candidate === null ? (
-              ""
-            ) : (
-              <User
-                user={{
-                  ...candidate,
-                  photoUrl: candidate.photo_url,
-                }}
-                hideFullName
-              />
-            )}
+            <User
+              user={{
+                ...candidate,
+                photoUrl: candidate.photo_url,
+              }}
+              hideFullName
+            />
           </div>
           {showPrevInterviews(candidate.interviews)}
         </>
