@@ -1,3 +1,8 @@
+/**
+ * PreviousInterviewsPopup
+ *
+ * Popup listing a user's previous interviews
+ */
 import React from "react";
 import PT from "prop-types";
 import SimpleModal from "components/SimpleModal";
@@ -8,6 +13,7 @@ import PrevInterviewItem from "../PrevInterviewItem";
 function PreviousInterviewsPopup(props) {
   const { candidate, open, onClose } = props;
 
+  // sorts interviews and returns list of PrevInterviewItems
   const showPrevInterviews = (interviews) => {
     const sortedInterviews = interviews
       .slice()

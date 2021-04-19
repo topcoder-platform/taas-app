@@ -1,3 +1,9 @@
+/**
+ * InterviewDetailsPopup
+ *
+ * Popup that allows user to schedule an interview
+ * Calls addInterview action
+ */
 import React, { useEffect, useState, useCallback } from "react";
 import { getAuthUserProfile } from "@topcoder/micro-frontends-navbar-app";
 import { Form } from "react-final-form";
@@ -12,6 +18,8 @@ import Button from "components/Button";
 import { FORM_FIELD_TYPE } from "constants";
 import "./styles.module.scss";
 import RadioFieldGroup from "components/RadioFieldGroup";
+
+/* Validators for Form */
 
 const validateExists = (value) => {
   return value ? undefined : "Required";
@@ -39,6 +47,8 @@ const validator = (values) => {
 
   return errors;
 };
+
+/********************* */
 
 function InterviewDetailsPopup({ open, onClose, candidate, openNext }) {
   const [isLoading, setIsLoading] = useState(true);

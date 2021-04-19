@@ -60,10 +60,17 @@ export const updateCandidate = (candidateId, partialCandidateData) => ({
   },
 });
 
-export const addInterview = (candidateId, formData) => ({
+/**
+ * Add interview on server and in Redux store
+ *
+ * @param {string} candidateId position candidate id
+ * @param {object} interviewData data to submit in patch request
+ * @returns {object} an interview object
+ */
+export const addInterview = (candidateId, interviewData) => ({
   type: ACTION_TYPE.ADD_INTERVIEW,
   payload: async () => {
-    const response = await patchCandidateInterview(candidateId, formData);
+    const response = await patchCandidateInterview(candidateId, interviewData);
 
     return response.data;
   },

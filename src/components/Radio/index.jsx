@@ -1,3 +1,10 @@
+/**
+ * Radio
+ *
+ * A styled radio button
+ * Used in RadioFieldGroup component
+ */
+
 import React from "react";
 import PT from "prop-types";
 import cn from "classnames";

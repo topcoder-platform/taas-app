@@ -1,4 +1,6 @@
 /**
+ * RadioFieldGroup
+ *
  * Component that takes a configuration object
  * and returns a group of react-final-form radio fields
  */

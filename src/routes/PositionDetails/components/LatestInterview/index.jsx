@@ -1,3 +1,8 @@
+/**
+ * LastestInterview
+ *
+ * Table item showing candidates latest interview
+ */
 import React from "react";
 import PT from "prop-types";
 import "./styles.module.scss";

@@ -76,7 +76,7 @@ export const patchCandidateInterview = (candidateId, interviewData) => {
 
   const { attendeesList, xaiTemplate, createdBy, round } = interviewData;
 
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     setTimeout(() => {
       resolve({
         data: generateInterview({

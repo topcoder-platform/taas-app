@@ -53,6 +53,12 @@ export const rollDice = (lowNum, highNum) => {
   return Math.floor(Math.random() * diffPlusOne + lowNum);
 };
 
+/**
+ * Generates a fake interview object
+ *
+ * @param {object} data an optional data object to configure fake interview
+ * @returns {object} a fake interview object
+ */
 export const generateInterview = (data) => ({
   id: data.id || faker.datatype.uuid(),
   googleCalendarId: data.googleCalendarId || "",
@@ -61,7 +67,7 @@ export const generateInterview = (data) => ({
   custommessage: data.custommessage || "",
   xaiTemplate: data.xaiTemplate || "30-min-interview",
   jobCandidates: data.jobCandidates || faker.datatype.uuid(),
-  round: data.round,
+  round: data.round || 1,
   status: data.status || "Completed",
   createdBy: data.createdBy || faker.datatype.uuid(),
   updatedBy: data.updatedBy || faker.datatype.uuid(),
@@ -69,6 +75,12 @@ export const generateInterview = (data) => ({
   updatedAt: data.updatedAt || faker.date.past(),
 });
 
+/**
+ * Gets fake interviews to attach to jobCandidates
+ *
+ * @param {object} candidate a jobCandidate object
+ * @returns {object[]} an array of fake interviews
+ */
 export const getFakeInterviews = (candidate) => {
   // If candidate still to review return empty array
   if (candidate.status === CANDIDATE_STATUS.OPEN) {

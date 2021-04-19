@@ -1,4 +1,6 @@
 /**
+ * Accordion
+ *
  * An expandable item which can be used
  * repeatadly to form an accordion style display
  */

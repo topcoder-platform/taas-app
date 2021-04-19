@@ -42,6 +42,14 @@ const patchCandidateInState = (state, candidateId, partialCandidateData) => {
   });
 };
 
+/**
+ * Patch candidate with new interview without mutating state
+ *
+ * @param {object} state state
+ * @param {string} candidateId candidate id
+ * @param {object} interviewData interview object to add to candidate
+ * @returns {object} new state
+ */
 const patchInterviewInState = (state, candidateId, interviewData) => {
   const candidateIndex = _.findIndex(_.get(state, "position.candidates"), {
     id: candidateId,

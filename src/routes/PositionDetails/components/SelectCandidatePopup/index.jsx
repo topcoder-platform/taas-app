@@ -1,3 +1,8 @@
+/**
+ * SelectCandidatePopup
+ *
+ * Confirmation popup on selecting or rejecting a candidate
+ */
 import React, { useCallback, useState } from "react";
 import PT from "prop-types";
 import BaseModal from "components/BaseModal";
@@ -5,46 +10,6 @@ import Button from "components/Button";
 import User from "components/User";
 import "./styles.module.scss";
 import CenteredSpinner from "components/CenteredSpinner";
-
-/* function SelectCandidatePopup({
-  candidate,
-  candidateState,
-  shortList,
-  reject,
-  closeModal,
-}) {
-  const selectButton = (
-    <Button
-      onClick={() => shortList()}
-      type={BUTTON_TYPE.PRIMARY}
-      size={BUTTON_SIZE.MEDIUM}
-    >
-      Confirm
-    </Button>
-  );
-
-  const rejectButton = (
-    <Button
-      onClick={reject()}
-      type={BUTTON_TYPE.WARNING}
-      size={BUTTON_SIZE.MEDIUM}
-    >
-      Confirm
-    </Button>
-  );
-  return (
-    !!candidateState && (
-      <BaseModal
-        open={true}
-        onClose={closeModal}
-        title={candidateState === "reject" ? "Confirm Reject Candidate" : "Confirm Candidate Selection"}
-        button={candidateState === "reject" ? rejectButton : selectButton}
-      >
-
-      </BaseModal>
-    )
-  );
-} */
 
 const SelectCandidatePopup = ({
   candidate,

@@ -1,3 +1,8 @@
+/**
+ * PrevInterviewItem
+ *
+ * A list item for the PreviousInterviewsPopup
+ */
 import React from "react";
 import PT from "prop-types";
 import { formatDate } from "utils/format";

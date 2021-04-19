@@ -1,3 +1,8 @@
+/**
+ * InterviewConfirmPopup
+ *
+ * Popup to Confirm submission of an interview
+ */
 import React from "react";
 import PT from "prop-types";
 import SimpleModal from "components/SimpleModal";
