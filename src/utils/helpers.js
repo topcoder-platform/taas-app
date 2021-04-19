@@ -76,11 +76,11 @@ export const getFakeInterviews = (candidate) => {
   }
 
   // decide how many interviews to return
-  const numInterviews = rollDice(1, 3);
+  const numInterviews = rollDice(0, 3);
 
   const interviews = [];
   for (let i = 0; i < numInterviews; i++) {
-    const numEmails = rollDice(1, 5);
+    const numEmails = rollDice(2, 6);
     const emails = _.times(numEmails, faker.internet.exampleEmail);
 
     const interview = generateInterview({

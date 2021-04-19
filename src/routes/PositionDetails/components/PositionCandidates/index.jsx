@@ -67,7 +67,7 @@ const PositionCandidates = ({ position, statusFilterKey, updateCandidate }) => {
   const [interviewDetailsOpen, setInterviewDetailsOpen] = useState(false);
   const [prevInterviewsOpen, setPrevInterviewsOpen] = useState(false);
   const [selectedCandidate, setSelectedCandidate] = useState(null);
-  const [interviewConfirmOpen, setInterviewConfirmOpen] = useState(true);
+  const [interviewConfirmOpen, setInterviewConfirmOpen] = useState(false);
 
   const openInterviewDetailsPopup = (candidate) => {
     setSelectedCandidate(candidate);
@@ -305,6 +305,7 @@ const PositionCandidates = ({ position, statusFilterKey, updateCandidate }) => {
         open={interviewDetailsOpen}
         onClose={() => setInterviewDetailsOpen(false)}
         candidate={selectedCandidate}
+        openNext={() => setInterviewConfirmOpen(true)}
       />
       <InterviewConfirmPopup
         open={interviewConfirmOpen}
