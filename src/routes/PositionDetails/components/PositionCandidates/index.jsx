@@ -30,6 +30,7 @@ import ActionsMenu from "components/ActionsMenu";
 import LatestInterview from "../LatestInterview";
 import InterviewDetailsPopup from "../InterviewDetailsPopup";
 import PreviousInterviewsPopup from "../PreviousInterviewsPopup";
+import InterviewConfirmPopup from "../InterviewConfirmPopup";
 
 /**
  * Generates a function to sort candidates
@@ -66,6 +67,7 @@ const PositionCandidates = ({ position, statusFilterKey, updateCandidate }) => {
   const [interviewDetailsOpen, setInterviewDetailsOpen] = useState(false);
   const [prevInterviewsOpen, setPrevInterviewsOpen] = useState(false);
   const [selectedCandidate, setSelectedCandidate] = useState(null);
+  const [interviewConfirmOpen, setInterviewConfirmOpen] = useState(true);
 
   const openInterviewDetailsPopup = (candidate) => {
     setSelectedCandidate(candidate);
@@ -303,6 +305,10 @@ const PositionCandidates = ({ position, statusFilterKey, updateCandidate }) => {
         open={interviewDetailsOpen}
         onClose={() => setInterviewDetailsOpen(false)}
         candidate={selectedCandidate}
+      />
+      <InterviewConfirmPopup
+        open={interviewConfirmOpen}
+        onClose={() => setInterviewConfirmOpen(false)}
       />
     </>
   );

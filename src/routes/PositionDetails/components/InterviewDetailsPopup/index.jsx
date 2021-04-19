@@ -13,6 +13,13 @@ import { FORM_FIELD_TYPE } from "constants";
 import "./styles.module.scss";
 import RadioFieldGroup from "components/RadioFieldGroup";
 
+const logValues = (values) => {
+  console.log(values);
+  return {};
+};
+
+// const emailValidator = ()
+
 function InterviewDetailsPopup({ open, onClose, candidate }) {
   const [isLoading, setIsLoading] = useState(true);
   const [myEmail, setMyEmail] = useState("");
@@ -28,7 +35,7 @@ function InterviewDetailsPopup({ open, onClose, candidate }) {
   }, []);
 
   const onSubmitCallback = useCallback(
-    (formData) => {
+    async (formData) => {
       const secondaryEmails =
         formData.emails?.filter(
           (email) => typeof email === "string" && email.length > 0
@@ -40,11 +47,9 @@ function InterviewDetailsPopup({ open, onClose, candidate }) {
         createdBy: myId,
       };
 
-      console.log(interviewData);
-
-      dispatch(addInterview(candidate.id, interviewData));
+      await dispatch(addInterview(candidate.id, interviewData));
     },
-    [dispatch, candidate]
+    [dispatch, candidate, myId]
   );
 
   return isLoading ? null : (
@@ -57,27 +62,40 @@ function InterviewDetailsPopup({ open, onClose, candidate }) {
       mutators={{
         ...arrayMutators,
       }}
+      validate={logValues}
     >
       {({
         handleSubmit,
         form: {
           mutators: { push },
+          reset,
         },
+        submitting,
+        hasValidationErrors,
       }) => (
         <BaseModal
           open={open}
-          onClose={onClose}
+          onClose={() => {
+            reset();
+            onClose();
+          }}
           title="Schedule an Interview"
           button={
             <Button
-              onClick={handleSubmit}
+              onClick={() => {
+                handleSubmit().then(() => {
+                  reset();
+                  onClose();
+                });
+              }}
               size="medium"
               isSubmit
-              disabled={false}
+              disabled={submitting || hasValidationErrors}
             >
               Begin scheduling
             </Button>
           }
+          disabled={submitting}
         >
           <div>
             <div styleName="top">

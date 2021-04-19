@@ -6,6 +6,7 @@
  */
 import _ from "lodash";
 import faker from "faker";
+import { CANDIDATE_STATUS } from "constants";
 
 /**
  * Delay code for some milliseconds using promise.
@@ -66,9 +67,14 @@ export const generateInterview = (data) => ({
   updatedBy: data.updatedBy || faker.datatype.uuid(),
   createdAt: data.createdAt || faker.date.past(),
   updatedAt: data.updatedAt || faker.date.past(),
-})
+});
 
 export const getFakeInterviews = (candidate) => {
+  // If candidate still to review return empty array
+  if (candidate.status === CANDIDATE_STATUS.OPEN) {
+    return [];
+  }
+
   // decide how many interviews to return
   const numInterviews = rollDice(1, 3);
 
