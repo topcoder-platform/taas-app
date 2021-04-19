@@ -52,6 +52,22 @@ export const rollDice = (lowNum, highNum) => {
   return Math.floor(Math.random() * diffPlusOne + lowNum);
 };
 
+export const generateInterview = (data) => ({
+  id: data.id || faker.datatype.uuid(),
+  googleCalendarId: data.googleCalendarId || "",
+  attendeesList: data.attendeesList || [],
+  startTimestamp: data.startTimestamp || faker.date.recent(),
+  custommessage: data.custommessage || "",
+  xaiTemplate: data.xaiTemplate || "30-min-interview",
+  jobCandidates: data.jobCandidates || faker.datatype.uuid(),
+  round: data.round,
+  status: data.status || "Completed",
+  createdBy: data.createdBy || faker.datatype.uuid(),
+  updatedBy: data.updatedBy || faker.datatype.uuid(),
+  createdAt: data.createdAt || faker.date.past(),
+  updatedAt: data.updatedAt || faker.date.past(),
+})
+
 export const getFakeInterviews = (candidate) => {
   // decide how many interviews to return
   const numInterviews = rollDice(1, 3);
@@ -61,21 +77,11 @@ export const getFakeInterviews = (candidate) => {
     const numEmails = rollDice(1, 5);
     const emails = _.times(numEmails, faker.internet.exampleEmail);
 
-    const interview = {
-      id: faker.datatype.uuid(),
-      googleCalendarId: "",
+    const interview = generateInterview({
       attendeesList: emails,
-      startTimestamp: faker.date.recent(),
-      custommessage: "",
-      xaiTemplate: "",
       jobCandidates: candidate.id,
       round: i + 1,
-      status: "Completed",
-      createdBy: faker.datatype.uuid(),
-      updatedBy: faker.datatype.uuid(),
-      createdAt: faker.date.past(),
-      updatedAt: faker.date.past(),
-    };
+    });
     interviews.push(interview);
   }
   return interviews;

@@ -2,7 +2,11 @@
  * Position Details page actions
  */
 import _ from "lodash";
-import { getPositionDetails, patchPositionCandidate } from "services/teams";
+import {
+  getPositionDetails,
+  patchPositionCandidate,
+  patchCandidateInterview,
+} from "services/teams";
 import { ACTION_TYPE } from "constants";
 import { getFakeInterviews } from "utils/helpers";
 
@@ -48,6 +52,18 @@ export const updateCandidate = (candidateId, partialCandidateData) => ({
       candidateId,
       partialCandidateData
     );
+
+    return response.data;
+  },
+  meta: {
+    candidateId,
+  },
+});
+
+export const addInterview = (candidateId, formData) => ({
+  type: ACTION_TYPE.ADD_INTERVIEW,
+  payload: async () => {
+    const response = await patchCandidateInterview(candidateId, formData);
 
     return response.data;
   },

@@ -252,7 +252,11 @@ const PositionCandidates = ({ position, statusFilterKey, updateCandidate }) => {
                   {statusFilterKey === CANDIDATE_STATUS_FILTER_KEY.INTERESTED &&
                     hasPermission(PERMISSIONS.UPDATE_JOB_CANDIDATE) && (
                       <div styleName="actions">
-                        <Button>Schedule Another Interview</Button>
+                        <Button
+                          onClick={() => openInterviewDetailsPopup(candidate)}
+                        >
+                          Schedule Another Interview
+                        </Button>
                         {candidate.interviews.length > 0 && (
                           <Button
                             type="secondary"
