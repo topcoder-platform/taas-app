@@ -279,11 +279,20 @@ export const RESOURCE_TYPE_OPTIONS = [
 ];
 
 /**
- * status options
+ * job status options
  */
-export const STATUS_OPTIONS = [
+export const JOB_STATUS_OPTIONS = [
   { value: "sourcing", label: "sourcing" },
   { value: "in-review", label: "in-review" },
+  { value: "assigned", label: "assigned" },
+  { value: "closed", label: "closed" },
+  { value: "cancelled", label: "cancelled" },
+];
+
+/**
+ * resource booking status options
+ */
+export const RESOURCE_BOOKING_STATUS_OPTIONS = [
   { value: "assigned", label: "assigned" },
   { value: "closed", label: "closed" },
   { value: "cancelled", label: "cancelled" },

@@ -6,7 +6,7 @@
 import moment from "moment";
 import _ from "lodash";
 import {
-  STATUS_OPTIONS,
+  RESOURCE_BOOKING_STATUS_OPTIONS,
   FORM_ROW_TYPE,
   FORM_FIELD_TYPE,
 } from "../../constants";
@@ -95,7 +95,7 @@ export const getEditResourceBookingConfig = (onSubmit) => {
         isRequired: true,
         validationMessage: "Please, select Status",
         name: "status",
-        selectOptions: STATUS_OPTIONS,
+        selectOptions: RESOURCE_BOOKING_STATUS_OPTIONS,
       },
     ],
     onSubmit: onSubmit,
