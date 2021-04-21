@@ -1,8 +1,14 @@
 /**
  * Position Details page actions
  */
-import { getPositionDetails, patchPositionCandidate } from "services/teams";
+import _ from "lodash";
+import {
+  getPositionDetails,
+  patchPositionCandidate,
+  patchCandidateInterview,
+} from "services/teams";
 import { ACTION_TYPE } from "constants";
+import { getFakeInterviews } from "utils/helpers";
 
 /**
  * Load Team Position details (team job)
@@ -16,6 +22,12 @@ export const loadPosition = (teamId, positionId) => ({
   type: ACTION_TYPE.LOAD_POSITION,
   payload: async () => {
     const response = await getPositionDetails(teamId, positionId);
+
+    // inject mock interview data to candidates list
+    for (const candidate of response.data.candidates) {
+      const fakeInterviews = getFakeInterviews(candidate);
+      _.set(candidate, "interviews", fakeInterviews);
+    }
 
     return response.data;
   },
@@ -40,6 +52,25 @@ export const updateCandidate = (candidateId, partialCandidateData) => ({
       candidateId,
       partialCandidateData
     );
+
+    return response.data;
+  },
+  meta: {
+    candidateId,
+  },
+});
+
+/**
+ * Add interview on server and in Redux store
+ *
+ * @param {string} candidateId position candidate id
+ * @param {object} interviewData data to submit in patch request
+ * @returns {object} an interview object
+ */
+export const addInterview = (candidateId, interviewData) => ({
+  type: ACTION_TYPE.ADD_INTERVIEW,
+  payload: async () => {
+    const response = await patchCandidateInterview(candidateId, interviewData);
 
     return response.data;
   },

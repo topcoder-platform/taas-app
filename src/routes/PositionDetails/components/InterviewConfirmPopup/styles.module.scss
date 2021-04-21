@@ -1,0 +1,17 @@
+.modal-content {
+  & > p {
+    margin-bottom: 20px;
+  }
+  & * a {
+    color: #0D61BF;
+  }
+}
+
+.highlighted {
+  color: #219174;
+  font-weight: 500;
+}
+
+.video {
+  width: 100%;
+}

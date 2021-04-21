@@ -42,6 +42,39 @@ const patchCandidateInState = (state, candidateId, partialCandidateData) => {
   });
 };
 
+/**
+ * Patch candidate with new interview without mutating state
+ *
+ * @param {object} state state
+ * @param {string} candidateId candidate id
+ * @param {object} interviewData interview object to add to candidate
+ * @returns {object} new state
+ */
+const patchInterviewInState = (state, candidateId, interviewData) => {
+  const candidateIndex = _.findIndex(_.get(state, "position.candidates"), {
+    id: candidateId,
+  });
+
+  if (candidateIndex === -1) {
+    return state;
+  }
+
+  const updatedCandidate = update(state.position.candidates[candidateIndex], {
+    status: { $set: "interview" },
+    interviews: { $push: [interviewData] },
+  });
+
+  return update(state, {
+    loading: { $set: false },
+    error: { $set: undefined },
+    position: {
+      candidates: {
+        $splice: [[candidateIndex, 1, updatedCandidate]],
+      },
+    },
+  });
+};
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ACTION_TYPE.RESET_POSITION_STATE:
@@ -87,6 +120,24 @@ const reducer = (state = initialState, action) => {
         error: action.payload,
       });
 
+    case ACTION_TYPE.ADD_INTERVIEW_PENDING:
+      return {
+        ...state,
+        loading: true,
+        error: undefined,
+      };
+
+    case ACTION_TYPE.ADD_INTERVIEW_SUCCESS:
+      return patchInterviewInState(state, action.meta.candidateId, {
+        ...action.payload,
+      });
+
+    case ACTION_TYPE.ADD_INTERVIEW_ERROR:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
     default:
       return state;
   }
