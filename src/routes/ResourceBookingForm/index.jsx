@@ -21,6 +21,7 @@ import withAuthentication from "../../hoc/withAuthentication";
 import TCForm from "../../components/TCForm";
 import { getEditResourceBookingConfig } from "./utils";
 import "./styles.module.scss";
+import moment from "moment";
 
 const ResourceBookingDetails = ({ teamId, resourceBookingId }) => {
   const [submitting, setSubmitting] = useState(false);
@@ -66,8 +67,8 @@ const ResourceBookingDetails = ({ teamId, resourceBookingId }) => {
 
   // as we are using `PUT` method (not `PATCH`) we have send ALL the fields
   // fields which we don't send would become `null` otherwise
-  const getRequestData = (values) =>
-    _.pick(values, [
+  const getRequestData = (values) => {
+    const data = _.pick(values, [
       "projectId",
       "userId",
       "jobId",
@@ -78,6 +79,17 @@ const ResourceBookingDetails = ({ teamId, resourceBookingId }) => {
       "customerRate",
       "rateType",
     ]);
+
+    // convert dates to the API format before sending
+    if (data.startDate) {
+      data.startDate = moment(data.startDate).format('YYYY-MM-DD')
+    }
+    if (data.endDate) {
+      data.endDate = moment(data.endDate).format('YYYY-MM-DD')
+    }
+
+    return data
+  }
 
   return (
     <Page title="Edit Resource Booking">
