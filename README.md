@@ -39,14 +39,6 @@ For application constants which don't depend on the running environment use `src
 | `npm run watch-tests` | Watch for file changes and run unit tests on changes              |
 | `npm run coverage`    | Generate test code coverage report                                |
 
-## Local Deployment
-
-Inside the project folder run:
-
-- `npm i` - install dependencies
-- `npm run dev` - run app in development mode
-- As this app can be loaded only inside a frame single-spa, you have to run a `micro-frontends-frame` frame app and configure it to use the URL `http://localhost:8501/topcoder-micro-frontends-teams.js`.
-
 ## Deployment to Production
 
 - `npm i` - install dependencies
@@ -65,6 +57,81 @@ Make sure you have [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli
 - `git push heroku master` - push changes to Heroku and trigger deploying
 - Now you have to configure frame app to use the URL provided by Heroku like `https://<APP-NAME>.herokuapp.com/topcoder-micro-frontends-teams.js` to load this micro-app.
 
-## Verification
+## How to run Locally for Development
 
-Please check [verification-guide.md](verification-guide.md)
+TaaS App is done using Single SPA micro-frontend architecture https://single-spa.js.org/. So to start it, we would also have to run Frame App and Navbar App. Here I would show the steps to run locally everything we need.
+
+### Local Authentication
+
+First of all, to authenticate locally we have to run a local authentication service.
+- Clone this repository into `taas-app`.
+- Inside the folder `taas-app/local/login-locally` run `npm run start`.
+- You would need npm 5+ for it. This would start a local sever on port 5000 which could be used for local Authentication.
+
+### Local Domain
+
+Some config files are using domain `local.topcoder-dev.com`. You can change it to `localhost` in all the configs of each repo mentioned below. Or on your local machine, update file `/etc/hosts` add the line `127.0.0.1 local.topcoder-dev.com`. This file has another path on Windows.
+
+### Run Applications
+
+1. Run **Frame** App:
+    ```sh
+    git clone https://github.com/topcoder-platform/micro-frontends-frame.git
+    cd micro-frontends-frame
+
+    # inside folder "micro-frontends-frame" run:
+
+    nvm use # or make sure to use Node 10
+    npm i   # to install dependencies
+
+    # set environment variables:
+
+    export APPMODE="development"
+    export APPENV="local-multi"
+
+    npm run local-server
+    ```
+
+    open one more terminal window in the same folder and run:
+
+    ```sh
+    # set environment variables:
+
+    export APPMODE="development"
+    export APPENV="local-multi"
+
+    npm run local-client
+    ```
+
+2. Run **Navbar** micro-app:
+   ```sh
+   git clone https://github.com/topcoder-platform/micro-frontends-navbar-app.git
+   cd micro-frontends-navbar-app
+   ```
+
+   Update in file `micro-frontends-navbar-app/blob/dev/config/dev.js` values for `ACCOUNTS_APP_CONNECTOR` and `AUTH` to `http://localhost:5000` so Navbar app which handles authentication uses our local Authentication service.
+
+   ```sh
+   # inside folder "micro-frontends-navbar-app" run:
+
+   nvm use # or make sure to use Node 10
+   npm i   # to install dependencies
+
+   npm run dev
+   ```
+
+3. Run **TaaS** micro-app:
+   ```sh
+   # inside folder "taas-app" run:
+
+   nvm use # or make sure to use Node 10
+   npm i   # to install dependencies
+
+   npm run dev
+   ```
+
+- Now open in the browser http://localhost:8080/taas/myteams.
+- If you are not logged-in yet, you should be redirected to the login page.
+- If you cannot see the application and redirect doesn't happen, make sure that file "http://local.topcoder-dev.com:8501/taas-app/topcoder-micro-frontends-teams.js" is loaded successfully in the Network tab.
+
+Congratulations, you successfully run the project. If you had some issue, please, try to go through README of https://github.com/topcoder-platform/micro-frontends-frame and https://github.com/topcoder-platform/micro-frontends-navbar-app.

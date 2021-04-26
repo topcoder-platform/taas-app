@@ -103,5 +103,5 @@ dist
 # TernJS port file
 .tern-port
 
-# macOS files
+# macOS cache files
 .DS_Store

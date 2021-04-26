@@ -6,7 +6,7 @@ import { hasPermission } from "utils/permissions";
 import { DISABLED_DESCRIPTION_MESSAGE } from "constants";
 import {
   RATE_TYPE_OPTIONS,
-  STATUS_OPTIONS,
+  JOB_STATUS_OPTIONS,
   WORKLOAD_OPTIONS,
   RESOURCE_TYPE_OPTIONS,
   FORM_ROW_TYPE,
@@ -120,7 +120,7 @@ export const getEditJobConfig = (
         isRequired: true,
         validationMessage: "Please, select Status",
         name: "status",
-        selectOptions: STATUS_OPTIONS,
+        selectOptions: JOB_STATUS_OPTIONS,
         disabled: !hasPermission(PERMISSIONS.UPDATE_JOB_STATUS),
       },
     ],
