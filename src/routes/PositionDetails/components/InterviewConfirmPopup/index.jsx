@@ -6,6 +6,7 @@
 import React from "react";
 import PT from "prop-types";
 import SimpleModal from "components/SimpleModal";
+import { INTERVIEW_POPUP_MEDIA_URL } from "constants";
 import "./styles.module.scss";
 
 function InterviewConfirmPopup({ open, onClose }) {
@@ -38,7 +39,7 @@ function InterviewConfirmPopup({ open, onClose }) {
         </p>
         <video
           controls
-          src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+          src={INTERVIEW_POPUP_MEDIA_URL}
           styleName="video"
         />
       </div>

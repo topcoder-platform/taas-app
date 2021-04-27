@@ -3,7 +3,6 @@
  */
 import { axiosInstance as axios } from "./requestInterceptor";
 import config from "../../config";
-import { generateInterview } from "utils/helpers";
 
 /**
  * Get my teams.
@@ -68,34 +67,10 @@ export const patchPositionCandidate = (candidateId, partialCandidateData) => {
  * @returns {Promise<object>} interview object
  */
 export const patchCandidateInterview = (candidateId, interviewData) => {
-  // endpoint not currently implemented so response is mocked
-  /*   return axios.patch(
+  return axios.patch(
     `${config.API.V5}/jobCandidates/${candidateId}/requestInterview`,
     interviewData
-  ); */
-
-  const { attendeesList, xaiTemplate, createdBy, round } = interviewData;
-
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({
-        data: generateInterview({
-          attendeesList,
-          xaiTemplate,
-          jobCandidates: candidateId,
-          updatedBy: "",
-          updatedAt: "",
-          startTimestamp: new Date(
-            Date.now() + 1000 * 60 * 60 * 24 * 3
-          ).toString(), // returns the timestamp 3 days from now
-          createdAt: Date(),
-          createdBy,
-          status: "Scheduling",
-          round,
-        }),
-      });
-    }, 2000);
-  });
+  );
 };
 
 /**

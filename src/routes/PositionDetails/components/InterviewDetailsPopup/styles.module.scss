@@ -43,7 +43,7 @@
   background: #fff;
   margin: 10px 0 0 0;
   padding: 0;
-  color: blue;
+  color: #0D61BF;
   border: none;
   border-radius: 0;
 
@@ -60,15 +60,17 @@
 }
 
 .array-input {
-  width: 95%
+  width: 100%
 }
 
 .remove-item {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  margin-bottom: 10px;
+  position: absolute;
+  right: 45px;
+  margin-top: 33px;
   font-size: 33px;
   color: #EF476F;
   cursor: pointer;
+  &:focus {
+    outline: none;
+  }
 }
