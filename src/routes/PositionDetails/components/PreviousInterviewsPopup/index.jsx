@@ -15,7 +15,7 @@ function PreviousInterviewsPopup(props) {
 
   // sorts interviews and returns list of PrevInterviewItems
   const showPrevInterviews = (interviews) => {
-    const sortedInterviews = interviews
+    const sortedInterviews = (interviews || [])
       .slice()
       .sort((a, b) => a.round - b.round);
 

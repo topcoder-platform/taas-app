@@ -9,7 +9,7 @@ import "./styles.module.scss";
 import { formatDate } from "utils/format";
 
 function LatestInterview({ interviews }) {
-  if (!interviews.length) {
+  if (!interviews || !interviews.length) {
     return <div></div>;
   }
 

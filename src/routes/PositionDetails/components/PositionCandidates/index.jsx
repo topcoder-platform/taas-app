@@ -272,14 +272,15 @@ const PositionCandidates = ({ position, statusFilterKey, updateCandidate }) => {
                         >
                           Schedule Another Interview
                         </Button>
-                        {candidate.interviews.length > 0 && (
-                          <Button
-                            type="secondary"
-                            onClick={() => openPrevInterviewsPopup(candidate)}
-                          >
-                            View Previous Interviews
-                          </Button>
-                        )}
+                        {candidate.interviews &&
+                          candidate.interviews.length > 0 && (
+                            <Button
+                              type="secondary"
+                              onClick={() => openPrevInterviewsPopup(candidate)}
+                            >
+                              View Previous Interviews
+                            </Button>
+                          )}
                       </div>
                     )}
                 </div>

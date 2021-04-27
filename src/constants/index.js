@@ -298,3 +298,9 @@ export const STATUS_OPTIONS = [
  */
 export const DISABLED_DESCRIPTION_MESSAGE =
   "You may not edit a Job Description that is currently posted to Topcoder.com. Please contact support@topcoder.com.";
+
+/**
+ * The media URL to be shown on Interview popup
+ */
+export const INTERVIEW_POPUP_MEDIA_URL =
+  "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
