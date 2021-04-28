@@ -1,5 +1,5 @@
 # Use the base image with Node.js
-FROM node:latest
+FROM node:10
 
 ARG APPMODE
 ARG APPENV
