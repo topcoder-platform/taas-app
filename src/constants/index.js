@@ -124,14 +124,14 @@ export const CANDIDATE_STATUS_FILTERS = [
   },
   {
     key: CANDIDATE_STATUS_FILTER_KEY.INTERESTED,
-    buttonText: "Interested",
-    title: "Interested Candidates",
+    buttonText: "Interviews",
+    title: "Interviews",
     statuses: [CANDIDATE_STATUS.SHORTLIST, CANDIDATE_STATUS.INTERVIEW],
   },
   {
     key: CANDIDATE_STATUS_FILTER_KEY.NOT_INTERESTED,
-    buttonText: "Not Interested",
-    title: "Not Interested Candidates",
+    buttonText: "Declined",
+    title: "Declined",
     statuses: [CANDIDATE_STATUS.REJECTED, CANDIDATE_STATUS.TOPCODER_REJECTED],
   },
 ];
@@ -171,6 +171,10 @@ export const ACTION_TYPE = {
   UPDATE_CANDIDATE_SUCCESS: "UPDATE_CANDIDATE_SUCCESS",
   UPDATE_CANDIDATE_ERROR: "UPDATE_CANDIDATE_ERROR",
 
+  ADD_INTERVIEW: "ADD_INTERVIEW",
+  ADD_INTERVIEW_PENDING: "ADD_INTERVIEW_PENDING",
+  ADD_INTERVIEW_SUCCESS: "ADD_INTERVIEW_SUCCESS",
+  ADD_INTERVIEW_ERROR: "ADD_INTERVIEW_ERROR",
   /*
     withAuthentication
    */
@@ -303,3 +307,9 @@ export const RESOURCE_BOOKING_STATUS_OPTIONS = [
  */
 export const DISABLED_DESCRIPTION_MESSAGE =
   "You may not edit a Job Description that is currently posted to Topcoder.com. Please contact support@topcoder.com.";
+
+/**
+ * The media URL to be shown on Interview popup
+ */
+export const INTERVIEW_POPUP_MEDIA_URL =
+  "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";

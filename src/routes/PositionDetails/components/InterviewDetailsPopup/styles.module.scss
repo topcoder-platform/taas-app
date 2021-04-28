@@ -1,0 +1,76 @@
+@import "styles/include";
+
+.user {
+  font-size: 14px;
+  color: #0D61BF;
+}
+
+.top {
+  padding-bottom: 25px;
+  border-bottom: 1px solid #E9E9E9;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.center {
+  padding: 25px 0;
+  border-bottom: 1px solid #E9E9E9;
+}
+
+.center-header {
+  @include font-barlow;
+  font-weight: 600;
+  font-size: 20px;
+  margin: 0 0 10px 0;
+  padding: 0;
+  text-transform: uppercase;
+}
+
+.modal-text {
+  @include font-roboto;
+  font-size: 14px;
+}
+
+.bottom {
+  padding-top: 25px;
+  padding-bottom: 8px;
+}
+
+.add-more {
+  outline: none;
+  background: #fff;
+  margin: 10px 0 0 0;
+  padding: 0;
+  color: #0D61BF;
+  border: none;
+  border-radius: 0;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.array-item {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: space-between;
+}
+
+.array-input {
+  width: 100%
+}
+
+.remove-item {
+  position: absolute;
+  right: 45px;
+  margin-top: 33px;
+  font-size: 33px;
+  color: #EF476F;
+  cursor: pointer;
+  &:focus {
+    outline: none;
+  }
+}

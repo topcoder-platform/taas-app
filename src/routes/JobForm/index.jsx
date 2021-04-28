@@ -8,6 +8,8 @@
 import React, { useState, useEffect } from "react";
 import PT from "prop-types";
 import { toastr } from "react-redux-toastr";
+import _ from "lodash";
+import store from "../../store";
 import Page from "components/Page";
 import PageHeader from "components/PageHeader";
 import { useData } from "hooks/useData";
@@ -61,8 +63,10 @@ const JobForm = ({ teamId, jobId }) => {
 
   // as we are using `PUT` method (not `PATCH`) we have send ALL the fields
   // fields which we don't send would become `null` otherwise
-  const getRequestData = (values) =>
-    _.pick(values, [
+  const getRequestData = (values) => {
+    const externalId = _.get(store.getState(), "authUser.userId");
+    values.externalId = externalId && _.toString(externalId);
+    return _.pick(values, [
       "projectId",
       "externalId",
       "description",
@@ -76,6 +80,7 @@ const JobForm = ({ teamId, jobId }) => {
       "skills",
       "status",
     ]);
+  };
 
   useEffect(() => {
     if (skills && job && !options) {
