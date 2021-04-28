@@ -62,7 +62,7 @@ function InterviewDetailsPopup({ open, onClose, candidate, openNext }) {
   return (
     <Form
       initialValues={{
-        time: "30-minutes",
+        time: "interview-30",
       }}
       onSubmit={onSubmitCallback}
       mutators={{
@@ -125,11 +125,11 @@ function InterviewDetailsPopup({ open, onClose, candidate, openNext }) {
                 radios={[
                   {
                     label: "30 Minute Interview",
-                    value: "30-minutes",
+                    value: "interview-30",
                   },
                   {
                     label: "60 Minute Interview",
-                    value: "60-minutes",
+                    value: "interview-60",
                   },
                 ]}
               />
