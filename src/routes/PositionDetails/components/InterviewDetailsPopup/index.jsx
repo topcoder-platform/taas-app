@@ -4,11 +4,13 @@
  * Popup that allows user to schedule an interview
  * Calls addInterview action
  */
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect, useState } from "react";
+import { getAuthUserProfile } from "@topcoder/micro-frontends-navbar-app";
 import { Form } from "react-final-form";
 import arrayMutators from "final-form-arrays";
 import { FieldArray } from "react-final-form-arrays";
-import { useDispatch } from "react-redux";
+import { toastr } from "react-redux-toastr";
+import { useDispatch, useSelector } from "react-redux";
 import { addInterview } from "../../actions";
 import User from "components/User";
 import BaseModal from "components/BaseModal";
@@ -39,9 +41,19 @@ const validator = (values) => {
 };
 
 /********************* */
-
+// TODO: preserve form input in case of error
 function InterviewDetailsPopup({ open, onClose, candidate, openNext }) {
+  const [isLoading, setIsLoading] = useState(true);
+  const [myEmail, setMyEmail] = useState("");
+  const { loading } = useSelector((state) => state.positionDetails);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    getAuthUserProfile().then((res) => {
+      setMyEmail(res.email || "");
+      setIsLoading(false);
+    });
+  }, []);
 
   const onSubmitCallback = useCallback(
     async (formData) => {
@@ -54,15 +66,21 @@ function InterviewDetailsPopup({ open, onClose, candidate, openNext }) {
         attendeesList,
       };
 
-      await dispatch(addInterview(candidate.id, interviewData));
+      try {
+        await dispatch(addInterview(candidate.id, interviewData));
+      } catch (err) {
+        toastr.error("Interview Creation Failed", err.message);
+        throw err;
+      }
     },
     [dispatch, candidate]
   );
 
-  return (
+  return isLoading ? null : (
     <Form
       initialValues={{
         time: "interview-30",
+        emails: [myEmail],
       }}
       onSubmit={onSubmitCallback}
       mutators={{
@@ -97,7 +115,7 @@ function InterviewDetailsPopup({ open, onClose, candidate, openNext }) {
               }}
               size="medium"
               isSubmit
-              disabled={submitting || hasValidationErrors}
+              disabled={submitting || hasValidationErrors || loading}
             >
               Begin scheduling
             </Button>
@@ -154,6 +172,7 @@ function InterviewDetailsPopup({ open, onClose, candidate, openNext }) {
                             label: "Email Address",
                             maxLength: 320,
                             customValidator: true,
+                            disabled: index === 0,
                           }}
                         />
                       </div>

@@ -97,8 +97,10 @@ export const RATE_TYPE = {
 export const CANDIDATE_STATUS = {
   OPEN: "open",
   SELECTED: "selected",
-  SHORTLIST: "shortlist",
-  REJECTED: "rejected",
+  PLACED: "placed",
+  CLIENT_REJECTED_SCREENING: "client rejected - screening",
+  CLIENT_REJECTED_INTERVIEW: "client rejected - interview",
+  REJECTED_OTHER: "rejected - other",
   INTERVIEW: "interview",
   TOPCODER_REJECTED: "topcoder-rejected",
 };
@@ -126,13 +128,18 @@ export const CANDIDATE_STATUS_FILTERS = [
     key: CANDIDATE_STATUS_FILTER_KEY.INTERESTED,
     buttonText: "Interviews",
     title: "Interviews",
-    statuses: [CANDIDATE_STATUS.SHORTLIST, CANDIDATE_STATUS.INTERVIEW],
+    statuses: [CANDIDATE_STATUS.SELECTED, CANDIDATE_STATUS.INTERVIEW],
   },
   {
     key: CANDIDATE_STATUS_FILTER_KEY.NOT_INTERESTED,
     buttonText: "Declined",
     title: "Declined",
-    statuses: [CANDIDATE_STATUS.REJECTED, CANDIDATE_STATUS.TOPCODER_REJECTED],
+    statuses: [
+      CANDIDATE_STATUS.CLIENT_REJECTED_SCREENING,
+      CANDIDATE_STATUS.CLIENT_REJECTED_INTERVIEW,
+      CANDIDATE_STATUS.REJECTED_OTHER,
+      CANDIDATE_STATUS.TOPCODER_REJECTED,
+    ],
   },
 ];
 
@@ -297,7 +304,7 @@ export const JOB_STATUS_OPTIONS = [
  * resource booking status options
  */
 export const RESOURCE_BOOKING_STATUS_OPTIONS = [
-  { value: "assigned", label: "assigned" },
+  { value: "placed", label: "placed" },
   { value: "closed", label: "closed" },
   { value: "cancelled", label: "cancelled" },
 ];

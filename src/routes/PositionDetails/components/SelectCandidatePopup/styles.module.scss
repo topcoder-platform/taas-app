@@ -1,3 +1,11 @@
+ol {
+  list-style-type: decimal;
+  padding: 25px;
+  li {
+    margin-top: 5px;
+  }
+}
+
 .user {
   font-size: 14px;
   color: #0D61BF;

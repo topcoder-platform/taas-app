@@ -39,10 +39,23 @@
 }
 
 .option {
-  color: #0d61bf;
+  color: #219174;
   cursor: pointer;
-  font-size: 14px;
-  line-height: 20px;
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 0.8px;
+  line-height: 30px;
+  text-transform: uppercase;
   outline: none;
   padding: 5px 0;
+}
+
+.danger {
+  color: #EF476F;
+}
+
+.disabled {
+  color: gray;
+  opacity: 0.6;
+  pointer-events: none;
 }

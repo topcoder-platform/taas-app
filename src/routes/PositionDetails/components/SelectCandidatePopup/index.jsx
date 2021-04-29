@@ -17,19 +17,19 @@ const SelectCandidatePopup = ({
   open,
   closeModal,
   reject,
-  shortList,
+  select,
 }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const confirmSelection = useCallback(async () => {
     setIsLoading(true);
     if (isReject) {
-      await reject(candidate.id);
+      await reject(candidate);
     } else {
-      await shortList(candidate.id);
+      await select(candidate);
     }
     setIsLoading(false);
-  }, [isReject, candidate, reject, shortList]);
+  }, [isReject, candidate, reject, select]);
 
   return (
     <BaseModal
@@ -65,12 +65,29 @@ const SelectCandidatePopup = ({
           </div>
           {isLoading ? (
             <CenteredSpinner />
+          ) : isReject ? (
+            <p>Are you sure you want to decline the selected candidate?</p>
           ) : (
-            <p>
-              {isReject
-                ? "Are you sure you want to decline the selected candidate?"
-                : "Please confirm your selection of the above candidate"}
-            </p>
+            <>
+              <p>
+                You have selected this applicant - you want this member on your
+                team! What happens next:
+              </p>
+              <ol>
+                <li>
+                  Upon confirmation, Topcoder will confirm the arrangement with
+                  the selected member
+                </li>
+                <li>
+                  A Topcoder Rep will contact you with details on the work
+                  arrangement
+                </li>
+                <li>
+                  When both sides accept, we will finalize the agreement and
+                  begin onboarding
+                </li>
+              </ol>
+            </>
           )}
         </>
       )}
