@@ -140,10 +140,10 @@ const PositionCandidates = ({ position, statusFilterKey, updateCandidate }) => {
     [setPage]
   );
 
-  const markCandidateShortlisted = useCallback(
-    (candidateId) => {
-      return updateCandidate(candidateId, {
-        status: CANDIDATE_STATUS.SHORTLIST,
+  const markCandidateSelected = useCallback(
+    (candidate) => {
+      return updateCandidate(candidate.id, {
+        status: CANDIDATE_STATUS.SELECTED,
       })
         .then(() => {
           toastr.success("Candidate is marked as interested.");
@@ -161,9 +161,13 @@ const PositionCandidates = ({ position, statusFilterKey, updateCandidate }) => {
   );
 
   const markCandidateRejected = useCallback(
-    (candidateId) => {
-      return updateCandidate(candidateId, {
-        status: CANDIDATE_STATUS.REJECTED,
+    (candidate) => {
+      const hasInterviews =
+        candidate.interviews && candidate.interviews.length > 0;
+      return updateCandidate(candidate.id, {
+        status: hasInterviews
+          ? CANDIDATE_STATUS.CLIENT_REJECTED_INTERVIEW
+          : CANDIDATE_STATUS.CLIENT_REJECTED_SCREENING,
       })
         .then(() => {
           toastr.success("Candidate is marked as not interested.");
@@ -259,6 +263,7 @@ const PositionCandidates = ({ position, statusFilterKey, updateCandidate }) => {
                               action: () => {
                                 openSelectCandidatePopup(candidate, true);
                               },
+                              style: "danger",
                             },
                           ]}
                         />
@@ -267,20 +272,41 @@ const PositionCandidates = ({ position, statusFilterKey, updateCandidate }) => {
                   {statusFilterKey === CANDIDATE_STATUS_FILTER_KEY.INTERESTED &&
                     hasPermission(PERMISSIONS.UPDATE_JOB_CANDIDATE) && (
                       <div styleName="actions">
-                        <Button
-                          onClick={() => openInterviewDetailsPopup(candidate)}
-                        >
-                          Schedule Another Interview
-                        </Button>
-                        {candidate.interviews &&
-                          candidate.interviews.length > 0 && (
-                            <Button
-                              type="secondary"
-                              onClick={() => openPrevInterviewsPopup(candidate)}
-                            >
-                              View Previous Interviews
-                            </Button>
-                          )}
+                        <ActionsMenu
+                          options={[
+                            {
+                              label: "Schedule Another Interview",
+                              action: () => {
+                                openInterviewDetailsPopup(candidate);
+                              },
+                            },
+                            {
+                              label: "View Previous Interviews",
+                              action: () => {
+                                openPrevInterviewsPopup(candidate);
+                              },
+                              disabled:
+                                !!candidate.interviews !== true ||
+                                candidate.interviews.length === 0,
+                            },
+                            {
+                              separator: true,
+                            },
+                            {
+                              label: "Select Candidate",
+                              action: () => {
+                                openSelectCandidatePopup(candidate);
+                              },
+                            },
+                            {
+                              label: "Decline Candidate",
+                              action: () => {
+                                openSelectCandidatePopup(candidate, true);
+                              },
+                              style: "danger",
+                            },
+                          ]}
+                        />
                       </div>
                     )}
                 </div>
@@ -329,7 +355,7 @@ const PositionCandidates = ({ position, statusFilterKey, updateCandidate }) => {
         candidate={selectedCandidate}
         open={selectCandidateOpen}
         isReject={isReject}
-        shortList={markCandidateShortlisted}
+        select={markCandidateSelected}
         reject={markCandidateRejected}
         closeModal={() => setSelectCandidateOpen(false)}
       />

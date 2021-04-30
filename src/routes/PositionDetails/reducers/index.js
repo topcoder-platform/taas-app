@@ -59,9 +59,10 @@ const patchInterviewInState = (state, candidateId, interviewData) => {
     return state;
   }
 
+  const hasInterviews = !!state.position.candidates[candidateIndex].interviews;
   const updatedCandidate = update(state.position.candidates[candidateIndex], {
     status: { $set: "interview" },
-    interviews: { $push: [interviewData] },
+    interviews: { [hasInterviews ? "$push" : "$set"]: [interviewData] },
   });
 
   return update(state, {
@@ -121,11 +122,10 @@ const reducer = (state = initialState, action) => {
       });
 
     case ACTION_TYPE.ADD_INTERVIEW_PENDING:
-      return {
-        ...state,
-        loading: true,
-        error: undefined,
-      };
+      return update(state, {
+        loading: { $set: true },
+        error: { $set: undefined },
+      });
 
     case ACTION_TYPE.ADD_INTERVIEW_SUCCESS:
       return patchInterviewInState(state, action.meta.candidateId, {
@@ -133,11 +133,10 @@ const reducer = (state = initialState, action) => {
       });
 
     case ACTION_TYPE.ADD_INTERVIEW_ERROR:
-      return {
-        ...state,
-        loading: false,
-        error: action.payload,
-      };
+      return update(state, {
+        loading: { $set: false },
+        error: { $set: action.payload },
+      });
     default:
       return state;
   }
