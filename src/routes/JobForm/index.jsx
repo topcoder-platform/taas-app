@@ -64,8 +64,6 @@ const JobForm = ({ teamId, jobId }) => {
   // as we are using `PUT` method (not `PATCH`) we have send ALL the fields
   // fields which we don't send would become `null` otherwise
   const getRequestData = (values) => {
-    const externalId = _.get(store.getState(), "authUser.userId");
-    values.externalId = externalId && _.toString(externalId);
     return _.pick(values, [
       "projectId",
       "externalId",
