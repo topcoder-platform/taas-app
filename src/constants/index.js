@@ -111,6 +111,7 @@ export const CANDIDATE_STATUS = {
 export const CANDIDATE_STATUS_FILTER_KEY = {
   TO_REVIEW: "TO_REVIEW",
   INTERESTED: "INTERESTED",
+  SELECTED: "SELECTED",
   NOT_INTERESTED: "NOT_INTERESTED",
 };
 
@@ -128,7 +129,13 @@ export const CANDIDATE_STATUS_FILTERS = [
     key: CANDIDATE_STATUS_FILTER_KEY.INTERESTED,
     buttonText: "Interviews",
     title: "Interviews",
-    statuses: [CANDIDATE_STATUS.SELECTED, CANDIDATE_STATUS.INTERVIEW],
+    statuses: [CANDIDATE_STATUS.INTERVIEW],
+  },
+  {
+    key: CANDIDATE_STATUS_FILTER_KEY.SELECTED,
+    buttonText: "Selected",
+    title: "Selected",
+    statuses: [CANDIDATE_STATUS.SELECTED],
   },
   {
     key: CANDIDATE_STATUS_FILTER_KEY.NOT_INTERESTED,
@@ -320,3 +327,5 @@ export const DISABLED_DESCRIPTION_MESSAGE =
  */
 export const INTERVIEW_POPUP_MEDIA_URL =
   "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
+
+export const MAX_ALLOWED_INTERVIEWS = 3;

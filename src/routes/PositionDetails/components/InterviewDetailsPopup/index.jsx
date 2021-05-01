@@ -16,7 +16,7 @@ import User from "components/User";
 import BaseModal from "components/BaseModal";
 import FormField from "components/FormField";
 import Button from "components/Button";
-import { FORM_FIELD_TYPE } from "constants";
+import { FORM_FIELD_TYPE, MAX_ALLOWED_INTERVIEWS } from "constants";
 import "./styles.module.scss";
 import RadioFieldGroup from "components/RadioFieldGroup";
 
@@ -75,6 +75,23 @@ function InterviewDetailsPopup({ open, onClose, candidate, openNext }) {
     },
     [dispatch, candidate]
   );
+
+  // show the warning if exceeds MAX_ALLOWED_INTERVIEW
+  if (
+    candidate &&
+    candidate.interviews &&
+    candidate.interviews.length >= MAX_ALLOWED_INTERVIEWS
+  ) {
+    return (
+      <BaseModal open={open} onClose={onClose} title="Schedule an Interview">
+        <p styleName="exceeds-max-number-txt">
+          You've reached the cap of {MAX_ALLOWED_INTERVIEWS} interviews with
+          this candidate. Now please make your decision to Select and Decline
+          them.
+        </p>
+      </BaseModal>
+    );
+  }
 
   return isLoading ? null : (
     <Form
@@ -136,6 +153,10 @@ function InterviewDetailsPopup({ open, onClose, candidate, openNext }) {
                     hideFullName
                   />
                 )}
+                <p styleName="max-warning-txt">
+                  You may have as many as {MAX_ALLOWED_INTERVIEWS} interviews
+                  with each candidate for the job.
+                </p>
               </div>
               <RadioFieldGroup
                 name="time"
