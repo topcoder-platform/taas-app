@@ -37,13 +37,6 @@ function InterviewConfirmPopup({ open, onClose }) {
           If you have any issues with scheduling, please contact
           <a href="mailto:talent@topcoder.com"> talent@topcoder.com</a>.
         </p>
-/* Commenting out the video UI control for now as there is no appropriate video clip to be embedded
- *       <video
- *        controls
- *         src={INTERVIEW_POPUP_MEDIA_URL}
- *         styleName="video"
- *       />
-*/
       </div>
     </SimpleModal>
   );
