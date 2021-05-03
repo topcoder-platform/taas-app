@@ -1,7 +1,12 @@
 /**
  * Position Details page actions
  */
-import { getPositionDetails, patchPositionCandidate } from "services/teams";
+import _ from "lodash";
+import {
+  getPositionDetails,
+  patchPositionCandidate,
+  patchCandidateInterview,
+} from "services/teams";
 import { ACTION_TYPE } from "constants";
 
 /**
@@ -16,7 +21,6 @@ export const loadPosition = (teamId, positionId) => ({
   type: ACTION_TYPE.LOAD_POSITION,
   payload: async () => {
     const response = await getPositionDetails(teamId, positionId);
-
     return response.data;
   },
   meta: {
@@ -40,6 +44,25 @@ export const updateCandidate = (candidateId, partialCandidateData) => ({
       candidateId,
       partialCandidateData
     );
+
+    return response.data;
+  },
+  meta: {
+    candidateId,
+  },
+});
+
+/**
+ * Add interview on server and in Redux store
+ *
+ * @param {string} candidateId position candidate id
+ * @param {object} interviewData data to submit in patch request
+ * @returns {object} an interview object
+ */
+export const addInterview = (candidateId, interviewData) => ({
+  type: ACTION_TYPE.ADD_INTERVIEW,
+  payload: async () => {
+    const response = await patchCandidateInterview(candidateId, interviewData);
 
     return response.data;
   },

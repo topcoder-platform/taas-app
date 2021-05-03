@@ -1,0 +1,28 @@
+@import "styles/include";
+
+.title {
+  @include font-barlow-condensed;
+  font-weight: normal;
+  font-size: 34px;
+  line-height: 40px;
+  margin: 0 0 24px 0;
+  overflow-wrap: anywhere;
+  padding: 0;
+  text-transform: uppercase;
+}
+
+.content {
+  @include font-roboto;
+  line-height: 140%;
+}
+
+.button-group {
+  margin: 24px 0 0 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  button {
+    margin-right: 10px;
+    margin-bottom: 10px;
+  }
+}

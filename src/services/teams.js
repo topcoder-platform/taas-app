@@ -60,6 +60,20 @@ export const patchPositionCandidate = (candidateId, partialCandidateData) => {
 };
 
 /**
+ * Patch New Candidate Interview
+ *
+ * @param {string} candidateId interview candidate id
+ * @param {object} interviewData emails and interview length
+ * @returns {Promise<object>} interview object
+ */
+export const patchCandidateInterview = (candidateId, interviewData) => {
+  return axios.patch(
+    `${config.API.V5}/jobCandidates/${candidateId}/requestInterview`,
+    interviewData
+  );
+};
+
+/**
  * Get Team Members
  *
  * @param {string|number} teamId team id

@@ -100,7 +100,11 @@ const ActionsMenu = ({ options = [] }) => {
                     onClick={closeOnAction(option.action)}
                     role="button"
                     tabIndex={0}
-                    styleName="option"
+                    styleName={
+                      "option" +
+                      (option.style ? " " + option.style : "") +
+                      (option.disabled ? " disabled" : "")
+                    }
                   >
                     {option.label}
                   </div>

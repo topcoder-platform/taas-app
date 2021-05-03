@@ -97,8 +97,10 @@ export const RATE_TYPE = {
 export const CANDIDATE_STATUS = {
   OPEN: "open",
   SELECTED: "selected",
-  SHORTLIST: "shortlist",
-  REJECTED: "rejected",
+  PLACED: "placed",
+  CLIENT_REJECTED_SCREENING: "client rejected - screening",
+  CLIENT_REJECTED_INTERVIEW: "client rejected - interview",
+  REJECTED_OTHER: "rejected - other",
   INTERVIEW: "interview",
   TOPCODER_REJECTED: "topcoder-rejected",
 };
@@ -109,6 +111,7 @@ export const CANDIDATE_STATUS = {
 export const CANDIDATE_STATUS_FILTER_KEY = {
   TO_REVIEW: "TO_REVIEW",
   INTERESTED: "INTERESTED",
+  SELECTED: "SELECTED",
   NOT_INTERESTED: "NOT_INTERESTED",
 };
 
@@ -124,15 +127,26 @@ export const CANDIDATE_STATUS_FILTERS = [
   },
   {
     key: CANDIDATE_STATUS_FILTER_KEY.INTERESTED,
-    buttonText: "Interested",
-    title: "Interested Candidates",
-    statuses: [CANDIDATE_STATUS.SHORTLIST, CANDIDATE_STATUS.INTERVIEW],
+    buttonText: "Interviews",
+    title: "Interviews",
+    statuses: [CANDIDATE_STATUS.INTERVIEW],
+  },
+  {
+    key: CANDIDATE_STATUS_FILTER_KEY.SELECTED,
+    buttonText: "Selected",
+    title: "Selected",
+    statuses: [CANDIDATE_STATUS.SELECTED],
   },
   {
     key: CANDIDATE_STATUS_FILTER_KEY.NOT_INTERESTED,
-    buttonText: "Not Interested",
-    title: "Not Interested Candidates",
-    statuses: [CANDIDATE_STATUS.REJECTED, CANDIDATE_STATUS.TOPCODER_REJECTED],
+    buttonText: "Declined",
+    title: "Declined",
+    statuses: [
+      CANDIDATE_STATUS.CLIENT_REJECTED_SCREENING,
+      CANDIDATE_STATUS.CLIENT_REJECTED_INTERVIEW,
+      CANDIDATE_STATUS.REJECTED_OTHER,
+      CANDIDATE_STATUS.TOPCODER_REJECTED,
+    ],
   },
 ];
 
@@ -171,6 +185,10 @@ export const ACTION_TYPE = {
   UPDATE_CANDIDATE_SUCCESS: "UPDATE_CANDIDATE_SUCCESS",
   UPDATE_CANDIDATE_ERROR: "UPDATE_CANDIDATE_ERROR",
 
+  ADD_INTERVIEW: "ADD_INTERVIEW",
+  ADD_INTERVIEW_PENDING: "ADD_INTERVIEW_PENDING",
+  ADD_INTERVIEW_SUCCESS: "ADD_INTERVIEW_SUCCESS",
+  ADD_INTERVIEW_ERROR: "ADD_INTERVIEW_ERROR",
   /*
     withAuthentication
    */
@@ -293,7 +311,7 @@ export const JOB_STATUS_OPTIONS = [
  * resource booking status options
  */
 export const RESOURCE_BOOKING_STATUS_OPTIONS = [
-  { value: "assigned", label: "assigned" },
+  { value: "placed", label: "placed" },
   { value: "closed", label: "closed" },
   { value: "cancelled", label: "cancelled" },
 ];
@@ -303,3 +321,11 @@ export const RESOURCE_BOOKING_STATUS_OPTIONS = [
  */
 export const DISABLED_DESCRIPTION_MESSAGE =
   "You may not edit a Job Description that is currently posted to Topcoder.com. Please contact support@topcoder.com.";
+
+/**
+ * The media URL to be shown on Interview popup
+ */
+export const INTERVIEW_POPUP_MEDIA_URL =
+  "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
+
+export const MAX_ALLOWED_INTERVIEWS = 3;
