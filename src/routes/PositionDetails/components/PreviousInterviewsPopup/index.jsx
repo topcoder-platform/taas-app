@@ -24,7 +24,8 @@ function PreviousInterviewsPopup(props) {
         key={interview.id}
         round={interview.round}
         date={interview.startTimestamp}
-        emails={interview.attendeesList}
+        hostEmail={interview.hostEmail}
+        guestEmails={interview.guestEmails}
       />
     ));
   };
