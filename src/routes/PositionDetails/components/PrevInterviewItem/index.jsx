@@ -16,7 +16,7 @@ function PrevInterviewItem(props) {
     <Accordion
       title={`Interview Round ${round}`}
       subhead={formatDate(date)}
-      sidebar={`${emails.length} Attendees`}
+      sidebar={`${emails.length} Attendee(s)`}
     >
       <ul>
         {emails.map((email) => (
