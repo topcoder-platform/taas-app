@@ -57,13 +57,16 @@ function InterviewDetailsPopup({ open, onClose, candidate, openNext }) {
 
   const onSubmitCallback = useCallback(
     async (formData) => {
-      const attendeesList =
-        formData.emails?.filter(
-          (email) => typeof email === "string" && email.length > 0
-        ) || [];
+      const hostEmail = formData.emails[0];
+      const guestEmails =
+        formData.emails
+          .slice(1)
+          .filter((email) => typeof email === "string" && email.length > 0) ||
+        [];
       const interviewData = {
-        xaiTemplate: formData.time,
-        attendeesList,
+        templateUrl: formData.time,
+        hostEmail,
+        guestEmails,
       };
 
       try {
