@@ -28,7 +28,7 @@ function InterviewConfirmPopup({ open, onClose }) {
         <p>
           You may manually select your available times from the email, or click
           <span styleName="highlighted"> “View More Times”</span> to see
-          expanded options, Additionally, you may click
+          expanded options, additionally, you may click
           <span styleName="highlighted"> “Overlay My Calendar”</span> to
           integrate with your calendar and allow the system to schedule based on
           your calendar availability.

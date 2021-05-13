@@ -16,7 +16,7 @@ function PrevInterviewItem(props) {
     <Accordion
       title={`Interview Round ${round}`}
       subhead={formatDate(date)}
-      sidebar={`${guestEmails.length + 1} Attendees`}
+      sidebar={`${guestEmails.length + 1} Attendee(s)`}
     >
       <ul>
         <li styleName="email">{hostEmail}</li>
