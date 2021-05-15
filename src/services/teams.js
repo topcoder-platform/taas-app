@@ -23,6 +23,15 @@ export const getMyTeams = (name, page = 1, perPage) => {
 };
 
 /**
+ * Get v5 user profile.
+ *
+ * @returns {Promise<{}>} user profile object
+ */
+export const getUserProfile = () => {
+  return axios.get(`${config.API.V5}/taas-teams/me`);
+};
+
+/**
  * Get team by id.
  *
  * @param {string|number} teamId team id

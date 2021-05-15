@@ -19,6 +19,7 @@ import {
   authUserSuccess,
   authUserError,
   authLoadTeamMembers,
+  authLoadUserProfile,
   authClearTeamMembers,
 } from "./actions";
 import { decodeToken } from "tc-auth-lib";
@@ -34,6 +35,8 @@ export default function withAuthentication(Component) {
       teamId,
       teamMembersLoaded,
       teamMembersLoadingError,
+      v5UserProfile,
+      v5UserProfileLoadingError,
     } = useSelector((state) => state.authUser);
     const params = useParams();
 
@@ -86,6 +89,12 @@ export default function withAuthentication(Component) {
       }
     }, [params.teamId, teamId, dispatch, isLoggedIn]);
 
+    useEffect(() => {
+      if (isLoggedIn) {
+        dispatch(authLoadUserProfile());
+      }
+    }, [dispatch, isLoggedIn]);
+
     return (
       <>
         {/* Show loading indicator until we know if user is logged-in or no.
@@ -96,8 +105,14 @@ export default function withAuthentication(Component) {
             <LoadingIndicator error={authError || teamMembersLoadingError} />
           ))}
 
+        {/* Show component only if  v5 user profile load error */}
+        {isLoggedIn === true && v5UserProfileLoadingError && (
+          <LoadingIndicator error={"Error: Network Error"} />
+        )}
         {/* Show component only if user is logged-in and if we don't need team members or we already loaded them */}
-        {isLoggedIn === true && (!params.teamId || teamMembersLoaded) ? (
+        {isLoggedIn === true &&
+        v5UserProfile &&
+        (!params.teamId || teamMembersLoaded) ? (
           <Component {...props} />
         ) : null}
       </>

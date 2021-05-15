@@ -16,6 +16,8 @@ const initialState = {
   teamMembersLoading: undefined,
   teamMembersLoadingError: undefined,
   teamMembersLoaded: false,
+  v5UserProfile: undefined,
+  v5UserProfileLoadingError: false,
 };
 
 const authInitialState = _.pick(initialState, [
@@ -92,6 +94,20 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         ...teamMembersInitialState,
+      };
+    }
+
+    case ACTION_TYPE.AUTH_LOAD_USER_PROFILE_SUCCESS: {
+      return {
+        ...state,
+        v5UserProfile: action.payload,
+        v5UserProfileLoadingError: false,
+      };
+    }
+    case ACTION_TYPE.AUTH_LOAD_USER_PROFILE_ERROR: {
+      return {
+        ...state,
+        v5UserProfileLoadingError: action.payload,
       };
     }
 

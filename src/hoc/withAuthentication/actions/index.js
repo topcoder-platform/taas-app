@@ -2,7 +2,7 @@
  * Auth User actions
  */
 import { ACTION_TYPE } from "constants";
-import { getTeamMembers } from "services/teams";
+import { getTeamMembers, getUserProfile } from "services/teams";
 
 /**
  * Action to set auth user data
@@ -37,6 +37,19 @@ export const authLoadTeamMembers = (teamId) => ({
   },
   meta: {
     teamId,
+  },
+});
+
+/**
+ * Loads v5 user profile for authentication/permission purposes
+ *
+ * @returns {Promise} loaded user profile
+ */
+export const authLoadUserProfile = (teamId) => ({
+  type: ACTION_TYPE.AUTH_LOAD_USER_PROFILE,
+  payload: async () => {
+    const res = await getUserProfile();
+    return res.data;
   },
 });
 
