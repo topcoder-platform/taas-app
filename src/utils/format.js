@@ -5,7 +5,7 @@ import _ from "lodash";
 import { RATE_TYPE } from "constants";
 import { EMAIL_REQUEST_EXTENSION, CONNECT_WEBSITE_URL } from "../../config";
 import moment from "moment";
-import { DAY_FORMAT } from "constants/";
+import { DAY_FORMAT, DATE_WITH_TIME_FORMAT } from "constants/";
 
 /**
  * Format URL to the project (team) in Connect App.
@@ -233,17 +233,27 @@ export const formatDateRange = (startDate, endDate) => {
  * Format date
  *
  * @param {string|Date|moment.Moment} date date
- *
+ * @param {string} format date/time format
  * @returns {string} formatted date range
  */
-export const formatDate = (date) => {
-  const dateStr = date ? moment(date).format(DAY_FORMAT) : "";
+export const formatDate = (date, format = DAY_FORMAT) => {
+  const dateStr = date ? moment(date).format(format) : "";
 
   if (!dateStr) {
     return "TBD";
   }
 
   return `${dateStr}`;
+};
+
+/**
+ * Format interview date/time.
+ *
+ * @param {string|Date|moment.Moment} date date
+ * @returns {string} formatted date
+ */
+export const formatInterviewDate = (date) => {
+  return formatDate(date, DATE_WITH_TIME_FORMAT);
 };
 
 /**
