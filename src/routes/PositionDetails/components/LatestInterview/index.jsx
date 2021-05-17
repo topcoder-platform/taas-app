@@ -6,7 +6,7 @@
 import React from "react";
 import PT from "prop-types";
 import "./styles.module.scss";
-import { formatDate } from "utils/format";
+import { formatInterviewDate } from "utils/format";
 
 function LatestInterview({ interviews }) {
   if (!interviews || !interviews.length) {
@@ -19,7 +19,7 @@ function LatestInterview({ interviews }) {
     <>
       <p styleName="small">Interview Round {latestInterview.round}</p>
       <p styleName="strong">{latestInterview.status}</p>
-      <p>{formatDate(latestInterview.startTimestamp)}</p>
+      <p>{formatInterviewDate(latestInterview.startTimestamp)}</p>
     </>
   );
 }

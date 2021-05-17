@@ -8,6 +8,11 @@
 export const DAY_FORMAT = "MM/DD/YYYY";
 
 /**
+ * Date with time format
+ */
+export const DATE_WITH_TIME_FORMAT = "MM/DD/YYYY HH:mm";
+
+/**
  * How many team member show per page by default
  */
 export const TEAM_MEMBERS_PER_PAGE = 5;
@@ -123,24 +128,28 @@ export const CANDIDATE_STATUS_FILTERS = [
     key: CANDIDATE_STATUS_FILTER_KEY.TO_REVIEW,
     buttonText: "To Review",
     title: "Candidates to Review",
+    noCandidateMessage: "No Candidates To Review",
     statuses: [CANDIDATE_STATUS.OPEN],
   },
   {
     key: CANDIDATE_STATUS_FILTER_KEY.INTERESTED,
     buttonText: "Interviews",
     title: "Interviews",
+    noCandidateMessage: "No Interviews",
     statuses: [CANDIDATE_STATUS.INTERVIEW],
   },
   {
     key: CANDIDATE_STATUS_FILTER_KEY.SELECTED,
     buttonText: "Selected",
     title: "Selected",
+    noCandidateMessage: "No Selected Candidates",
     statuses: [CANDIDATE_STATUS.SELECTED],
   },
   {
     key: CANDIDATE_STATUS_FILTER_KEY.NOT_INTERESTED,
     buttonText: "Declined",
     title: "Declined",
+    noCandidateMessage: "No Declined Candidates",
     statuses: [
       CANDIDATE_STATUS.CLIENT_REJECTED_SCREENING,
       CANDIDATE_STATUS.CLIENT_REJECTED_INTERVIEW,
@@ -162,7 +171,7 @@ export const CANDIDATES_SORT_BY = {
  * Candidates "sort by" select options
  */
 export const CANDIDATES_SORT_OPTIONS = [
-  { label: "Skill Matched", value: CANDIDATES_SORT_BY.SKILL_MATCHED },
+  { label: "Skills Matched", value: CANDIDATES_SORT_BY.SKILL_MATCHED },
   { label: "Handle", value: CANDIDATES_SORT_BY.HANDLE },
 ];
 
