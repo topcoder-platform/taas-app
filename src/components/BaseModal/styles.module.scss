@@ -1,5 +1,9 @@
 @import "styles/include";
 
+svg {
+  pointer-events: none;
+}
+
 .title {
   @include font-barlow-condensed;
   font-weight: normal;

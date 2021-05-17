@@ -200,7 +200,7 @@ const PositionCandidates = ({ position, statusFilterKey, updateCandidate }) => {
         />
 
         {filteredCandidates.length === 0 && (
-          <div styleName="no-candidates">No {statusFilter.title}</div>
+          <div styleName="no-candidates">{statusFilter.noCandidateMessage}</div>
         )}
         {filteredCandidates.length > 0 && (
           <div styleName="table">

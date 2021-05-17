@@ -5,7 +5,7 @@
  */
 import React from "react";
 import PT from "prop-types";
-import { formatDate } from "utils/format";
+import { formatInterviewDate } from "utils/format";
 import Accordion from "components/Accordion";
 import "./styles.module.scss";
 
@@ -15,7 +15,7 @@ function PrevInterviewItem(props) {
   return (
     <Accordion
       title={`Interview Round ${round}`}
-      subhead={formatDate(date)}
+      subhead={formatInterviewDate(date)}
       sidebar={`${guestEmails.length + 1} Attendee(s)`}
     >
       <ul>

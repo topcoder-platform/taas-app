@@ -86,7 +86,12 @@ function InterviewDetailsPopup({ open, onClose, candidate, openNext }) {
     candidate.interviews.length >= MAX_ALLOWED_INTERVIEWS
   ) {
     return (
-      <BaseModal open={open} onClose={onClose} title="Schedule an Interview">
+      <BaseModal
+        open={open}
+        onClose={onClose}
+        closeButtonText="Close"
+        title="Schedule an Interview"
+      >
         <p styleName="exceeds-max-number-txt">
           You've reached the cap of {MAX_ALLOWED_INTERVIEWS} interviews with
           this candidate. Now please make your decision to Select and Decline
