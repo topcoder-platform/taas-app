@@ -107,7 +107,7 @@ export default function withAuthentication(Component) {
 
         {/* Show component only if  v5 user profile load error */}
         {isLoggedIn === true && v5UserProfileLoadingError && (
-          <LoadingIndicator error={"Error: Network Error"} />
+          <LoadingIndicator error={v5UserProfileLoadingError} />
         )}
         {/* Show component only if user is logged-in and if we don't need team members or we already loaded them */}
         {isLoggedIn === true &&

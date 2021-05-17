@@ -45,8 +45,8 @@ export const authLoadTeamMembers = (teamId) => ({
  *
  * @returns {Promise} loaded user profile
  */
-export const authLoadUserProfile = (teamId) => ({
-  type: ACTION_TYPE.AUTH_LOAD_USER_PROFILE,
+export const authLoadUserProfile = () => ({
+  type: ACTION_TYPE.AUTH_LOAD_V5_USER_PROFILE,
   payload: async () => {
     const res = await getUserProfile();
     return res.data;

@@ -97,14 +97,14 @@ const reducer = (state = initialState, action) => {
       };
     }
 
-    case ACTION_TYPE.AUTH_LOAD_USER_PROFILE_SUCCESS: {
+    case ACTION_TYPE.AUTH_LOAD_V5_USER_PROFILE_SUCCESS: {
       return {
         ...state,
         v5UserProfile: action.payload,
         v5UserProfileLoadingError: false,
       };
     }
-    case ACTION_TYPE.AUTH_LOAD_USER_PROFILE_ERROR: {
+    case ACTION_TYPE.AUTH_LOAD_V5_USER_PROFILE_ERROR: {
       return {
         ...state,
         v5UserProfileLoadingError: action.payload,
