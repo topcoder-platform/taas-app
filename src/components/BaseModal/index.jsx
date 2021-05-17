@@ -34,6 +34,7 @@ function BaseModal({
   children,
   title,
   button,
+  closeButtonText,
   disabled,
   extraModalStyle,
 }) {
@@ -58,7 +59,7 @@ function BaseModal({
           onClick={onClose}
           disabled={disabled}
         >
-          Cancel
+          {closeButtonText ? closeButtonText : "Cancel"}
         </Button>
       </div>
     </Modal>
@@ -71,6 +72,7 @@ BaseModal.propTypes = {
   children: PT.node,
   title: PT.string,
   button: PT.element,
+  closeButtonText: PT.string,
   disabled: PT.bool,
   extraModalStyle: PT.object,
 };

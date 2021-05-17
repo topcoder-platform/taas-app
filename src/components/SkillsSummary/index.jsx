@@ -21,7 +21,7 @@ const SkillsSummary = ({ skills, requiredSkills = [], limit }) => {
     <div>
       <div styleName="percentage">
         <PercentageBar ratio={skillsMatchedRatio} styleName="percentage-bar" />
-        {Math.round(skillsMatchedRatio * 100)}% skill matched
+        {Math.round(skillsMatchedRatio * 100)}% skills matched
       </div>
       <SkillsList
         skills={skills}

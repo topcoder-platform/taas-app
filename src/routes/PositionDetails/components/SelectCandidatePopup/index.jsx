@@ -70,13 +70,13 @@ const SelectCandidatePopup = ({
           ) : (
             <>
               <p>
-                You have selected this applicant - you want this member on your
+                You have selected this candidate - you want this member on your
                 team! What happens next:
               </p>
               <ol>
                 <li>
                   Upon confirmation, Topcoder will confirm the arrangement with
-                  the selected member
+                  the selected candidate
                 </li>
                 <li>
                   A Topcoder Rep will contact you with details on the work

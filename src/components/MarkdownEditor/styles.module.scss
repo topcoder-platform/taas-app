@@ -43,6 +43,10 @@
       border: 1px solid #aaaaab;
       border-radius: 4px;
       overflow: hidden;
+      &:focus-within:not(.error) {
+        border-color: #55a5ff;
+        box-shadow: 0 0 2px 1px #cee6ff;
+      }
     }
 
     .te-toolbar-section {
