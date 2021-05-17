@@ -146,7 +146,7 @@ const PositionCandidates = ({ position, statusFilterKey, updateCandidate }) => {
         status: CANDIDATE_STATUS.SELECTED,
       })
         .then(() => {
-          toastr.success("Candidate is marked as interested.");
+          toastr.success("Candidate is marked as selected.");
           setSelectCandidateOpen(false);
         })
         .catch((error) => {
@@ -170,7 +170,7 @@ const PositionCandidates = ({ position, statusFilterKey, updateCandidate }) => {
           : CANDIDATE_STATUS.CLIENT_REJECTED_SCREENING,
       })
         .then(() => {
-          toastr.success("Candidate is marked as not interested.");
+          toastr.success("Candidate is marked as declined.");
           setSelectCandidateOpen(false);
         })
         .catch((error) => {

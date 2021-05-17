@@ -57,13 +57,16 @@ function InterviewDetailsPopup({ open, onClose, candidate, openNext }) {
 
   const onSubmitCallback = useCallback(
     async (formData) => {
-      const attendeesList =
-        formData.emails?.filter(
-          (email) => typeof email === "string" && email.length > 0
-        ) || [];
+      const hostEmail = formData.emails[0];
+      const guestEmails =
+        formData.emails
+          .slice(1)
+          .filter((email) => typeof email === "string" && email.length > 0) ||
+        [];
       const interviewData = {
-        xaiTemplate: formData.time,
-        attendeesList,
+        templateUrl: formData.time,
+        hostEmail,
+        guestEmails,
       };
 
       try {
@@ -222,7 +225,7 @@ function InterviewDetailsPopup({ open, onClose, candidate, openNext }) {
             <div styleName="bottom">
               <p styleName="modal-text">
                 Selecting “Begin Scheduling” will initiate emails to all
-                attendees to coordinate availabiltiy. Please check your email to
+                attendees to coordinate availability. Please check your email to
                 input your availability.
               </p>
             </div>
