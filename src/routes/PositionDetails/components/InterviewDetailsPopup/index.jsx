@@ -230,7 +230,7 @@ function InterviewDetailsPopup({ open, onClose, candidate, openNext }) {
             <div styleName="bottom">
               <p styleName="modal-text">
                 Selecting “Begin Scheduling” will initiate emails to all
-                attendees to coordinate availabiltiy. Please check your email to
+                attendees to coordinate availability. Please check your email to
                 input your availability.
               </p>
             </div>
