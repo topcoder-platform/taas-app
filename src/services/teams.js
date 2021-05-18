@@ -27,7 +27,7 @@ export const getMyTeams = (name, page = 1, perPage) => {
  *
  * @returns {Promise<{}>} user profile object
  */
-export const getUserProfile = () => {
+export const getV5UserProfile = () => {
   return axios.get(`${config.API.V5}/taas-teams/me`);
 };
 
