@@ -90,11 +90,15 @@ export default function withAuthentication(Component) {
       }
     }, [params.teamId, teamId, dispatch, isLoggedIn]);
 
+    /*
+      Load V5 User Profile
+    */
     useEffect(() => {
-      if (isLoggedIn) {
+      // is user is logged-in, but V5 user profile is not loaded yet, then load it
+      if (isLoggedIn && !v5UserProfileLoading && !v5UserProfile) {
         dispatch(authLoadV5UserProfile());
       }
-    }, [dispatch, isLoggedIn]);
+    }, [dispatch, isLoggedIn, v5UserProfileLoading, v5UserProfile]);
 
     return (
       <>
@@ -102,10 +106,16 @@ export default function withAuthentication(Component) {
             Also, show loading indicator if we need to know team members but haven't loaded them yet.
             or load v5 user profile but haven't loaded them yet.
             In we got error during this process, show error */}
-        {isLoggedIn === null ||
-          ((params.teamId && !teamMembersLoaded || v5UserProfileLoading || v5UserProfileLoadingError)&& (
-            <LoadingIndicator error={authError || teamMembersLoadingError || v5UserProfileLoadingError} />
-          ))}
+        {(isLoggedIn === null ||
+          (params.teamId && !teamMembersLoaded) ||
+          v5UserProfileLoading ||
+          v5UserProfileLoadingError) && (
+          <LoadingIndicator
+            error={
+              authError || teamMembersLoadingError || v5UserProfileLoadingError
+            }
+          />
+        )}
 
         {/* Show component only if user is logged-in and if we don't need team members or we already loaded them */}
         {isLoggedIn === true &&
