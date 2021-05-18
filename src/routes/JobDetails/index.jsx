@@ -5,6 +5,7 @@
  * It gets `teamId` and `jobId` from the router.
  */
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import PT from "prop-types";
 import _ from "lodash";
 import Page from "../../components/Page";
@@ -32,6 +33,7 @@ const JobDetails = ({ teamId, jobId }) => {
   const [job, loadingError] = useData(getJobById, jobId);
   const [skills] = useData(getSkills);
   const [skillSet, setSkillSet] = useState(null);
+  const { id: userId } = useSelector((state) => state.authUser.v5UserProfile);
 
   useEffect(() => {
     if (!!skills && !!job) {
@@ -106,7 +108,8 @@ const JobDetails = ({ teamId, jobId }) => {
                 {job.status}
               </DataItem>
             </div>
-            {hasPermission(PERMISSIONS.UPDATE_JOB_NOT_OWN) && (
+            {(hasPermission(PERMISSIONS.UPDATE_JOB_NOT_OWN) ||
+              userId === job.createdBy) && (
               <div styleName="actions">
                 <Button
                   target="_blank"
