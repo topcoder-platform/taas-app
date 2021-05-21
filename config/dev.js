@@ -10,7 +10,7 @@ module.exports = {
   CONNECT_WEBSITE_URL: "https://connect.topcoder-dev.com",
 
   API: {
-    V5: "https://api.topcoder-dev.com/v5",
+    V5: "https://api.topcoder-dev.com/v5", //"http://localhost:3131/api/v5",
     V3: "https://api.topcoder-dev.com/v3",
   },
 };

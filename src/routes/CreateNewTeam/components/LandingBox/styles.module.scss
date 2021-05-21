@@ -1,0 +1,52 @@
+@import "styles/include";
+
+.landing-box {
+  @include rounded-card;
+  padding: 44px 50px;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+  margin-top: 20px;
+}
+
+.flex-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  z-index: 10;
+}
+
+.title {
+  @include font-barlow-condensed;
+  font-weight: normal;
+  font-size: 34px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.bg-icon {
+  position: absolute;
+  right: 0;
+  top: 60px;
+  opacity: 10%;
+  svg {
+    width: 144px;
+    height: 144px;
+  }
+}
+
+.icon-and-text {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: stretch;
+  margin-right: 40px;
+}
+
+.icon {
+  width: 72px;
+  height: 72px;
+  margin-right: 40px;
+}

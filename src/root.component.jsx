@@ -9,6 +9,7 @@ import ResourceBookingForm from "./routes/ResourceBookingForm";
 import JobDetails from "./routes/JobDetails";
 import JobForm from "./routes/JobForm";
 import TeamAccess from "./routes/TeamAccess";
+import CreateNewTeam from "./routes/CreateNewTeam";
 import ReduxToastr from "react-redux-toastr";
 import store from "./store";
 import "./styles/main.vendor.scss";
@@ -29,6 +30,7 @@ export default function Root() {
           <ResourceBookingForm path="/taas/myteams/:teamId/rb/:resourceBookingId/edit" />
           <PositionDetails path="/taas/myteams/:teamId/positions/:positionId/candidates" />
           <TeamAccess path="/taas/myteams/:teamId/access" />
+          <CreateNewTeam path="/taas/myteams/createnewteam" />
         </Router>
 
         {/* Global config for Toastr popups */}
