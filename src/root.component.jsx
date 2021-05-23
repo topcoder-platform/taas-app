@@ -10,6 +10,7 @@ import JobDetails from "./routes/JobDetails";
 import JobForm from "./routes/JobForm";
 import TeamAccess from "./routes/TeamAccess";
 import CreateNewTeam from "./routes/CreateNewTeam";
+import InputSkills from "./routes/InputSkills";
 import ReduxToastr from "react-redux-toastr";
 import store from "./store";
 import "./styles/main.vendor.scss";
@@ -31,6 +32,7 @@ export default function Root() {
           <PositionDetails path="/taas/myteams/:teamId/positions/:positionId/candidates" />
           <TeamAccess path="/taas/myteams/:teamId/access" />
           <CreateNewTeam path="/taas/myteams/createnewteam" />
+          <InputSkills path="/taas/myteams/createnewteam/:projectId/skills" />
         </Router>
 
         {/* Global config for Toastr popups */}

@@ -7,7 +7,7 @@ function LandingBox({
   icon,
   title,
   description,
-  path,
+  onClick,
   isDisabled,
   backgroundImage,
 }) {
@@ -29,7 +29,7 @@ function LandingBox({
         <Button
           size="large"
           type="secondary"
-          routeTo={path}
+          onClick={onClick}
           disabled={isDisabled}
         >
           Select
@@ -44,7 +44,7 @@ LandingBox.propTypes = {
   icon: PT.node,
   title: PT.string,
   description: PT.string,
-  path: PT.string,
+  onClick: PT.func,
   isDisabled: PT.bool,
   backgroundImage: PT.string,
 };

@@ -1,12 +1,26 @@
 import React from "react";
+import { navigate } from "@reach/router";
+import _ from "lodash";
 import Page from "components/Page";
 import PageHeader from "components/PageHeader";
 import LandingBox from "./components/LandingBox";
 import IconMultipleActionsCheck from "../../assets/images/icon-multiple-actions-check-2.svg";
 import IconListQuill from "../../assets/images/icon-list-quill.svg";
 import IconOfficeFileText from "../../assets/images/icon-office-file-text.svg";
+import { postProject } from "services/teams";
 
 function CreateNewTeam() {
+  const createProject = async () => {
+    postProject()
+      .then((res) => {
+        const id = _.get(res, "data.id");
+        navigate(`/taas/myteams/createnewteam/${id}/skills`);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+
   return (
     <Page title="Create New Team">
       <PageHeader title="Create New Team" />
@@ -25,7 +39,7 @@ function CreateNewTeam() {
         description="You know your developer has specific skills, such as for example: Java, Python, Oracle, etc."
         icon={<IconListQuill />}
         backgroundImage="linear-gradient(221.5deg, #2C95D7 0%, #9D41C9 100%)"
-        path="/"
+        onClick={createProject}
       />
       <LandingBox
         title="Input Job Description"

@@ -170,3 +170,32 @@ export const postMembers = (teamId, handles, emails) => {
 
   return axios.post(url, bodyObj);
 };
+
+/**
+ * Post new project
+ *
+ * @returns {Promise<object>} project object
+ */
+export const postProject = () => {
+  const url = `${config.API.V5}/projects/`;
+
+  const bodyObj = {
+    name: "Placeholder",
+    type: "talent-as-a-service",
+  };
+
+  return axios.post(url, bodyObj);
+};
+
+/**
+ * Get skills
+ *
+ * @param {string|number} page page number
+ *
+ * @returns {Promise<object[]>} array of skill items
+ */
+export const getSkills = (page) => {
+  const query = `page=${page}&perPage=100`;
+
+  return axios.get(`${config.API.V5}/taas-teams/skills?${query}`);
+};
