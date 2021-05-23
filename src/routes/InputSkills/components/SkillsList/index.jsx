@@ -1,9 +1,10 @@
+import React from "react";
 import Input from "components/Input";
 import PageHeader from "components/PageHeader";
-import React from "react";
 import "./styles.module.scss";
+import SkillItem from "../SkillItem";
 
-function SkillsList() {
+function SkillsList({ skills }) {
   return (
     <div styleName="skills-list">
       <PageHeader
@@ -16,6 +17,11 @@ function SkillsList() {
           />
         }
       />
+      <div styleName="skill-container">
+        {skills.map((skill) => (
+          <SkillItem id={skill.id} name={skill.name} />
+        ))}
+      </div>
     </div>
   );
 }
