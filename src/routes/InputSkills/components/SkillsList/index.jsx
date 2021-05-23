@@ -6,9 +6,8 @@ import "./styles.module.scss";
 import SkillItem from "../SkillItem";
 import { INPUT_DEBOUNCE_DELAY } from "constants/";
 
-function SkillsList({ skills }) {
+function SkillsList({ skills, selectedSkills, toggleSkill }) {
   const [filteredSkills, setFilteredSkills] = useState(skills);
-  const [selectedSkills, setSelectedSkills] = useState([]);
   const [filter, setFilter] = useState("");
   const [debouncedFilter, setDebouncedFilter] = useState("");
 
@@ -33,7 +32,7 @@ function SkillsList({ skills }) {
     } else {
       setFilteredSkills(skills);
     }
-  }, [debouncedFilter]);
+  }, [debouncedFilter, skills]);
 
   return (
     <div styleName="skills-list">
@@ -48,9 +47,18 @@ function SkillsList({ skills }) {
           />
         }
       />
+      {selectedSkills.length > 0 && (
+        <p styleName="skill-count">{selectedSkills.length} skills selected</p>
+      )}
       <div styleName="skill-container">
-        {filteredSkills.map((skill) => (
-          <SkillItem id={skill.id} name={skill.name} />
+        {filteredSkills.map(({ id, name }) => (
+          <SkillItem
+            key={id}
+            id={id}
+            name={name}
+            onClick={toggleSkill}
+            isSelected={selectedSkills.includes(id)}
+          />
         ))}
       </div>
     </div>

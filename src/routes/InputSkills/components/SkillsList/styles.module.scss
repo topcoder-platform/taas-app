@@ -6,9 +6,18 @@
   margin-right: 30px;
   height: 80vh;
   overflow: scroll;
+  position: relative;
+
   > header {
     padding: 16px 24px;
   }
+}
+
+.skill-count {
+  position: absolute;
+  font-size: 12px;
+  top: 72px;
+  left: 73px;
 }
 
 // adding "input:not([type="checkbox"])" to make sure that we override reset styles
