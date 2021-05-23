@@ -1,0 +1,33 @@
+@import "styles/include";
+
+.search-card {
+  @include rounded-card;
+  max-width: 746px;
+  width: 50vw;
+  margin-right: 30px;
+  height: 80vh;
+}
+
+.heading {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 30px 0 30px 0;
+
+  svg {
+    margin-bottom: 8px;
+  }
+
+  h3 {
+    @include font-barlow-condensed;
+    text-transform: uppercase;
+    font-size: 34px;
+    margin-bottom: 8px;
+  }
+
+  p {
+    font-size: 14px;
+    color: #555555;
+  }
+}

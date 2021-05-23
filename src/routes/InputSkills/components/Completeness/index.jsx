@@ -1,20 +1,46 @@
 import Button from "components/Button";
 import React from "react";
+import cn from "classnames";
 import CompleteProgress from "../CompleteProgress";
 import "./styles.module.scss";
 import IconListQuill from "../../../../assets/images/icon-list-quill.svg";
 
-function Completeness({ isDisabled }) {
+function Completeness({ isDisabled, onClick, buttonLabel, stage }) {
   return (
     <div styleName="completeness">
-      <CompleteProgress percentDone={26} />
+      <CompleteProgress
+        percentDone={stage === 1 ? 26 : stage === 2 ? 52 : 98}
+      />
       <ul styleName="list">
-        <li styleName="list-item done">Input Skills</li>
-        <li styleName="list-item">Search Member</li>
-        <li styleName="list-item">Overview of the Results</li>
+        <li
+          styleName={cn(
+            "list-item",
+            { active: stage === 1 },
+            { done: stage > 1 }
+          )}
+        >
+          Input Skills
+        </li>
+        <li
+          styleName={cn(
+            "list-item",
+            { active: stage === 2 },
+            { done: stage === 3 }
+          )}
+        >
+          Search Member
+        </li>
+        <li styleName={cn("list-item", { active: stage === 3 })}>
+          Overview of the Results
+        </li>
       </ul>
-      <Button size="medium" type="primary" disabled={isDisabled}>
-        Search
+      <Button
+        size="medium"
+        type="secondary"
+        disabled={isDisabled}
+        onClick={onClick}
+      >
+        {buttonLabel}
       </Button>
       <IconListQuill styleName="transparent-icon" />
     </div>

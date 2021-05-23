@@ -29,10 +29,18 @@
     float: left;
   }
 
-  &.done {
+  &.active {
     font-weight: 700;
     &:before {
       background-color: #fff;
+    }
+  }
+
+  &.done {
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.6);
+    &:before {
+      content: "✓";
     }
   }
 }
