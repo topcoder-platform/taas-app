@@ -4,9 +4,11 @@
   @include rounded-card;
   max-width: 746px;
   margin-right: 30px;
-  padding: 0 30px;
   height: 80vh;
   overflow: scroll;
+  > header {
+    padding: 16px 24px;
+  }
 }
 
 // adding "input:not([type="checkbox"])" to make sure that we override reset styles
@@ -31,6 +33,7 @@ input:not([type="checkbox"]).filter-input {
 .skill-container {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: flex-start;
   flex-wrap: wrap;
+  margin-right: 24px;
 }

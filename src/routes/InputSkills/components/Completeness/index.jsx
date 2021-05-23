@@ -2,6 +2,7 @@ import Button from "components/Button";
 import React from "react";
 import CompleteProgress from "../CompleteProgress";
 import "./styles.module.scss";
+import IconListQuill from "../../../../assets/images/icon-list-quill.svg";
 
 function Completeness() {
   return (
@@ -15,6 +16,7 @@ function Completeness() {
       <Button size="medium" type="primary" disabled>
         Search
       </Button>
+      <IconListQuill styleName="transparent-icon" />
     </div>
   );
 }
