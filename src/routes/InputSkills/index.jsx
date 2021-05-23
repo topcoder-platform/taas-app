@@ -6,13 +6,26 @@ import { useData } from "hooks/useData";
 import { getSkills } from "services/skills";
 import LoadingIndicator from "components/LoadingIndicator";
 import SearchCard from "./components/SearchCard";
+import ResultCard from "./components/ResultCard";
+import { createJob } from "services/jobs";
+import { navigate } from "@reach/router";
 
-function InputSkills() {
+function InputSkills({ projectId }) {
   const [selectedSkills, setSelectedSkills] = useState([]);
   const [searchState, setSearchState] = useState("done");
   const [skills, loadingError] = useData(getSkills);
 
   let searchTimer;
+
+  const submitJob = () => {
+    createJob({
+      projectId,
+      title: "placeholder",
+      skills: selectedSkills,
+    }).then(() => {
+      navigate("/taas/myteams/createnewteam");
+    });
+  };
 
   const toggleSkill = useCallback(
     (id) => {
@@ -58,7 +71,14 @@ function InputSkills() {
       <Completeness isDisabled buttonLabel="Submit Request" stage={2} />
     </div>
   ) : (
-    <div>Done!</div>
+    <div styleName="page">
+      <ResultCard />
+      <Completeness
+        buttonLabel="Submit Request"
+        stage={3}
+        onClick={submitJob}
+      />
+    </div>
   );
 }
 
