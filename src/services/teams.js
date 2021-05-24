@@ -180,7 +180,7 @@ export const postProject = () => {
   const url = `${config.API.V5}/projects/`;
 
   const bodyObj = {
-    name: "Placeholder",
+    name: `project-${Date()}`,
     type: "talent-as-a-service",
   };
 

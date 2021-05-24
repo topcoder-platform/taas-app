@@ -12,7 +12,7 @@ import { navigate } from "@reach/router";
 
 function InputSkills({ projectId }) {
   const [selectedSkills, setSelectedSkills] = useState([]);
-  const [searchState, setSearchState] = useState("done");
+  const [searchState, setSearchState] = useState(null);
   const [skills, loadingError] = useData(getSkills);
 
   let searchTimer;
@@ -20,8 +20,9 @@ function InputSkills({ projectId }) {
   const submitJob = () => {
     createJob({
       projectId,
-      title: "placeholder",
+      title: `job-${Date()}`,
       skills: selectedSkills,
+      numPositions: 1,
     }).then(() => {
       navigate("/taas/myteams/createnewteam");
     });
