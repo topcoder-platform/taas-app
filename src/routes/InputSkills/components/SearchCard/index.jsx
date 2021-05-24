@@ -1,9 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./styles.module.scss";
 import IconEarthSearch from "../../../../assets/images/icon-earth-search.svg";
-import CenteredSpinner from "components/CenteredSpinner";
+import WorldMapDotted from "../../../../assets/images/world-map-dotted.svg";
+import WorldMapSearch1 from "../../../../assets/images/world-map-search1.svg";
+import WorldMapSearch2 from "../../../../assets/images/world-map-search2.svg";
 
 function SearchCard() {
+  const [searchState, setSearchState] = useState(null);
+
+  useEffect(() => {
+    let timer2;
+    const timer1 = setTimeout(() => {
+      setSearchState("state1");
+      timer2 = setTimeout(() => {
+        setSearchState("state2");
+      }, 500);
+    }, 500);
+
+    return () => {
+      clearTimeout(timer1);
+      clearTimeout(timer2);
+    };
+  }, []);
+
   return (
     <div styleName="search-card">
       <div styleName="heading">
@@ -11,7 +30,15 @@ function SearchCard() {
         <h3>Search..</h3>
         <p>Matching the criteria with 1.5 million members around the world..</p>
       </div>
-      <CenteredSpinner />
+      <div styleName="map-container">
+        {!searchState ? (
+          <WorldMapDotted />
+        ) : searchState === "state1" ? (
+          <WorldMapSearch1 />
+        ) : (
+          <WorldMapSearch2 />
+        )}
+      </div>
     </div>
   );
 }

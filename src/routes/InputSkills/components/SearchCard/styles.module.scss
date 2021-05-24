@@ -31,3 +31,14 @@
     color: #555555;
   }
 }
+
+.map-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+
+  svg {
+    width: 90%;
+  }
+}

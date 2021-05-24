@@ -177,7 +177,7 @@ export const postMembers = (teamId, handles, emails) => {
  * @returns {Promise<object>} project object
  */
 export const postProject = () => {
-  const url = `${config.API.V5}/projects/`;
+  const url = `${config.API.V5}/taas-teams/createTeamRequest`;
 
   const bodyObj = {
     name: `project-${Date()}`,
@@ -185,17 +185,4 @@ export const postProject = () => {
   };
 
   return axios.post(url, bodyObj);
-};
-
-/**
- * Get skills
- *
- * @param {string|number} page page number
- *
- * @returns {Promise<object[]>} array of skill items
- */
-export const getSkills = (page) => {
-  const query = `page=${page}&perPage=100`;
-
-  return axios.get(`${config.API.V5}/taas-teams/skills?${query}`);
 };
