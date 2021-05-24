@@ -1,32 +1,51 @@
 import React, { useCallback, useEffect, useState } from "react";
+import { useData } from "hooks/useData";
+import { navigate } from "@reach/router";
+import { toastr } from "react-redux-toastr";
 import SkillsList from "./components/SkillsList";
 import Completeness from "./components/Completeness";
 import "./styles.module.scss";
-import { useData } from "hooks/useData";
 import { getSkills } from "services/skills";
 import LoadingIndicator from "components/LoadingIndicator";
 import SearchCard from "./components/SearchCard";
 import ResultCard from "./components/ResultCard";
 import { createJob } from "services/jobs";
-import { navigate } from "@reach/router";
+import AddAnotherModal from "./components/AddAnotherModal";
 
 function InputSkills({ projectId }) {
   const [selectedSkills, setSelectedSkills] = useState([]);
   const [searchState, setSearchState] = useState(null);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [submitDone, setSubmitDone] = useState(false);
+
   const [skills, loadingError] = useData(getSkills);
 
   let searchTimer;
 
   const submitJob = () => {
+    setSubmitDone(false);
+    setModalOpen(true);
     createJob({
       projectId,
       title: `job-${Date()}`,
       skills: selectedSkills,
       numPositions: 1,
-    }).then(() => {
-      navigate("/taas/myteams/createnewteam");
-    });
+    })
+      .then(() => {
+        toastr.success("Job Submitted");
+      })
+      .catch((err) => {
+        console.error(err);
+        toastr.warning("Error Submitting Job");
+      })
+      .finally(() => {
+        setSubmitDone(true);
+      });
   };
+
+  const addAnother = useCallback(() => {
+    navigate(`/taas/myteams/createnewteam/${projectId}/role`);
+  }, [projectId]);
 
   const toggleSkill = useCallback(
     (id) => {
@@ -78,6 +97,12 @@ function InputSkills({ projectId }) {
         buttonLabel="Submit Request"
         stage={3}
         onClick={submitJob}
+      />
+      <AddAnotherModal
+        open={modalOpen}
+        onClose={() => setModalOpen(false)}
+        submitDone={submitDone}
+        addAnother={addAnother}
       />
     </div>
   );

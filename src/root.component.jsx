@@ -15,6 +15,7 @@ import ReduxToastr from "react-redux-toastr";
 import store from "./store";
 import "./styles/main.vendor.scss";
 import styles from "./styles/main.module.scss";
+import SelectRole from "./routes/SelectRole";
 
 export default function Root() {
   return (
@@ -33,6 +34,7 @@ export default function Root() {
           <TeamAccess path="/taas/myteams/:teamId/access" />
           <CreateNewTeam path="/taas/myteams/createnewteam" />
           <InputSkills path="/taas/myteams/createnewteam/:projectId/skills" />
+          <SelectRole path="/taas/myteams/createnewteam/:projectId/role" />
         </Router>
 
         {/* Global config for Toastr popups */}
