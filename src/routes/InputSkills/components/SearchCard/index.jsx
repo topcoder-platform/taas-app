@@ -14,8 +14,8 @@ function SearchCard() {
       setSearchState("state1");
       timer2 = setTimeout(() => {
         setSearchState("state2");
-      }, 500);
-    }, 500);
+      }, 800);
+    }, 800);
 
     return () => {
       clearTimeout(timer1);

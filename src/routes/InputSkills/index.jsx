@@ -64,7 +64,7 @@ function InputSkills({ projectId }) {
     setSearchState("searching");
     searchTimer = setTimeout(() => {
       setSearchState("done");
-    }, 2000);
+    }, 3000);
   };
 
   useEffect(() => clearTimeout(searchTimer));

@@ -8,6 +8,7 @@ import IconMultipleActionsCheck from "../../assets/images/icon-multiple-actions-
 import IconListQuill from "../../assets/images/icon-list-quill.svg";
 import IconOfficeFileText from "../../assets/images/icon-office-file-text.svg";
 import { postProject } from "services/teams";
+import { toastr } from "react-redux-toastr";
 
 function CreateNewTeam() {
   const createProject = async () => {
@@ -17,6 +18,7 @@ function CreateNewTeam() {
         navigate(`/taas/myteams/createnewteam/${id}/skills`);
       })
       .catch((err) => {
+        toastr.warning("Error", "Failed to create a new team.");
         console.error(err);
       });
   };
