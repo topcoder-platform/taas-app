@@ -1,3 +1,8 @@
+/**
+ * Select Role
+ * Page for selecting a role to add to your team
+ */
+
 import React from "react";
 
 function SelectRole() {

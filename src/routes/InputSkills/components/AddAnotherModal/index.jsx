@@ -1,3 +1,9 @@
+/**
+ * Add Another Modal
+ * Popup that appears after submitting job.
+ * Shows loading spinner while job submits and
+ * allows navigation to "Add another role".
+ */
 import React from "react";
 import PT from "prop-types";
 import Modal from "react-responsive-modal";

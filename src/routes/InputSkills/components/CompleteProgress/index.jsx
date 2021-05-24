@@ -1,3 +1,8 @@
+/**
+ * Complete Progress Tracker
+ * Graphical representation of
+ * completeness percentage for skill input.
+ */
 import React from "react";
 import PT from "prop-types";
 import "./styles.module.scss";

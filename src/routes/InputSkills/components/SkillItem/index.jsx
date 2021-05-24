@@ -1,3 +1,8 @@
+/**
+ * Skill Item
+ * An item for the Skill List component.
+ * Shows an image and the name of the skill.
+ */
 import React from "react";
 import PT from "prop-types";
 import IconQuestionCircle from "../../../../assets/images/icon-question-circle.svg";

@@ -1,3 +1,8 @@
+/**
+ * Search Card
+ * A card that simulates searching for users
+ * that match the given skills.
+ */
 import React, { useEffect, useState } from "react";
 import "./styles.module.scss";
 import IconEarthSearch from "../../../../assets/images/icon-earth-search.svg";

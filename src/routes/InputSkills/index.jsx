@@ -1,7 +1,17 @@
+/**
+ * Input Skills page
+ * Page that user reaches after choosing to input job skills.
+ *
+ * Gets a project id from the router.
+ *
+ * Allows selecting a number of skills, searching for users
+ * with those skills, and submitting a job requiring the skills.
+ */
 import React, { useCallback, useEffect, useState } from "react";
 import { useData } from "hooks/useData";
 import { navigate } from "@reach/router";
 import { toastr } from "react-redux-toastr";
+import PT from "prop-types";
 import SkillsList from "./components/SkillsList";
 import Completeness from "./components/Completeness";
 import "./styles.module.scss";
@@ -60,6 +70,7 @@ function InputSkills({ projectId }) {
     [selectedSkills]
   );
 
+  // mocked search for users with given skills
   const search = () => {
     setSearchState("searching");
     searchTimer = setTimeout(() => {
@@ -107,5 +118,9 @@ function InputSkills({ projectId }) {
     </div>
   );
 }
+
+InputSkills.propTypes = {
+  projectId: PT.string,
+};
 
 export default InputSkills;

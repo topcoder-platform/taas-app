@@ -1,5 +1,12 @@
+/**
+ * Skills List
+ * Lists all skills available to apply to a job
+ * and search for. Allows selecting skills and filtering
+ * by name.
+ */
 import React, { useEffect, useState } from "react";
 import { useDebounce } from "react-use";
+import PT from "prop-types";
 import Input from "components/Input";
 import PageHeader from "components/PageHeader";
 import "./styles.module.scss";
@@ -64,5 +71,11 @@ function SkillsList({ skills, selectedSkills, toggleSkill }) {
     </div>
   );
 }
+
+SkillsList.propTypes = {
+  skills: PT.array,
+  selectedSkills: PT.array,
+  toggleSkill: PT.func,
+};
 
 export default SkillsList;

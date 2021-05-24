@@ -1,6 +1,13 @@
+/**
+ * Create New Team
+ * Landing page for creating new teams
+ * by selecting a role, inputting skills,
+ * or inputting a job description
+ */
 import React from "react";
 import { navigate } from "@reach/router";
 import _ from "lodash";
+import { toastr } from "react-redux-toastr";
 import Page from "components/Page";
 import PageHeader from "components/PageHeader";
 import LandingBox from "./components/LandingBox";
@@ -8,7 +15,6 @@ import IconMultipleActionsCheck from "../../assets/images/icon-multiple-actions-
 import IconListQuill from "../../assets/images/icon-list-quill.svg";
 import IconOfficeFileText from "../../assets/images/icon-office-file-text.svg";
 import { postProject } from "services/teams";
-import { toastr } from "react-redux-toastr";
 
 function CreateNewTeam() {
   const createProject = async () => {

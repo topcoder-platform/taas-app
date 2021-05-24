@@ -1,6 +1,13 @@
+/**
+ * Completeness Sidebar
+ * Shows level of completeness through skill
+ * input process and contains a button for
+ * searching for users or submitting the job.
+ */
 import Button from "components/Button";
 import React from "react";
 import cn from "classnames";
+import PT from "prop-types";
 import CompleteProgress from "../CompleteProgress";
 import "./styles.module.scss";
 import IconListQuill from "../../../../assets/images/icon-list-quill.svg";
@@ -46,5 +53,12 @@ function Completeness({ isDisabled, onClick, buttonLabel, stage }) {
     </div>
   );
 }
+
+Completeness.propTypes = {
+  isDisabled: PT.bool,
+  onClick: PT.func,
+  buttonLabel: PT.string,
+  stage: PT.number,
+};
 
 export default Completeness;

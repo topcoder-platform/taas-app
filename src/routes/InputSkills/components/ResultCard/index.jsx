@@ -1,3 +1,9 @@
+/**
+ * Result Card
+ * Card that appears after searching for
+ * users matching given skills. Gives information
+ * about costs and number of matching candidates.
+ */
 import React, { useState } from "react";
 import "./styles.module.scss";
 import IconEarthCheck from "../../../../assets/images/icon-earth-check.svg";

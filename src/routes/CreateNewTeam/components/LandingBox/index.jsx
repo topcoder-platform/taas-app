@@ -1,3 +1,8 @@
+/**
+ * Landing Box
+ * An option for the Create New Team
+ * landing page
+ */
 import React from "react";
 import PT from "prop-types";
 import "./styles.module.scss";
