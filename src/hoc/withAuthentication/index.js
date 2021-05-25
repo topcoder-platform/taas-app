@@ -19,6 +19,7 @@ import {
   authUserSuccess,
   authUserError,
   authLoadTeamMembers,
+  authLoadV5UserProfile,
   authClearTeamMembers,
 } from "./actions";
 import { decodeToken } from "tc-auth-lib";
@@ -34,6 +35,9 @@ export default function withAuthentication(Component) {
       teamId,
       teamMembersLoaded,
       teamMembersLoadingError,
+      v5UserProfile,
+      v5UserProfileLoading,
+      v5UserProfileLoadingError,
     } = useSelector((state) => state.authUser);
     const params = useParams();
 
@@ -86,18 +90,37 @@ export default function withAuthentication(Component) {
       }
     }, [params.teamId, teamId, dispatch, isLoggedIn]);
 
+    /*
+      Load V5 User Profile
+    */
+    useEffect(() => {
+      // is user is logged-in, but V5 user profile is not loaded yet, then load it
+      if (isLoggedIn && !v5UserProfileLoading && !v5UserProfile) {
+        dispatch(authLoadV5UserProfile());
+      }
+    }, [dispatch, isLoggedIn, v5UserProfileLoading, v5UserProfile]);
+
     return (
       <>
         {/* Show loading indicator until we know if user is logged-in or no.
             Also, show loading indicator if we need to know team members but haven't loaded them yet.
+            or load v5 user profile but haven't loaded them yet.
             In we got error during this process, show error */}
-        {isLoggedIn === null ||
-          (params.teamId && !teamMembersLoaded && (
-            <LoadingIndicator error={authError || teamMembersLoadingError} />
-          ))}
+        {(isLoggedIn === null ||
+          (params.teamId && !teamMembersLoaded) ||
+          v5UserProfileLoading ||
+          v5UserProfileLoadingError) && (
+          <LoadingIndicator
+            error={
+              authError || teamMembersLoadingError || v5UserProfileLoadingError
+            }
+          />
+        )}
 
         {/* Show component only if user is logged-in and if we don't need team members or we already loaded them */}
-        {isLoggedIn === true && (!params.teamId || teamMembersLoaded) ? (
+        {isLoggedIn === true &&
+        v5UserProfile &&
+        (!params.teamId || teamMembersLoaded) ? (
           <Component {...props} />
         ) : null}
       </>
