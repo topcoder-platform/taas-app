@@ -24,6 +24,7 @@ export default function Root() {
         <Router>
           <Redirect from="/taas" to="/taas/myteams" exact />
           <MyTeamsList path="/taas/myteams" />
+          <CreateNewTeam path="/taas/myteams/createnewteam" />
           <MyTeamsDetails path="/taas/myteams/:teamId" />
           <JobDetails path="/taas/myteams/:teamId/positions/:jobId" />
           <JobForm path="/taas/myteams/:teamId/positions/:jobId/edit" />
@@ -32,7 +33,6 @@ export default function Root() {
           <ResourceBookingForm path="/taas/myteams/:teamId/rb/:resourceBookingId/edit" />
           <PositionDetails path="/taas/myteams/:teamId/positions/:positionId/candidates" />
           <TeamAccess path="/taas/myteams/:teamId/access" />
-          <CreateNewTeam path="/taas/myteams/createnewteam" />
           <InputSkills path="/taas/myteams/createnewteam/:projectId/skills" />
           <SelectRole path="/taas/myteams/createnewteam/:projectId/role" />
         </Router>

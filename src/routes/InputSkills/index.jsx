@@ -21,6 +21,7 @@ import SearchCard from "./components/SearchCard";
 import ResultCard from "./components/ResultCard";
 import { createJob } from "services/jobs";
 import AddAnotherModal from "./components/AddAnotherModal";
+import withAuthentication from "../../hoc/withAuthentication";
 
 function InputSkills({ projectId }) {
   const [selectedSkills, setSelectedSkills] = useState([]);
@@ -123,4 +124,4 @@ InputSkills.propTypes = {
   projectId: PT.string,
 };
 
-export default InputSkills;
+export default withAuthentication(InputSkills);

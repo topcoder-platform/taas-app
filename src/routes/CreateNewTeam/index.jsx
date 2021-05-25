@@ -15,6 +15,7 @@ import IconMultipleActionsCheck from "../../assets/images/icon-multiple-actions-
 import IconListQuill from "../../assets/images/icon-list-quill.svg";
 import IconOfficeFileText from "../../assets/images/icon-office-file-text.svg";
 import { postProject } from "services/teams";
+import withAuthentication from "../../hoc/withAuthentication";
 
 function CreateNewTeam() {
   const createProject = async () => {
@@ -60,4 +61,4 @@ function CreateNewTeam() {
   );
 }
 
-export default CreateNewTeam;
+export default withAuthentication(CreateNewTeam);
