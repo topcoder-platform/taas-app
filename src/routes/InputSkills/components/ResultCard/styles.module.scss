@@ -1,0 +1,216 @@
+@import "styles/include";
+
+.result-card {
+  @include rounded-card;
+  max-width: 746px;
+  width: 50vw;
+  margin-right: 30px;
+  height: 80vh;
+}
+
+.heading {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 30px 0 60px 0;
+  margin-bottom: 30px;
+  color: #fff;
+  background-image: linear-gradient(225deg, #0ab88a 0%, #137d60 100%);
+  position: relative;
+  text-align: center;
+  border-radius: 8px 8px 0 0;
+
+  svg {
+    margin-bottom: 8px;
+    g {
+      stroke: #fff;
+    }
+  }
+
+  h3 {
+    @include font-barlow-condensed;
+    text-transform: uppercase;
+    font-size: 34px;
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+
+  p {
+    font-size: 14px;
+  }
+}
+
+.button-group {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 42px;
+}
+
+.content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 170px;
+  margin-bottom: 35px;
+
+  > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  > div.vertical-line {
+    display: block;
+    height: 100%;
+    width: 1px;
+    background-color: #e9e9e9;
+    margin: 0 40px;
+  }
+
+  h4 {
+    @include font-barlow-condensed;
+    font-size: 48px;
+    margin-bottom: 14px;
+    font-weight: 500;
+  }
+
+  p {
+    font-size: 14px;
+  }
+}
+
+.users {
+  margin-bottom: 8px;
+}
+
+.curve {
+  position: absolute;
+  left: 0;
+  bottom: -70px;
+  width: 100%;
+}
+
+.transparent-icon {
+  position: absolute;
+  top: -40px;
+  right: 10px;
+  opacity: 12%;
+  height: 142px;
+  width: 142px;
+}
+
+.footer {
+  text-align: center;
+  font-size: 14px;
+  line-height: 26px;
+
+  span {
+    font-weight: 900;
+  }
+}
+
+.rate-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+}
+
+.vertical-line {
+  display: block;
+  height: 100%;
+  width: 1px;
+  background-color: #e9e9e9;
+  margin: 0 40px;
+}
+
+.timeline-info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+
+  svg {
+    height: 36px;
+    width: 36px;
+    margin-right: 16px;
+
+    g {
+      stroke: #000;
+    }
+  }
+
+  p {
+    font-size: 14px;
+    line-height: 22px;
+  }
+
+  h6 {
+    @include font-roboto;
+    font-size: 22px;
+    font-weight: 700;
+  }
+}
+
+.rate-right-side {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-evenly;
+  height: 100%;
+}
+
+.weekly-rate {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: flex-end;
+  margin-left: 30px;
+
+  h5 {
+    @include font-barlow-condensed;
+    font-size: 48px;
+    font-weight: 500;
+    margin-right: 4px;
+  }
+
+  p {
+    font-size: 14px;
+    color: #555;
+  }
+}
+
+.rate-type {
+  h6 {
+    @include font-barlow;
+    font-size: 16px;
+    text-transform: uppercase;
+    font-weight: 900;
+    line-height: 20px;
+  }
+  p {
+    font-size: 14px;
+    color: #555;
+  }
+}
+
+.cost-info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.rate-left-side {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  height: 100%;
+}

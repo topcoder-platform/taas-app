@@ -170,3 +170,19 @@ export const postMembers = (teamId, handles, emails) => {
 
   return axios.post(url, bodyObj);
 };
+
+/**
+ * Post new project
+ *
+ * @returns {Promise<object>} project object
+ */
+export const postProject = () => {
+  const url = `${config.API.V5}/taas-teams/createTeamRequest`;
+
+  const bodyObj = {
+    name: `project-${Date()}`,
+    type: "talent-as-a-service",
+  };
+
+  return axios.post(url, bodyObj);
+};

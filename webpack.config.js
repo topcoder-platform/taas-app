@@ -59,7 +59,7 @@ module.exports = (webpackConfigEnv) => {
         {
           test: /\.svg$/,
           exclude: [/node_modules/],
-          loader: "babel-loader",
+          loader: "file-loader",
         },
       ],
     },
@@ -78,7 +78,7 @@ module.exports = (webpackConfigEnv) => {
       // see solution details https://stackoverflow.com/questions/25384360/how-to-prevent-moment-js-from-loading-locales-with-webpack/25426019#25426019
       new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
       new webpack.DefinePlugin({
-        'process.env': {
+        "process.env": {
           APPENV: JSON.stringify(process.env.APPENV),
         },
       }),
