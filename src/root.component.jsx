@@ -9,10 +9,13 @@ import ResourceBookingForm from "./routes/ResourceBookingForm";
 import JobDetails from "./routes/JobDetails";
 import JobForm from "./routes/JobForm";
 import TeamAccess from "./routes/TeamAccess";
+import CreateNewTeam from "./routes/CreateNewTeam";
+import InputSkills from "./routes/InputSkills";
 import ReduxToastr from "react-redux-toastr";
 import store from "./store";
 import "./styles/main.vendor.scss";
 import styles from "./styles/main.module.scss";
+import SelectRole from "./routes/SelectRole";
 
 export default function Root() {
   return (
@@ -21,6 +24,7 @@ export default function Root() {
         <Router>
           <Redirect from="/taas" to="/taas/myteams" exact />
           <MyTeamsList path="/taas/myteams" />
+          <CreateNewTeam path="/taas/myteams/createnewteam" />
           <MyTeamsDetails path="/taas/myteams/:teamId" />
           <JobDetails path="/taas/myteams/:teamId/positions/:jobId" />
           <JobForm path="/taas/myteams/:teamId/positions/:jobId/edit" />
@@ -29,6 +33,8 @@ export default function Root() {
           <ResourceBookingForm path="/taas/myteams/:teamId/rb/:resourceBookingId/edit" />
           <PositionDetails path="/taas/myteams/:teamId/positions/:positionId/candidates" />
           <TeamAccess path="/taas/myteams/:teamId/access" />
+          <InputSkills path="/taas/myteams/createnewteam/:projectId/skills" />
+          <SelectRole path="/taas/myteams/createnewteam/:projectId/role" />
         </Router>
 
         {/* Global config for Toastr popups */}

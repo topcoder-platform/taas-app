@@ -65,6 +65,7 @@ export const POSITION_STATUS_TO_TEXT = {
 export const BUTTON_SIZE = {
   SMALL: "small",
   MEDIUM: "medium",
+  LARGE: "large",
 };
 
 /**
