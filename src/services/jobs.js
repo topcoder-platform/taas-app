@@ -62,7 +62,7 @@ export const createJob = (data) => {
 export const updateJob = (data, jobId) => {
   return (
     axios
-      .put(`${config.API.V5}/jobs/${jobId}`, data)
+      .patch(`${config.API.V5}/jobs/${jobId}`, data)
       // temporary fix:
       // after updating a job we are reloading the list of jobs
       // so we have to wait a bit to make sure job is indexed in the ES
