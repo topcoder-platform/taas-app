@@ -65,20 +65,9 @@ const ResourceBookingDetails = ({ teamId, resourceBookingId }) => {
     );
   };
 
-  // as we are using `PUT` method (not `PATCH`) we have send ALL the fields
-  // fields which we don't send would become `null` otherwise
   const getRequestData = (values) => {
-    const data = _.pick(values, [
-      "projectId",
-      "userId",
-      "jobId",
-      "status",
-      "startDate",
-      "endDate",
-      "memberRate",
-      "customerRate",
-      "rateType",
-    ]);
+    // omit read-only fields
+    const data = _.omit(values, ['handle', 'jobTitle'])
 
     // convert dates to the API format before sending
     if (data.startDate) {
