@@ -109,7 +109,7 @@ export const CANDIDATE_STATUS = {
   REJECTED_OTHER: "rejected - other",
   INTERVIEW: "interview",
   TOPCODER_REJECTED: "topcoder-rejected",
-  JOB_CLOSED:"job-closed"
+  JOB_CLOSED: "job-closed",
 };
 
 /**
@@ -157,7 +157,7 @@ export const CANDIDATE_STATUS_FILTERS = [
       CANDIDATE_STATUS.CLIENT_REJECTED_INTERVIEW,
       CANDIDATE_STATUS.REJECTED_OTHER,
       CANDIDATE_STATUS.TOPCODER_REJECTED,
-      CANDIDATE_STATUS.JOB_CLOSED
+      CANDIDATE_STATUS.JOB_CLOSED,
     ],
   },
 ];

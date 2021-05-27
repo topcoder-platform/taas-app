@@ -103,17 +103,17 @@ const prepareSubmitField = (field, value) => {
     case FORM_FIELD_TYPE.SELECT:
       return field.isMulti
         ? value?.map((option) => option.value)
-        : value?.value
+        : value?.value;
 
     default:
       // we have to send `null` to API to clear the value instead of `undefined`
       if (_.isUndefined(value)) {
-        return null
+        return null;
       }
 
-      return value
+      return value;
   }
-}
+};
 
 /**
  * Prepare form submit data
@@ -125,7 +125,7 @@ export const prepareSubmitData = (values, fields) => {
   const data = fields.reduce((obj, field) => {
     return {
       ...obj,
-      [field.name]: prepareSubmitField(field, values[field.name])
+      [field.name]: prepareSubmitField(field, values[field.name]),
     };
   }, {});
 
