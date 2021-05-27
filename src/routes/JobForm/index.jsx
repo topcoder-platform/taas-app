@@ -33,9 +33,8 @@ const JobForm = ({ teamId, jobId }) => {
   const title = isEdit ? "Edit Job Details" : "Create Job";
 
   const onSubmit = async (values) => {
-    const data = getRequestData(values);
     if (isEdit) {
-      await updateJob(data, jobId).then(
+      await updateJob(values, jobId).then(
         () => {
           toastr.success("Job updated successfully.");
           setSubmitting(false);
@@ -47,7 +46,11 @@ const JobForm = ({ teamId, jobId }) => {
         }
       );
     } else {
-      await createJob(data).then(
+      const createValues = {
+        ...values,
+        projectId: teamId,
+      }
+      await createJob(createValues).then(
         () => {
           toastr.success("Job created successfully.");
           setSubmitting(false);
@@ -59,25 +62,6 @@ const JobForm = ({ teamId, jobId }) => {
         }
       );
     }
-  };
-
-  // as we are using `PUT` method (not `PATCH`) we have send ALL the fields
-  // fields which we don't send would become `null` otherwise
-  const getRequestData = (values) => {
-    return _.pick(values, [
-      "projectId",
-      "externalId",
-      "description",
-      "title",
-      "startDate",
-      "duration",
-      "numPositions",
-      "resourceType",
-      "rateType",
-      "workload",
-      "skills",
-      "status",
-    ]);
   };
 
   useEffect(() => {

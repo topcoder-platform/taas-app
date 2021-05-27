@@ -1,7 +1,7 @@
 /**
  * TC Form utilty
  */
-import _ from "lodash";
+import _, { filter } from "lodash";
 import { getSelectOptionByValue } from "utils/helpers";
 import { FORM_FIELD_TYPE } from "../../constants";
 
@@ -92,24 +92,42 @@ export const getValidator = (fields) => {
 };
 
 /**
+ * Prepare form field value to be submitted to API
+ *
+ * @param {Object} field form field
+ * @param {Any} value form field value
+ * @returns prepared value for the field
+ */
+const prepareSubmitField = (field, value) => {
+  switch (field.type) {
+    case FORM_FIELD_TYPE.SELECT:
+      return field.isMulti
+        ? value?.map((option) => option.value)
+        : value?.value
+
+    default:
+      // we have to send `null` to API to clear the value instead of `undefined`
+      if (_.isUndefined(value)) {
+        return null
+      }
+
+      return value
+  }
+}
+
+/**
  * Prepare form submit data
  * @param {any} values form value
  * @param {Array} fields form fields
- * @param {any} originalData original form data
  * @returns {any} converted submitted data
  */
-export const prepareSubmitData = (values, fields, originalData) => {
-  const data = fields.reduce((obj, item) => {
+export const prepareSubmitData = (values, fields) => {
+  const data = fields.reduce((obj, field) => {
     return {
       ...obj,
-      [item.name]:
-        item.type === FORM_FIELD_TYPE.SELECT
-          ? item.isMulti
-            ? values[item.name]?.map((x) => x.value)
-            : values[item.name]?.value
-          : values[item.name],
+      [field.name]: prepareSubmitField(field, values[field.name])
     };
   }, {});
 
-  return Object.assign(originalData, data);
+  return data;
 };
