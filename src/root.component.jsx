@@ -10,12 +10,12 @@ import JobDetails from "./routes/JobDetails";
 import JobForm from "./routes/JobForm";
 import TeamAccess from "./routes/TeamAccess";
 import CreateNewTeam from "./routes/CreateNewTeam";
-import InputSkills from "./routes/InputSkills";
+import InputSkills from "./routes/CreateNewTeam/pages/InputSkills";
+import SelectRole from "./routes/CreateNewTeam/pages/SelectRole";
 import ReduxToastr from "react-redux-toastr";
 import store from "./store";
 import "./styles/main.vendor.scss";
 import styles from "./styles/main.module.scss";
-import SelectRole from "./routes/SelectRole";
 
 export default function Root() {
   return (
