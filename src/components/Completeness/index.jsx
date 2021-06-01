@@ -10,11 +10,15 @@ import cn from "classnames";
 import PT from "prop-types";
 import CompleteProgress from "../CompleteProgress";
 import "./styles.module.scss";
-import IconListQuill from "../../../../assets/images/icon-list-quill.svg";
+import IconListQuill from "../../assets/images/icon-list-quill.svg";
 
-function Completeness({ isDisabled, onClick, buttonLabel, stage }) {
+function Completeness({ title, backgroundIcon, isDisabled, backgroundImage, onClick, buttonLabel, stage }) {
   return (
-    <div styleName="completeness">
+    <div styleName="completeness"
+      style={{
+        backgroundImage,
+      }}
+    >
       <CompleteProgress
         percentDone={stage === 1 ? 26 : stage === 2 ? 52 : 98}
       />
@@ -26,7 +30,7 @@ function Completeness({ isDisabled, onClick, buttonLabel, stage }) {
             { done: stage > 1 }
           )}
         >
-          Input Skills
+          Input {title}
         </li>
         <li
           styleName={cn(
@@ -49,7 +53,7 @@ function Completeness({ isDisabled, onClick, buttonLabel, stage }) {
       >
         {buttonLabel}
       </Button>
-      <IconListQuill styleName="transparent-icon" />
+      {backgroundIcon}
     </div>
   );
 }
@@ -59,6 +63,9 @@ Completeness.propTypes = {
   onClick: PT.func,
   buttonLabel: PT.string,
   stage: PT.number,
+  title: PT.string,
+  backgroundImage: PT.string,
+  backgroundIcon: PT.string
 };
 
 export default Completeness;

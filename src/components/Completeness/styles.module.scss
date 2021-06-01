@@ -4,9 +4,17 @@
   @include rounded-card;
   padding: 12px;
   position: relative;
-  background-image: linear-gradient(221.5deg, #2c95d7 0%, #9d41c9 100%);
   width: 250px;
   color: #fff;
+
+  > svg {
+    position: absolute;
+    right: -50px;
+    top: 85px;
+    opacity: 10%;
+    width: 144px;
+    height: 144px;
+  }
 }
 
 .list {
@@ -46,13 +54,4 @@
       padding-left: 2px;
     }
   }
-}
-
-.transparent-icon {
-  position: absolute;
-  right: -50px;
-  top: 85px;
-  opacity: 10%;
-  width: 144px;
-  height: 144px;
 }

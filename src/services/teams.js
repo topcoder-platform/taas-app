@@ -32,6 +32,17 @@ export const getV5UserProfile = () => {
 };
 
 /**
+ * Get skills by job description
+ * @param {string} description
+ * @returns {Promise<{}>} skills list
+ */
+export const getSkillsByJobDescription = (description) => {
+  return axios.post(`${config.API.V5}/taas-teams/getSkillsByJobDescription`, {
+    description,
+  });
+};
+
+/**
  * Get team by id.
  *
  * @param {string|number} teamId team id

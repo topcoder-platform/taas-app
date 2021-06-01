@@ -5,10 +5,10 @@
  */
 import React, { useEffect, useState } from "react";
 import "./styles.module.scss";
-import IconEarthSearch from "../../../../assets/images/icon-earth-search.svg";
-import WorldMapDotted from "../../../../assets/images/world-map-dotted.svg";
-import WorldMapSearch1 from "../../../../assets/images/world-map-search1.svg";
-import WorldMapSearch2 from "../../../../assets/images/world-map-search2.svg";
+import IconEarthSearch from "../../assets/images/icon-earth-search.svg";
+import WorldMapDotted from "../../assets/images/world-map-dotted.svg";
+import WorldMapSearch1 from "../../assets/images/world-map-search1.svg";
+import WorldMapSearch2 from "../../assets/images/world-map-search2.svg";
 
 function SearchCard() {
   const [searchState, setSearchState] = useState(null);
