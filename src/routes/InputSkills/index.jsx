@@ -12,16 +12,17 @@ import { useData } from "hooks/useData";
 import { navigate } from "@reach/router";
 import { toastr } from "react-redux-toastr";
 import PT from "prop-types";
-import SkillsList from "./components/SkillsList";
-import Completeness from "./components/Completeness";
+import Completeness from "components/Completeness";
 import "./styles.module.scss";
 import { getSkills } from "services/skills";
 import LoadingIndicator from "components/LoadingIndicator";
-import SearchCard from "./components/SearchCard";
-import ResultCard from "./components/ResultCard";
+import SearchCard from "components/SearchCard";
+import ResultCard from "components/ResultCard";
 import { createJob } from "services/jobs";
-import AddAnotherModal from "./components/AddAnotherModal";
+import AddAnotherModal from "components/AddAnotherModal";
+import SkillsList from "./components/SkillsList";
 import withAuthentication from "../../hoc/withAuthentication";
+import IconListQuill from "../../assets/images/icon-list-quill.svg";
 
 function InputSkills({ projectId }) {
   const [selectedSkills, setSelectedSkills] = useState([]);
@@ -91,6 +92,9 @@ function InputSkills({ projectId }) {
         toggleSkill={toggleSkill}
       />
       <Completeness
+        title='Skills'
+        backgroundImage='linear-gradient(221.5deg, #2c95d7 0%, #9d41c9 100%)'
+        backgroundIcon={<IconListQuill/>}
         isDisabled={selectedSkills.length < 1}
         onClick={search}
         buttonLabel="Search"
@@ -100,12 +104,21 @@ function InputSkills({ projectId }) {
   ) : searchState === "searching" ? (
     <div styleName="page">
       <SearchCard />
-      <Completeness isDisabled buttonLabel="Submit Request" stage={2} />
+      <Completeness
+        title='Skills'
+        backgroundImage='linear-gradient(221.5deg, #2c95d7 0%, #9d41c9 100%)'
+        backgroundIcon={<IconListQuill/>}
+        isDisabled
+        buttonLabel="Submit Request"
+        stage={2} />
     </div>
   ) : (
     <div styleName="page">
       <ResultCard />
       <Completeness
+        title='Skills'
+        backgroundImage='linear-gradient(221.5deg, #2c95d7 0%, #9d41c9 100%)'
+        backgroundIcon={<IconListQuill/>}
         buttonLabel="Submit Request"
         stage={3}
         onClick={submitJob}

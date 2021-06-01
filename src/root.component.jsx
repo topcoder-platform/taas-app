@@ -11,6 +11,7 @@ import JobForm from "./routes/JobForm";
 import TeamAccess from "./routes/TeamAccess";
 import CreateNewTeam from "./routes/CreateNewTeam";
 import InputSkills from "./routes/InputSkills";
+import InputJobDescription from "./routes/InputJobDescription";
 import ReduxToastr from "react-redux-toastr";
 import store from "./store";
 import "./styles/main.vendor.scss";
@@ -33,6 +34,7 @@ export default function Root() {
           <ResourceBookingForm path="/taas/myteams/:teamId/rb/:resourceBookingId/edit" />
           <PositionDetails path="/taas/myteams/:teamId/positions/:positionId/candidates" />
           <TeamAccess path="/taas/myteams/:teamId/access" />
+          <InputJobDescription path="/taas/myteams/createnewteam/jd" />
           <InputSkills path="/taas/myteams/createnewteam/:projectId/skills" />
           <SelectRole path="/taas/myteams/createnewteam/:projectId/role" />
         </Router>

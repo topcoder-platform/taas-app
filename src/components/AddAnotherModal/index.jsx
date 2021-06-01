@@ -8,8 +8,8 @@ import React from "react";
 import PT from "prop-types";
 import Modal from "react-responsive-modal";
 import Button from "components/Button";
-import IconCrossLight from "../../../../assets/images/icon-cross-light.svg";
-import IconSingleManAdd from "../../../../assets/images/icon-single-man-add.svg";
+import IconCrossLight from "../../assets/images/icon-cross-light.svg";
+import IconSingleManAdd from "../../assets/images/icon-single-man-add.svg";
 import "./styles.module.scss";
 import CenteredSpinner from "components/CenteredSpinner";
 

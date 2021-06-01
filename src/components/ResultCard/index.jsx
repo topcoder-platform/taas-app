@@ -6,11 +6,11 @@
  */
 import React, { useState } from "react";
 import "./styles.module.scss";
-import IconEarthCheck from "../../../../assets/images/icon-earth-check.svg";
-import IconMultipleUsers from "../../../../assets/images/icon-multiple-users.svg";
-import IconMultipleActionsCheck from "../../../../assets/images/icon-multiple-actions-check-2.svg";
-import IconTeamMeetingChat from "../../../../assets/images/icon-team-meeting-chat.svg";
-import Curve from "../../../../assets/images/curve.svg";
+import IconEarthCheck from "../../assets/images/icon-earth-check.svg";
+import IconMultipleUsers from "../../assets/images/icon-multiple-users.svg";
+import IconMultipleActionsCheck from "../../assets/images/icon-multiple-actions-check-2.svg";
+import IconTeamMeetingChat from "../../assets/images/icon-team-meeting-chat.svg";
+import Curve from "../../assets/images/curve.svg";
 import Button from "components/Button";
 
 function ResultCard() {
