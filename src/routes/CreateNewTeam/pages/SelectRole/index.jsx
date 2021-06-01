@@ -51,7 +51,7 @@ function SelectRole({ projectId }) {
       projectId,
       title: `job-${Date()}`,
       skills: [],
-      roles: addedRoles.map((r) => r.id),
+      roleIds: addedRoles.map((r) => r.id),
       numPositions: 1,
     })
       .then(() => {
