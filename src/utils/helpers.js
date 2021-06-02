@@ -38,3 +38,27 @@ export const getSelectOptionByValue = (value, selectOptions) => {
 
   return option;
 };
+
+/**
+ * Activates the current step in the Completion Box.
+ *
+ * * Set `isCurrent: true` of the current step.
+ * * Set `isCurrent: false` for all other steps.
+ * * Set `complete: true` for steps prior to the current.
+ * * Set `complete: false` for the steps after the current.
+ *
+ * @param {Number} currentStepIdx 0-based index of the current step
+ * @param {Array} stages stages array
+ * @param {Function} setStagesCallback `setStages` callback to update state
+ */
+export const setCurrentStage = (currentStepIdx, stages, setStagesCallback) => {
+  setStagesCallback([
+    ...stages
+      .slice(0, currentStepIdx)
+      .map((s) => ({ ...s, completed: true, isCurrent: false })),
+    { ...stages[currentStepIdx], isCurrent: true, completed: false },
+    ...stages
+      .slice(currentStepIdx + 1)
+      .map((s) => ({ ...s, completed: false, isCurrent: false })),
+  ]);
+};

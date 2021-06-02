@@ -18,11 +18,11 @@ import { postProject } from "services/teams";
 import withAuthentication from "../../hoc/withAuthentication";
 
 function CreateNewTeam() {
-  const createProject = async () => {
+  const createProjectAndNavigate = async (navigateTo) => {
     postProject()
       .then((res) => {
         const id = _.get(res, "data.id");
-        navigate(`/taas/myteams/createnewteam/${id}/skills`);
+        navigate(`/taas/myteams/createnewteam/${id}/${navigateTo}`);
       })
       .catch((err) => {
         toastr.warning("Error", "Failed to create a new team.");
@@ -41,14 +41,14 @@ function CreateNewTeam() {
         description="You know you want a front end developer, or a full stack developer, mobile one or others."
         icon={<IconMultipleActionsCheck />}
         backgroundImage="linear-gradient(101.95deg, #8B41B0 0%, #EF476F 100%)"
-        isDisabled
+        onClick={() => createProjectAndNavigate("role")}
       />
       <LandingBox
         title="Input Skills"
         description="You know your developer has specific skills, such as for example: Java, Python, Oracle, etc."
         icon={<IconListQuill />}
         backgroundImage="linear-gradient(221.5deg, #2C95D7 0%, #9D41C9 100%)"
-        onClick={createProject}
+        onClick={() => createProjectAndNavigate("skills")}
       />
       <LandingBox
         title="Input Job Description"

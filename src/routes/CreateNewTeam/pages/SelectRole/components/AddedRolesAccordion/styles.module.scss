@@ -1,0 +1,72 @@
+@import "styles/include";
+
+.accordion {
+  border-radius: 8px;
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.02);
+  background-color: #FFFFFF;
+  width: 250px;
+}
+
+.button {
+  cursor: pointer;
+  width: 100%;
+  border: none;
+  outline: none;
+  border-radius: 8px;
+  background-color: #fff;
+  color: #2a2a2a;
+  display: flex;
+  text-align: left;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 15px 14px 10px 16px;
+}
+
+.arrow {
+  display: inline-block;
+  height: 10px;
+  width: 10px;
+  border-bottom: 3px solid #2A2A2A;
+  border-right: 3px solid #2A2A2A;
+  margin-bottom: 4px;
+  &.down {
+    transform: rotate(45deg);
+  }
+  &.up {
+    transform: rotate(-135deg);
+  }
+}
+
+.heading {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.title {
+  @include font-roboto;
+  font-size: 14px;
+  line-height: 22px;
+}
+
+.panel {
+  padding: 12px 18px 14px 10px;
+  .role-name {
+    height: 40px;
+    width: 100%;
+    background-color: #F4F4F4;
+    border-radius: 6px;
+    padding: 10px;
+    @include font-barlow;
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 600;
+    text-transform: uppercase;
+    &:not(:first-child) {
+      margin-top: 5px;
+    }
+  }
+}

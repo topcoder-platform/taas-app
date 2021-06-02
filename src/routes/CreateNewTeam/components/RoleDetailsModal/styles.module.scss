@@ -1,0 +1,55 @@
+@import "styles/include";
+
+.button-group {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-end;
+  :first-child {
+    margin-right: 8px;
+  }
+}
+
+.tab-button-group {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 42px;
+}
+
+.modal-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 80px;
+
+  .role-icon {
+    width: 42px;
+    height: 42px;
+  }
+
+  h5 {
+    @include font-barlow-condensed;
+    font-size: 34px;
+    color: #1e94a3;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+
+  p {
+    @include font-roboto;
+    font-size: 16px;
+    color: #555555;
+    line-height: 26px;
+  }
+}
+
+.cross {
+  g {
+    stroke: #000;
+  }
+}

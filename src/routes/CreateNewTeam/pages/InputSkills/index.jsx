@@ -13,17 +13,23 @@ import { navigate } from "@reach/router";
 import { toastr } from "react-redux-toastr";
 import PT from "prop-types";
 import SkillsList from "./components/SkillsList";
-import Completeness from "./components/Completeness";
+import Completeness from "../../components/Completeness";
 import "./styles.module.scss";
 import { getSkills } from "services/skills";
+import { setCurrentStage } from "utils/helpers";
 import LoadingIndicator from "components/LoadingIndicator";
-import SearchCard from "./components/SearchCard";
-import ResultCard from "./components/ResultCard";
+import SearchCard from "../../components/SearchCard";
+import ResultCard from "../../components/ResultCard";
 import { createJob } from "services/jobs";
-import AddAnotherModal from "./components/AddAnotherModal";
-import withAuthentication from "../../hoc/withAuthentication";
+import AddAnotherModal from "../../components/AddAnotherModal";
+import withAuthentication from "../../../../hoc/withAuthentication";
 
 function InputSkills({ projectId }) {
+  const [stages, setStages] = useState([
+    { name: "Input Skills", isCurrent: true },
+    { name: "Search Member" },
+    { name: "Overview of the Results" },
+  ]);
   const [selectedSkills, setSelectedSkills] = useState([]);
   const [searchState, setSearchState] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
@@ -55,7 +61,7 @@ function InputSkills({ projectId }) {
   };
 
   const addAnother = useCallback(() => {
-    navigate(`/taas/myteams/createnewteam/${projectId}/role`);
+    navigate(`/taas/myteams/createnewteam/${projectId}/roles`);
   }, [projectId]);
 
   const toggleSkill = useCallback(
@@ -74,8 +80,10 @@ function InputSkills({ projectId }) {
   // mocked search for users with given skills
   const search = () => {
     setSearchState("searching");
+    setCurrentStage(1, stages, setStages);
     searchTimer = setTimeout(() => {
       setSearchState("done");
+      setCurrentStage(2, stages, setStages);
     }, 3000);
   };
 
@@ -92,22 +100,32 @@ function InputSkills({ projectId }) {
       />
       <Completeness
         isDisabled={selectedSkills.length < 1}
+        extraStyleName="input-skills"
         onClick={search}
         buttonLabel="Search"
-        stage={1}
+        stages={stages}
+        percentage="26"
       />
     </div>
   ) : searchState === "searching" ? (
     <div styleName="page">
       <SearchCard />
-      <Completeness isDisabled buttonLabel="Submit Request" stage={2} />
+      <Completeness
+        extraStyleName="input-skills"
+        isDisabled
+        buttonLabel="Submit Request"
+        stages={stages}
+        percentage="52"
+      />
     </div>
   ) : (
     <div styleName="page">
       <ResultCard />
       <Completeness
         buttonLabel="Submit Request"
-        stage={3}
+        extraStyleName="input-skills"
+        stages={stages}
+        percentage="98"
         onClick={submitJob}
       />
       <AddAnotherModal

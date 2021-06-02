@@ -5,12 +5,12 @@
  */
 import React from "react";
 import PT from "prop-types";
-import IconQuestionCircle from "../../../../assets/images/icon-question-circle.svg";
+import IconQuestionCircle from "../../../../../../assets/images/icon-question-circle.svg";
 import "./styles.module.scss";
 import cn from "classnames";
 
 const assets = require.context(
-  "../../../../assets/images/all-skill-images",
+  "../../../../../../assets/images/all-skill-images",
   false,
   /svg/
 );

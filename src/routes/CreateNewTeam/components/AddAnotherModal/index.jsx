@@ -26,7 +26,13 @@ const containerStyle = {
   padding: "10px",
 };
 
-function AddAnotherModal({ open, onClose, submitDone, addAnother }) {
+function AddAnotherModal({
+  open,
+  onClose,
+  onContinueClick,
+  submitDone,
+  addAnother,
+}) {
   return (
     <Modal
       open={open}
@@ -63,7 +69,12 @@ function AddAnotherModal({ open, onClose, submitDone, addAnother }) {
         >
           Add Another Position
         </Button>
-        <Button type="primary" size="medium" disabled={!submitDone}>
+        <Button
+          type="primary"
+          size="medium"
+          onClick={onContinueClick}
+          disabled={!submitDone}
+        >
           Continue
         </Button>
       </div>

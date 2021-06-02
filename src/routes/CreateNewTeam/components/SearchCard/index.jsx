@@ -32,7 +32,7 @@ function SearchCard() {
     <div styleName="search-card">
       <div styleName="heading">
         <IconEarthSearch />
-        <h3>Search..</h3>
+        <h3>Search...</h3>
         <p>Matching the criteria with 1.5 million members around the world..</p>
       </div>
       <div styleName="map-container">
