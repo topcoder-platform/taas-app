@@ -30,6 +30,10 @@ function CreateNewTeam() {
       });
   };
 
+  const goToJobDescription = () => {
+    navigate(`/taas/myteams/createnewteam/jd`);
+  };
+
   return (
     <Page title="Create New Team">
       <PageHeader title="Create New Team" />
@@ -55,7 +59,7 @@ function CreateNewTeam() {
         description="You would like to use a description to explain what you need."
         icon={<IconOfficeFileText />}
         backgroundImage="linear-gradient(135deg, #2984BD 0%, #0AB88A 100%)"
-        isDisabled
+        onClick={goToJobDescription}
       />
     </Page>
   );

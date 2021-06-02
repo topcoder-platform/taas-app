@@ -12,6 +12,7 @@ import CompleteProgress from "../CompleteProgress";
 import "./styles.module.scss";
 import IconMultipleActionsCheck from "../../../../assets/images/icon-multiple-actions-check-2.svg";
 import IconListQuill from "../../../../assets/images/icon-list-quill.svg";
+import IconOfficeFileText from "../../../../assets/images/icon-office-file-text.svg";
 
 function Completeness({
   extraStyleName,
@@ -21,6 +22,16 @@ function Completeness({
   stages,
   percentage,
 }) {
+
+  let backgroundIcon 
+  if (extraStyleName === "input-skills") {
+     backgroundIcon= <IconListQuill styleName="transparent-icon" />
+  } else if (extraStyleName === "input-job-description") {
+     backgroundIcon= <IconOfficeFileText styleName="transparent-icon" />
+  } else {
+     backgroundIcon= <IconMultipleActionsCheck styleName="transparent-icon" />
+  }
+
   return (
     <div styleName={cn("completeness", extraStyleName)}>
       <CompleteProgress percentDone={percentage} />
@@ -44,11 +55,7 @@ function Completeness({
       >
         {buttonLabel}
       </Button>
-      {extraStyleName === "input-skills" ? (
-        <IconListQuill styleName="transparent-icon" />
-      ) : (
-        <IconMultipleActionsCheck styleName="transparent-icon" />
-      )}
+      {backgroundIcon}
     </div>
   );
 }
