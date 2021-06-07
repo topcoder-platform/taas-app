@@ -36,7 +36,7 @@ export default function Root() {
           <TeamAccess path="/taas/myteams/:teamId/access" />
           <InputJobDescription path="/taas/myteams/createnewteam/jd" />
           <InputSkills path="/taas/myteams/createnewteam/:projectId/skills" />
-          <SelectRole path="/taas/myteams/createnewteam/:projectId/role" />
+          <SelectRole path="/taas/myteams/createnewteam/role" />
         </Router>
 
         {/* Global config for Toastr popups */}

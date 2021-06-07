@@ -10,7 +10,6 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useData } from "hooks/useData";
 import { navigate } from "@reach/router";
 import { toastr } from "react-redux-toastr";
-import PT from "prop-types";
 import RolesList from "./components/RolesList";
 import Completeness from "../../components/Completeness";
 import "./styles.module.scss";
@@ -25,8 +24,10 @@ import AddAnotherModal from "../../components/AddAnotherModal";
 import RoleDetailsModal from "../../components/RoleDetailsModal";
 import withAuthentication from "../../../../hoc/withAuthentication";
 import AddedRolesAccordion from "./components/AddedRolesAccordion";
+import { postProject } from "services/teams";
+import _ from "lodash";
 
-function SelectRole({ projectId }) {
+function SelectRole() {
   const [stages, setStages] = useState([
     { name: "Select a Role", isCurrent: true },
     { name: "Search Member" },
@@ -47,19 +48,28 @@ function SelectRole({ projectId }) {
 
   const submitJob = () => {
     setSubmitDone(false);
-    createJob({
-      projectId,
-      title: `job-${Date()}`,
-      skills: [],
-      roleIds: addedRoles.map((r) => r.id),
-      numPositions: 1,
-    })
-      .then(() => {
-        toastr.success("Job Submitted");
+    postProject()
+      .then((res) => {
+        const projectId = _.get(res, "data.id");
+
+        createJob({
+          projectId,
+          title: `job-${Date()}`,
+          skills: [],
+          roleIds: addedRoles.map((r) => r.id),
+          numPositions: 1,
+        })
+          .then(() => {
+            toastr.success("Job Submitted");
+          })
+          .catch((err) => {
+            console.error(err);
+            toastr.warning("Error Submitting Job");
+          });
       })
       .catch((err) => {
         console.error(err);
-        toastr.warning("Error Submitting Job");
+        toastr.warning("Error Creating Project");
       })
       .finally(() => {
         setSubmitDone(true);
@@ -184,8 +194,4 @@ function SelectRole({ projectId }) {
   }
 }
 
-SelectRole.propTypes = {
-  projectId: PT.string,
-};
-
-export default withAuthentication(SelectRole);
+export default SelectRole;

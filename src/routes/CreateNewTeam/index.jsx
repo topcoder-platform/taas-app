@@ -14,8 +14,6 @@ import LandingBox from "./components/LandingBox";
 import IconMultipleActionsCheck from "../../assets/images/icon-multiple-actions-check-2.svg";
 import IconListQuill from "../../assets/images/icon-list-quill.svg";
 import IconOfficeFileText from "../../assets/images/icon-office-file-text.svg";
-import { postProject } from "services/teams";
-import withAuthentication from "../../hoc/withAuthentication";
 
 function CreateNewTeam() {
   const createProjectAndNavigate = async (navigateTo) => {
@@ -28,6 +26,10 @@ function CreateNewTeam() {
         toastr.warning("Error", "Failed to create a new team.");
         console.error(err);
       });
+  };
+
+  const goToSelectRole = () => {
+    navigate("/taas/myteams/createnewteam/role");
   };
 
   const goToJobDescription = () => {
@@ -45,7 +47,7 @@ function CreateNewTeam() {
         description="You know you want a front end developer, or a full stack developer, mobile one or others."
         icon={<IconMultipleActionsCheck />}
         backgroundImage="linear-gradient(101.95deg, #8B41B0 0%, #EF476F 100%)"
-        onClick={() => createProjectAndNavigate("role")}
+        onClick={goToSelectRole}
       />
       <LandingBox
         title="Input Skills"
@@ -65,4 +67,4 @@ function CreateNewTeam() {
   );
 }
 
-export default withAuthentication(CreateNewTeam);
+export default CreateNewTeam;
