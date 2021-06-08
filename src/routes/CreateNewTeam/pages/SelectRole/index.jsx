@@ -6,10 +6,11 @@
  * Allows selecting a role, searching for users
  * with that role, and submitting a job requiring the roles.
  */
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useData } from "hooks/useData";
 import { navigate } from "@reach/router";
 import { toastr } from "react-redux-toastr";
+import _ from "lodash";
 import RolesList from "./components/RolesList";
 import Completeness from "../../components/Completeness";
 import "./styles.module.scss";
@@ -24,8 +25,7 @@ import AddAnotherModal from "../../components/AddAnotherModal";
 import RoleDetailsModal from "../../components/RoleDetailsModal";
 import withAuthentication from "../../../../hoc/withAuthentication";
 import AddedRolesAccordion from "./components/AddedRolesAccordion";
-import { postProject } from "services/teams";
-import _ from "lodash";
+import { postProject, searchRoles } from "services/teams";
 
 function SelectRole() {
   const [stages, setStages] = useState([
@@ -43,8 +43,6 @@ function SelectRole() {
   const [submitDone, setSubmitDone] = useState(true);
 
   const [roles, loadingError] = useData(getRoles);
-
-  let searchTimer;
 
   const submitJob = () => {
     setSubmitDone(false);
@@ -102,18 +100,24 @@ function SelectRole() {
   const search = () => {
     setCurrentStage(1, stages, setStages);
     setSearchState("searching");
-    searchTimer = setTimeout(() => {
-      setCurrentStage(2, stages, setStages);
-      setMatchingProfiles(null); // display no matching profiles screen for a while
-      setSearchState("done");
-      setTimeout(() => setMatchingProfiles(true), 2000);
-      // add selected role
-      const { id, name } = roles.find((r) => r.id === selectedRoleId);
-      setAddedRoles((addedRoles) => [...addedRoles, { id, name }]);
-    }, 3000);
+    setMatchingProfiles(null);
+    searchRoles({ roleId: selectedRoleId })
+      .then((res) => {
+        setMatchingProfiles(res.data);
+        const id = _.get(res, "data.id");
+        const name = _.get(res, "data.name");
+        setAddedRoles((addedRoles) => [...addedRoles, { id, name }]);
+      })
+      .catch((err) => {
+        console.error(err);
+        const { id, name } = _.find(roles, (r) => r.id === selectedRoleId);
+        setAddedRoles((addedRoles) => [...addedRoles, { id, name }]);
+      })
+      .finally(() => {
+        setCurrentStage(2, stages, setStages);
+        setSearchState("done");
+      });
   };
-
-  useEffect(() => clearTimeout(searchTimer));
 
   if (!roles) {
     return <LoadingIndicator error={loadingError} />;
