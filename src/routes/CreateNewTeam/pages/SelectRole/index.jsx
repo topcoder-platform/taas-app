@@ -96,7 +96,6 @@ function SelectRole() {
     setRoleDetailsModalOpen(true);
   }, []);
 
-  // mocked search for users with given roles
   const search = () => {
     setCurrentStage(1, stages, setStages);
     setSearchState("searching");

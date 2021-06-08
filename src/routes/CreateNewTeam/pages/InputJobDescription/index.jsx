@@ -2,30 +2,27 @@
  * Input Job Description page
  *
  */
-import React, { useCallback, useEffect, useState } from "react";
-import { useData } from "hooks/useData";
-import { navigate } from "@reach/router";
-import { toastr } from "react-redux-toastr";
+import React, { useCallback, useState } from "react";
 import { setCurrentStage } from "utils/helpers";
-import Page from "components/Page";
+import { navigate } from "@reach/router";
 import PT from "prop-types";
 import PageHeader from "components/PageHeader";
-import LoadingIndicator from "components/LoadingIndicator";
 import MarkdownEditor from "../../../../components/MarkdownEditor";
-import { getSkillsByJobDescription } from "../../../../services/teams";
+import {
+  getSkillsByJobDescription,
+  searchRoles,
+} from "../../../../services/teams";
 import Completeness from "../../components/Completeness";
-import { getSkills } from "services/skills";
 import SearchCard from "../../components/SearchCard";
 import ResultCard from "../../components/ResultCard";
 import AddAnotherModal from "../../components/AddAnotherModal";
 import SkillListPopup from "./components/SkillListPopup";
 import "./styles.module.scss";
 import withAuthentication from "../../../../hoc/withAuthentication";
-import IconOfficeFileText from "../../../../assets/images/icon-office-file-text.svg";
 
 function InputJobDescription() {
   const [stages, setStages] = useState([
-    { name: "Input Job Desccription", isCurrent: true },
+    { name: "Input Job Description", isCurrent: true },
     { name: "Search Member" },
     { name: "Overview of the Results" },
   ]);
@@ -37,35 +34,40 @@ function InputJobDescription() {
   const [skills, setSkills] = useState([]);
   const [isLoadingSkills, setIsLoadingSkills] = useState(false);
 
-  const onSearch = useCallback(
-    (value) => {
-      setSkillModalOpen(true);
-      setIsLoadingSkills(true);
-      getSkillsByJobDescription(jdString)
-        .then((response) => {
-          setSkills(response.data);
-          setIsLoadingSkills(false);
-          setSkillModalOpen(true);
-        })
-        .catch(() => {
-          setIsLoadingSkills(false);
-        });
-    },
-    [jdString]
-  );
+  const onSearch = useCallback(() => {
+    setSkillModalOpen(true);
+    setIsLoadingSkills(true);
+    getSkillsByJobDescription(jdString)
+      .then((response) => {
+        setSkills(response.data);
+        setIsLoadingSkills(false);
+        setSkillModalOpen(true);
+      })
+      .catch(() => {
+        setIsLoadingSkills(false);
+      });
+  }, [jdString]);
 
-  const onConfirationClick = useCallback(() => {
+  const onConfirmationClick = useCallback(() => {
     setSearchState("searching");
     setCurrentStage(1, stages, setStages);
-    setTimeout(() => {
-      setCurrentStage(2, stages, setStages);
-      setSearchState("done");
-    }, 3000);
-  }, []);
 
-  const addAnother = useCallback(() => {
-    // navigate(`/taas/myteams/createnewteam/${projectId}/role`);
-  }, []);
+    searchRoles({ jobDescription: jdString })
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.error(err);
+      })
+      .finally(() => {
+        setCurrentStage(2, stages, setStages);
+        setSearchState("done");
+      });
+  }, [stages, jdString]);
+
+  const addAnother = () => {
+    navigate(`/taas/myteams/createnewteam/role`);
+  };
 
   const submitJob = () => {
     setSubmitDone(false);
@@ -107,7 +109,7 @@ function InputJobDescription() {
             skills={skills}
             onClose={() => setSkillModalOpen(false)}
             isLoading={isLoadingSkills}
-            onContinueClick={onConfirationClick}
+            onContinueClick={onConfirmationClick}
           />
         </div>
       ) : searchState === "searching" ? (

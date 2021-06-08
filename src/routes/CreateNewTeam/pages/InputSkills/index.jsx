@@ -11,7 +11,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useData } from "hooks/useData";
 import { navigate } from "@reach/router";
 import { toastr } from "react-redux-toastr";
-import PT from "prop-types";
+import _ from "lodash";
 import SkillsList from "./components/SkillsList";
 import Completeness from "../../components/Completeness";
 import "./styles.module.scss";
@@ -23,8 +23,9 @@ import ResultCard from "../../components/ResultCard";
 import { createJob } from "services/jobs";
 import AddAnotherModal from "../../components/AddAnotherModal";
 import withAuthentication from "../../../../hoc/withAuthentication";
+import { postProject, searchRoles } from "services/teams";
 
-function InputSkills({ projectId }) {
+function InputSkills() {
   const [stages, setStages] = useState([
     { name: "Input Skills", isCurrent: true },
     { name: "Search Member" },
@@ -37,32 +38,33 @@ function InputSkills({ projectId }) {
 
   const [skills, loadingError] = useData(getSkills);
 
-  let searchTimer;
-
   const submitJob = () => {
     setSubmitDone(false);
     setModalOpen(true);
-    createJob({
-      projectId,
-      title: `job-${Date()}`,
-      skills: selectedSkills,
-      numPositions: 1,
-    })
-      .then(() => {
-        toastr.success("Job Submitted");
+    postProject().then((res) => {
+      const projectId = _.get(res, "data.id");
+      createJob({
+        projectId,
+        title: `job-${Date()}`,
+        skills: selectedSkills,
+        numPositions: 1,
       })
-      .catch((err) => {
-        console.error(err);
-        toastr.warning("Error Submitting Job");
-      })
-      .finally(() => {
-        setSubmitDone(true);
-      });
+        .then(() => {
+          toastr.success("Job Submitted");
+        })
+        .catch((err) => {
+          console.error(err);
+          toastr.warning("Error Submitting Job");
+        })
+        .finally(() => {
+          setSubmitDone(true);
+        });
+    });
   };
 
-  const addAnother = useCallback(() => {
-    navigate(`/taas/myteams/createnewteam/${projectId}/roles`);
-  }, [projectId]);
+  const addAnother = () => {
+    navigate(`/taas/myteams/createnewteam/roles`);
+  };
 
   const toggleSkill = useCallback(
     (id) => {
@@ -77,17 +79,21 @@ function InputSkills({ projectId }) {
     [selectedSkills]
   );
 
-  // mocked search for users with given skills
   const search = () => {
-    setSearchState("searching");
     setCurrentStage(1, stages, setStages);
-    searchTimer = setTimeout(() => {
-      setSearchState("done");
-      setCurrentStage(2, stages, setStages);
-    }, 3000);
+    setSearchState("searching");
+    searchRoles({ skills: selectedSkills })
+      .then((res) => {
+        console.log(_.get(res, "data"));
+      })
+      .catch((err) => {
+        console.error(err);
+      })
+      .finally(() => {
+        setCurrentStage(2, stages, setStages);
+        setSearchState("done");
+      });
   };
-
-  useEffect(() => clearTimeout(searchTimer));
 
   return !skills ? (
     <LoadingIndicator error={loadingError} />
@@ -138,8 +144,4 @@ function InputSkills({ projectId }) {
   );
 }
 
-InputSkills.propTypes = {
-  projectId: PT.string,
-};
-
-export default withAuthentication(InputSkills);
+export default InputSkills;

@@ -35,7 +35,7 @@ export default function Root() {
           <PositionDetails path="/taas/myteams/:teamId/positions/:positionId/candidates" />
           <TeamAccess path="/taas/myteams/:teamId/access" />
           <InputJobDescription path="/taas/myteams/createnewteam/jd" />
-          <InputSkills path="/taas/myteams/createnewteam/:projectId/skills" />
+          <InputSkills path="/taas/myteams/createnewteam/skills" />
           <SelectRole path="/taas/myteams/createnewteam/role" />
         </Router>
 

@@ -16,16 +16,8 @@ import IconListQuill from "../../assets/images/icon-list-quill.svg";
 import IconOfficeFileText from "../../assets/images/icon-office-file-text.svg";
 
 function CreateNewTeam() {
-  const createProjectAndNavigate = async (navigateTo) => {
-    postProject()
-      .then((res) => {
-        const id = _.get(res, "data.id");
-        navigate(`/taas/myteams/createnewteam/${id}/${navigateTo}`);
-      })
-      .catch((err) => {
-        toastr.warning("Error", "Failed to create a new team.");
-        console.error(err);
-      });
+  const goToInputSkills = () => {
+    navigate("/taas/myteams/createnewteam/skills");
   };
 
   const goToSelectRole = () => {
@@ -54,7 +46,7 @@ function CreateNewTeam() {
         description="You know your developer has specific skills, such as for example: Java, Python, Oracle, etc."
         icon={<IconListQuill />}
         backgroundImage="linear-gradient(221.5deg, #2C95D7 0%, #9D41C9 100%)"
-        onClick={() => createProjectAndNavigate("skills")}
+        onClick={goToInputSkills}
       />
       <LandingBox
         title="Input Job Description"
