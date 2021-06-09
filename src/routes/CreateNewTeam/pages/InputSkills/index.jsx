@@ -24,6 +24,8 @@ import { createJob } from "services/jobs";
 import AddAnotherModal from "../../components/AddAnotherModal";
 import withAuthentication from "../../../../hoc/withAuthentication";
 import { postProject, searchRoles } from "services/teams";
+import NoMatchingProfilesResultCard from "../../components/NoMatchingProfilesResultCard";
+import AddedRolesAccordion from "../SelectRole/components/AddedRolesAccordion";
 
 function InputSkills() {
   const [stages, setStages] = useState([
@@ -35,6 +37,8 @@ function InputSkills() {
   const [searchState, setSearchState] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [submitDone, setSubmitDone] = useState(false);
+  const [matchingProfiles, setMatchingProfiles] = useState(null);
+  const [addedRoles, setAddedRoles] = useState([]);
 
   const [skills, loadingError] = useData(getSkills);
 
@@ -82,9 +86,17 @@ function InputSkills() {
   const search = () => {
     setCurrentStage(1, stages, setStages);
     setSearchState("searching");
+    setMatchingProfiles(null);
+
     searchRoles({ skills: selectedSkills })
       .then((res) => {
-        console.log(_.get(res, "data"));
+        const id = _.get(res, "data.id");
+        const name = _.get(res, "data.name");
+        const prevSearchId = _.get(res, "data.roleSearchRequestId");
+        if (name && !name.toLowerCase().includes("niche")) {
+          setMatchingProfiles(res.data);
+          setAddedRoles((addedRoles) => [...addedRoles, { id, name }]);
+        }
       })
       .catch((err) => {
         console.error(err);
@@ -95,53 +107,75 @@ function InputSkills() {
       });
   };
 
-  return !skills ? (
-    <LoadingIndicator error={loadingError} />
-  ) : !searchState ? (
-    <div styleName="page">
-      <SkillsList
-        skills={skills}
-        selectedSkills={selectedSkills}
-        toggleSkill={toggleSkill}
-      />
-      <Completeness
-        isDisabled={selectedSkills.length < 1}
-        extraStyleName="input-skills"
-        onClick={search}
-        buttonLabel="Search"
-        stages={stages}
-        percentage="26"
-      />
-    </div>
-  ) : searchState === "searching" ? (
-    <div styleName="page">
-      <SearchCard />
-      <Completeness
-        extraStyleName="input-skills"
-        isDisabled
-        buttonLabel="Submit Request"
-        stages={stages}
-        percentage="52"
-      />
-    </div>
-  ) : (
-    <div styleName="page">
-      <ResultCard />
-      <Completeness
-        buttonLabel="Submit Request"
-        extraStyleName="input-skills"
-        stages={stages}
-        percentage="98"
-        onClick={submitJob}
-      />
-      <AddAnotherModal
-        open={modalOpen}
-        onClose={() => setModalOpen(false)}
-        submitDone={submitDone}
-        addAnother={addAnother}
-      />
-    </div>
-  );
+  if (!skills) {
+    return <LoadingIndicator error={loadingError} />;
+  }
+
+  if (skills && !searchState) {
+    return (
+      <div styleName="page">
+        <SkillsList
+          skills={skills}
+          selectedSkills={selectedSkills}
+          toggleSkill={toggleSkill}
+        />
+        <Completeness
+          isDisabled={selectedSkills.length < 1}
+          extraStyleName="input-skills"
+          onClick={search}
+          buttonLabel="Search"
+          stages={stages}
+          percentage="26"
+        />
+      </div>
+    );
+  }
+
+  if (searchState === "searching") {
+    return (
+      <div styleName="page">
+        <SearchCard />
+        <Completeness
+          extraStyleName="input-skills"
+          isDisabled
+          buttonLabel="Submit Request"
+          stages={stages}
+          percentage="52"
+        />
+      </div>
+    );
+  }
+
+  if (searchState === "done") {
+    return (
+      <div styleName="page">
+        {matchingProfiles ? (
+          <ResultCard role={matchingProfiles} />
+        ) : (
+          <NoMatchingProfilesResultCard />
+        )}
+        <div styleName="right-side">
+          {addedRoles.length && <AddedRolesAccordion addedRoles={addedRoles} />}
+          <Completeness
+            buttonLabel="Submit Request"
+            extraStyleName="input-skills"
+            stages={stages}
+            percentage="98"
+            onClick={() => {
+              setSubmitDone(true);
+              setModalOpen(true);
+            }}
+          />
+        </div>
+        <AddAnotherModal
+          open={modalOpen}
+          onClose={() => setModalOpen(false)}
+          submitDone={submitDone}
+          addAnother={addAnother}
+        />
+      </div>
+    );
+  }
 }
 
 export default InputSkills;

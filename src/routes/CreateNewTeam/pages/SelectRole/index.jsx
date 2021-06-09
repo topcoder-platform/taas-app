@@ -102,15 +102,16 @@ function SelectRole() {
     setMatchingProfiles(null);
     searchRoles({ roleId: selectedRoleId })
       .then((res) => {
-        setMatchingProfiles(res.data);
         const id = _.get(res, "data.id");
         const name = _.get(res, "data.name");
-        setAddedRoles((addedRoles) => [...addedRoles, { id, name }]);
+        const prevSearchId = _.get(res, "data.roleSearchRequestId");
+        if (name && !name.toLowerCase().includes("niche")) {
+          setMatchingProfiles(res.data);
+          setAddedRoles((addedRoles) => [...addedRoles, { id, name }]);
+        }
       })
       .catch((err) => {
         console.error(err);
-        const { id, name } = _.find(roles, (r) => r.id === selectedRoleId);
-        setAddedRoles((addedRoles) => [...addedRoles, { id, name }]);
       })
       .finally(() => {
         setCurrentStage(2, stages, setStages);
@@ -177,7 +178,7 @@ function SelectRole() {
           <NoMatchingProfilesResultCard />
         )}
         <div styleName="right-side">
-          {matchingProfiles && <AddedRolesAccordion addedRoles={addedRoles} />}
+          {addedRoles.length && <AddedRolesAccordion addedRoles={addedRoles} />}
           <Completeness
             extraStyleName="role-selection"
             buttonLabel="Submit Request"
