@@ -171,7 +171,11 @@ function SelectRole() {
   if (searchState === "done") {
     return (
       <div styleName="page">
-        {matchingProfiles ? <ResultCard /> : <NoMatchingProfilesResultCard />}
+        {matchingProfiles ? (
+          <ResultCard role={matchingProfiles} />
+        ) : (
+          <NoMatchingProfilesResultCard />
+        )}
         <div styleName="right-side">
           {matchingProfiles && <AddedRolesAccordion addedRoles={addedRoles} />}
           <Completeness
