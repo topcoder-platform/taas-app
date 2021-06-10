@@ -219,6 +219,8 @@ export const postProject = () => {
  * @returns
  */
 export const searchRoles = (searchObject) => {
+  const newObject = { ...searchObject };
+  delete newObject.previousRoleSearchRequestId;
   const url = `${config.API.V5}/taas-teams/sendRoleSearchRequest`;
-  return axios.post(url, searchObject);
+  return axios.post(url, newObject);
 };

@@ -1,24 +1,9 @@
-.page {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: flex-start;
-  margin: 42px 35px;
-
-  .edit-container {
-    background-color: #ffffff;
-    border-radius: 8px;
-    max-width: 746px;
-    position: relative;
-    margin-right: 30px;
-    padding: 0 30px 30px;
-    flex: 1;
-  }
-  .right-side {
-    display: flex;
-    flex-direction: column;
-    & > div:not(:first-child) {
-      margin-top: 16px;
-    }
-  }
+.edit-container {
+  background-color: #ffffff;
+  border-radius: 8px;
+  max-width: 746px;
+  position: relative;
+  margin-right: 30px;
+  padding: 0 30px 30px;
+  flex: 1;
 }

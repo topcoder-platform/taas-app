@@ -13,7 +13,7 @@ import "./styles.module.scss";
 function AddedRolesAccordion({ addedRoles }) {
   const [isOpen, setIsOpen] = useState(false);
 
-  return (
+  return addedRoles.length ? (
     <div styleName="accordion">
       <button onClick={() => setIsOpen(!isOpen)} styleName="button">
         <div styleName="heading">
@@ -32,7 +32,7 @@ function AddedRolesAccordion({ addedRoles }) {
         </div>
       )}
     </div>
-  );
+  ) : null;
 }
 
 AddedRolesAccordion.propTypes = {
