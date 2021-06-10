@@ -32,13 +32,13 @@ function SearchContainer({
   reloadRolesPage,
 }) {
   const [addedRoles, setAddedRoles] = useState(
-    locationState.addedRoles ? locationState.addedRoles : []
+    locationState?.addedRoles ? locationState.addedRoles : []
   );
   const [searchState, setSearchState] = useState(null);
   const [matchingRole, setMatchingRole] = useState(null);
   const [addAnotherModalOpen, setAddAnotherModalOpen] = useState(false);
   const [submitDone, setSubmitDone] = useState(true);
-  const [prevSearchId, setPrevSearchId] = useState(locationState.prevSearchId);
+  const [prevSearchId, setPrevSearchId] = useState(locationState?.prevSearchId);
 
   const submitJob = () => {
     setSubmitDone(false);

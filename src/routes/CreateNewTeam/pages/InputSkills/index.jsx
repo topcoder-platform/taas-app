@@ -38,8 +38,12 @@ function InputSkills({ location: { state: locationState } }) {
     [selectedSkills]
   );
 
-  if (!skills) {
+  if (!Array.isArray(skills)) {
     return <LoadingIndicator error={loadingError} />;
+  }
+
+  if (skills.length === 0) {
+    return <p style={{ textAlign: "center" }}>Failed to load skills</p>;
   }
 
   return (

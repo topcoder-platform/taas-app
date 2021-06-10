@@ -20,8 +20,8 @@ import IconListQuill from "../../assets/images/icon-list-quill.svg";
 import IconOfficeFileText from "../../assets/images/icon-office-file-text.svg";
 
 function CreateNewTeam({ location: { state: locationState } }) {
-  const { prevSearchId } = locationState;
-  const { addedRoles } = locationState;
+  const prevSearchId = locationState?.prevSearchId;
+  const addedRoles = locationState?.addedRoles;
 
   const goToRoute = (path) => {
     navigate(path, { state: { prevSearchId, addedRoles } });
