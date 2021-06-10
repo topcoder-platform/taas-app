@@ -1,3 +1,10 @@
+/**
+ * SearchContainer
+ *
+ * A container component for the different
+ * search pages. Contains logic and supporting
+ * components for searching for roles.
+ */
 import React, { useCallback, useState } from "react";
 import PT from "prop-types";
 import { toastr } from "react-redux-toastr";

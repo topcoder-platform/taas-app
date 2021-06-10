@@ -1,5 +1,9 @@
 /**
  * Create New Team
+ *
+ * Gets location state from router to pass
+ * along to search pages
+ *
  * Landing page for creating new teams
  * by selecting a role, inputting skills,
  * or inputting a job description
@@ -7,7 +11,7 @@
 import React from "react";
 import { navigate } from "@reach/router";
 import _ from "lodash";
-import { toastr } from "react-redux-toastr";
+import PT from "prop-types";
 import Page from "components/Page";
 import PageHeader from "components/PageHeader";
 import LandingBox from "./components/LandingBox";
@@ -53,5 +57,9 @@ function CreateNewTeam({ location: { state: locationState } }) {
     </Page>
   );
 }
+
+CreateNewTeam.propTypes = {
+  locationState: PT.object,
+};
 
 export default CreateNewTeam;

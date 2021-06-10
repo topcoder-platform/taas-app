@@ -2,12 +2,13 @@
  * Input Skills page
  * Page that user reaches after choosing to input job skills.
  *
- * Gets a project id from the router.
+ * Gets location state from the router.
  *
  * Allows selecting a number of skills, searching for users
  * with those skills, and submitting a job requiring the skills.
  */
 import React, { useCallback, useState } from "react";
+import PT from "prop-types";
 import { useData } from "hooks/useData";
 import SkillsList from "./components/SkillsList";
 import { getSkills } from "services/skills";
@@ -58,5 +59,9 @@ function InputSkills({ location: { state: locationState } }) {
     </SearchContainer>
   );
 }
+
+InputSkills.propTypes = {
+  locationState: PT.object,
+};
 
 export default InputSkills;

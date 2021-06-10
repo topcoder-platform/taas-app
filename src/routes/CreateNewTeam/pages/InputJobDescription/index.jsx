@@ -1,6 +1,10 @@
 /**
  * Input Job Description page
  *
+ * Gets location state from router
+ *
+ * Allows user to search for roles by
+ * job description
  */
 import React, { useCallback, useState } from "react";
 import PT from "prop-types";

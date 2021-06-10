@@ -1,12 +1,13 @@
 /**
  * Select Role Page
  *
- * Gets project id from the router.
+ * Gets locationState from the router.
  *
  * Allows selecting a role, searching for users
  * with that role, and submitting a job requiring the roles.
  */
 import React, { useCallback, useState } from "react";
+import PT from "prop-types";
 import { useData } from "hooks/useData";
 import RolesList from "./components/RolesList";
 import { getRoles } from "services/roles";
@@ -69,5 +70,9 @@ function SelectRole({ location: { state: locationState } }) {
     </SearchContainer>
   );
 }
+
+SelectRole.propTypes = {
+  locationState: PT.object,
+};
 
 export default SelectRole;

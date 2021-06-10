@@ -18,6 +18,11 @@ import Button from "components/Button";
 import { MATCHING_RATE } from "constants";
 import { formatMoney } from "utils/format";
 
+function formatRate(value) {
+  if (!value) return "N/A";
+  return formatMoney(value);
+}
+
 function ResultCard({ role }) {
   const {
     numberOfMembersAvailable,
@@ -75,21 +80,21 @@ function ResultCard({ role }) {
               <div styleName="senior">
                 <h4>Global Rate</h4>
                 <div styleName="cost">
-                  <h4>{formatMoney(rates.global)}</h4>
+                  <h4>{formatRate(rates.global)}</h4>
                   <p>/Week</p>
                 </div>
               </div>
               <div styleName="standard">
                 <h4>In-Country Rate</h4>
                 <div styleName="cost">
-                  <h4>{formatMoney(rates.inCountry)}</h4>
+                  <h4>{formatRate(rates.inCountry)}</h4>
                   <p>/Week</p>
                 </div>
               </div>
               <div styleName="junior">
                 <h4>Offshore Rate</h4>
                 <div styleName="cost">
-                  <h4>{formatMoney(rates.offShore)}</h4>
+                  <h4>{formatRate(rates.offShore)}</h4>
                   <p>/Week</p>
                 </div>
               </div>
@@ -102,21 +107,21 @@ function ResultCard({ role }) {
               <div styleName="senior">
                 <h4>Global Rate</h4>
                 <div styleName="cost">
-                  <h4>{formatMoney(rates.rate30Global)}</h4>
+                  <h4>{formatRate(rates.rate30Global)}</h4>
                   <p>/Week</p>
                 </div>
               </div>
               <div styleName="standard">
                 <h4>In-Country Rate</h4>
                 <div styleName="cost">
-                  <h4>{formatMoney(rates.rate30InCountry)}</h4>
+                  <h4>{formatRate(rates.rate30InCountry)}</h4>
                   <p>/Week</p>
                 </div>
               </div>
               <div styleName="junior">
                 <h4>Offshore Rate</h4>
                 <div styleName="cost">
-                  <h4>{formatMoney(rates.rate30OffShore)}</h4>
+                  <h4>{formatRate(rates.rate30OffShore)}</h4>
                   <p>/Week</p>
                 </div>
               </div>
@@ -129,21 +134,21 @@ function ResultCard({ role }) {
               <div styleName="senior">
                 <h4>Global Rate</h4>
                 <div styleName="cost">
-                  <h4>{formatMoney(rates.rate20Global)}</h4>
+                  <h4>{formatRate(rates.rate20Global)}</h4>
                   <p>/Week</p>
                 </div>
               </div>
               <div styleName="standard">
                 <h4>In-Country Rate</h4>
                 <div styleName="cost">
-                  <h4>{formatMoney(rates.rate20InCountry)}</h4>
+                  <h4>{formatRate(rates.rate20InCountry)}</h4>
                   <p>/Week</p>
                 </div>
               </div>
               <div styleName="junior">
                 <h4>Offshore Rate</h4>
                 <div styleName="cost">
-                  <h4>{formatMoney(rates.rate20OffShore)}</h4>
+                  <h4>{formatRate(rates.rate20OffShore)}</h4>
                   <p>/Week</p>
                 </div>
               </div>
@@ -160,7 +165,7 @@ function ResultCard({ role }) {
                 <p>(40h / week)</p>
               </div>
               <div styleName="weekly-rate">
-                <h5>{formatMoney(rates.global)}</h5>
+                <h5>{formatRate(rates.global)}</h5>
                 <p>/Week</p>
               </div>
             </div>
@@ -170,7 +175,7 @@ function ResultCard({ role }) {
                 <p>(30h / week)</p>
               </div>
               <div styleName="weekly-rate">
-                <h5>{formatMoney(rates.rate30Global)}</h5>
+                <h5>{formatRate(rates.rate30Global)}</h5>
                 <p>/Week</p>
               </div>
             </div>
@@ -180,7 +185,7 @@ function ResultCard({ role }) {
                 <p>(20h / week)</p>
               </div>
               <div styleName="weekly-rate">
-                <h5>{formatMoney(rates.rate20Global)}</h5>
+                <h5>{formatRate(rates.rate20Global)}</h5>
                 <p>/Week</p>
               </div>
             </div>
