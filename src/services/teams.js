@@ -29,6 +29,8 @@ export const getMyTeams = (name, page = 1, perPage) => {
  * @returns {Promise<{}>} role detail
  */
 export const sendRoleSearchRequest = (data) => {
+  // mock data
+  delete data.previousRoleSearchRequestId
   return axios.post(`${config.API.V5}/taas-teams/sendRoleSearchRequest`, data);
 };
 
