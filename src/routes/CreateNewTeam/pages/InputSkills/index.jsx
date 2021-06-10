@@ -12,17 +12,20 @@ import { useData } from "hooks/useData";
 import { navigate } from "@reach/router";
 import { toastr } from "react-redux-toastr";
 import PT from "prop-types";
-import SkillsList from "./components/SkillsList";
+import SearchableList from "../../components/SearchableList";
+import SkillItem from "./components/SkillItem";
 import Completeness from "../../components/Completeness";
 import "./styles.module.scss";
 import { getSkills } from "services/skills";
+import { sendRoleSearchRequest } from "services/teams";
 import { setCurrentStage } from "utils/helpers";
 import LoadingIndicator from "components/LoadingIndicator";
 import SearchCard from "../../components/SearchCard";
 import ResultCard from "../../components/ResultCard";
+import NoMatchingProfilesResultCard from "../../components/NoMatchingProfilesResultCard";
 import { createJob } from "services/jobs";
 import AddAnotherModal from "../../components/AddAnotherModal";
-import withAuthentication from "../../../../hoc/withAuthentication";
+import AddedRolesAccordion from "../../components/AddedRolesAccordion";
 
 function InputSkills({ projectId }) {
   const [stages, setStages] = useState([
@@ -30,10 +33,17 @@ function InputSkills({ projectId }) {
     { name: "Search Member" },
     { name: "Overview of the Results" },
   ]);
+  const [
+    previousRoleSearchRequestId,
+    setPreviousRoleSearchRequestId,
+  ] = useState(null);
+  const [roleSearchResult, setRoleSearchResult] = useState(null);
   const [selectedSkills, setSelectedSkills] = useState([]);
+  const [matchingProfiles, setMatchingProfiles] = useState(null);
   const [searchState, setSearchState] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [submitDone, setSubmitDone] = useState(false);
+  const [addedRoles, setAddedRoles] = useState([]);
 
   const [skills, loadingError] = useData(getSkills);
 
@@ -66,6 +76,7 @@ function InputSkills({ projectId }) {
 
   const toggleSkill = useCallback(
     (id) => {
+      setPreviousRoleSearchRequestId(null);
       if (selectedSkills.includes(id)) {
         setSelectedSkills(selectedSkills.filter((skill) => skill !== id));
       } else {
@@ -77,27 +88,64 @@ function InputSkills({ projectId }) {
     [selectedSkills]
   );
 
-  // mocked search for users with given skills
-  const search = () => {
-    setSearchState("searching");
+  const search = useCallback(() => {
     setCurrentStage(1, stages, setStages);
-    searchTimer = setTimeout(() => {
-      setSearchState("done");
-      setCurrentStage(2, stages, setStages);
-    }, 3000);
-  };
-
-  useEffect(() => clearTimeout(searchTimer));
+    setSearchState("searching");
+    sendRoleSearchRequest({
+      skills: selectedSkills,
+      previousRoleSearchRequestId,
+    })
+      .then(({ data }) => {
+        setRoleSearchResult(data);
+        setPreviousRoleSearchRequestId(data.roleSearchRequestId);
+        setCurrentStage(2, stages, setStages);
+        setMatchingProfiles(null); // display no matching profiles screen for a while
+        if (data.name && data.name.toLowerCase() !== "niche") {
+          setAddedRoles((addedRoles) => [
+            ...addedRoles,
+            { id: data.id, name: data.name },
+          ]);
+          setMatchingProfiles(true);
+        } else {
+          setMatchingProfiles(false);
+        }
+        setSearchState("done");
+      })
+      .catch((e) => {
+        setCurrentStage(2, stages, setStages);
+        setMatchingProfiles(false); // display no matching profiles screen for a while
+        setSearchState("done");
+      });
+  }, [selectedSkills]);
 
   return !skills ? (
     <LoadingIndicator error={loadingError} />
   ) : !searchState ? (
     <div styleName="page">
-      <SkillsList
-        skills={skills}
-        selectedSkills={selectedSkills}
-        toggleSkill={toggleSkill}
+      <SearchableList
+        itemList={skills}
+        title="Input Skills"
+        inputPlaceholder="Find skills or technologies.."
+        countElement={
+          selectedSkills.length > 0 && (
+            <p styleName="skill-count">
+              {selectedSkills.length} skills selected
+            </p>
+          )
+        }
+        renderItem={({ id, name }) => {
+          return (
+            <SkillItem
+              id={id}
+              key={id}
+              name={name}
+              onClick={toggleSkill}
+              isSelected={selectedSkills.includes(id)}
+            />
+          );
+        }}
       />
+      {addedRoles.length > 0 && <AddedRolesAccordion addedRoles={addedRoles} />}
       <Completeness
         isDisabled={selectedSkills.length < 1}
         extraStyleName="input-skills"
@@ -120,7 +168,15 @@ function InputSkills({ projectId }) {
     </div>
   ) : (
     <div styleName="page">
-      <ResultCard />
+      {matchingProfiles ? (
+        <ResultCard {...roleSearchResult} />
+      ) : (
+        <NoMatchingProfilesResultCard {...roleSearchResult} onSearch={search} />
+      )}
+        <div styleName="right-side">
+          {addedRoles.length > 0 && (
+            <AddedRolesAccordion addedRoles={addedRoles} />
+          )}
       <Completeness
         buttonLabel="Submit Request"
         extraStyleName="input-skills"
@@ -135,6 +191,7 @@ function InputSkills({ projectId }) {
         addAnother={addAnother}
       />
     </div>
+    </div>
   );
 }
 
@@ -142,4 +199,4 @@ InputSkills.propTypes = {
   projectId: PT.string,
 };
 
-export default withAuthentication(InputSkills);
+export default InputSkills;
