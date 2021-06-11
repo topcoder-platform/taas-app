@@ -1,5 +1,39 @@
 @import "styles/include";
 
+
+.loading {
+  margin-bottom: 100px;
+  margin-top: 200px;
+}
+
+.skill-tag-list {
+  display: flex;
+  height: 260px;
+  flex-wrap: wrap;
+}
+
+.desc-container {
+  width: 100%;
+  height: 260px;
+  overflow: scroll;
+}
+
+.skill-tag {
+  @include font-roboto;
+
+  background-color: #E9E9E9;
+  border-radius: 5px;
+  padding: 6px 10px;
+  margin-right: 6px;
+  margin-bottom: 10px;
+  color: #2A2A2A;
+  font-size: 12px;
+  letter-spacing: 0.25px;
+  line-height: 16px;
+  height: 26px;
+  display: inline-block;
+}
+
 .button-group {
   display: flex;
   flex-direction: row;
@@ -15,7 +49,8 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  margin-bottom: 42px;
+  margin-top: 14px;
+  margin-bottom: 30px;
 }
 
 .modal-body {
@@ -23,18 +58,19 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  text-align: center;
-  margin-bottom: 80px;
+  // text-align: center;
+  margin-bottom: 40px;
 
   .role-icon {
     width: 42px;
     height: 42px;
+    margin-bottom: 18px;
   }
 
   h5 {
     @include font-barlow-condensed;
     font-size: 34px;
-    color: #1e94a3;
+    color: #000;
     text-transform: uppercase;
     font-weight: 500;
     margin-bottom: 10px;

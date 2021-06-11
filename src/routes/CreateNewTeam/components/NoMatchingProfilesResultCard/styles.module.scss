@@ -3,6 +3,7 @@
 .result-card {
   @include rounded-card;
   max-width: 746px;
+  overflow: hidden;
   width: 50vw;
   margin-right: 30px;
 }

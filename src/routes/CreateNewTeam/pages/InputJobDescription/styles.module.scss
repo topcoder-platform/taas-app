@@ -14,4 +14,11 @@
     padding: 0 30px 30px;
     flex: 1;
   }
+  .right-side {
+    display: flex;
+    flex-direction: column;
+    & > div:not(:first-child) {
+      margin-top: 16px;
+    }
+  }
 }
