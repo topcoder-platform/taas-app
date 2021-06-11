@@ -5,8 +5,14 @@
  * about costs and number of matching candidates.
  */
 import React, { useState, useEffect } from "react";
+import PT from "prop-types";
 import cn from "classnames";
+import _ from "lodash";
+import {
+  formatMoney,
+} from "utils/format";
 import { getAuthUserProfile } from "@topcoder/micro-frontends-navbar-app";
+import config from '../../../../../config';
 import "./styles.module.scss";
 import IconEarthCheck from "../../../../assets/images/icon-earth-check.svg";
 import IconMultipleUsers from "../../../../assets/images/icon-multiple-users.svg";
@@ -16,9 +22,15 @@ import Curve from "../../../../assets/images/curve.svg";
 import CircularProgressBar from "../CircularProgressBar";
 import Button from "components/Button";
 
-function ResultCard() {
+function ResultCard({
+  numberOfMembersAvailable,
+  numberOfMembers,
+  timeToCandidate,
+  timeToInterview,
+  isExternalMember,
+  rates
+}) {
   const [userHandle, setUserHandle] = useState("handle");
-  const [showSpecialRates, setShowSpecialRates] = useState(false);
   const [showRates, setShowRates] = useState(false);
 
   useEffect(() => {
@@ -29,16 +41,11 @@ function ResultCard() {
 
   return (
     <div styleName="result-card">
-      <div
-        role="button"
-        tabIndex="0"
-        onClick={() => setShowSpecialRates(!showSpecialRates)}
-        styleName={cn("heading", { ["non-clickable"]: !showRates })}
-      >
+      <div styleName="heading">
         <IconEarthCheck />
         <h3>We have matching profiles</h3>
         <p>
-          We have qualified candidates who match 80% or more of your job
+          We have qualified candidates who match {config.MATCHING_RATE}% or more of your job
           requirements.
         </p>
         <Curve styleName="curve" />
@@ -60,7 +67,7 @@ function ResultCard() {
           Rate Details
         </Button>
       </div>
-      {showRates && showSpecialRates && (
+      {showRates && !isExternalMember && (
         <div styleName="xeno-rates">
           <p styleName="greeting-txt">
             Hi {userHandle}, we have special rates for you as a Xeno User!
@@ -72,23 +79,23 @@ function ResultCard() {
                 <p>(40h / week)</p>
               </div>
               <div styleName="senior">
-                <h4>Senior Member</h4>
+                <h4>Global Rate</h4>
                 <div styleName="cost">
-                  <h4>$2,000</h4>
+                  <h4>{formatMoney(rates[0].global)}</h4>
                   <p>/Week</p>
                 </div>
               </div>
               <div styleName="standard">
-                <h4>Standard Member</h4>
+                <h4>In-Conutry Rate</h4>
                 <div styleName="cost">
-                  <h4>$1,500</h4>
+                  <h4>{formatMoney(rates[0].inCountry)}</h4>
                   <p>/Week</p>
                 </div>
               </div>
               <div styleName="junior">
-                <h4>Junior Member</h4>
+                <h4>Offshore Rate</h4>
                 <div styleName="cost">
-                  <h4>$1,000</h4>
+                  <h4>{formatMoney(rates[0].offShore)}</h4>
                   <p>/Week</p>
                 </div>
               </div>
@@ -99,23 +106,23 @@ function ResultCard() {
                 <p>(30h / week)</p>
               </div>
               <div styleName="senior">
-                <h4>Senior Member</h4>
+                <h4>Global Rate</h4>
                 <div styleName="cost">
-                  <h4>$1,800</h4>
+                  <h4>{formatMoney(rates[0].rate30Global)}</h4>
                   <p>/Week</p>
                 </div>
               </div>
               <div styleName="standard">
-                <h4>Standard Member</h4>
+                <h4>In-Conutry Rate</h4>
                 <div styleName="cost">
-                  <h4>$1,300</h4>
+                  <h4>{formatMoney(rates[0].rate30InCountry)}</h4>
                   <p>/Week</p>
                 </div>
               </div>
               <div styleName="junior">
-                <h4>Junior Member</h4>
+                <h4>Offshore Rate</h4>
                 <div styleName="cost">
-                  <h4>$800</h4>
+                  <h4>{formatMoney(rates[0].rate30OffShore)}</h4>
                   <p>/Week</p>
                 </div>
               </div>
@@ -126,23 +133,23 @@ function ResultCard() {
                 <p>(20h / week)</p>
               </div>
               <div styleName="senior">
-                <h4>Senior Member</h4>
+                <h4>Global Rate</h4>
                 <div styleName="cost">
-                  <h4>$1,600</h4>
+                  <h4>{formatMoney(rates[0].rate20Global)}</h4>
                   <p>/Week</p>
                 </div>
               </div>
               <div styleName="standard">
-                <h4>Standard Member</h4>
+                <h4>In-Conutry Rate</h4>
                 <div styleName="cost">
-                  <h4>$1,100</h4>
+                  <h4>{formatMoney(rates[0].rate20InCountry)}</h4>
                   <p>/Week</p>
                 </div>
               </div>
               <div styleName="junior">
-                <h4>Junior Member</h4>
+                <h4>Offshore Rate</h4>
                 <div styleName="cost">
-                  <h4>$600</h4>
+                  <h4>{formatMoney(rates[0].rate20OffShore)}</h4>
                   <p>/Week</p>
                 </div>
               </div>
@@ -150,7 +157,7 @@ function ResultCard() {
           </div>
         </div>
       )}
-      {showRates && !showSpecialRates && (
+      {showRates && isExternalMember && (
         <div styleName="rate-content">
           <div styleName="rate-left-side">
             <div styleName="cost-info">
@@ -159,7 +166,7 @@ function ResultCard() {
                 <p>(40h / week)</p>
               </div>
               <div styleName="weekly-rate">
-                <h5>$1,800</h5>
+                <h5>{formatMoney(rates[0].global)}</h5>
                 <p>/Week</p>
               </div>
             </div>
@@ -169,7 +176,7 @@ function ResultCard() {
                 <p>(30h / week)</p>
               </div>
               <div styleName="weekly-rate">
-                <h5>$1,250</h5>
+                <h5>{formatMoney(rates[0].inCountry)}</h5>
                 <p>/Week</p>
               </div>
             </div>
@@ -179,7 +186,7 @@ function ResultCard() {
                 <p>(20h / week)</p>
               </div>
               <div styleName="weekly-rate">
-                <h5>$800</h5>
+                <h5>{formatMoney(rates[0].offShore)}</h5>
                 <p>/Week</p>
               </div>
             </div>
@@ -190,14 +197,14 @@ function ResultCard() {
               <IconMultipleActionsCheck />
               <div>
                 <p>Qualified candidates within</p>
-                <h6>24h</h6>
+                <h6>{timeToCandidate}h</h6>
               </div>
             </div>
             <div styleName="timeline-info">
               <IconTeamMeetingChat />
               <div>
                 <p>Interviews can start within</p>
-                <h6>48h</h6>
+                <h6>{timeToInterview}h</h6>
               </div>
             </div>
           </div>
@@ -209,11 +216,11 @@ function ResultCard() {
             <div>
               <CircularProgressBar
                 size="160"
-                progress="80"
+                progress={config.MATCHING_RATE}
                 strokeWidth="6"
                 children={
                   <div styleName="progressbar-child">
-                    <h4>80%</h4>
+                    <h4>{config.MATCHING_RATE}%</h4>
                     <p>Matching rate</p>
                   </div>
                 }
@@ -222,7 +229,7 @@ function ResultCard() {
             <div styleName="vertical-line" />
             <div>
               <IconMultipleUsers styleName="users" />
-              <h4>300+</h4>
+              <h4>{numberOfMembersAvailable}+</h4>
               <p>Members matched</p>
             </div>
           </div>
@@ -246,4 +253,12 @@ function ResultCard() {
   );
 }
 
+ResultCard.propTypes = {
+  numberOfMembersAvailable:PT.number,
+  numberOfMembers: PT.string,
+  timeToCandidate: PT.number,
+  timeToInterview: PT.number,
+  isExternalMember: PT.bool,
+  rates: PT.array,
+};
 export default ResultCard;

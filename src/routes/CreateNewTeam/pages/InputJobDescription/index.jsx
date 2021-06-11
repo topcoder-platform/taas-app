@@ -15,12 +15,13 @@ import MarkdownEditor from "../../../../components/MarkdownEditor";
 import { getSkillsByJobDescription } from "../../../../services/teams";
 import Completeness from "../../components/Completeness";
 import { getSkills } from "services/skills";
+import { sendRoleSearchRequest } from "services/teams";
 import SearchCard from "../../components/SearchCard";
 import ResultCard from "../../components/ResultCard";
+import NoMatchingProfilesResultCard from "../../components/NoMatchingProfilesResultCard";
 import AddAnotherModal from "../../components/AddAnotherModal";
-import SkillListPopup from "./components/SkillListPopup";
 import "./styles.module.scss";
-import withAuthentication from "../../../../hoc/withAuthentication";
+import AddedRolesAccordion from "../../components/AddedRolesAccordion";
 import IconOfficeFileText from "../../../../assets/images/icon-office-file-text.svg";
 
 function InputJobDescription() {
@@ -29,39 +30,18 @@ function InputJobDescription() {
     { name: "Search Member" },
     { name: "Overview of the Results" },
   ]);
+  const [roleSearchResult, setRoleSearchResult] = useState(null);
+  const [addedRoles, setAddedRoles] = useState([]);
+  const [
+    previousRoleSearchRequestId,
+    setPreviousRoleSearchRequestId,
+  ] = useState(null);
   const [jdString, setJdString] = useState("");
+  const [matchingProfiles, setMatchingProfiles] = useState(null);
   const [searchState, setSearchState] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
-  const [skillModalOpen, setSkillModalOpen] = useState(false);
   const [submitDone, setSubmitDone] = useState(false);
   const [skills, setSkills] = useState([]);
-  const [isLoadingSkills, setIsLoadingSkills] = useState(false);
-
-  const onSearch = useCallback(
-    (value) => {
-      setSkillModalOpen(true);
-      setIsLoadingSkills(true);
-      getSkillsByJobDescription(jdString)
-        .then((response) => {
-          setSkills(response.data);
-          setIsLoadingSkills(false);
-          setSkillModalOpen(true);
-        })
-        .catch(() => {
-          setIsLoadingSkills(false);
-        });
-    },
-    [jdString]
-  );
-
-  const onConfirationClick = useCallback(() => {
-    setSearchState("searching");
-    setCurrentStage(1, stages, setStages);
-    setTimeout(() => {
-      setCurrentStage(2, stages, setStages);
-      setSearchState("done");
-    }, 3000);
-  }, []);
 
   const addAnother = useCallback(() => {
     // navigate(`/taas/myteams/createnewteam/${projectId}/role`);
@@ -74,6 +54,36 @@ function InputJobDescription() {
       setSubmitDone(true);
     }, 3000);
   };
+
+  const search = useCallback(() => {
+    setCurrentStage(1, stages, setStages);
+    setSearchState("searching");
+    sendRoleSearchRequest({
+      jobDescription: jdString,
+      previousRoleSearchRequestId,
+    })
+      .then(({ data }) => {
+        setRoleSearchResult(data);
+        setPreviousRoleSearchRequestId(data.roleSearchRequestId);
+        setCurrentStage(2, stages, setStages);
+        setMatchingProfiles(null); // display no matching profiles screen for a while
+        if (data.name && data.name.toLowerCase() !== "niche") {
+          setMatchingProfiles(true);
+          setAddedRoles((addedRoles) => [
+            ...addedRoles,
+            { id: data.id, name: data.name },
+          ]);
+        } else {
+          setMatchingProfiles(false);
+        }
+        setSearchState("done");
+      })
+      .catch((e) => {
+        setCurrentStage(2, stages, setStages);
+        setMatchingProfiles(false); // display no matching profiles screen for a while
+        setSearchState("done");
+      });
+  }, [jdString]);
 
   const onEditChange = useCallback((value) => {
     setJdString(value);
@@ -94,21 +104,20 @@ function InputJobDescription() {
               onChange={onEditChange}
             />
           </div>
+
+        <div styleName="right-side">
+          {addedRoles.length > 0 && (
+            <AddedRolesAccordion addedRoles={addedRoles} />
+          )}
           <Completeness
             extraStyleName="input-job-description"
             isDisabled={jdString.length < 10}
             stages={stages}
-            onClick={onSearch}
+            onClick={search}
             buttonLabel="Search"
             percentage="26"
           />
-          <SkillListPopup
-            open={skillModalOpen}
-            skills={skills}
-            onClose={() => setSkillModalOpen(false)}
-            isLoading={isLoadingSkills}
-            onContinueClick={onConfirationClick}
-          />
+        </div>
         </div>
       ) : searchState === "searching" ? (
         <div styleName="page">
@@ -123,7 +132,19 @@ function InputJobDescription() {
         </div>
       ) : (
         <div styleName="page">
-          <ResultCard />
+          {matchingProfiles ? (
+            <ResultCard {...roleSearchResult} />
+          ) : (
+            <NoMatchingProfilesResultCard
+              {...roleSearchResult}
+              onSearch={search}
+            />
+          )}
+
+        <div styleName="right-side">
+          {addedRoles.length > 0 && (
+            <AddedRolesAccordion addedRoles={addedRoles} />
+          )}
           <Completeness
             extraStyleName="input-job-description"
             stages={stages}
@@ -138,6 +159,7 @@ function InputJobDescription() {
             addAnother={addAnother}
           />
         </div>
+        </div>
       )}
     </div>
   );
@@ -147,4 +169,4 @@ InputJobDescription.propTypes = {
   projectId: PT.string,
 };
 
-export default withAuthentication(InputJobDescription);
+export default InputJobDescription;
