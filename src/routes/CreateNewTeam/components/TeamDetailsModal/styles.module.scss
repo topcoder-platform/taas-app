@@ -1,6 +1,6 @@
 @import "styles/include";
 
-.toggle-description {
+.toggle-button {
   @include font-roboto;
   outline: none;
   border: none;
@@ -8,10 +8,13 @@
   font-size: 12px;
   font-weight: 500;
   color: #137D60;
-  margin-top: 12px;
-  > span {
-    font-size: 18px;
-    vertical-align: middle;
+
+  &.toggle-description {
+    margin-top: 12px;
+    > span {
+      font-size: 18px;
+      vertical-align: middle;
+    }
   }
 }
 
@@ -50,5 +53,17 @@
         }
       }
     }
+  }
+}
+
+.error {
+  font-size: 14px;
+  font-weight: 400;
+  color: red;
+}
+
+.modal-body {
+  textarea {
+    height: 95px;
   }
 }

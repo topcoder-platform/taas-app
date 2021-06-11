@@ -6,7 +6,7 @@ import "./styles.module.scss";
 import Checkbox from "components/Checkbox";
 
 function ConfirmationModal() {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const [agreed, setAgreed] = useState(false);
 
   const toggleAgreed = () => {
