@@ -20,6 +20,8 @@ import { postProject, searchRoles } from "services/teams";
 import { setCurrentStage } from "utils/helpers";
 import AddAnotherModal from "../AddAnotherModal";
 import "./styles.module.scss";
+import TeamDetailsModal from "../TeamDetailsModal";
+import ConfirmationModal from "../ConfirmationModal";
 
 function SearchContainer({
   stages,
@@ -158,6 +160,8 @@ function SearchContainer({
           addAnother={addAnother}
         />
       )}
+      <TeamDetailsModal />
+      <ConfirmationModal />
     </div>
   );
 }

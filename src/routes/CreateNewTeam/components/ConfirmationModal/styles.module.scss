@@ -1,0 +1,33 @@
+@import "styles/include";
+
+.agreement {
+  padding: 24px;
+  background-color: #fbfbfb;
+  border: 1px solid #f4f4f4;
+  border-radius: 8px;
+  margin-bottom: 24px;
+
+  h5 {
+    @include font-barlow;
+    font-weight: 700;
+    color: #2a2a2a;
+    font-size: 20px;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+  }
+
+  p {
+    @include font-roboto;
+    font-size: 16px;
+    line-height: 26px;
+    color: #555;
+    margin-bottom: 32px;
+  }
+}
+
+.check-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
