@@ -12,4 +12,9 @@ export const addSearchedRole = (searchedRole) => ({
 export const addRoleSearchId = (id) => ({
   type: ACTION_TYPE.ADD_ROLE_SEARCH_ID,
   payload: id,
-})
+});
+
+export const replaceSearchedRoles = (roles) => ({
+  type: ACTION_TYPE.REPLACE_SEARCHED_ROLES,
+  payload: { roles, lastRoleId: roles[roles.length - 1].searchId },
+});

@@ -24,6 +24,19 @@ import TeamDetailsModal from "../TeamDetailsModal";
 import ConfirmationModal from "../ConfirmationModal";
 import { addRoleSearchId, addSearchedRole } from "../../actions";
 
+const storeStrings = (arrayOfObjects) => {
+  const objectOfArrays = arrayOfObjects.reduce(
+    (acc, curr) => ({
+      searchId: [...acc.searchId, curr.searchId],
+      name: [...acc.name, curr.name],
+    }),
+    { searchId: [], name: [] }
+  );
+
+  sessionStorage.setItem("searchIds", objectOfArrays.searchId.join(","));
+  sessionStorage.setItem("roleNames", objectOfArrays.name.join(","));
+};
+
 function SearchContainer({
   stages,
   setStages,
@@ -44,6 +57,11 @@ function SearchContainer({
   const [submitDone, setSubmitDone] = useState(true);
 
   const dispatch = useDispatch();
+
+  const onSubmit = useCallback(() => {
+    storeStrings(addedRoles);
+    navigate("result", { state: { matchingRole } });
+  }, [addedRoles, navigate, matchingRole]);
 
   const submitJob = () => {
     setSubmitDone(false);
@@ -141,7 +159,7 @@ function SearchContainer({
             searchState === "searching" ||
             (searchState === "done" && !matchingRole)
           }
-          onClick={searchState ? () => navigate("result") : search}
+          onClick={searchState ? onSubmit : search}
           extraStyleName={completenessStyle}
           buttonLabel={searchState ? "Submit Request" : "Search"}
           stages={stages}

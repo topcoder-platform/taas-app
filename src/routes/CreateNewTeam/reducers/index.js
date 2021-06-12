@@ -18,6 +18,7 @@ const reducer = (state = initialState, action) => {
 
     case ACTION_TYPE.ADD_SEARCHED_ROLE:
       return {
+        ...state,
         previousSearchId: action.payload.searchId,
         addedRoles: [...state.addedRoles, action.payload],
       };
@@ -26,6 +27,13 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         previousSearchId: action.payload,
+      };
+
+    case ACTION_TYPE.REPLACE_SEARCHED_ROLES:
+      return {
+        ...state,
+        addedRoles: action.payload.roles,
+        previousSearchId: action.payload.lastRoleId,
       };
 
     default:
