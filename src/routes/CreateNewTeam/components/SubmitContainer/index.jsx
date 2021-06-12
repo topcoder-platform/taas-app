@@ -1,6 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
+import _ from "lodash";
+import { toastr } from "react-redux-toastr";
+import { navigate } from "@reach/router";
 import ResultCard from "../ResultCard";
 import AddedRolesAccordion from "../AddedRolesAccordion";
 import Completeness from "../Completeness";
@@ -11,7 +14,8 @@ import withAuthentication from "../../../../hoc/withAuthentication";
 import NoMatchingProfilesResultCard from "../NoMatchingProfilesResultCard";
 import "./styles.module.scss";
 import { setCurrentStage } from "utils/helpers";
-import { replaceSearchedRoles } from "../../actions";
+import { clearSearchedRoles, replaceSearchedRoles } from "../../actions";
+import { postTeamRequest } from "services/teams";
 
 const retrieveRoles = () => {
   const searchIdString = sessionStorage.getItem("searchIds");
@@ -33,12 +37,16 @@ const retrieveRoles = () => {
   return roles;
 };
 
+const clearSessionKeys = () => {
+  sessionStorage.removeItem("searchIds");
+  sessionStorage.removeItem("roleNames");
+};
+
 function SubmitContainer({
   stages,
   setStages,
   completenessStyle,
   reloadRolesPage,
-  navigate,
   location,
 }) {
   const matchingRole = location?.state?.matchingRole;
@@ -47,6 +55,8 @@ function SubmitContainer({
 
   const [addAnotherOpen, setAddAnotherOpen] = useState(true);
   const [teamDetailsOpen, setTeamDetailsOpen] = useState(false);
+  const [teamObject, setTeamObject] = useState(null);
+  const [requestLoading, setRequestLoading] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -58,7 +68,8 @@ function SubmitContainer({
         dispatch(replaceSearchedRoles(storedRoles));
       }
     }
-  }, [addedRoles, dispatch, setStages, stages]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const openTeamDetails = () => {
     setAddAnotherOpen(false);
@@ -72,6 +83,47 @@ function SubmitContainer({
     }
     navigate("/taas/myteams/createnewteam/role");
   };
+
+  const assembleTeam = (formData) => {
+    const teamObject = _.pick(formData, ["teamName", "teamDescription"]);
+
+    const positions = [];
+    for (let key of Object.keys(formData)) {
+      if (key === "teamName" || key === "teamDescription") {
+        continue;
+      }
+      const position = _.pick(
+        formData[key],
+        "numberOfResources",
+        "durationWeeks",
+        "startMonth"
+      );
+
+      position.roleSearchRequestId = key;
+      position.roleName = addedRoles.find((role) => role.searchId === key).name;
+
+      positions.push(position);
+    }
+    teamObject.positions = positions;
+
+    setTeamDetailsOpen(false);
+    setTeamObject(teamObject);
+  };
+
+  const requestTeam = useCallback(() => {
+    setRequestLoading(true);
+    postTeamRequest(teamObject)
+      .then((res) => {
+        const projectId = _.get(res, ["data", "projectId"]);
+        clearSessionKeys();
+        dispatch(clearSearchedRoles());
+        navigate(`/taas/myteams/${projectId}`);
+      })
+      .catch((err) => {
+        setRequestLoading(false);
+        toastr.error("Error Requesting Team", err.message);
+      });
+  }, [dispatch, teamObject]);
 
   return (
     <div styleName="page">
@@ -97,8 +149,18 @@ function SubmitContainer({
         onContinueClick={openTeamDetails}
         addAnother={addAnother}
       />
-      <TeamDetailsModal open={teamDetailsOpen} setOpen={setTeamDetailsOpen} />
-      <ConfirmationModal />
+      <TeamDetailsModal
+        open={teamDetailsOpen}
+        onClose={() => setTeamDetailsOpen(false)}
+        submitForm={assembleTeam}
+        addedRoles={addedRoles}
+      />
+      <ConfirmationModal
+        open={!!teamObject}
+        onClose={() => setTeamObject(null)}
+        onSubmit={requestTeam}
+        isLoading={requestLoading}
+      />
     </div>
   );
 }

@@ -8,11 +8,6 @@ import { formatPlural } from "utils/format";
 import Button from "components/Button";
 import "./styles.module.scss";
 
-const addedRoles = [
-  { id: "testID", name: "Angular Developer" },
-  { id: "testID2", name: "DevOps Engineer" },
-];
-
 const Error = ({ name }) => {
   const {
     meta: { touched, error },
@@ -20,22 +15,18 @@ const Error = ({ name }) => {
   return touched && error ? <span styleName="error">{error}</span> : null;
 };
 
-function TeamDetailsModal({ open, setOpen }) {
+function TeamDetailsModal({ open, onClose, submitForm, addedRoles }) {
   const [showDescription, setShowDescription] = useState(false);
   const [startMonthVisible, setStartMonthVisible] = useState(() => {
     const roles = {};
-    addedRoles.forEach(({ id }) => {
-      roles[id] = false;
+    addedRoles.forEach(({ searchId }) => {
+      roles[searchId] = false;
     });
     return roles;
   });
 
   const toggleDescription = () => {
     setShowDescription((prevState) => !prevState);
-  };
-
-  const onSubmit = (formData) => {
-    console.log(formData);
   };
 
   const validateName = (name) => {
@@ -74,8 +65,8 @@ function TeamDetailsModal({ open, setOpen }) {
 
   const validateRole = (role) => {
     const roleErrors = {};
-    roleErrors.resources = validateNumber(role.resources);
-    roleErrors.duration = validateNumber(role.duration);
+    roleErrors.numberOfResources = validateNumber(role.numberOfResources);
+    roleErrors.durationWeeks = validateNumber(role.durationWeeks);
     if (role.startMonth) {
       roleErrors.startMonth = validateMonth(role.startMonth);
     }
@@ -98,7 +89,7 @@ function TeamDetailsModal({ open, setOpen }) {
 
   return (
     <Form
-      onSubmit={onSubmit}
+      onSubmit={submitForm}
       initialValues={{ teamName: "My Great Team" }}
       validate={validator}
     >
@@ -106,7 +97,7 @@ function TeamDetailsModal({ open, setOpen }) {
         return (
           <BaseCreateModal
             open={open}
-            onClose={() => setOpen(false)}
+            onClose={onClose}
             title="Team Details"
             subtitle="Please provide your team details before submitting a request."
             buttons={
@@ -158,26 +149,26 @@ function TeamDetailsModal({ open, setOpen }) {
                   <th>Duration (weeks)</th>
                   <th>Start month</th>
                 </tr>
-                {addedRoles.map(({ id, name }) => (
+                {addedRoles.map(({ searchId: id, name }) => (
                   <tr styleName="role-row" key={id}>
                     <td>{name}</td>
                     <td>
                       <Field
-                        name={`${id}.resources`}
+                        name={`${id}.numberOfResources`}
                         component="input"
                         type="number"
                         initialValue="3"
                       />
-                      <Error name={`${id}.resources`} />
+                      <Error name={`${id}.numberOfResources`} />
                     </td>
                     <td>
                       <Field
-                        name={`${id}.duration`}
+                        name={`${id}.durationWeeks`}
                         component="input"
                         type="number"
                         initialValue="20"
                       />
-                      <Error name={`${id}.duration`} />
+                      <Error name={`${id}.durationWeeks`} />
                     </td>
                     <td>
                       {startMonthVisible[id] ? (

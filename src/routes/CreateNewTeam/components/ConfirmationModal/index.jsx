@@ -5,20 +5,15 @@ import Button from "components/Button";
 import "./styles.module.scss";
 import Checkbox from "components/Checkbox";
 
-function ConfirmationModal() {
-  const [open, setOpen] = useState(false);
+function ConfirmationModal({ open, onClose, onSubmit, isLoading }) {
   const [agreed, setAgreed] = useState(false);
 
   const toggleAgreed = () => {
     setAgreed((agreed) => !agreed);
   };
 
-  const onConfirm = () => {
-    console.log("Confirmed!");
-  };
-
   const confirmButton = (
-    <Button type="primary" size="medium" disabled={!agreed} onClick={onConfirm}>
+    <Button type="primary" size="medium" disabled={!agreed} onClick={onSubmit}>
       Confirm
     </Button>
   );
@@ -26,9 +21,11 @@ function ConfirmationModal() {
   return (
     <BaseCreateModal
       open={open}
-      onClose={() => setOpen(false)}
+      onClose={onClose}
       title="Confirmation"
       buttons={confirmButton}
+      isLoading={isLoading}
+      loadingMessage="Creating A New Team"
     >
       <div styleName="agreement">
         <h5>Our Commitment to You</h5>

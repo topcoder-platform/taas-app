@@ -216,11 +216,24 @@ export const postProject = () => {
  * @param {string} searchObject.jobDescription job description used for search
  * @param {string[]} searchObject.skills array of skill ids used for role search
  * @param {string} searchObject.previousRoleSearchRequestId id of the last search made
- * @returns
+ *
+ * @returns {Promise<object>} the role found
  */
 export const searchRoles = (searchObject) => {
   const newObject = { ...searchObject };
   delete newObject.previousRoleSearchRequestId;
   const url = `${config.API.V5}/taas-teams/sendRoleSearchRequest`;
   return axios.post(url, newObject);
+};
+
+/**
+ * Create a new team request
+ *
+ * @param {Object} teamObject object containing team details
+ *
+ * @returns {Promise<object>} object containing new projectId
+ */
+export const postTeamRequest = (teamObject) => {
+  const url = `${config.API.V5}/taas-teams/submitTeamRequest`;
+  return axios.post(url, teamObject);
 };
