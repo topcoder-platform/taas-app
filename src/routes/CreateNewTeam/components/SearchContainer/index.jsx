@@ -10,6 +10,7 @@ import PT from "prop-types";
 import { toastr } from "react-redux-toastr";
 import { navigate } from "@reach/router";
 import _ from "lodash";
+import { useDispatch, useSelector } from "react-redux";
 import AddedRolesAccordion from "../AddedRolesAccordion";
 import Completeness from "../Completeness";
 import SearchCard from "../SearchCard";
@@ -22,6 +23,7 @@ import AddAnotherModal from "../AddAnotherModal";
 import "./styles.module.scss";
 import TeamDetailsModal from "../TeamDetailsModal";
 import ConfirmationModal from "../ConfirmationModal";
+import { addRoleSearchId, addSearchedRole } from "../../actions";
 
 function SearchContainer({
   stages,
@@ -30,17 +32,18 @@ function SearchContainer({
   children,
   searchObject,
   completenessStyle,
-  locationState,
   reloadRolesPage,
 }) {
-  const [addedRoles, setAddedRoles] = useState(
-    locationState?.addedRoles ? locationState.addedRoles : []
+  const { addedRoles, previousSearchId } = useSelector(
+    (state) => state.searchedRoles
   );
+
   const [searchState, setSearchState] = useState(null);
   const [matchingRole, setMatchingRole] = useState(null);
   const [addAnotherModalOpen, setAddAnotherModalOpen] = useState(false);
   const [submitDone, setSubmitDone] = useState(true);
-  const [prevSearchId, setPrevSearchId] = useState(locationState?.prevSearchId);
+
+  const dispatch = useDispatch();
 
   const submitJob = () => {
     setSubmitDone(false);
@@ -75,9 +78,7 @@ function SearchContainer({
 
   const addAnother = () => {
     if (!reloadRolesPage) {
-      navigate("/taas/myteams/createnewteam/role", {
-        state: { addedRoles, prevSearchId },
-      });
+      navigate("/taas/myteams/createnewteam/role");
       return;
     }
     setCurrentStage(0, stages, setStages);
@@ -92,17 +93,18 @@ function SearchContainer({
     setSearchState("searching");
     setMatchingRole(null);
     const searchObjectCopy = { ...searchObject };
-    if (prevSearchId) {
-      searchObjectCopy.previousRoleSearchRequestId = prevSearchId;
+    if (previousSearchId) {
+      searchObjectCopy.previousRoleSearchRequestId = previousSearchId;
     }
     searchRoles(searchObjectCopy)
       .then((res) => {
-        const id = _.get(res, "data.id");
         const name = _.get(res, "data.name");
-        setPrevSearchId(_.get(res, "data.roleSearchRequestId"));
+        const searchId = _.get(res, "data.roleSearchRequestId");
         if (name && !name.toLowerCase().includes("niche")) {
           setMatchingRole(res.data);
-          setAddedRoles((addedRoles) => [...addedRoles, { id, name }]);
+          dispatch(addSearchedRole({ searchId, name }));
+        } else if (searchId) {
+          dispatch(addRoleSearchId(searchId));
         }
       })
       .catch((err) => {
@@ -118,12 +120,7 @@ function SearchContainer({
     if (!searchState) return children;
     if (searchState === "searching") return <SearchCard />;
     if (matchingRole) return <ResultCard role={matchingRole} />;
-    return (
-      <NoMatchingProfilesResultCard
-        prevSearchId={prevSearchId}
-        addedRoles={addedRoles}
-      />
-    );
+    return <NoMatchingProfilesResultCard />;
   };
 
   const getPercentage = useCallback(() => {
@@ -173,7 +170,6 @@ SearchContainer.propTypes = {
   searchObject: PT.object,
   children: PT.node,
   completenessStyle: PT.string,
-  locationState: PT.object,
   reloadRolesPage: PT.func,
 };
 

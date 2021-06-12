@@ -9,7 +9,7 @@ import IconEarthX from "../../../../assets/images/icon-earth-x.svg";
 import Curve from "../../../../assets/images/curve.svg";
 import Button from "components/Button";
 
-function NoMatchingProfilesResultCard({ prevSearchId, addedRoles }) {
+function NoMatchingProfilesResultCard() {
   return (
     <div styleName="result-card">
       <div styleName="heading">
@@ -28,10 +28,7 @@ function NoMatchingProfilesResultCard({ prevSearchId, addedRoles }) {
           <p styleName="cost">$1,200</p>
           <p>/Week</p>
         </div>
-        <Link
-          to="/taas/myteams/createnewteam"
-          state={{ prevSearchId, addedRoles }}
-        >
+        <Link to="/taas/myteams/createnewteam" state={{ keepAddedRoles: true }}>
           <Button type="secondary" styleName="button">
             Modify Search Criteria
           </Button>

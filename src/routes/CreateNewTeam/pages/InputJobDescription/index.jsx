@@ -1,19 +1,16 @@
 /**
  * Input Job Description page
  *
- * Gets location state from router
- *
  * Allows user to search for roles by
  * job description
  */
 import React, { useCallback, useState } from "react";
-import PT from "prop-types";
 import PageHeader from "components/PageHeader";
 import MarkdownEditor from "../../../../components/MarkdownEditor";
 import "./styles.module.scss";
 import SearchContainer from "../../components/SearchContainer";
 
-function InputJobDescription({ location: { state: locationState } }) {
+function InputJobDescription() {
   const [stages, setStages] = useState([
     { name: "Input Job Description", isCurrent: true },
     { name: "Search Member" },
@@ -32,7 +29,6 @@ function InputJobDescription({ location: { state: locationState } }) {
       isCompletenessDisabled={jdString.length < 10}
       completenessStyle="input-job-description"
       searchObject={{ jobDescription: jdString }}
-      locationState={locationState}
     >
       <div styleName="edit-container">
         <PageHeader
@@ -48,9 +44,5 @@ function InputJobDescription({ location: { state: locationState } }) {
     </SearchContainer>
   );
 }
-
-InputJobDescription.propTypes = {
-  locationState: PT.object,
-};
 
 export default InputJobDescription;

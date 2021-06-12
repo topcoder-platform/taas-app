@@ -7,6 +7,7 @@ import positionDetailsReducer from "../routes/PositionDetails/reducers";
 import teamMembersReducer from "../routes/TeamAccess/reducers";
 import emailPopupReducer from "../components/EmailPopup/reducers";
 import authUserReducer from "../hoc/withAuthentication/reducers";
+import searchedRolesReducer from "../routes/CreateNewTeam/reducers";
 
 const rootReducer = combineReducers({
   toastr: toastrReducer,
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
   teamMembers: teamMembersReducer,
   emailPopup: emailPopupReducer,
   authUser: authUserReducer,
+  searchedRoles: searchedRolesReducer,
 });
 
 export default rootReducer;

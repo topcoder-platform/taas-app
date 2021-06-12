@@ -29,7 +29,7 @@ function TeamDetailsModal() {
     });
     return roles;
   });
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
 
   const toggleDescription = () => {
     setShowDescription((prevState) => !prevState);
