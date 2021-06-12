@@ -10,7 +10,7 @@ import RolesList from "./components/RolesList";
 import { getRoles } from "services/roles";
 import LoadingIndicator from "components/LoadingIndicator";
 import RoleDetailsModal from "../../components/RoleDetailsModal";
-import SearchContainer from "../../components/SearchContainer";
+import SearchAndSubmit from "../../components/SearchAndSubmit";
 
 function SelectRole() {
   const [stages, setStages] = useState([
@@ -44,26 +44,29 @@ function SelectRole() {
   }
 
   return (
-    <SearchContainer
+    <SearchAndSubmit
       stages={stages}
       setStages={setStages}
       isCompletenessDisabled={!selectedRoleId}
       searchObject={{ roleId: selectedRoleId }}
       completenessStyle="role-selection"
       reloadRolesPage={resetState}
-    >
-      <RolesList
-        roles={roles}
-        selectedRoleId={selectedRoleId}
-        toggleRole={toggleRole}
-        onDescriptionClick={onDescriptionClick}
-      />
-      <RoleDetailsModal
-        roleId={roleDetailsModalId}
-        open={roleDetailsModalOpen}
-        onClose={() => setRoleDetailsModalOpen(false)}
-      />
-    </SearchContainer>
+      toRender={
+        <>
+          <RolesList
+            roles={roles}
+            selectedRoleId={selectedRoleId}
+            toggleRole={toggleRole}
+            onDescriptionClick={onDescriptionClick}
+          />
+          <RoleDetailsModal
+            roleId={roleDetailsModalId}
+            open={roleDetailsModalOpen}
+            onClose={() => setRoleDetailsModalOpen(false)}
+          />
+        </>
+      }
+    />
   );
 }
 

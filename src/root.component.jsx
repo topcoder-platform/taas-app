@@ -34,9 +34,9 @@ export default function Root() {
           <ResourceBookingForm path="/taas/myteams/:teamId/rb/:resourceBookingId/edit" />
           <PositionDetails path="/taas/myteams/:teamId/positions/:positionId/candidates" />
           <TeamAccess path="/taas/myteams/:teamId/access" />
-          <InputJobDescription path="/taas/myteams/createnewteam/jd" />
-          <InputSkills path="/taas/myteams/createnewteam/skills" />
-          <SelectRole path="/taas/myteams/createnewteam/role" />
+          <InputJobDescription path="/taas/myteams/createnewteam/jd/*" />
+          <InputSkills path="/taas/myteams/createnewteam/skills/*" />
+          <SelectRole path="/taas/myteams/createnewteam/role/*" />
         </Router>
 
         {/* Global config for Toastr popups */}

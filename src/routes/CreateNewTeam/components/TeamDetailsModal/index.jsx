@@ -20,7 +20,7 @@ const Error = ({ name }) => {
   return touched && error ? <span styleName="error">{error}</span> : null;
 };
 
-function TeamDetailsModal() {
+function TeamDetailsModal({ open, setOpen }) {
   const [showDescription, setShowDescription] = useState(false);
   const [startMonthVisible, setStartMonthVisible] = useState(() => {
     const roles = {};
@@ -29,7 +29,6 @@ function TeamDetailsModal() {
     });
     return roles;
   });
-  const [open, setOpen] = useState(false);
 
   const toggleDescription = () => {
     setShowDescription((prevState) => !prevState);

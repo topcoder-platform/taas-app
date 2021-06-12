@@ -8,7 +8,7 @@ import React, { useCallback, useState } from "react";
 import PageHeader from "components/PageHeader";
 import MarkdownEditor from "../../../../components/MarkdownEditor";
 import "./styles.module.scss";
-import SearchContainer from "../../components/SearchContainer";
+import SearchAndSubmit from "../../components/SearchAndSubmit";
 
 function InputJobDescription() {
   const [stages, setStages] = useState([
@@ -23,25 +23,28 @@ function InputJobDescription() {
   }, []);
 
   return (
-    <SearchContainer
+    <SearchAndSubmit
       stages={stages}
       setStages={setStages}
       isCompletenessDisabled={jdString.length < 10}
       completenessStyle="input-job-description"
       searchObject={{ jobDescription: jdString }}
-    >
-      <div styleName="edit-container">
-        <PageHeader
-          title="Input Job Description"
-          backTo="/taas/myteams/createnewteam"
-        />
-        <MarkdownEditor
-          height="482px"
-          placeholder="input job description"
-          onChange={onEditChange}
-        />
-      </div>
-    </SearchContainer>
+      toRender={
+        <>
+          <div styleName="edit-container">
+            <PageHeader
+              title="Input Job Description"
+              backTo="/taas/myteams/createnewteam"
+            />
+            <MarkdownEditor
+              height="482px"
+              placeholder="input job description"
+              onChange={onEditChange}
+            />
+          </div>
+        </>
+      }
+    />
   );
 }
 

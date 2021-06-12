@@ -11,6 +11,7 @@ import SkillsList from "./components/SkillsList";
 import { getSkills } from "services/skills";
 import LoadingIndicator from "components/LoadingIndicator";
 import SearchContainer from "../../components/SearchContainer";
+import SearchAndSubmit from "../../components/SearchAndSubmit";
 
 function InputSkills() {
   const [stages, setStages] = useState([
@@ -44,19 +45,20 @@ function InputSkills() {
   }
 
   return (
-    <SearchContainer
+    <SearchAndSubmit
       stages={stages}
       setStages={setStages}
       isCompletenessDisabled={selectedSkills.length < 1}
       searchObject={{ skills: selectedSkills }}
       completenessStyle="input-skills"
-    >
-      <SkillsList
-        skills={skills}
-        selectedSkills={selectedSkills}
-        toggleSkill={toggleSkill}
-      />
-    </SearchContainer>
+      toRender={
+        <SkillsList
+          skills={skills}
+          selectedSkills={selectedSkills}
+          toggleSkill={toggleSkill}
+        />
+      }
+    />
   );
 }
 

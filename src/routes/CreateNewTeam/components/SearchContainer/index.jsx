@@ -8,7 +8,6 @@
 import React, { useCallback, useState } from "react";
 import PT from "prop-types";
 import { toastr } from "react-redux-toastr";
-import { navigate } from "@reach/router";
 import _ from "lodash";
 import { useDispatch, useSelector } from "react-redux";
 import AddedRolesAccordion from "../AddedRolesAccordion";
@@ -29,10 +28,11 @@ function SearchContainer({
   stages,
   setStages,
   isCompletenessDisabled,
-  children,
+  toRender,
   searchObject,
   completenessStyle,
   reloadRolesPage,
+  navigate,
 }) {
   const { addedRoles, previousSearchId } = useSelector(
     (state) => state.searchedRoles
@@ -117,7 +117,7 @@ function SearchContainer({
   };
 
   const renderLeftSide = () => {
-    if (!searchState) return children;
+    if (!searchState) return toRender;
     if (searchState === "searching") return <SearchCard />;
     if (matchingRole) return <ResultCard role={matchingRole} />;
     return <NoMatchingProfilesResultCard />;
@@ -141,7 +141,7 @@ function SearchContainer({
             searchState === "searching" ||
             (searchState === "done" && !matchingRole)
           }
-          onClick={searchState ? () => setAddAnotherModalOpen(true) : search}
+          onClick={searchState ? () => navigate("result") : search}
           extraStyleName={completenessStyle}
           buttonLabel={searchState ? "Submit Request" : "Search"}
           stages={stages}
@@ -157,7 +157,6 @@ function SearchContainer({
           addAnother={addAnother}
         />
       )}
-      <TeamDetailsModal />
       <ConfirmationModal />
     </div>
   );
@@ -168,9 +167,10 @@ SearchContainer.propTypes = {
   setStages: PT.func,
   isCompletenessDisabled: PT.bool,
   searchObject: PT.object,
-  children: PT.node,
+  toRender: PT.node,
   completenessStyle: PT.string,
   reloadRolesPage: PT.func,
+  navigate: PT.func,
 };
 
 export default SearchContainer;
