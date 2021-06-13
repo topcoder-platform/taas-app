@@ -7,7 +7,6 @@
  */
 import React, { useCallback, useState } from "react";
 import PT from "prop-types";
-import { toastr } from "react-redux-toastr";
 import _ from "lodash";
 import { useDispatch, useSelector } from "react-redux";
 import AddedRolesAccordion from "../AddedRolesAccordion";
@@ -15,15 +14,17 @@ import Completeness from "../Completeness";
 import SearchCard from "../SearchCard";
 import ResultCard from "../ResultCard";
 import NoMatchingProfilesResultCard from "../NoMatchingProfilesResultCard";
-import { createJob } from "services/jobs";
-import { postProject, searchRoles } from "services/teams";
+import { searchRoles } from "services/teams";
 import { setCurrentStage } from "utils/helpers";
-import AddAnotherModal from "../AddAnotherModal";
-import "./styles.module.scss";
-import TeamDetailsModal from "../TeamDetailsModal";
-import ConfirmationModal from "../ConfirmationModal";
 import { addRoleSearchId, addSearchedRole } from "../../actions";
+import "./styles.module.scss";
 
+/**
+ * Converts an array of role search objects to two data
+ * lists which can be set as sessionStorage items
+ *
+ * @param {object[]} arrayOfObjects array of role objects
+ */
 const storeStrings = (arrayOfObjects) => {
   const objectOfArrays = arrayOfObjects.reduce(
     (acc, curr) => ({
@@ -62,49 +63,6 @@ function SearchContainer({
     storeStrings(addedRoles);
     navigate("result", { state: { matchingRole } });
   }, [addedRoles, navigate, matchingRole]);
-
-  const submitJob = () => {
-    setSubmitDone(false);
-    postProject()
-      .then((res) => {
-        const projectId = _.get(res, "data.id");
-
-        createJob({
-          projectId,
-          title: `job-${Date()}`,
-          skills: [],
-          roleIds: addedRoles.map((r) => r.id),
-          numPositions: 1,
-        })
-          .then(() => {
-            toastr.success("Job Submitted");
-          })
-          .catch((err) => {
-            console.error(err);
-            toastr.warning("Error Submitting Job");
-          });
-      })
-      .catch((err) => {
-        console.error(err);
-        toastr.warning("Error Creating Project");
-      })
-      .finally(() => {
-        setSubmitDone(true);
-        navigate("/taas/myteams");
-      });
-  };
-
-  const addAnother = () => {
-    if (!reloadRolesPage) {
-      navigate("/taas/myteams/createnewteam/role");
-      return;
-    }
-    setCurrentStage(0, stages, setStages);
-    setSearchState(null);
-    setMatchingRole(null);
-    setAddAnotherModalOpen(false);
-    reloadRolesPage();
-  };
 
   const search = () => {
     setCurrentStage(1, stages, setStages);
@@ -166,16 +124,6 @@ function SearchContainer({
           percentage={getPercentage()}
         />
       </div>
-      {searchState === "done" && matchingRole && (
-        <AddAnotherModal
-          open={addAnotherModalOpen}
-          onClose={() => setAddAnotherModalOpen(false)}
-          submitDone={submitDone}
-          onContinueClick={submitJob}
-          addAnother={addAnother}
-        />
-      )}
-      <ConfirmationModal />
     </div>
   );
 }
