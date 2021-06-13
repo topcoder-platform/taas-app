@@ -1,5 +1,10 @@
+/**
+ * Confirmation Modal
+ * Final popup to accept user's agreement to
+ * commitment and confirm submission of request.
+ */
 import React, { useState } from "react";
-import PropTypes from "prop-types";
+import PT from "prop-types";
 import BaseCreateModal from "../BaseCreateModal";
 import Button from "components/Button";
 import "./styles.module.scss";
@@ -13,7 +18,12 @@ function ConfirmationModal({ open, onClose, onSubmit, isLoading }) {
   };
 
   const confirmButton = (
-    <Button type="primary" size="medium" disabled={!agreed} onClick={onSubmit}>
+    <Button
+      type="primary"
+      size="medium"
+      disabled={!agreed || isLoading}
+      onClick={onSubmit}
+    >
       Confirm
     </Button>
   );
@@ -52,6 +62,11 @@ function ConfirmationModal({ open, onClose, onSubmit, isLoading }) {
   );
 }
 
-ConfirmationModal.propTypes = {};
+ConfirmationModal.propTypes = {
+  open: PT.bool,
+  onClose: PT.func,
+  onSubmit: PT.func,
+  isLoading: PT.bool,
+};
 
 export default ConfirmationModal;

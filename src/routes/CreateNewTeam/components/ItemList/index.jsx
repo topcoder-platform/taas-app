@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
+import PT from "prop-types";
 import { useDebounce } from "react-use";
 import { INPUT_DEBOUNCE_DELAY } from "constants/";
 import PageHeader from "components/PageHeader";
@@ -66,6 +66,12 @@ function ItemList({
   );
 }
 
-ItemList.propTypes = {};
+ItemList.propTypes = {
+  filterItems: PT.func,
+  title: PT.string,
+  filterPlaceholder: PT.string,
+  subtitle: PT.string,
+  children: PT.node,
+};
 
 export default ItemList;

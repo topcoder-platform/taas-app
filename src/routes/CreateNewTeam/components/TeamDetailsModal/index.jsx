@@ -1,4 +1,9 @@
-import React, { useMemo, useState } from "react";
+/**
+ * Team Details Modal
+ * Popup form to enter details about the
+ * team request before submitting.
+ */
+import React, { useState } from "react";
 import PT from "prop-types";
 import { Form, Field, useField } from "react-final-form";
 import FormField from "components/FormField";
@@ -205,6 +210,11 @@ function TeamDetailsModal({ open, onClose, submitForm, addedRoles }) {
   );
 }
 
-TeamDetailsModal.propTypes = {};
+TeamDetailsModal.propTypes = {
+  open: PT.bool,
+  onClose: PT.func,
+  submitForm: PT.func,
+  addedRoles: PT.array,
+};
 
 export default TeamDetailsModal;

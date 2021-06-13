@@ -1,5 +1,11 @@
+/**
+ * Submit Container
+ * Container for the submission flow.
+ * Requires authentication to complete submission process
+ * and contains a series of popups to lead user through the flow.
+ */
 import React, { useCallback, useEffect, useState } from "react";
-import PropTypes from "prop-types";
+import PT from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import _ from "lodash";
 import { toastr } from "react-redux-toastr";
@@ -11,11 +17,11 @@ import AddAnotherModal from "../AddAnotherModal";
 import TeamDetailsModal from "../TeamDetailsModal";
 import ConfirmationModal from "../ConfirmationModal";
 import withAuthentication from "../../../../hoc/withAuthentication";
-import NoMatchingProfilesResultCard from "../NoMatchingProfilesResultCard";
 import "./styles.module.scss";
 import { setCurrentStage } from "utils/helpers";
 import { clearSearchedRoles, replaceSearchedRoles } from "../../actions";
 import { postTeamRequest } from "services/teams";
+import SuccessCard from "../SuccessCard";
 
 const retrieveRoles = () => {
   const searchIdString = sessionStorage.getItem("searchIds");
@@ -127,11 +133,7 @@ function SubmitContainer({
 
   return (
     <div styleName="page">
-      {matchingRole ? (
-        <ResultCard role={matchingRole} />
-      ) : (
-        <NoMatchingProfilesResultCard />
-      )}
+      {matchingRole ? <ResultCard role={matchingRole} /> : <SuccessCard />}
       <div styleName="right-side">
         <AddedRolesAccordion addedRoles={addedRoles} />
         <Completeness
@@ -165,6 +167,12 @@ function SubmitContainer({
   );
 }
 
-SubmitContainer.propTypes = {};
+SubmitContainer.propTypes = {
+  stages: PT.array,
+  setStages: PT.func,
+  completenessStyle: PT.string,
+  reloadRolesPage: PT.bool,
+  location: PT.object,
+};
 
 export default withAuthentication(SubmitContainer);
