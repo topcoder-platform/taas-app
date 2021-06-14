@@ -13,7 +13,4 @@ module.exports = {
     V5: "https://api.topcoder-dev.com/v5", //"http://localhost:3030/api/v5"
     V3: "https://api.topcoder-dev.com/v3",
   },
-
-  // matching rate for search role result page
-  MATCHING_RATE: process.env.MATCHING_RATE || 80,
 };
