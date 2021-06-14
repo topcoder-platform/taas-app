@@ -3,53 +3,47 @@
 .button-group {
   display: flex;
   flex-direction: row;
-  justify-content: center;
-  align-items: flex-end;
-  :first-child {
-    margin-right: 8px;
-  }
-}
-
-.tab-button-group {
-  display: flex;
-  flex-direction: row;
   align-items: center;
   justify-content: center;
-  margin-bottom: 42px;
+  margin-bottom: 30px;
 }
 
-.modal-body {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  text-align: center;
-  margin-bottom: 80px;
+.body {
+  @include font-roboto;
+  color: #2a2a2a;
+}
 
-  .role-icon {
-    width: 42px;
-    height: 42px;
-  }
-
-  h5 {
-    @include font-barlow-condensed;
-    font-size: 34px;
-    color: #1e94a3;
-    text-transform: uppercase;
-    font-weight: 500;
-    margin-bottom: 10px;
-  }
-
-  p {
+.markdown-container {
+  // not adds specificity to override style
+  p:not(table) {
     @include font-roboto;
+    color: #2a2a2a;
     font-size: 16px;
-    color: #555555;
     line-height: 26px;
   }
 }
 
-.cross {
-  g {
-    stroke: #000;
-  }
+.description-item {
+  font-size: 16px;
+  line-height: 26px;
+  margin-bottom: 10px;
+  list-style-type: disc;
+}
+
+.skill-list {
+  margin: 0 30px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.skill-item {
+  background-color: #e9e9e9;
+  border-radius: 5px;
+  padding: 6px 9px;
+  margin-right: 6px;
+  margin-bottom: 10px;
+  font-size: 12px;
 }

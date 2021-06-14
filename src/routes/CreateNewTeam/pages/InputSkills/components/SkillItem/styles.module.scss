@@ -9,11 +9,14 @@
   align-items: center;
   margin: 0 0 24px 24px;
   cursor: pointer;
+  color: #555;
+  font-weight: 500;
 
   &.selected {
     border-color: #0ab88a;
     background-color: #e0faf3;
     font-weight: 500;
+    color: #2a2a2a;
   }
 }
 

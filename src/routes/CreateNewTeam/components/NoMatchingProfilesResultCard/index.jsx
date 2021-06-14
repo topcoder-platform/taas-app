@@ -3,13 +3,13 @@
  * Card that appears when there are no matching profiles after searching.
  */
 import React from "react";
-import { navigate } from "@reach/router";
+import { Link } from "@reach/router";
 import "./styles.module.scss";
 import IconEarthX from "../../../../assets/images/icon-earth-x.svg";
 import Curve from "../../../../assets/images/curve.svg";
 import Button from "components/Button";
 
-function NoMatchingProfilesResultCard() {
+function NoMatchingProfilesResultCard({ prevSearchId, addedRoles }) {
   return (
     <div styleName="result-card">
       <div styleName="heading">
@@ -28,13 +28,14 @@ function NoMatchingProfilesResultCard() {
           <p styleName="cost">$1,200</p>
           <p>/Week</p>
         </div>
-        <Button
-          onClick={() => navigate("/taas/myteams/createnewteam")}
-          type="secondary"
-          styleName="button"
+        <Link
+          to="/taas/myteams/createnewteam"
+          state={{ prevSearchId, addedRoles }}
         >
-          Modify Search Criteria
-        </Button>
+          <Button type="secondary" styleName="button">
+            Modify Search Criteria
+          </Button>
+        </Link>
       </div>
     </div>
   );
