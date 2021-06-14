@@ -2,20 +2,18 @@
  * Input Skills page
  * Page that user reaches after choosing to input job skills.
  *
- * Gets location state from the router.
- *
  * Allows selecting a number of skills, searching for users
  * with those skills, and submitting a job requiring the skills.
  */
 import React, { useCallback, useState } from "react";
-import PT from "prop-types";
 import { useData } from "hooks/useData";
 import SkillsList from "./components/SkillsList";
 import { getSkills } from "services/skills";
 import LoadingIndicator from "components/LoadingIndicator";
 import SearchContainer from "../../components/SearchContainer";
+import SearchAndSubmit from "../../components/SearchAndSubmit";
 
-function InputSkills({ location: { state: locationState } }) {
+function InputSkills() {
   const [stages, setStages] = useState([
     { name: "Input Skills", isCurrent: true },
     { name: "Search Member" },
@@ -47,25 +45,21 @@ function InputSkills({ location: { state: locationState } }) {
   }
 
   return (
-    <SearchContainer
+    <SearchAndSubmit
       stages={stages}
       setStages={setStages}
       isCompletenessDisabled={selectedSkills.length < 1}
       searchObject={{ skills: selectedSkills }}
       completenessStyle="input-skills"
-      locationState={locationState}
-    >
-      <SkillsList
-        skills={skills}
-        selectedSkills={selectedSkills}
-        toggleSkill={toggleSkill}
-      />
-    </SearchContainer>
+      toRender={
+        <SkillsList
+          skills={skills}
+          selectedSkills={selectedSkills}
+          toggleSkill={toggleSkill}
+        />
+      }
+    />
   );
 }
-
-InputSkills.propTypes = {
-  locationState: PT.object,
-};
 
 export default InputSkills;

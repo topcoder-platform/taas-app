@@ -167,9 +167,9 @@
           margin-left: 3px;
         }
       }
-      .senior,
-      .standard,
-      .junior {
+      .global,
+      .in-country,
+      .offshore {
         display: flex;
         flex-direction: column;
         position: relative;
@@ -210,13 +210,13 @@
           }
         }
       }
-      .senior::before {
+      .global::before {
         background-color: #c99014;
       }
-      .standard::before {
+      .in-country::before {
         background-color: #716d67;
       }
-      .junior::before {
+      .offshore::before {
         background-color: #854e29;
       }
     }

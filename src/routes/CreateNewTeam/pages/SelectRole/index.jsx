@@ -1,21 +1,18 @@
 /**
  * Select Role Page
  *
- * Gets locationState from the router.
- *
  * Allows selecting a role, searching for users
  * with that role, and submitting a job requiring the roles.
  */
 import React, { useCallback, useState } from "react";
-import PT from "prop-types";
 import { useData } from "hooks/useData";
 import RolesList from "./components/RolesList";
 import { getRoles } from "services/roles";
 import LoadingIndicator from "components/LoadingIndicator";
 import RoleDetailsModal from "../../components/RoleDetailsModal";
-import SearchContainer from "../../components/SearchContainer";
+import SearchAndSubmit from "../../components/SearchAndSubmit";
 
-function SelectRole({ location: { state: locationState } }) {
+function SelectRole() {
   const [stages, setStages] = useState([
     { name: "Select a Role", isCurrent: true },
     { name: "Search Member" },
@@ -38,7 +35,7 @@ function SelectRole({ location: { state: locationState } }) {
 
   const resetState = () => {
     setSelectedRoleId(null);
-    setRoleDetailsModalId(false);
+    setRoleDetailsModalOpen(false);
     setRoleDetailsModalId(null);
   };
 
@@ -47,32 +44,30 @@ function SelectRole({ location: { state: locationState } }) {
   }
 
   return (
-    <SearchContainer
+    <SearchAndSubmit
       stages={stages}
       setStages={setStages}
       isCompletenessDisabled={!selectedRoleId}
       searchObject={{ roleId: selectedRoleId }}
       completenessStyle="role-selection"
-      locationState={locationState}
       reloadRolesPage={resetState}
-    >
-      <RolesList
-        roles={roles}
-        selectedRoleId={selectedRoleId}
-        toggleRole={toggleRole}
-        onDescriptionClick={onDescriptionClick}
-      />
-      <RoleDetailsModal
-        roleId={roleDetailsModalId}
-        open={roleDetailsModalOpen}
-        onClose={() => setRoleDetailsModalOpen(false)}
-      />
-    </SearchContainer>
+      toRender={
+        <>
+          <RolesList
+            roles={roles}
+            selectedRoleId={selectedRoleId}
+            toggleRole={toggleRole}
+            onDescriptionClick={onDescriptionClick}
+          />
+          <RoleDetailsModal
+            roleId={roleDetailsModalId}
+            open={roleDetailsModalOpen}
+            onClose={() => setRoleDetailsModalOpen(false)}
+          />
+        </>
+      }
+    />
   );
 }
-
-SelectRole.propTypes = {
-  locationState: PT.object,
-};
 
 export default SelectRole;

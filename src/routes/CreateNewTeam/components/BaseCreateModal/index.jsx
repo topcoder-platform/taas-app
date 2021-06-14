@@ -61,7 +61,7 @@ function BaseCreateModal({
         ) : (
           <>
             <div styleName={cn("modal-header", { "dark-header": darkHeader })}>
-              <div styleName="header-icon">{headerIcon}</div>
+              {headerIcon && <div styleName="header-icon">{headerIcon}</div>}
               <h5>{title}</h5>
               {subtitle && <p>{subtitle}</p>}
             </div>

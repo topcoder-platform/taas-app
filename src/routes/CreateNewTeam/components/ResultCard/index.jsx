@@ -29,12 +29,12 @@ function ResultCard({ role }) {
     isExternalMember,
     rates: [rates],
   } = role;
-  const [userHandle, setUserHandle] = useState("handle");
+  const [userHandle, setUserHandle] = useState(null);
   const [showRates, setShowRates] = useState(false);
 
   useEffect(() => {
     getAuthUserProfile().then((res) => {
-      setUserHandle(res.handle || "handle");
+      setUserHandle(res.handle || null);
     });
   }, []);
 
@@ -68,30 +68,32 @@ function ResultCard({ role }) {
       </div>
       {showRates && !isExternalMember && (
         <div styleName="xeno-rates">
-          <p styleName="greeting-txt">
-            Hi {userHandle}, we have special rates for you as a Xeno User!
-          </p>
+          {userHandle && (
+            <p styleName="greeting-txt">
+              Hi {userHandle}, we have special rates for you as a Xeno User!
+            </p>
+          )}
           <div styleName="rates">
             <div styleName="rate-info">
               <div styleName="rate-heading">
                 <h4>Full-Time</h4>
                 <p>(40h / week)</p>
               </div>
-              <div styleName="senior">
+              <div styleName="global">
                 <h4>Global Rate</h4>
                 <div styleName="cost">
                   <h4>{formatRate(rates.global)}</h4>
                   <p>/Week</p>
                 </div>
               </div>
-              <div styleName="standard">
+              <div styleName="in-country">
                 <h4>In-Country Rate</h4>
                 <div styleName="cost">
                   <h4>{formatRate(rates.inCountry)}</h4>
                   <p>/Week</p>
                 </div>
               </div>
-              <div styleName="junior">
+              <div styleName="offshore">
                 <h4>Offshore Rate</h4>
                 <div styleName="cost">
                   <h4>{formatRate(rates.offShore)}</h4>
@@ -104,21 +106,21 @@ function ResultCard({ role }) {
                 <h4>Part-Time</h4>
                 <p>(30h / week)</p>
               </div>
-              <div styleName="senior">
+              <div styleName="global">
                 <h4>Global Rate</h4>
                 <div styleName="cost">
                   <h4>{formatRate(rates.rate30Global)}</h4>
                   <p>/Week</p>
                 </div>
               </div>
-              <div styleName="standard">
+              <div styleName="in-country">
                 <h4>In-Country Rate</h4>
                 <div styleName="cost">
                   <h4>{formatRate(rates.rate30InCountry)}</h4>
                   <p>/Week</p>
                 </div>
               </div>
-              <div styleName="junior">
+              <div styleName="offshore">
                 <h4>Offshore Rate</h4>
                 <div styleName="cost">
                   <h4>{formatRate(rates.rate30OffShore)}</h4>
@@ -131,21 +133,21 @@ function ResultCard({ role }) {
                 <h4>Part-Time</h4>
                 <p>(20h / week)</p>
               </div>
-              <div styleName="senior">
+              <div styleName="global">
                 <h4>Global Rate</h4>
                 <div styleName="cost">
                   <h4>{formatRate(rates.rate20Global)}</h4>
                   <p>/Week</p>
                 </div>
               </div>
-              <div styleName="standard">
+              <div styleName="in-country">
                 <h4>In-Country Rate</h4>
                 <div styleName="cost">
                   <h4>{formatRate(rates.rate20InCountry)}</h4>
                   <p>/Week</p>
                 </div>
               </div>
-              <div styleName="junior">
+              <div styleName="offshore">
                 <h4>Offshore Rate</h4>
                 <div styleName="cost">
                   <h4>{formatRate(rates.rate20OffShore)}</h4>
