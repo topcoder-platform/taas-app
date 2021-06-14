@@ -5,6 +5,8 @@
   max-width: 746px;
   margin-right: 20px;
   position: relative;
+  height: 80vh;
+  overflow-y: scroll;
 
   > header {
     padding: 16px 24px;

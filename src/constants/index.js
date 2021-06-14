@@ -109,8 +109,8 @@ export const CANDIDATE_STATUS = {
   REJECTED_OTHER: "rejected - other",
   INTERVIEW: "interview",
   TOPCODER_REJECTED: "topcoder-rejected",
-  JOB_CLOSED:"job-closed",
-  OFFERED:"offered"
+  JOB_CLOSED: "job-closed",
+  OFFERED: "offered",
 };
 
 /**
@@ -146,7 +146,7 @@ export const CANDIDATE_STATUS_FILTERS = [
     buttonText: "Selected",
     title: "Selected",
     noCandidateMessage: "No Selected Candidates",
-    statuses: [CANDIDATE_STATUS.SELECTED,CANDIDATE_STATUS.OFFERED],
+    statuses: [CANDIDATE_STATUS.SELECTED, CANDIDATE_STATUS.OFFERED],
   },
   {
     key: CANDIDATE_STATUS_FILTER_KEY.NOT_INTERESTED,
@@ -347,3 +347,8 @@ export const INTERVIEW_POPUP_MEDIA_URL =
   "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
 
 export const MAX_ALLOWED_INTERVIEWS = 3;
+
+/**
+ * Matching rate to show in CreateNewTeam ResultCard
+ */
+export const MATCHING_RATE = "80";
