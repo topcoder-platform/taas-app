@@ -23,18 +23,6 @@ export const getMyTeams = (name, page = 1, perPage) => {
 };
 
 /**
- * search role detail.
- *
- * @param {object} data  search param, roleId | jobDescription | skills
- * @returns {Promise<{}>} role detail
- */
-export const sendRoleSearchRequest = (data) => {
-  // mock data
-  delete data.previousRoleSearchRequestId
-  return axios.post(`${config.API.V5}/taas-teams/sendRoleSearchRequest`, data);
-};
-
-/**
  * Get v5 user profile.
  *
  * @returns {Promise<{}>} user profile object
@@ -199,6 +187,22 @@ export const postMembers = (teamId, handles, emails) => {
   if (emails && emails.length > 0) {
     bodyObj.emails = emails;
   }
+
+  return axios.post(url, bodyObj);
+};
+
+/**
+ * Post new project
+ *
+ * @returns {Promise<object>} project object
+ */
+export const postProject = () => {
+  const url = `${config.API.V5}/taas-teams/createTeamRequest`;
+
+  const bodyObj = {
+    name: `project-${Date()}`,
+    type: "talent-as-a-service",
+  };
 
   return axios.post(url, bodyObj);
 };
