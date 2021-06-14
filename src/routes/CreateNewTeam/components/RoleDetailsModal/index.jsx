@@ -6,18 +6,17 @@ import React, { useState, useEffect } from "react";
 import PT from "prop-types";
 import Modal from "react-responsive-modal";
 import Button from "components/Button";
-import MarkdownEditorViewer from "../../../../components/MarkdownEditorViewer";
 import IconCrossLight from "../../../../assets/images/icon-cross-light.svg";
 import FallbackIcon from "../../../../assets/images/icon-role-fallback.svg";
 import "./styles.module.scss";
 import CenteredSpinner from "components/CenteredSpinner";
 import { getRoleById } from "services/roles";
+
 const modalStyle = {
-  borderRadius: "10px",
-  padding: "70px 80px 60px",
-  maxWidth: "680px",
+  borderRadius: "8px",
+  padding: "32px 32px 22px 32px",
+  maxWidth: "460px",
   width: "100%",
-  height: "650px",
   margin: 0,
   "overflow-x": "hidden",
 };
@@ -45,7 +44,9 @@ function RoleDetailsModal({ roleId, open, onClose }) {
       open={open}
       center
       onClose={onClose}
-      showCloseIcon={false}
+      closeIcon={
+        <IconCrossLight height="18px" width="18px" styleName="cross" />
+      }
       styles={{
         modal: modalStyle,
         modalContainer: containerStyle,
@@ -55,7 +56,7 @@ function RoleDetailsModal({ roleId, open, onClose }) {
         {isLoading ? (
           <>
             <CenteredSpinner />
-            <h5 styleName='loading'>Loading...</h5>
+            <h5>Loading...</h5>
           </>
         ) : (
           <>
@@ -69,7 +70,6 @@ function RoleDetailsModal({ roleId, open, onClose }) {
             ) : (
               <FallbackIcon styleName="role-icon" />
             )}
-            <h5>{role?.name}</h5>
             <div styleName="tab-button-group">
               <Button
                 type={!showSkills ? "segment-selected" : "segment"}
@@ -86,10 +86,8 @@ function RoleDetailsModal({ roleId, open, onClose }) {
                 Skills
               </Button>
             </div>
-            {!showSkills && <div styleName='desc-container'><MarkdownEditorViewer value={role?.description} /></div>}
-            {showSkills && <p styleName='skill-tag-list'><div>{_.map(role?.listOfSkills, (s)=>
-              <span styleName="skill-tag">{s}</span>
-            )}</div></p> }
+            <h5>{role?.name}</h5>
+            <p>{role?.description}</p>
           </>
         )}
       </div>

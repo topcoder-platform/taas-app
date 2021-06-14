@@ -3,17 +3,13 @@
  * Card that appears when there are no matching profiles after searching.
  */
 import React from "react";
-import PT from "prop-types";
 import { navigate } from "@reach/router";
-import {
-  formatMoney,
-} from "utils/format";
 import "./styles.module.scss";
 import IconEarthX from "../../../../assets/images/icon-earth-x.svg";
 import Curve from "../../../../assets/images/curve.svg";
 import Button from "components/Button";
 
-function NoMatchingProfilesResultCard({rates = [{global: 0}], onSearch}) {
+function NoMatchingProfilesResultCard() {
   return (
     <div styleName="result-card">
       <div styleName="heading">
@@ -29,11 +25,11 @@ function NoMatchingProfilesResultCard({rates = [{global: 0}], onSearch}) {
         </p>
         <div styleName="niche-rate-box">
           <p>Niche Rate</p>
-          <p styleName="cost">{formatMoney(rates[0].global)}</p>
+          <p styleName="cost">$1,200</p>
           <p>/Week</p>
         </div>
         <Button
-          onClick={onSearch}
+          onClick={() => navigate("/taas/myteams/createnewteam")}
           type="secondary"
           styleName="button"
         >
@@ -43,10 +39,5 @@ function NoMatchingProfilesResultCard({rates = [{global: 0}], onSearch}) {
     </div>
   );
 }
-
-NoMatchingProfilesResultCard.propTypes = {
-  onSearch: PT.func,
-  rates: PT.array,
-};
 
 export default NoMatchingProfilesResultCard;
