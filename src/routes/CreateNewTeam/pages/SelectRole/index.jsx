@@ -11,8 +11,7 @@ import { useData } from "hooks/useData";
 import { navigate } from "@reach/router";
 import { toastr } from "react-redux-toastr";
 import PT from "prop-types";
-import RoleItem from "./components/RoleItem";
-import SearchableList from '../../components/SearchableList'
+import RolesList from "./components/RolesList";
 import Completeness from "../../components/Completeness";
 import "./styles.module.scss";
 import { getRoles } from "services/roles";
@@ -22,11 +21,10 @@ import SearchCard from "../../components/SearchCard";
 import ResultCard from "../../components/ResultCard";
 import NoMatchingProfilesResultCard from "../../components/NoMatchingProfilesResultCard";
 import { createJob } from "services/jobs";
-import { sendRoleSearchRequest } from "services/teams";
 import AddAnotherModal from "../../components/AddAnotherModal";
 import RoleDetailsModal from "../../components/RoleDetailsModal";
-import AddedRolesAccordion from "../../components/AddedRolesAccordion";
-
+import withAuthentication from "../../../../hoc/withAuthentication";
+import AddedRolesAccordion from "./components/AddedRolesAccordion";
 
 function SelectRole({ projectId }) {
   const [stages, setStages] = useState([
@@ -34,8 +32,6 @@ function SelectRole({ projectId }) {
     { name: "Search Member" },
     { name: "Overview of the Results" },
   ]);
-  const [roleSearchResult, setRoleSearchResult] = useState(null);
-  const [previousRoleSearchRequestId, setPreviousRoleSearchRequestId] = useState(null);
   const [addedRoles, setAddedRoles] = useState([]);
   const [selectedRoleId, setSelectedRoleId] = useState(null);
   const [searchState, setSearchState] = useState(null);
@@ -80,7 +76,6 @@ function SelectRole({ projectId }) {
 
   const toggleRole = useCallback(
     (id) => {
-      setPreviousRoleSearchRequestId(null)
       setSelectedRoleId((selectedRoleId) =>
         id === selectedRoleId ? null : id
       );
@@ -93,27 +88,22 @@ function SelectRole({ projectId }) {
     setRoleDetailsModalOpen(true);
   }, []);
 
-  const search = useCallback(() => {
+  // mocked search for users with given roles
+  const search = () => {
     setCurrentStage(1, stages, setStages);
     setSearchState("searching");
-    sendRoleSearchRequest({roleId: selectedRoleId, previousRoleSearchRequestId}).then(({data})=> {
-        setRoleSearchResult(data)
-        setCurrentStage(2, stages, setStages);
-        setMatchingProfiles(null); // display no matching profiles screen for a while
-        setPreviousRoleSearchRequestId(data.roleSearchRequestId)
-        if (data.name && data.name.toLowerCase() !== 'niche' ) {
-          setAddedRoles((addedRoles) => [...addedRoles, { id: data.id, name: data.name }]);
-          setMatchingProfiles(true)
-        } else {
-          setMatchingProfiles(false)
-        }
-        setSearchState("done");
-      }).catch(e=> {
-        setCurrentStage(2, stages, setStages);
-        setMatchingProfiles(false); // display no matching profiles screen for a while
-        setSearchState("done");
-      })
-  }, [selectedRoleId, previousRoleSearchRequestId]);
+    searchTimer = setTimeout(() => {
+      setCurrentStage(2, stages, setStages);
+      setMatchingProfiles(null); // display no matching profiles screen for a while
+      setSearchState("done");
+      setTimeout(() => setMatchingProfiles(true), 2000);
+      // add selected role
+      const { id, name } = roles.find((r) => r.id === selectedRoleId);
+      setAddedRoles((addedRoles) => [...addedRoles, { id, name }]);
+    }, 3000);
+  };
+
+  useEffect(() => clearTimeout(searchTimer));
 
   if (!roles) {
     return <LoadingIndicator error={loadingError} />;
@@ -122,23 +112,11 @@ function SelectRole({ projectId }) {
   if (roles && !searchState) {
     return (
       <div styleName="page">
-        <SearchableList
-          itemList={roles}
-          title="Select a Role"
-          inputPlaceholder='Find a role...'
-          renderItem={({id, name, imageUrl})=> {
-            return (
-              <RoleItem
-                key={id}
-                id={id}
-                name={name}
-                imageUrl={imageUrl}
-                onClick={toggleRole}
-                onDescriptionClick={onDescriptionClick}
-                isSelected={selectedRoleId === id}
-              />
-            )
-          }}
+        <RolesList
+          roles={roles}
+          selectedRoleId={selectedRoleId}
+          toggleRole={toggleRole}
+          onDescriptionClick={onDescriptionClick}
         />
         <div styleName="right-side">
           {addedRoles.length > 0 && (
@@ -152,15 +130,11 @@ function SelectRole({ projectId }) {
             stages={stages}
             percentage="26"
           />
-          {
-            roleDetailsModalOpen && (
-              <RoleDetailsModal
-                roleId={roleDetailsModalId}
-                open={roleDetailsModalOpen}
-                onClose={() => setRoleDetailsModalOpen(false)}
-              />
-            )
-          }
+          <RoleDetailsModal
+            roleId={roleDetailsModalId}
+            open={roleDetailsModalOpen}
+            onClose={() => setRoleDetailsModalOpen(false)}
+          />
         </div>
       </div>
     );
@@ -184,7 +158,7 @@ function SelectRole({ projectId }) {
   if (searchState === "done") {
     return (
       <div styleName="page">
-        {matchingProfiles ? <ResultCard  {...roleSearchResult}/> : <NoMatchingProfilesResultCard {...roleSearchResult} onSearch={search}/>}
+        {matchingProfiles ? <ResultCard /> : <NoMatchingProfilesResultCard />}
         <div styleName="right-side">
           {matchingProfiles && <AddedRolesAccordion addedRoles={addedRoles} />}
           <Completeness
@@ -214,4 +188,4 @@ SelectRole.propTypes = {
   projectId: PT.string,
 };
 
-export default SelectRole;
+export default withAuthentication(SelectRole);
