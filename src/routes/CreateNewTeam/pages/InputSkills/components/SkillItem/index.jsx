@@ -5,7 +5,7 @@
  */
 import React from "react";
 import PT from "prop-types";
-import IconQuestionCircle from "../../../../../../assets/images/icon-question-circle.svg";
+import IconSkill from "../../../../../../assets/images/icon-skill.svg";
 import "./styles.module.scss";
 import cn from "classnames";
 
@@ -28,7 +28,7 @@ function SkillItem({ id, name, onClick, isSelected }) {
           styleName="image"
         />
       ) : (
-        <IconQuestionCircle styleName="image" />
+        <IconSkill styleName="image" />
       )}
       <p styleName="item-text">{name}</p>
     </div>
