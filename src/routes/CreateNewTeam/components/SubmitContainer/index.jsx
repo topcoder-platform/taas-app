@@ -4,9 +4,14 @@
  * Requires authentication to complete submission process
  * and contains a series of popups to lead user through the flow.
  */
-import React, { useCallback, useEffect, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useState,
+} from "react";
 import PT from "prop-types";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import _ from "lodash";
 import { toastr } from "react-redux-toastr";
 import { navigate } from "@reach/router";
@@ -39,14 +44,20 @@ function SubmitContainer({
 
   const dispatch = useDispatch();
 
-  // Set correct state for Completeness tab, and redirect
-  // to main page if path loaded without any selected roles.
   useEffect(() => {
     setCurrentStage(2, stages, setStages);
     if (!addedRoles || addedRoles.length === 0) {
       navigate("/taas/myteams/createnewteam");
     }
-    // only needed on initial load, avoids too many re-renders
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // redirects user if they enter the page URL directly
+  // without adding any roles.
+  useLayoutEffect(() => {
+    if (!addedRoles || addedRoles.length === 0) {
+      navigate("/taas/myteams/createnewteam");
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

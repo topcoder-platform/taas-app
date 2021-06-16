@@ -8,7 +8,7 @@
 import React, { useCallback, useState } from "react";
 import PT from "prop-types";
 import _ from "lodash";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import AddedRolesAccordion from "../AddedRolesAccordion";
 import Completeness from "../Completeness";
 import SearchCard from "../SearchCard";
