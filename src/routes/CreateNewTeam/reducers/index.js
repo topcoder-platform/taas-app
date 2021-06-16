@@ -3,10 +3,23 @@
  */
 import { ACTION_TYPE } from "constants";
 
-const initialState = {
-  previousSearchId: undefined,
-  addedRoles: [],
+const loadState = () => {
+  const defaultState = {
+    previousSearchId: undefined,
+    addedRoles: [],
+  };
+  try {
+    const state = localStorage.getItem("rolesState");
+    if (state === null) {
+      return defaultState;
+    }
+    return JSON.parse(state);
+  } catch {
+    return defaultState;
+  }
 };
+
+const initialState = loadState();
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {

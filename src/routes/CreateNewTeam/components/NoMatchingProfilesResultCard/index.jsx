@@ -28,7 +28,7 @@ function NoMatchingProfilesResultCard() {
           <p styleName="cost">$1,200</p>
           <p>/Week</p>
         </div>
-        <Link to="/taas/myteams/createnewteam" state={{ keepAddedRoles: true }}>
+        <Link to="/taas/myteams/createnewteam">
           <Button type="secondary" styleName="button">
             Modify Search Criteria
           </Button>
