@@ -19,45 +19,18 @@ import ConfirmationModal from "../ConfirmationModal";
 import withAuthentication from "../../../../hoc/withAuthentication";
 import "./styles.module.scss";
 import { setCurrentStage } from "utils/helpers";
-import { clearSearchedRoles, replaceSearchedRoles } from "../../actions";
+import { clearSearchedRoles } from "../../actions";
 import { postTeamRequest } from "services/teams";
 import SuccessCard from "../SuccessCard";
-
-const retrieveRoles = () => {
-  const searchIdString = sessionStorage.getItem("searchIds");
-  const nameString = sessionStorage.getItem("roleNames");
-
-  if (!searchIdString || !nameString) return [];
-  const searchIds = searchIdString.split(",");
-  const names = nameString.split(",");
-  if (searchIds.length !== names.length) return [];
-
-  const roles = [];
-  for (let i = 0; i < searchIds.length; i++) {
-    roles.push({
-      searchId: searchIds[i],
-      name: names[i],
-    });
-  }
-
-  return roles;
-};
-
-const clearSessionKeys = () => {
-  sessionStorage.removeItem("searchIds");
-  sessionStorage.removeItem("roleNames");
-};
 
 function SubmitContainer({
   stages,
   setStages,
   completenessStyle,
-  reloadRolesPage,
   location,
+  addedRoles,
 }) {
   const matchingRole = location?.state?.matchingRole;
-
-  const { addedRoles } = useSelector((state) => state.searchedRoles);
 
   const [addAnotherOpen, setAddAnotherOpen] = useState(true);
   const [teamDetailsOpen, setTeamDetailsOpen] = useState(false);
@@ -66,14 +39,14 @@ function SubmitContainer({
 
   const dispatch = useDispatch();
 
+  // Set correct state for Completeness tab, and redirect
+  // to main page if path loaded without any selected roles.
   useEffect(() => {
     setCurrentStage(2, stages, setStages);
-    const storedRoles = retrieveRoles();
-    if (storedRoles) {
-      if (!addedRoles || storedRoles.length > addedRoles.length) {
-        dispatch(replaceSearchedRoles(storedRoles));
-      }
+    if (!addedRoles || addedRoles.length === 0) {
+      navigate("/taas/myteams/createnewteam");
     }
+    // only needed on initial load, avoids too many re-renders
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -83,11 +56,7 @@ function SubmitContainer({
   };
 
   const addAnother = () => {
-    if (reloadRolesPage) {
-      setCurrentStage(0, stages, setStages);
-      reloadRolesPage();
-    }
-    navigate("/taas/myteams/createnewteam/role");
+    navigate("/taas/myteams/createnewteam");
   };
 
   const assembleTeam = (formData) => {
@@ -121,7 +90,6 @@ function SubmitContainer({
     postTeamRequest(teamObject)
       .then((res) => {
         const projectId = _.get(res, ["data", "projectId"]);
-        clearSessionKeys();
         dispatch(clearSearchedRoles());
         navigate(`/taas/myteams/${projectId}`);
       })
@@ -171,8 +139,8 @@ SubmitContainer.propTypes = {
   stages: PT.array,
   setStages: PT.func,
   completenessStyle: PT.string,
-  reloadRolesPage: PT.bool,
   location: PT.object,
+  addedRoles: PT.array,
 };
 
 export default withAuthentication(SubmitContainer);

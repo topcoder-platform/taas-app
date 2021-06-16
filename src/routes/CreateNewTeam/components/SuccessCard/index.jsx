@@ -30,7 +30,7 @@ function SuccessCard() {
           Please use the button to the right to submit your request, or the
           button below to search for additional roles.
         </p>
-        <Link to="/taas/myteams/createnewteam" state={{ keepAddedRoles: true }}>
+        <Link to="/taas/myteams/createnewteam">
           <Button type="secondary" styleName="button">
             Continue Search
           </Button>

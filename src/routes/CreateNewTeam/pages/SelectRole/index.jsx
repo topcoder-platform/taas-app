@@ -33,12 +33,6 @@ function SelectRole() {
     setRoleDetailsModalOpen(true);
   }, []);
 
-  const resetState = () => {
-    setSelectedRoleId(null);
-    setRoleDetailsModalOpen(false);
-    setRoleDetailsModalId(null);
-  };
-
   if (!roles) {
     return <LoadingIndicator error={loadingError} />;
   }
@@ -50,7 +44,6 @@ function SelectRole() {
       isCompletenessDisabled={!selectedRoleId}
       searchObject={{ roleId: selectedRoleId }}
       completenessStyle="role-selection"
-      reloadRolesPage={resetState}
       toRender={
         <>
           <RolesList
