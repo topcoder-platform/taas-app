@@ -32,6 +32,17 @@ export const getV5UserProfile = () => {
 };
 
 /**
+ * Get skills by job description
+ * @param {string} description
+ * @returns {Promise<{}>} skills list
+ */
+export const getSkillsByJobDescription = (description) => {
+  return axios.post(`${config.API.V5}/taas-teams/getSkillsByJobDescription`, {
+    description,
+  });
+};
+
+/**
  * Get team by id.
  *
  * @param {string|number} teamId team id
@@ -178,4 +189,51 @@ export const postMembers = (teamId, handles, emails) => {
   }
 
   return axios.post(url, bodyObj);
+};
+
+/**
+ * Post new project
+ *
+ * @returns {Promise<object>} project object
+ */
+export const postProject = () => {
+  const url = `${config.API.V5}/taas-teams/createTeamRequest`;
+
+  const bodyObj = {
+    name: `project-${Date()}`,
+    type: "talent-as-a-service",
+  };
+
+  return axios.post(url, bodyObj);
+};
+
+/**
+ * Search for roles matching a role id, job description
+ * or list of skills
+ *
+ * @param {Object} searchObject object containing data for search
+ * @param {string} searchObject.roleId a role id to search for
+ * @param {string} searchObject.jobDescription job description used for search
+ * @param {string[]} searchObject.skills array of skill ids used for role search
+ * @param {string} searchObject.previousRoleSearchRequestId id of the last search made
+ *
+ * @returns {Promise<object>} the role found
+ */
+export const searchRoles = (searchObject) => {
+  const newObject = { ...searchObject };
+  delete newObject.previousRoleSearchRequestId;
+  const url = `${config.API.V5}/taas-teams/sendRoleSearchRequest`;
+  return axios.post(url, newObject);
+};
+
+/**
+ * Create a new team request
+ *
+ * @param {Object} teamObject object containing team details
+ *
+ * @returns {Promise<object>} object containing new projectId
+ */
+export const postTeamRequest = (teamObject) => {
+  const url = `${config.API.V5}/taas-teams/submitTeamRequest`;
+  return axios.post(url, teamObject);
 };

@@ -25,7 +25,8 @@ export const getReourceBookingById = (resourceBookingId) => {
 export const updateReourceBooking = (data, resourceBookingId) => {
   return (
     axios
-      .put(`${config.API.V5}/resourceBookings/${resourceBookingId}`, data) // temporary fix:
+      .patch(`${config.API.V5}/resourceBookings/${resourceBookingId}`, data)
+      // temporary fix:
       // after updating a resource booking we are reloading the list of resource bookings
       // so we have to wait a bit to make sure job is indexed in the ES
       .then((response) => delay(ES_REINDEX_DELAY).then(() => response))

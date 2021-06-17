@@ -75,10 +75,10 @@ Some config files are using domain `local.topcoder-dev.com`. You can change it t
 ### Run Applications
 
 1. Run **Frame** App:
+
     ```sh
     git clone https://github.com/topcoder-platform/micro-frontends-frame.git
     cd micro-frontends-frame
-
     # inside folder "micro-frontends-frame" run:
 
     nvm use # or make sure to use Node 10
@@ -90,6 +90,8 @@ Some config files are using domain `local.topcoder-dev.com`. You can change it t
     export APPENV="local-multi"
 
     npm run local-server
+
+    # this would start frame server on http://localhost:3000
     ```
 
     open one more terminal window in the same folder and run:
@@ -101,9 +103,12 @@ Some config files are using domain `local.topcoder-dev.com`. You can change it t
     export APPENV="local-multi"
 
     npm run local-client
+
+    # this host frame client code on http://localhost:8080
     ```
 
 2. Run **Navbar** micro-app:
+
    ```sh
    git clone https://github.com/topcoder-platform/micro-frontends-navbar-app.git
    cd micro-frontends-navbar-app
@@ -118,9 +123,12 @@ Some config files are using domain `local.topcoder-dev.com`. You can change it t
    npm i   # to install dependencies
 
    npm run dev
+
+   # this host navbar app as http://localhost:3001/navbar/topcoder-micro-frontends-navbar-app.js
    ```
 
 3. Run **TaaS** micro-app:
+
    ```sh
    # inside folder "taas-app" run:
 
@@ -128,7 +136,19 @@ Some config files are using domain `local.topcoder-dev.com`. You can change it t
    npm i   # to install dependencies
 
    npm run dev
+
+   # this host TaaS App as http://localhost:8501/taas-app/topcoder-micro-frontends-teams.js
    ```
+
+4. Now we have to update the `micro-frontends-frame` app to show our local version of TaaS App, instead of remote one. Update file `micro-frontends-frame/config/micro-frontends-config-local.json`:
+
+    ```js
+    // replace line
+    "@topcoder/micro-frontends-teams": "https://platform.topcoder-dev.com/taas-app/topcoder-micro-frontends-teams.js",
+
+    // with line:
+    "@topcoder/micro-frontends-teams": "http://localhost:8501/taas-app/topcoder-micro-frontends-teams.js",
+    ```
 
 - Now open in the browser http://localhost:8080/taas/myteams.
 - If you are not logged-in yet, you should be redirected to the login page.

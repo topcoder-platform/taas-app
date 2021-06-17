@@ -65,6 +65,7 @@ export const POSITION_STATUS_TO_TEXT = {
 export const BUTTON_SIZE = {
   SMALL: "small",
   MEDIUM: "medium",
+  LARGE: "large",
 };
 
 /**
@@ -108,6 +109,8 @@ export const CANDIDATE_STATUS = {
   REJECTED_OTHER: "rejected - other",
   INTERVIEW: "interview",
   TOPCODER_REJECTED: "topcoder-rejected",
+  JOB_CLOSED: "job-closed",
+  OFFERED: "offered",
 };
 
 /**
@@ -143,7 +146,7 @@ export const CANDIDATE_STATUS_FILTERS = [
     buttonText: "Selected",
     title: "Selected",
     noCandidateMessage: "No Selected Candidates",
-    statuses: [CANDIDATE_STATUS.SELECTED],
+    statuses: [CANDIDATE_STATUS.SELECTED, CANDIDATE_STATUS.OFFERED],
   },
   {
     key: CANDIDATE_STATUS_FILTER_KEY.NOT_INTERESTED,
@@ -155,6 +158,7 @@ export const CANDIDATE_STATUS_FILTERS = [
       CANDIDATE_STATUS.CLIENT_REJECTED_INTERVIEW,
       CANDIDATE_STATUS.REJECTED_OTHER,
       CANDIDATE_STATUS.TOPCODER_REJECTED,
+      CANDIDATE_STATUS.JOB_CLOSED,
     ],
   },
 ];
@@ -246,6 +250,14 @@ export const ACTION_TYPE = {
   ADD_MEMBERS_ERROR: "ADD_MEMBERS_ERROR",
   RESET_MEMBERS_STATE: "RESET_MEMBERS_STATE",
   CLEAR_MEMBERS_SUGGESTIONS: "CLEAR_MEMBERS_SUGGESTIONS",
+
+  /*
+    Searched Roles
+  */
+  CLEAR_SEARCHED_ROLES: "CLEAR_SEARCHED_ROLES",
+  ADD_SEARCHED_ROLE: "ADD_SEARCHED_ROLE",
+  ADD_ROLE_SEARCH_ID: "ADD_ROLE_SEARCH_ID",
+  REPLACE_SEARCHED_ROLES: "REPLACE_SEARCHED_ROLES",
 };
 
 /**
@@ -343,3 +355,8 @@ export const INTERVIEW_POPUP_MEDIA_URL =
   "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
 
 export const MAX_ALLOWED_INTERVIEWS = 3;
+
+/**
+ * Matching rate to show in CreateNewTeam ResultCard
+ */
+export const MATCHING_RATE = "80";
