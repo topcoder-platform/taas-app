@@ -26,7 +26,7 @@ function InputJobDescription() {
     <SearchAndSubmit
       stages={stages}
       setStages={setStages}
-      isCompletenessDisabled={jdString.length < 10}
+      isCompletenessDisabled={jdString.length < 10 || jdString.length > 255}
       completenessStyle="input-job-description"
       searchObject={{ jobDescription: jdString }}
       toRender={
@@ -40,6 +40,11 @@ function InputJobDescription() {
               height="482px"
               placeholder="input job description"
               onChange={onEditChange}
+              errorMessage={
+                jdString.length > 255
+                  ? "Maximum of 255 characters. Please reduce job description length."
+                  : ""
+              }
             />
           </div>
         </>

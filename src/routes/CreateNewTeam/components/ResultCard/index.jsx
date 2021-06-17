@@ -23,10 +23,15 @@ function formatRate(value) {
   return formatMoney(value);
 }
 
+function formatPercent(value) {
+  return `${Math.round(value * 100)}%`;
+}
+
 function ResultCard({ role }) {
   const {
     numberOfMembersAvailable,
     isExternalMember,
+    matchingRate,
     rates: [rates],
   } = role;
   const [userHandle, setUserHandle] = useState(null);
@@ -34,7 +39,7 @@ function ResultCard({ role }) {
 
   useEffect(() => {
     getAuthUserProfile().then((res) => {
-      setUserHandle(res.handle || null);
+      setUserHandle(res?.handle || null);
     });
   }, []);
 
@@ -44,8 +49,8 @@ function ResultCard({ role }) {
         <IconEarthCheck />
         <h3>We have matching profiles</h3>
         <p>
-          We have qualified candidates who match {MATCHING_RATE}% or more of
-          your job requirements.
+          We have qualified candidates who match {formatPercent(matchingRate)}
+          {matchingRate < 1 ? " or more " : " "} of your job requirements.
         </p>
         <Curve styleName="curve" />
         <IconEarthCheck styleName="transparent-icon" />
@@ -217,11 +222,11 @@ function ResultCard({ role }) {
             <div>
               <CircularProgressBar
                 size="160"
-                progress={MATCHING_RATE}
+                progress={matchingRate}
                 strokeWidth="6"
                 children={
                   <div styleName="progressbar-child">
-                    <h4>{MATCHING_RATE}%</h4>
+                    <h4>{formatPercent(matchingRate)}</h4>
                     <p>Matching rate</p>
                   </div>
                 }

@@ -17,6 +17,7 @@ import NoMatchingProfilesResultCard from "../NoMatchingProfilesResultCard";
 import { searchRoles } from "services/teams";
 import { setCurrentStage } from "utils/helpers";
 import { addRoleSearchId, addSearchedRole } from "../../actions";
+import { CUSTOM_ROLE_NAMES } from "constants";
 import "./styles.module.scss";
 
 function SearchContainer({
@@ -51,7 +52,7 @@ function SearchContainer({
       .then((res) => {
         const name = _.get(res, "data.name");
         const searchId = _.get(res, "data.roleSearchRequestId");
-        if (name && !name.toLowerCase().includes("niche")) {
+        if (name && !CUSTOM_ROLE_NAMES.includes(name.toLowerCase())) {
           setMatchingRole(res.data);
           dispatch(addSearchedRole({ searchId, name }));
         } else if (searchId) {

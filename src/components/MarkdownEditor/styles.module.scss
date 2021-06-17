@@ -12,21 +12,6 @@
       overflow-y: auto;
       background: #fafafb;
     }
-    .message {
-      @include font-roboto;
-
-      width: 100%;
-      text-align: center;
-      min-height: 40px;
-      line-height: 20px;
-      padding: 9px 10px;
-      margin: 10px 0 5px;
-      font-size: 14px;
-      color: #ff5b52;
-      border: 1px solid #ffd5d1;
-      cursor: auto;
-      outline: none;
-    }
 }
 .editor-container {
   :global {
@@ -71,4 +56,20 @@
       display: block !important;
     }
   }
+}
+
+.message {
+  @include font-roboto;
+
+  width: 100%;
+  text-align: center;
+  min-height: 40px;
+  line-height: 20px;
+  padding: 9px 10px;
+  margin: 10px 0 5px;
+  font-size: 14px;
+  color: #ff5b52;
+  border: 1px solid #ffd5d1;
+  cursor: auto;
+  outline: none;
 }

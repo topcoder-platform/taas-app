@@ -8,9 +8,14 @@ import React, { useCallback, useState } from "react";
 import { useData } from "hooks/useData";
 import RolesList from "./components/RolesList";
 import { getRoles } from "services/roles";
+import { CUSTOM_ROLE_NAMES } from "constants";
 import LoadingIndicator from "components/LoadingIndicator";
 import RoleDetailsModal from "../../components/RoleDetailsModal";
 import SearchAndSubmit from "../../components/SearchAndSubmit";
+
+// Remove custom roles from role list
+const removeCustomRoles = (roles) =>
+  roles.filter(({ name }) => !CUSTOM_ROLE_NAMES.includes(name.toLowerCase()));
 
 function SelectRole() {
   const [stages, setStages] = useState([
@@ -47,7 +52,7 @@ function SelectRole() {
       toRender={
         <>
           <RolesList
-            roles={roles}
+            roles={removeCustomRoles(roles)}
             selectedRoleId={selectedRoleId}
             toggleRole={toggleRole}
             onDescriptionClick={onDescriptionClick}
