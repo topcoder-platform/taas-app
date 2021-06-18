@@ -76,7 +76,7 @@ function SearchContainer({
       .then((res) => {
         const name = _.get(res, "data.name");
         const searchId = _.get(res, "data.roleSearchRequestId");
-        if (name && !name.toLowerCase().includes("niche")) {
+        if (name && !name.toLowerCase().includes("custom")) {
           setMatchingRole(res.data);
           dispatch(addSearchedRole({ searchId, name }));
         } else if (searchId) {

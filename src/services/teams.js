@@ -2,6 +2,7 @@
  * Topcoder TaaS Service
  */
 import { axiosInstance as axios } from "./requestInterceptor";
+import { axiosInstance as m2mAxios } from "./requestM2MInterceptor";
 import config from "../../config";
 
 /**
@@ -37,9 +38,12 @@ export const getV5UserProfile = () => {
  * @returns {Promise<{}>} skills list
  */
 export const getSkillsByJobDescription = (description) => {
-  return axios.post(`${config.API.V5}/taas-teams/getSkillsByJobDescription`, {
-    description,
-  });
+  return m2mAxios.post(
+    `${config.API.V5}/taas-teams/getSkillsByJobDescription`,
+    {
+      description,
+    }
+  );
 };
 
 /**
@@ -223,7 +227,7 @@ export const searchRoles = (searchObject) => {
   const newObject = { ...searchObject };
   delete newObject.previousRoleSearchRequestId;
   const url = `${config.API.V5}/taas-teams/sendRoleSearchRequest`;
-  return axios.post(url, newObject);
+  return m2mAxios.post(url, newObject);
 };
 
 /**

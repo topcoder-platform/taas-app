@@ -12,6 +12,7 @@ import TextArea from "../../components/TextArea";
 import MarkdownEditor from "../../components/MarkdownEditor";
 import ReactSelect from "../../components/ReactSelect";
 import DateInput from "../../components/DateInput";
+import MonthInput from "../../components/MonthInput";
 import "./styles.module.scss";
 
 const FormField = ({ field }) => {
@@ -86,6 +87,17 @@ const FormField = ({ field }) => {
           )}
           {field.type === FORM_FIELD_TYPE.DATE && (
             <DateInput
+              placeholder={field.placeholder}
+              value={input?.value ?? ""}
+              onChange={input.onChange}
+              disabled={field.disabled}
+              onBlur={input.onBlur}
+              onFocus={input.onFocus}
+              className={meta.error && meta.touched ? "error" : ""}
+            />
+          )}
+          {field.type === FORM_FIELD_TYPE.MONTH && (
+            <MonthInput
               placeholder={field.placeholder}
               value={input?.value ?? ""}
               onChange={input.onChange}

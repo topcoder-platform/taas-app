@@ -23,8 +23,8 @@ function NoMatchingProfilesResultCard() {
           We will be looking internally for members matching your requirements
           and be back at them in about 2 weeks.
         </p>
-        <div styleName="niche-rate-box">
-          <p>Niche Rate</p>
+        <div styleName="custom-rate-box">
+          <p>Custom Rate</p>
           <p styleName="cost">$1,200</p>
           <p>/Week</p>
         </div>

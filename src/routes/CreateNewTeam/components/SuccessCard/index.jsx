@@ -5,21 +5,21 @@
  * not require receiving props
  */
 import React from "react";
+import PT from "prop-types";
 import { Link } from "@reach/router";
 import IconEarthCheck from "../../../../assets/images/icon-earth-check.svg";
 import Curve from "../../../../assets/images/curve.svg";
-import { MATCHING_RATE } from "constants";
 import "./styles.module.scss";
 import Button from "components/Button";
 
-function SuccessCard() {
+function SuccessCard({skillsMatch}) {
   return (
     <div styleName="result-card">
       <div styleName="heading">
         <IconEarthCheck />
         <h3>We have matching profiles</h3>
         <p>
-          We have qualified candidates who match {MATCHING_RATE}% or more of
+          We have qualified candidates who match {skillsMatch}% or more of
           your job requirements.
         </p>
         <Curve styleName="curve" />
@@ -40,4 +40,7 @@ function SuccessCard() {
   );
 }
 
+SuccessCard.propTypes = {
+  skillsMatch: PT.number,
+};
 export default SuccessCard;

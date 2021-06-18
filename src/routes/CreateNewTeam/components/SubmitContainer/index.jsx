@@ -98,12 +98,11 @@ function SubmitContainer({
       if (key === "teamName" || key === "teamDescription") {
         continue;
       }
-      const position = _.pick(
-        formData[key],
-        "numberOfResources",
-        "durationWeeks",
-        "startMonth"
-      );
+      const position = {
+        numberOfResources: +formData[key].numberOfResources,
+        durationWeeks: +formData[key].durationWeeks,
+        startMonth: formData[key].startMonth
+      }
 
       position.roleSearchRequestId = key;
       position.roleName = addedRoles.find((role) => role.searchId === key).name;

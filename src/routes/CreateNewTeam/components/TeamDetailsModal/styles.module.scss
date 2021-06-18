@@ -1,5 +1,28 @@
 @import "styles/include";
 
+.tooltip {
+  width: 150px;
+  font-size: 12px;
+  line-height: 16px;
+}
+.month-col {
+  > div > label {
+    display: none
+  }
+}
+
+.month-select-button {
+  display: flex;
+  align-items: center;
+
+  svg {
+    margin-left: 3px;
+    fill: #aaa;
+    width: 14px;
+    height: 14px;
+  }
+}
+
 .toggle-button {
   @include font-roboto;
   outline: none;
@@ -35,7 +58,6 @@
   .role-row {
     td {
       padding: 18px 18px 18px 0;
-      vertical-align: middle;
       @include font-barlow;
       font-weight: 600;
       font-size: 16px;

@@ -1,7 +1,7 @@
 /**
  * Topcoder TaaS Service
  */
-import { axiosInstance as axios } from "./requestInterceptor";
+import { axiosInstance as m2mAxios } from "./requestM2MInterceptor";
 import config from "../../config";
 
 const skillPageSize = 100;
@@ -53,7 +53,7 @@ function getAllSkills() {
  * @param {number} page The page number to load
  */
 function getSkillsPage(page) {
-  return axios.get(
+  return m2mAxios.get(
     `${config.API.V5}/taas-teams/skills?perPage=${skillPageSize}&orderBy=name&page=${page}`
   );
 }

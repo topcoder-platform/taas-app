@@ -5,6 +5,25 @@
  * If there are multiple methods which could be grouped into a separate file by their meaning they should be extracted from here to not make this file too big.
  */
 import _ from "lodash";
+import config from "../../config";
+
+import m2mAuth from "./m2m";
+
+const m2m = m2mAuth({
+  AUTH0_URL: config.AUTH0_URL,
+  AUTH0_AUDIENCE: config.AUTH0_AUDIENCE,
+});
+
+/*
+ * Function to get M2M token
+ * @returns {Promise}
+ */
+export const getM2MToken = async () => {
+  return await m2m.getMachineToken(
+    config.AUTH0_CLIENT_ID,
+    config.AUTH0_CLIENT_SECRET
+  );
+};
 
 /**
  * Delay code for some milliseconds using promise.

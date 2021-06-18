@@ -15,7 +15,6 @@ import IconTeamMeetingChat from "../../../../assets/images/icon-team-meeting-cha
 import Curve from "../../../../assets/images/curve.svg";
 import CircularProgressBar from "../CircularProgressBar";
 import Button from "components/Button";
-import { MATCHING_RATE } from "constants";
 import { formatMoney } from "utils/format";
 
 function formatRate(value) {
@@ -27,6 +26,7 @@ function ResultCard({ role }) {
   const {
     numberOfMembersAvailable,
     isExternalMember,
+    skillsMatch,
     rates: [rates],
   } = role;
   const [userHandle, setUserHandle] = useState(null);
@@ -44,7 +44,7 @@ function ResultCard({ role }) {
         <IconEarthCheck />
         <h3>We have matching profiles</h3>
         <p>
-          We have qualified candidates who match {MATCHING_RATE}% or more of
+          We have qualified candidates who match {skillsMatch}% or more of
           your job requirements.
         </p>
         <Curve styleName="curve" />
@@ -217,12 +217,12 @@ function ResultCard({ role }) {
             <div>
               <CircularProgressBar
                 size="160"
-                progress={MATCHING_RATE}
+                progress={skillsMatch}
                 strokeWidth="6"
                 children={
                   <div styleName="progressbar-child">
-                    <h4>{MATCHING_RATE}%</h4>
-                    <p>Matching rate</p>
+                    <h4>{skillsMatch}%</h4>
+                    <p>Skills Match</p>
                   </div>
                 }
               />

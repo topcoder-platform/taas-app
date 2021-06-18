@@ -271,6 +271,7 @@ export const FORM_FIELD_TYPE = {
   SELECT: "select",
   MULTISELECT: "multiselect",
   DATE: "date",
+  MONTH: "month",
   DATERANGE: "date_range",
 };
 
@@ -355,8 +356,3 @@ export const INTERVIEW_POPUP_MEDIA_URL =
   "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
 
 export const MAX_ALLOWED_INTERVIEWS = 3;
-
-/**
- * Matching rate to show in CreateNewTeam ResultCard
- */
-export const MATCHING_RATE = "80";

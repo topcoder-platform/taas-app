@@ -1,0 +1,67 @@
+@import "styles/include";
+
+.container {
+  .input-container {
+      padding-left: 10px;
+      background-color: #FFFFFF;
+      border: 1px solid #AAAAAA;
+      border-radius: 6px;
+      width: 113px;
+      height: 34px;
+      display: flex;
+      align-items: center;
+      svg {
+        height: 30px;
+      }
+      .cal-icon {
+        width: 15px;
+        position: absolute;
+        right: 10px;
+      }
+  }
+  :global {
+    .react-datepicker__input-container {
+      input {
+        padding-left: 10px;
+        background-color: #FFFFFF;
+        border: 1px solid #AAAAAA;
+        border-radius: 6px;
+        width: 113px;
+        height: 34px;
+      }
+    }
+    .react-datepicker__triangle {
+      display: none;
+    }
+    .react-datepicker__navigation {
+      top: 15px;
+    }
+    .react-datepicker-year-header {
+      background-color: #FFF;
+      margin-top: 6px;
+      height: 35px;
+    }
+    .react-datepicker__month .react-datepicker__month-text {
+      @include font-roboto;
+
+      line-height: 40px;
+      height: 40px;
+      width: 40px;
+      margin: 7.5px;
+      &:hover {
+        border-radius: 50%;
+      }
+    }
+
+    .react-datepicker__month-text--keyboard-selected {
+      &:hover {
+        background-color: #0AB88A;
+        color: #fff;
+      }
+      border-radius: 50%;
+      background-color: #0AB88A;
+      color: #fff;
+    }
+  }
+
+}

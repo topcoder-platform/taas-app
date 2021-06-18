@@ -9,8 +9,10 @@ import { Form, Field, useField } from "react-final-form";
 import FormField from "components/FormField";
 import BaseCreateModal from "../BaseCreateModal";
 import { FORM_FIELD_TYPE } from "constants/";
+import ReactTooltip from 'react-tooltip';
 import { formatPlural } from "utils/format";
 import Button from "components/Button";
+import IconExclamationMark from "../../../../assets/images/icon-exclamation-mark.svg";
 import "./styles.module.scss";
 
 const Error = ({ name }) => {
@@ -29,6 +31,13 @@ function TeamDetailsModal({ open, onClose, submitForm, addedRoles }) {
     });
     return roles;
   });
+
+  const onSubmit = (formdata) => {
+    if (!showDescription) {
+      delete formdata.teamDescription
+    }
+    submitForm(formdata)
+  }
 
   const toggleDescription = () => {
     setShowDescription((prevState) => !prevState);
@@ -94,7 +103,7 @@ function TeamDetailsModal({ open, onClose, submitForm, addedRoles }) {
 
   return (
     <Form
-      onSubmit={submitForm}
+      onSubmit={onSubmit}
       initialValues={{ teamName: "My Great Team" }}
       validate={validator}
     >
@@ -123,7 +132,7 @@ function TeamDetailsModal({ open, onClose, submitForm, addedRoles }) {
                   name: "teamName",
                   label: "Team Name",
                   placeholder: "Team Name",
-                  maxLength: 50,
+                  maxLength: 255,
                   customValidator: true,
                 }}
               />
@@ -161,6 +170,8 @@ function TeamDetailsModal({ open, onClose, submitForm, addedRoles }) {
                       <Field
                         name={`${id}.numberOfResources`}
                         component="input"
+                        min={1}
+                        step={1}
                         type="number"
                         initialValue="3"
                       />
@@ -170,33 +181,46 @@ function TeamDetailsModal({ open, onClose, submitForm, addedRoles }) {
                       <Field
                         name={`${id}.durationWeeks`}
                         component="input"
+                        min={1}
+                        step={1}
                         type="number"
                         initialValue="20"
                       />
                       <Error name={`${id}.durationWeeks`} />
                     </td>
-                    <td>
+                    <td styleName='month-col'>
                       {startMonthVisible[id] ? (
                         <>
-                          <Field
-                            name={`${id}.startMonth`}
-                            component="input"
-                            type="month"
+                          <FormField
+                            field={{
+                              type: FORM_FIELD_TYPE.MONTH,
+                              name: `${id}.startMonth`,
+                            }}
                           />
                           <Error name={`${id}.startMonth`} />
                         </>
                       ) : (
-                        <button
-                          styleName="toggle-button"
-                          onClick={() =>
-                            setStartMonthVisible((prevState) => ({
-                              ...prevState,
-                              [id]: true,
-                            }))
-                          }
-                        >
-                          Add Start Month
-                        </button>
+                        <>
+                          <button
+                            styleName="toggle-button month-select-button"
+                            onClick={() =>
+                              setStartMonthVisible((prevState) => ({
+                                ...prevState,
+                                [id]: true,
+                              }))
+                            }
+                          >
+                            Add Start Month
+                            <div data-tip data-for="registerTip">
+                                <IconExclamationMark  />
+                            </div>
+                          </button>
+                          <ReactTooltip id="registerTip" place="top" effect="solid">
+                            <div styleName="tooltip">
+                              Requested start month for this position.
+                            </div>
+                          </ReactTooltip>
+                        </>
                       )}
                     </td>
                   </tr>
