@@ -13,6 +13,7 @@ import { formatPlural } from "utils/format";
 import Button from "components/Button";
 import "./styles.module.scss";
 import DatePicker from "react-datepicker";
+import InformationTooltip from "components/InformationTooltip";
 
 const Error = ({ name }) => {
   const {
@@ -192,7 +193,7 @@ function TeamDetailsModal({ open, onClose, submitForm, addedRoles }) {
                       />
                       <Error name={`${id}.durationWeeks`} />
                     </td>
-                    <td>
+                    <td styleName="start-month">
                       {startMonthVisible[id] ? (
                         <>
                           <Field
@@ -214,17 +215,23 @@ function TeamDetailsModal({ open, onClose, submitForm, addedRoles }) {
                           <Error name={`${id}.startMonth`} />
                         </>
                       ) : (
-                        <button
-                          styleName="toggle-button"
-                          onClick={() =>
-                            setStartMonthVisible((prevState) => ({
-                              ...prevState,
-                              [id]: true,
-                            }))
-                          }
-                        >
-                          Add Start Month
-                        </button>
+                        <div styleName="flex-container">
+                          <button
+                            styleName="toggle-button"
+                            onClick={() =>
+                              setStartMonthVisible((prevState) => ({
+                                ...prevState,
+                                [id]: true,
+                              }))
+                            }
+                          >
+                            Add Start Month
+                          </button>
+                          <InformationTooltip
+                            iconSize="14px"
+                            text="Requested start month for this position."
+                          />
+                        </div>
                       )}
                     </td>
                   </tr>
