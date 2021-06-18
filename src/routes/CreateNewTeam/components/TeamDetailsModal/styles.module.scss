@@ -51,9 +51,8 @@
         font-size: 14px;
         line-height: 22px;
         height: 34px;
-        width: 98px;
-        &[type="month"] {
-          width: 170px;
+        &[type="number"] {
+          width: 98px;
         }
       }
     }
@@ -77,5 +76,11 @@
 .modal-body {
   textarea {
     height: 95px;
+  }
+}
+
+@media only screen and (max-width: 550px) {
+  .modal-body {
+    overflow-x: scroll;
   }
 }

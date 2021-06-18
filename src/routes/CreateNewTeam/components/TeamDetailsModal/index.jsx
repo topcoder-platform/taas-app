@@ -11,9 +11,9 @@ import BaseCreateModal from "../BaseCreateModal";
 import { FORM_FIELD_TYPE } from "constants/";
 import { formatPlural } from "utils/format";
 import Button from "components/Button";
-import "./styles.module.scss";
-import DatePicker from "react-datepicker";
+import MonthPicker from "components/MonthPicker";
 import InformationTooltip from "components/InformationTooltip";
+import "./styles.module.scss";
 
 const Error = ({ name }) => {
   const {
@@ -201,13 +201,10 @@ function TeamDetailsModal({ open, onClose, submitForm, addedRoles }) {
                             initialValue={Date.now()}
                           >
                             {(props) => (
-                              <DatePicker
+                              <MonthPicker
                                 name={props.input.name}
-                                selected={props.input.value}
+                                value={props.input.value}
                                 onChange={props.input.onChange}
-                                dateFormat="MMM, yyyy"
-                                showMonthYearPicker
-                                showPopperArrow={false}
                                 onBlur={props.input.onBlur}
                               />
                             )}

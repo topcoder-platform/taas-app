@@ -8,14 +8,14 @@ import React, { useCallback, useState } from "react";
 import { useData } from "hooks/useData";
 import RolesList from "./components/RolesList";
 import { getRoles } from "services/roles";
-import { CUSTOM_ROLE_NAMES } from "constants";
 import LoadingIndicator from "components/LoadingIndicator";
 import RoleDetailsModal from "../../components/RoleDetailsModal";
 import SearchAndSubmit from "../../components/SearchAndSubmit";
+import { isCustomRole } from "utils/helpers";
 
 // Remove custom roles from role list
 const removeCustomRoles = (roles) =>
-  roles.filter(({ name }) => !CUSTOM_ROLE_NAMES.includes(name.toLowerCase()));
+  roles.filter((role) => !isCustomRole(role));
 
 function SelectRole() {
   const [stages, setStages] = useState([

@@ -82,6 +82,10 @@ function SubmitContainer({
         key === "startMonth" ? val : parseInt(val, 10)
       );
 
+      if (position.startMonth === null) {
+        delete position.startMonth;
+      }
+
       position.roleSearchRequestId = key;
       position.roleName = addedRoles.find((role) => role.searchId === key).name;
 

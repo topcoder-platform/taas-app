@@ -26,24 +26,24 @@ function InformationTooltip({ text, iconSize = "16px" }) {
         name: "offset",
         options: {
           // use offset to move the tooltip slightly up
-          offset: [0, 10],
+          offset: [0, 12],
         },
       },
       {
         name: "arrow",
         // padding should be equal to border-radius of the tooltip
-        options: { element: arrowElement, padding: 8 },
+        options: { element: arrowElement, padding: 5 },
       },
     ],
   });
 
   const showTooltip = useCallback(() => {
     setIsTooltipShown(true);
-  }, [setIsTooltipShown]);
+  }, []);
 
   const hideTooltip = useCallback(() => {
     setIsTooltipShown(false);
-  }, [setIsTooltipShown]);
+  }, []);
 
   const iconStyle = {
     width: iconSize,
