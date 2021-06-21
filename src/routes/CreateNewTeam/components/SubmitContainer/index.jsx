@@ -4,9 +4,14 @@
  * Requires authentication to complete submission process
  * and contains a series of popups to lead user through the flow.
  */
-import React, { useCallback, useEffect, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useState,
+} from "react";
 import PT from "prop-types";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import _ from "lodash";
 import { toastr } from "react-redux-toastr";
 import { navigate } from "@reach/router";
@@ -19,45 +24,18 @@ import ConfirmationModal from "../ConfirmationModal";
 import withAuthentication from "../../../../hoc/withAuthentication";
 import "./styles.module.scss";
 import { setCurrentStage } from "utils/helpers";
-import { clearSearchedRoles, replaceSearchedRoles } from "../../actions";
+import { clearSearchedRoles } from "../../actions";
 import { postTeamRequest } from "services/teams";
 import SuccessCard from "../SuccessCard";
-
-const retrieveRoles = () => {
-  const searchIdString = sessionStorage.getItem("searchIds");
-  const nameString = sessionStorage.getItem("roleNames");
-
-  if (!searchIdString || !nameString) return [];
-  const searchIds = searchIdString.split(",");
-  const names = nameString.split(",");
-  if (searchIds.length !== names.length) return [];
-
-  const roles = [];
-  for (let i = 0; i < searchIds.length; i++) {
-    roles.push({
-      searchId: searchIds[i],
-      name: names[i],
-    });
-  }
-
-  return roles;
-};
-
-const clearSessionKeys = () => {
-  sessionStorage.removeItem("searchIds");
-  sessionStorage.removeItem("roleNames");
-};
 
 function SubmitContainer({
   stages,
   setStages,
   completenessStyle,
-  reloadRolesPage,
   location,
+  addedRoles,
 }) {
   const matchingRole = location?.state?.matchingRole;
-
-  const { addedRoles } = useSelector((state) => state.searchedRoles);
 
   const [addAnotherOpen, setAddAnotherOpen] = useState(true);
   const [teamDetailsOpen, setTeamDetailsOpen] = useState(false);
@@ -68,11 +46,17 @@ function SubmitContainer({
 
   useEffect(() => {
     setCurrentStage(2, stages, setStages);
-    const storedRoles = retrieveRoles();
-    if (storedRoles) {
-      if (!addedRoles || storedRoles.length > addedRoles.length) {
-        dispatch(replaceSearchedRoles(storedRoles));
-      }
+    if (!addedRoles || addedRoles.length === 0) {
+      navigate("/taas/myteams/createnewteam");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // redirects user if they enter the page URL directly
+  // without adding any roles.
+  useLayoutEffect(() => {
+    if (!addedRoles || addedRoles.length === 0) {
+      navigate("/taas/myteams/createnewteam");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -83,11 +67,7 @@ function SubmitContainer({
   };
 
   const addAnother = () => {
-    if (reloadRolesPage) {
-      setCurrentStage(0, stages, setStages);
-      reloadRolesPage();
-    }
-    navigate("/taas/myteams/createnewteam/role");
+    navigate("/taas/myteams/createnewteam");
   };
 
   const assembleTeam = (formData) => {
@@ -98,12 +78,13 @@ function SubmitContainer({
       if (key === "teamName" || key === "teamDescription") {
         continue;
       }
-      const position = _.pick(
-        formData[key],
-        "numberOfResources",
-        "durationWeeks",
-        "startMonth"
+      const position = _.mapValues(formData[key], (val, key) =>
+        key === "startMonth" ? val : parseInt(val, 10)
       );
+
+      if (position.startMonth === null) {
+        delete position.startMonth;
+      }
 
       position.roleSearchRequestId = key;
       position.roleName = addedRoles.find((role) => role.searchId === key).name;
@@ -121,7 +102,6 @@ function SubmitContainer({
     postTeamRequest(teamObject)
       .then((res) => {
         const projectId = _.get(res, ["data", "projectId"]);
-        clearSessionKeys();
         dispatch(clearSearchedRoles());
         navigate(`/taas/myteams/${projectId}`);
       })
@@ -171,8 +151,8 @@ SubmitContainer.propTypes = {
   stages: PT.array,
   setStages: PT.func,
   completenessStyle: PT.string,
-  reloadRolesPage: PT.bool,
   location: PT.object,
+  addedRoles: PT.array,
 };
 
 export default withAuthentication(SubmitContainer);

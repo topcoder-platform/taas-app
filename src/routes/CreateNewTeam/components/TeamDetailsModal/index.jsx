@@ -11,13 +11,15 @@ import BaseCreateModal from "../BaseCreateModal";
 import { FORM_FIELD_TYPE } from "constants/";
 import { formatPlural } from "utils/format";
 import Button from "components/Button";
+import MonthPicker from "components/MonthPicker";
+import InformationTooltip from "components/InformationTooltip";
 import "./styles.module.scss";
 
 const Error = ({ name }) => {
   const {
-    meta: { touched, error },
-  } = useField(name, { subscription: { touched: true, error: true } });
-  return touched && error ? <span styleName="error">{error}</span> : null;
+    meta: { dirty, error },
+  } = useField(name, { subscription: { dirty: true, error: true } });
+  return dirty && error ? <span styleName="error">{error}</span> : null;
 };
 
 function TeamDetailsModal({ open, onClose, submitForm, addedRoles }) {
@@ -95,10 +97,21 @@ function TeamDetailsModal({ open, onClose, submitForm, addedRoles }) {
   return (
     <Form
       onSubmit={submitForm}
+      mutators={{
+        clearField: ([fieldName], state, { changeValue }) => {
+          changeValue(state, fieldName, () => undefined);
+        },
+      }}
       initialValues={{ teamName: "My Great Team" }}
       validate={validator}
     >
-      {({ handleSubmit, hasValidationErrors }) => {
+      {({
+        handleSubmit,
+        hasValidationErrors,
+        form: {
+          mutators: { clearField },
+        },
+      }) => {
         return (
           <BaseCreateModal
             open={open}
@@ -123,7 +136,7 @@ function TeamDetailsModal({ open, onClose, submitForm, addedRoles }) {
                   name: "teamName",
                   label: "Team Name",
                   placeholder: "Team Name",
-                  maxLength: 50,
+                  maxLength: 255,
                   customValidator: true,
                 }}
               />
@@ -134,13 +147,16 @@ function TeamDetailsModal({ open, onClose, submitForm, addedRoles }) {
                     name: "teamDescription",
                     label: "Short description about the team/ project",
                     placeholder: "Short description about the team/ project",
-                    maxLength: 1000,
+                    maxLength: 600,
                   }}
                 />
               )}
               <button
                 styleName="toggle-button toggle-description"
-                onClick={toggleDescription}
+                onClick={() => {
+                  clearField("teamDescription");
+                  toggleDescription();
+                }}
               >
                 <span>{showDescription ? "–" : "+"}</span>
                 {showDescription ? " Remove Description" : " Add Description"}
@@ -163,6 +179,7 @@ function TeamDetailsModal({ open, onClose, submitForm, addedRoles }) {
                         component="input"
                         type="number"
                         initialValue="3"
+                        min="1"
                       />
                       <Error name={`${id}.numberOfResources`} />
                     </td>
@@ -172,31 +189,46 @@ function TeamDetailsModal({ open, onClose, submitForm, addedRoles }) {
                         component="input"
                         type="number"
                         initialValue="20"
+                        min="1"
                       />
                       <Error name={`${id}.durationWeeks`} />
                     </td>
-                    <td>
+                    <td styleName="start-month">
                       {startMonthVisible[id] ? (
                         <>
                           <Field
                             name={`${id}.startMonth`}
-                            component="input"
-                            type="month"
-                          />
+                            initialValue={Date.now()}
+                          >
+                            {(props) => (
+                              <MonthPicker
+                                name={props.input.name}
+                                value={props.input.value}
+                                onChange={props.input.onChange}
+                                onBlur={props.input.onBlur}
+                              />
+                            )}
+                          </Field>
                           <Error name={`${id}.startMonth`} />
                         </>
                       ) : (
-                        <button
-                          styleName="toggle-button"
-                          onClick={() =>
-                            setStartMonthVisible((prevState) => ({
-                              ...prevState,
-                              [id]: true,
-                            }))
-                          }
-                        >
-                          Add Start Month
-                        </button>
+                        <div styleName="flex-container">
+                          <button
+                            styleName="toggle-button"
+                            onClick={() =>
+                              setStartMonthVisible((prevState) => ({
+                                ...prevState,
+                                [id]: true,
+                              }))
+                            }
+                          >
+                            Add Start Month
+                          </button>
+                          <InformationTooltip
+                            iconSize="14px"
+                            text="Requested start month for this position."
+                          />
+                        </div>
                       )}
                     </td>
                   </tr>

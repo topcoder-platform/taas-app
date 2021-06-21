@@ -82,6 +82,7 @@ const FormField = ({ field }) => {
               onBlur={input.onBlur}
               onFocus={input.onFocus}
               className={meta.error && meta.touched ? "error" : ""}
+              maxLength={field.maxLength}
             />
           )}
           {field.type === FORM_FIELD_TYPE.DATE && (

@@ -11,6 +11,11 @@ import { getRoles } from "services/roles";
 import LoadingIndicator from "components/LoadingIndicator";
 import RoleDetailsModal from "../../components/RoleDetailsModal";
 import SearchAndSubmit from "../../components/SearchAndSubmit";
+import { isCustomRole } from "utils/helpers";
+
+// Remove custom roles from role list
+const removeCustomRoles = (roles) =>
+  roles.filter((role) => !isCustomRole(role));
 
 function SelectRole() {
   const [stages, setStages] = useState([
@@ -33,12 +38,6 @@ function SelectRole() {
     setRoleDetailsModalOpen(true);
   }, []);
 
-  const resetState = () => {
-    setSelectedRoleId(null);
-    setRoleDetailsModalOpen(false);
-    setRoleDetailsModalId(null);
-  };
-
   if (!roles) {
     return <LoadingIndicator error={loadingError} />;
   }
@@ -50,11 +49,10 @@ function SelectRole() {
       isCompletenessDisabled={!selectedRoleId}
       searchObject={{ roleId: selectedRoleId }}
       completenessStyle="role-selection"
-      reloadRolesPage={resetState}
       toRender={
         <>
           <RolesList
-            roles={roles}
+            roles={removeCustomRoles(roles)}
             selectedRoleId={selectedRoleId}
             toggleRole={toggleRole}
             onDescriptionClick={onDescriptionClick}
