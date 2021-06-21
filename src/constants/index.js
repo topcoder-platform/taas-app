@@ -357,6 +357,6 @@ export const INTERVIEW_POPUP_MEDIA_URL =
 export const MAX_ALLOWED_INTERVIEWS = 3;
 
 /**
- * Matching rate to show in CreateNewTeam ResultCard
+ * Custom role names to remove from RoleList component
  */
-export const MATCHING_RATE = "80";
+export const CUSTOM_ROLE_NAMES = ["custom", "niche"];

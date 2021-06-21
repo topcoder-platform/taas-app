@@ -14,7 +14,7 @@ const CircularProgressBar = ({ size, progress, children, strokeWidth }) => {
   const radius = size / 2 - strokeWidth / 2;
   const circumference = 2 * Math.PI * radius;
   useEffect(() => {
-    const progressOffset = ((100 - progress) / 100) * circumference;
+    const progressOffset = (1 - progress) * circumference;
     setOffset(progressOffset);
     circleRef.current.style = "transition: stroke-dashoffset 850ms ease-in-out";
   }, [setOffset, progress, circumference, offset]);

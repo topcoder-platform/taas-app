@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="14px" height="15px" viewBox="0 0 14 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>89C4F8D6-2320-499E-BC02-40DE84B9F35C</title>
+    <defs>
+        <path d="M13.125,1.75 L11.375,1.75 L11.375,0.875 C11.375,0.391125 10.983875,0 10.5,0 L9.625,0 C9.141125,0 8.75,0.391125 8.75,0.875 L8.75,1.75 L5.25,1.75 L5.25,0.875 C5.25,0.391125 4.858875,0 4.375,0 L3.5,0 C3.016125,0 2.625,0.391125 2.625,0.875 L2.625,1.75 L0.875,1.75 C0.391125,1.75 0,2.141125 0,2.625 L0,13.125 C0,13.608875 0.391125,14 0.875,14 L13.125,14 C13.608875,14 14,13.608875 14,13.125 L14,2.625 C14,2.141125 13.608875,1.75 13.125,1.75 L13.125,1.75 Z M12.25,12.25 L1.75,12.25 L1.75,6.125 L12.25,6.125 L12.25,12.25 L12.25,12.25 Z" id="path-1"></path>
+    </defs>
+    <g id="Screens" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="06_4_Team-Details" transform="translate(-948.000000, -440.000000)">
+            <g id="Group-14" transform="translate(343.000000, 95.000000)">
+                <g id="Group-15" transform="translate(39.500000, 294.993280)">
+                    <g id="input/filled-copy-2" transform="translate(476.500000, 41.000000)">
+                        <g id="icons/ui/calendar" transform="translate(89.000000, 10.000000)">
+                            <mask id="mask-2" fill="white">
+                                <use xlink:href="#path-1"></use>
+                            </mask>
+                            <use id="icon-color" fill="#AAAAAA" xlink:href="#path-1"></use>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

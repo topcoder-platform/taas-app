@@ -48,7 +48,7 @@ function RoleDetailsModal({ roleId, open, onClose }) {
     [role, imgError]
   );
 
-  const skills = role ? role.listOfSkills : [];
+  const skills = role && role.listOfSkills ? role.listOfSkills : [];
 
   const hideSkills = () => {
     onClose();

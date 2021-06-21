@@ -15,7 +15,7 @@ import SearchCard from "../SearchCard";
 import ResultCard from "../ResultCard";
 import NoMatchingProfilesResultCard from "../NoMatchingProfilesResultCard";
 import { searchRoles } from "services/teams";
-import { setCurrentStage } from "utils/helpers";
+import { isCustomRole, setCurrentStage } from "utils/helpers";
 import { addRoleSearchId, addSearchedRole } from "../../actions";
 import "./styles.module.scss";
 
@@ -51,12 +51,12 @@ function SearchContainer({
       .then((res) => {
         const name = _.get(res, "data.name");
         const searchId = _.get(res, "data.roleSearchRequestId");
-        if (name && !name.toLowerCase().includes("niche")) {
-          setMatchingRole(res.data);
+        if (name && !isCustomRole({ name })) {
           dispatch(addSearchedRole({ searchId, name }));
         } else if (searchId) {
           dispatch(addRoleSearchId(searchId));
         }
+        setMatchingRole(res.data);
       })
       .catch((err) => {
         console.error(err);
@@ -70,8 +70,8 @@ function SearchContainer({
   const renderLeftSide = () => {
     if (!searchState) return toRender;
     if (searchState === "searching") return <SearchCard />;
-    if (matchingRole) return <ResultCard role={matchingRole} />;
-    return <NoMatchingProfilesResultCard />;
+    if (!isCustomRole(matchingRole)) return <ResultCard role={matchingRole} />;
+    return <NoMatchingProfilesResultCard role={matchingRole} />;
   };
 
   const getPercentage = useCallback(() => {

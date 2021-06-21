@@ -1,0 +1,60 @@
+@import "styles/include";
+
+.month-picker {
+  input {
+    width: 118px;
+    background-image: url("../../assets/images/icon-thick-calendar.svg");
+    background-repeat: no-repeat;
+    background-position: 95px 7px;
+  }
+
+  :global {
+    .react-datepicker__header {
+      @include font-barlow;
+      font-size: 20px;
+      color: #2a2a2a;
+      font-weight: 600;
+      padding-top: 14px;
+      padding-bottom: 14px;
+      background-color: transparent;
+      border-bottom: 1px solid #d4d4d4;
+      margin: 0 16px;
+    }
+
+    .react-datepicker__month-text {
+      @include font-roboto;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 40px;
+      width: 40px;
+      height: 40px;
+      margin: 8px;
+      border-radius: 100%;
+    }
+    .react-datepicker__month--selected {
+      border-radius: 100%;
+      background-color: #0AB88A;
+    }
+
+    .react-datepicker__navigation {
+      top: 18px;
+      border: 2px solid transparent;
+      height: 12px;
+      width: 12px;
+    }
+    .react-datepicker__navigation--next, .react-datepicker__navigation--previous {
+      border-right-color: transparent;
+      border-bottom-color: transparent;
+      border-left-color: #137D60;
+      border-top-color: #137D60;
+    }
+    .react-datepicker__navigation--next {
+      right: 24px;
+      transform: rotate(135deg);
+    }
+    .react-datepicker__navigation--previous {
+      left: 24px;
+      transform: rotate(-45deg);
+    }
+  }
+}
