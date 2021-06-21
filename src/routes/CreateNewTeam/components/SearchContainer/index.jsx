@@ -90,7 +90,7 @@ function SearchContainer({
           isDisabled={
             isCompletenessDisabled ||
             searchState === "searching" ||
-            (searchState === "done" && !matchingRole)
+            (searchState === "done" && isCustomRole(matchingRole))
           }
           onClick={searchState ? onSubmit : search}
           extraStyleName={completenessStyle}
