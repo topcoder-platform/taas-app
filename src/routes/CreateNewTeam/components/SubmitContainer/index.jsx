@@ -94,10 +94,9 @@ function SubmitContainer({
   const requestTeam = useCallback(() => {
     setRequestLoading(true);
     postTeamRequest(teamObject)
-      .then((res) => {
-        const projectId = _.get(res, ["data", "projectId"]);
+      .then(() => {
         dispatch(clearSearchedRoles());
-        navigate(`/taas/myteams/${projectId}`);
+        navigate("/taas/myteams");
       })
       .catch((err) => {
         setRequestLoading(false);

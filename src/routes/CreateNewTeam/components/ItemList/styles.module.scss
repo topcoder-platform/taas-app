@@ -7,7 +7,7 @@
   margin-right: 20px;
   position: relative;
   height: 80vh;
-  overflow-y: scroll;
+  overflow-y: auto;
 
   > header {
     padding: 16px 24px;
@@ -33,9 +33,9 @@ input:not([type="checkbox"]).filter-input {
   color: #2a2a2a;
   font-size: 14px;
   height: 40px;
-  line-height: 38px;
+  line-height: normal;
   outline: none;
-  padding: 0 15px;
+  padding: 8px 15px;
 
   &:not(:focus) {
     background-image: url("../../../../assets/images/icon-search.svg");

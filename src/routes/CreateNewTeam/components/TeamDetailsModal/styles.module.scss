@@ -85,13 +85,8 @@
 }
 
 .modal-body {
+  overflow-x: auto;
   textarea {
     height: 95px;
-  }
-}
-
-@media only screen and (max-width: 550px) {
-  .modal-body {
-    overflow-x: scroll;
   }
 }
