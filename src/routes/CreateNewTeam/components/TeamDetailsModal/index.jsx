@@ -240,7 +240,10 @@ function TeamDetailsModal({ open, onClose, submitForm, addedRoles }) {
                     <td>
                       <button
                         styleName="delete-role"
-                        onClick={() => dispatch(deleteSearchedRole(id))}
+                        onClick={() => {
+                          clearField(id);
+                          dispatch(deleteSearchedRole(id));
+                        }}
                       >
                         <IconCrossLight height="12px" width="12px" />
                       </button>

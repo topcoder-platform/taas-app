@@ -46,20 +46,16 @@ function SubmitContainer({
 
   useEffect(() => {
     setCurrentStage(2, stages, setStages);
-    if (!addedRoles || addedRoles.length === 0) {
-      navigate("/taas/myteams/createnewteam");
-    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // redirects user if they enter the page URL directly
-  // without adding any roles.
+  // without adding any roles or delete all roles.
   useLayoutEffect(() => {
     if (!addedRoles || addedRoles.length === 0) {
       navigate("/taas/myteams/createnewteam");
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [addedRoles]);
 
   const openTeamDetails = () => {
     setAddAnotherOpen(false);
