@@ -10,4 +10,9 @@
 
 .job-title {
   margin-bottom: 15px;
+
+  input:not([type="checkbox"]) {
+    line-height: normal;
+    padding: 8px 15px;
+  }
 }

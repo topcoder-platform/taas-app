@@ -64,7 +64,7 @@ function InputJobDescription() {
         <div styleName="edit-container">
           <PageHeader
             title="Input Job Description"
-            backTo="/taas/myteams/createnewteam"
+            backTo="/taas/createnewteam"
           />
           <div styleName="job-title">
             <TextInput

@@ -38,7 +38,7 @@ function NoMatchingProfilesResultCard({ role }) {
             <p>/Week</p>
           </div>
         )}
-        <Link to="/taas/myteams/createnewteam">
+        <Link to="/taas/createnewteam">
           <Button type="secondary" styleName="button">
             Modify Search Criteria
           </Button>

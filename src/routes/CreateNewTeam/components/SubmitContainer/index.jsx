@@ -51,7 +51,7 @@ function SubmitContainer({
   // without adding any roles or delete all roles.
   useLayoutEffect(() => {
     if (!addedRoles || addedRoles.length === 0) {
-      navigate("/taas/myteams/createnewteam");
+      navigate("/taas/createnewteam");
     }
   }, [addedRoles]);
 
@@ -61,7 +61,7 @@ function SubmitContainer({
   };
 
   const addAnother = () => {
-    navigate("/taas/myteams/createnewteam");
+    navigate("/taas/createnewteam");
   };
 
   const assembleTeam = (formData) => {
