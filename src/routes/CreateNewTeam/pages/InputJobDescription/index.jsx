@@ -10,6 +10,8 @@ import MarkdownEditor from "../../../../components/MarkdownEditor";
 import "./styles.module.scss";
 import SearchAndSubmit from "../../components/SearchAndSubmit";
 import TextInput from "components/TextInput";
+import { getSkillsByJobDescription } from "services/teams";
+import SkillListPopup from "./components/SkillListPopup";
 
 function InputJobDescription() {
   const [stages, setStages] = useState([
@@ -19,10 +21,29 @@ function InputJobDescription() {
   ]);
   const [jdString, setJdString] = useState("");
   const [jobTitle, setJobTitle] = useState("");
+  const [skills, setSkills] = useState([]);
+  const [loadingSkills, setLoadingSkills] = useState(true);
+  const [popupOpen, setPopupOpen] = useState(false);
 
   const onEditChange = useCallback((value) => {
     setJdString(value);
   }, []);
+
+  const onClick = useCallback(() => {
+    setLoadingSkills(true);
+    setSkills([]);
+    setPopupOpen(true);
+    getSkillsByJobDescription(jdString)
+      .then((res) => {
+        setSkills(res.data);
+      })
+      .catch((err) => {
+        console.error(err);
+      })
+      .finally(() => {
+        setLoadingSkills(false);
+      });
+  }, [jdString]);
 
   return (
     <SearchAndSubmit
@@ -31,35 +52,41 @@ function InputJobDescription() {
       isCompletenessDisabled={jdString.length < 10 || jdString.length > 255}
       completenessStyle="input-job-description"
       searchObject={{ jobDescription: jdString }}
-      toRender={
-        <>
-          <div styleName="edit-container">
-            <PageHeader
-              title="Input Job Description"
-              backTo="/taas/myteams/createnewteam"
-            />
-            <div styleName="job-title">
-              <TextInput
-                placeholder="Job title"
-                value={jobTitle}
-                onChange={setJobTitle}
-                maxLength={100}
-                type="text"
-              />
-            </div>
-            <MarkdownEditor
-              height="482px"
-              placeholder="input job description"
-              onChange={onEditChange}
-              errorMessage={
-                jdString.length > 255
-                  ? "Maximum of 255 characters. Please reduce job description length."
-                  : ""
-              }
+      onClick={onClick}
+      toRender={(searchFunc) => (
+        <div styleName="edit-container">
+          <PageHeader
+            title="Input Job Description"
+            backTo="/taas/myteams/createnewteam"
+          />
+          <div styleName="job-title">
+            <TextInput
+              placeholder="Job title"
+              value={jobTitle}
+              onChange={setJobTitle}
+              maxLength={100}
+              type="text"
             />
           </div>
-        </>
-      }
+          <MarkdownEditor
+            height="482px"
+            placeholder="input job description"
+            onChange={onEditChange}
+            errorMessage={
+              jdString.length > 255
+                ? "Maximum of 255 characters. Please reduce job description length."
+                : ""
+            }
+          />
+          <SkillListPopup
+            open={popupOpen}
+            onClose={() => setPopupOpen(false)}
+            skills={skills}
+            isLoading={loadingSkills}
+            onContinueClick={searchFunc}
+          />
+        </div>
+      )}
     />
   );
 }

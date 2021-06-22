@@ -32,11 +32,9 @@ function SubmitContainer({
   stages,
   setStages,
   completenessStyle,
-  location,
+  matchingRole,
   addedRoles,
 }) {
-  const matchingRole = location?.state?.matchingRole;
-
   const [addAnotherOpen, setAddAnotherOpen] = useState(true);
   const [teamDetailsOpen, setTeamDetailsOpen] = useState(false);
   const [teamObject, setTeamObject] = useState(null);
@@ -147,8 +145,8 @@ SubmitContainer.propTypes = {
   stages: PT.array,
   setStages: PT.func,
   completenessStyle: PT.string,
-  location: PT.object,
   addedRoles: PT.array,
+  matchingRole: PT.object,
 };
 
 export default withAuthentication(SubmitContainer);
