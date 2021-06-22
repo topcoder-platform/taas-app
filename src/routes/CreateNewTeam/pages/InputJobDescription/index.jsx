@@ -4,7 +4,7 @@
  * Allows user to search for roles by
  * job description
  */
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import PageHeader from "components/PageHeader";
 import MarkdownEditor from "../../../../components/MarkdownEditor";
 import "./styles.module.scss";
@@ -29,6 +29,13 @@ function InputJobDescription() {
     setJdString(value);
   }, []);
 
+  const searchObject = useMemo(() => {
+    if (jobTitle && jobTitle.length) {
+      return { jobDescription: jdString, jobTitle };
+    }
+    return { jobDescription: jdString };
+  }, [jobTitle, jdString]);
+
   const onClick = useCallback(() => {
     setLoadingSkills(true);
     setSkills([]);
@@ -51,7 +58,7 @@ function InputJobDescription() {
       setStages={setStages}
       isCompletenessDisabled={jdString.length < 10 || jdString.length > 255}
       completenessStyle="input-job-description"
-      searchObject={{ jobDescription: jdString }}
+      searchObject={searchObject}
       onClick={onClick}
       toRender={(searchFunc) => (
         <div styleName="edit-container">
