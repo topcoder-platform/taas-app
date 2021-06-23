@@ -23,7 +23,7 @@ import TeamDetailsModal from "../TeamDetailsModal";
 import ConfirmationModal from "../ConfirmationModal";
 import withAuthentication from "../../../../hoc/withAuthentication";
 import "./styles.module.scss";
-import { setCurrentStage } from "utils/helpers";
+import { isCustomRole, setCurrentStage } from "utils/helpers";
 import { clearSearchedRoles } from "../../actions";
 import { postTeamRequest } from "services/teams";
 import SuccessCard from "../SuccessCard";
@@ -106,7 +106,11 @@ function SubmitContainer({
 
   return (
     <div styleName="page">
-      {matchingRole ? <ResultCard role={matchingRole} /> : <SuccessCard />}
+      {!isCustomRole(matchingRole) ? (
+        <ResultCard role={matchingRole} />
+      ) : (
+        <SuccessCard />
+      )}
       <div styleName="right-side">
         <AddedRolesAccordion addedRoles={addedRoles} />
         <Completeness
