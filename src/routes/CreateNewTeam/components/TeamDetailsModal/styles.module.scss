@@ -8,6 +8,7 @@
   font-size: 12px;
   font-weight: 500;
   color: #137D60;
+  padding: 1px 6px 0 6px;
 
   &.toggle-description {
     margin-top: 12px;
@@ -49,7 +50,7 @@
       input {
         @include font-roboto;
         font-size: 14px;
-        line-height: 22px;
+        line-height: normal;
         height: 34px;
         &[type="number"] {
           width: 98px;
@@ -64,6 +65,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
+  width: 118px;
 }
 
 .error {

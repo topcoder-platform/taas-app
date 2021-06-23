@@ -17,6 +17,7 @@ import InformationTooltip from "components/InformationTooltip";
 import { deleteSearchedRole } from "../../actions";
 import IconCrossLight from "../../../../assets/images/icon-cross-light.svg";
 import "./styles.module.scss";
+import NumberInput from "components/NumberInput";
 
 const Error = ({ name }) => {
   const {
@@ -180,23 +181,35 @@ function TeamDetailsModal({ open, onClose, submitForm, addedRoles }) {
                   <tr styleName="role-row" key={id}>
                     <td>{name}</td>
                     <td>
-                      <Field
-                        name={`${id}.numberOfResources`}
-                        component="input"
-                        type="number"
-                        initialValue="3"
-                        min="1"
-                      />
+                      <Field name={`${id}.numberOfResources`} initialValue="3">
+                        {({ input, meta }) => (
+                          <NumberInput
+                            name={input.name}
+                            value={input.value}
+                            onChange={input.onChange}
+                            onBlur={input.onBlur}
+                            onFocus={input.onFocus}
+                            min="1"
+                            error={meta.touched && meta.error}
+                          />
+                        )}
+                      </Field>
                       <Error name={`${id}.numberOfResources`} />
                     </td>
                     <td>
-                      <Field
-                        name={`${id}.durationWeeks`}
-                        component="input"
-                        type="number"
-                        initialValue="20"
-                        min="1"
-                      />
+                      <Field name={`${id}.durationWeeks`} initialValue="20">
+                        {({ input, meta }) => (
+                          <NumberInput
+                            name={input.name}
+                            value={input.value}
+                            onChange={input.onChange}
+                            onBlur={input.onBlur}
+                            onFocus={input.onFocus}
+                            min="1"
+                            error={meta.touched && meta.error}
+                          />
+                        )}
+                      </Field>
                       <Error name={`${id}.durationWeeks`} />
                     </td>
                     <td>
@@ -212,6 +225,7 @@ function TeamDetailsModal({ open, onClose, submitForm, addedRoles }) {
                                 value={props.input.value}
                                 onChange={props.input.onChange}
                                 onBlur={props.input.onBlur}
+                                onFocus={props.input.onFocus}
                               />
                             )}
                           </Field>
