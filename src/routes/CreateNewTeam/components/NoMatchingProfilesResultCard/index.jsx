@@ -25,14 +25,20 @@ function NoMatchingProfilesResultCard({ role }) {
           We will be looking internally for members matching your requirements
           and be back at them in about 2 weeks.
         </p>
-        {role && (
+        {role.rates && role.name ? (
           <div styleName="niche-rate-box">
             <p>{role.name} Rate</p>
             <p styleName="cost">{formatMoney(role.rates[0].global)}</p>
             <p>/Week</p>
           </div>
+        ) : (
+          <div styleName="niche-rate-box">
+            <p>Custom Rate</p>
+            <p styleName="cost">$1,200</p>
+            <p>/Week</p>
+          </div>
         )}
-        <Link to="/taas/myteams/createnewteam">
+        <Link to="/taas/createnewteam">
           <Button type="secondary" styleName="button">
             Modify Search Criteria
           </Button>

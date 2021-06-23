@@ -32,11 +32,9 @@ function SubmitContainer({
   stages,
   setStages,
   completenessStyle,
-  location,
+  matchingRole,
   addedRoles,
 }) {
-  const matchingRole = location?.state?.matchingRole;
-
   const [addAnotherOpen, setAddAnotherOpen] = useState(true);
   const [teamDetailsOpen, setTeamDetailsOpen] = useState(false);
   const [teamObject, setTeamObject] = useState(null);
@@ -46,20 +44,16 @@ function SubmitContainer({
 
   useEffect(() => {
     setCurrentStage(2, stages, setStages);
-    if (!addedRoles || addedRoles.length === 0) {
-      navigate("/taas/myteams/createnewteam");
-    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // redirects user if they enter the page URL directly
-  // without adding any roles.
+  // without adding any roles or delete all roles.
   useLayoutEffect(() => {
     if (!addedRoles || addedRoles.length === 0) {
-      navigate("/taas/myteams/createnewteam");
+      navigate("/taas/createnewteam");
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [addedRoles]);
 
   const openTeamDetails = () => {
     setAddAnotherOpen(false);
@@ -67,7 +61,7 @@ function SubmitContainer({
   };
 
   const addAnother = () => {
-    navigate("/taas/myteams/createnewteam");
+    navigate("/taas/createnewteam");
   };
 
   const assembleTeam = (formData) => {
@@ -100,10 +94,9 @@ function SubmitContainer({
   const requestTeam = useCallback(() => {
     setRequestLoading(true);
     postTeamRequest(teamObject)
-      .then((res) => {
-        const projectId = _.get(res, ["data", "projectId"]);
+      .then(() => {
         dispatch(clearSearchedRoles());
-        navigate(`/taas/myteams/${projectId}`);
+        navigate("/taas/myteams");
       })
       .catch((err) => {
         setRequestLoading(false);
@@ -151,8 +144,8 @@ SubmitContainer.propTypes = {
   stages: PT.array,
   setStages: PT.func,
   completenessStyle: PT.string,
-  location: PT.object,
   addedRoles: PT.array,
+  matchingRole: PT.object,
 };
 
 export default withAuthentication(SubmitContainer);

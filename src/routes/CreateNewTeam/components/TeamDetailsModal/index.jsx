@@ -6,6 +6,7 @@
 import React, { useState } from "react";
 import PT from "prop-types";
 import { Form, Field, useField } from "react-final-form";
+import { useDispatch } from "react-redux";
 import FormField from "components/FormField";
 import BaseCreateModal from "../BaseCreateModal";
 import { FORM_FIELD_TYPE } from "constants/";
@@ -13,7 +14,10 @@ import { formatPlural } from "utils/format";
 import Button from "components/Button";
 import MonthPicker from "components/MonthPicker";
 import InformationTooltip from "components/InformationTooltip";
+import { deleteSearchedRole } from "../../actions";
+import IconCrossLight from "../../../../assets/images/icon-cross-light.svg";
 import "./styles.module.scss";
+import NumberInput from "components/NumberInput";
 
 const Error = ({ name }) => {
   const {
@@ -31,6 +35,8 @@ function TeamDetailsModal({ open, onClose, submitForm, addedRoles }) {
     });
     return roles;
   });
+
+  const dispatch = useDispatch();
 
   const toggleDescription = () => {
     setShowDescription((prevState) => !prevState);
@@ -169,31 +175,44 @@ function TeamDetailsModal({ open, onClose, submitForm, addedRoles }) {
                   <th># of resources</th>
                   <th>Duration (weeks)</th>
                   <th>Start month</th>
+                  <th></th>
                 </tr>
                 {addedRoles.map(({ searchId: id, name }) => (
                   <tr styleName="role-row" key={id}>
                     <td>{name}</td>
                     <td>
-                      <Field
-                        name={`${id}.numberOfResources`}
-                        component="input"
-                        type="number"
-                        initialValue="3"
-                        min="1"
-                      />
+                      <Field name={`${id}.numberOfResources`} initialValue="3">
+                        {({ input, meta }) => (
+                          <NumberInput
+                            name={input.name}
+                            value={input.value}
+                            onChange={input.onChange}
+                            onBlur={input.onBlur}
+                            onFocus={input.onFocus}
+                            min="1"
+                            error={meta.touched && meta.error}
+                          />
+                        )}
+                      </Field>
                       <Error name={`${id}.numberOfResources`} />
                     </td>
                     <td>
-                      <Field
-                        name={`${id}.durationWeeks`}
-                        component="input"
-                        type="number"
-                        initialValue="20"
-                        min="1"
-                      />
+                      <Field name={`${id}.durationWeeks`} initialValue="20">
+                        {({ input, meta }) => (
+                          <NumberInput
+                            name={input.name}
+                            value={input.value}
+                            onChange={input.onChange}
+                            onBlur={input.onBlur}
+                            onFocus={input.onFocus}
+                            min="1"
+                            error={meta.touched && meta.error}
+                          />
+                        )}
+                      </Field>
                       <Error name={`${id}.durationWeeks`} />
                     </td>
-                    <td styleName="start-month">
+                    <td>
                       {startMonthVisible[id] ? (
                         <>
                           <Field
@@ -206,6 +225,7 @@ function TeamDetailsModal({ open, onClose, submitForm, addedRoles }) {
                                 value={props.input.value}
                                 onChange={props.input.onChange}
                                 onBlur={props.input.onBlur}
+                                onFocus={props.input.onFocus}
                               />
                             )}
                           </Field>
@@ -230,6 +250,17 @@ function TeamDetailsModal({ open, onClose, submitForm, addedRoles }) {
                           />
                         </div>
                       )}
+                    </td>
+                    <td>
+                      <button
+                        styleName="delete-role"
+                        onClick={() => {
+                          clearField(id);
+                          dispatch(deleteSearchedRole(id));
+                        }}
+                      >
+                        <IconCrossLight height="12px" width="12px" />
+                      </button>
                     </td>
                   </tr>
                 ))}

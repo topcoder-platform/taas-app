@@ -15,7 +15,7 @@ function getCurrMonthYear() {
   return new Date(`${year}-${month + 1}`);
 }
 
-function MonthPicker({ name, value, onChange, onBlur }) {
+function MonthPicker({ name, value, onChange, onBlur, onFocus }) {
   return (
     <div styleName="month-picker">
       <DatePicker
@@ -26,6 +26,7 @@ function MonthPicker({ name, value, onChange, onBlur }) {
         showMonthYearPicker
         showPopperArrow={false}
         onBlur={onBlur}
+        onFocus={onFocus}
         popperPlacement="top-end"
         showFourColumnMonthYearPicker
         minDate={getCurrMonthYear()}

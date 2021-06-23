@@ -32,6 +32,10 @@ function ResultCard({ role }) {
     isExternalMember,
     skillsMatch,
     rates: [rates],
+    jobTitle,
+    name,
+    timeToCandidate,
+    timeToInterview,
   } = role;
   const [userHandle, setUserHandle] = useState(null);
   const [showRates, setShowRates] = useState(false);
@@ -54,6 +58,9 @@ function ResultCard({ role }) {
         <Curve styleName="curve" />
         <IconEarthCheck styleName="transparent-icon" />
       </div>
+      <h4 styleName="job-title">
+        {jobTitle && jobTitle.length ? jobTitle : name}
+      </h4>
       <div styleName="button-group">
         <Button
           type={!showRates ? "segment-selected" : "segment"}
@@ -202,14 +209,14 @@ function ResultCard({ role }) {
               <IconMultipleActionsCheck />
               <div>
                 <p>Qualified candidates within</p>
-                <h6>24h</h6>
+                <h6>{timeToCandidate}h</h6>
               </div>
             </div>
             <div styleName="timeline-info">
               <IconTeamMeetingChat />
               <div>
                 <p>Interviews can start within</p>
-                <h6>48h</h6>
+                <h6>{timeToInterview}h</h6>
               </div>
             </div>
           </div>

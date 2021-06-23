@@ -51,13 +51,13 @@ function InputSkills() {
       isCompletenessDisabled={selectedSkills.length < 1}
       searchObject={{ skills: selectedSkills }}
       completenessStyle="input-skills"
-      toRender={
+      toRender={() => (
         <SkillsList
           skills={skills}
           selectedSkills={selectedSkills}
           toggleSkill={toggleSkill}
         />
-      }
+      )}
     />
   );
 }

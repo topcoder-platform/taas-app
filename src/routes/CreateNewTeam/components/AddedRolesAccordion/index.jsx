@@ -19,7 +19,8 @@ function AddedRolesAccordion({ addedRoles }) {
         <div styleName="heading">
           <h4 styleName="title">
             {addedRoles.length}{" "}
-            {addedRoles.length > 1 ? "roles have" : "role has"} been added.
+            {addedRoles.length > 1 ? "positions have" : "position has"} been
+            added.
           </h4>
         </div>
         <div styleName={cn("arrow", { [isOpen ? "up" : "down"]: true })}></div>
