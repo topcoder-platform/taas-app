@@ -49,7 +49,7 @@ function SelectRole() {
       isCompletenessDisabled={!selectedRoleId}
       searchObject={{ roleId: selectedRoleId }}
       completenessStyle="role-selection"
-      toRender={
+      toRender={() => (
         <>
           <RolesList
             roles={removeCustomRoles(roles)}
@@ -63,7 +63,7 @@ function SelectRole() {
             onClose={() => setRoleDetailsModalOpen(false)}
           />
         </>
-      }
+      )}
     />
   );
 }

@@ -5,67 +5,50 @@
 import React from "react";
 import _ from "lodash";
 import PT from "prop-types";
-import Modal from "react-responsive-modal";
 import Button from "components/Button";
-import IconCrossLight from "../../../../../../assets/images/icon-cross-light.svg";
 import IconSingleManAdd from "../../../../../../assets/images/icon-single-man-add.svg";
 import "./styles.module.scss";
-import CenteredSpinner from "components/CenteredSpinner";
+import BaseCreateModal from "../../../../components/BaseCreateModal";
 
-const modalStyle = {
-  borderRadius: "8px",
-  padding: "32px 32px 22px 32px",
-  maxWidth: "460px",
-  width: "100%",
-  margin: 0,
-  "overflow-x": "hidden",
-};
+function SkillListPopup({ open, skills, isLoading, onClose, onContinueClick }) {
+  const Buttons = (
+    <>
+      <Button type="secondary" size="medium" onClick={onClose}>
+        Edit Job Description
+      </Button>
+      <Button
+        disabled={isLoading || !skills.length}
+        type="primary"
+        size="medium"
+        onClick={onContinueClick}
+      >
+        Continue
+      </Button>
+    </>
+  );
 
-const containerStyle = {
-  padding: "10px",
-};
-
-function SkillListPopup({ open, skills, onClose, isLoading, onContinueClick }) {
   return (
-    <Modal
+    <BaseCreateModal
       open={open}
-      center
       onClose={onClose}
-      closeIcon={
-        <IconCrossLight height="18px" width="18px" styleName="cross" />
+      headerIcon={<IconSingleManAdd />}
+      title="Skills"
+      subtitle={
+        skills.length
+          ? "These skills are found in your Job Description"
+          : "No skills are found in your Job Description"
       }
-      styles={{
-        modal: modalStyle,
-        modalContainer: containerStyle,
-      }}
+      isLoading={isLoading}
+      loadingMessage="Loading skills..."
+      maxWidth="460px"
+      buttons={Buttons}
     >
-      <div styleName="modal-body">
-        {isLoading ? (
-          <>
-            <CenteredSpinner />
-            <h5>loading skills</h5>
-          </>
-        ) : (
-          <>
-            <IconSingleManAdd />
-            <h5>skills</h5>
-            {_.map(skills, (s) => {
-              return <div>{s.tag}</div>;
-            })}
-          </>
-        )}
+      <div>
+        {_.map(skills, (s) => {
+          return <div>{s.tag}</div>;
+        })}
       </div>
-      <div styleName="button-group">
-        <Button
-          type="primary"
-          size="medium"
-          disabled={isLoading}
-          onClick={onContinueClick}
-        >
-          Continue
-        </Button>
-      </div>
-    </Modal>
+    </BaseCreateModal>
   );
 }
 

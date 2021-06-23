@@ -37,7 +37,7 @@ function ItemList({
     <div styleName="item-list">
       <PageHeader
         title={title}
-        backTo="/taas/myteams/createnewteam"
+        backTo="/taas/createnewteam"
         aside={
           <>
             <Input

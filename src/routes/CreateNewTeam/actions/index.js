@@ -22,9 +22,9 @@ const addPreviousSearchId = (id) => ({
   payload: id,
 });
 
-export const replaceSearchedRoles = (roles) => ({
-  type: ACTION_TYPE.REPLACE_SEARCHED_ROLES,
-  payload: { roles, lastRoleId: roles[roles.length - 1].searchId },
+const deleteRole = (id) => ({
+  type: ACTION_TYPE.DELETE_SEARCHED_ROLE,
+  payload: id,
 });
 
 export const clearSearchedRoles = () => (dispatch, getState) => {
@@ -39,5 +39,10 @@ export const addSearchedRole = (searchedRole) => (dispatch, getState) => {
 
 export const addRoleSearchId = (id) => (dispatch, getState) => {
   dispatch(addPreviousSearchId(id));
+  updateLocalStorage(getState().searchedRoles);
+};
+
+export const deleteSearchedRole = (id) => (dispatch, getState) => {
+  dispatch(deleteRole(id));
   updateLocalStorage(getState().searchedRoles);
 };

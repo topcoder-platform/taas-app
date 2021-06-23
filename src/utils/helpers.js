@@ -70,4 +70,4 @@ export const setCurrentStage = (currentStepIdx, stages, setStagesCallback) => {
  * @returns {boolean} whether the role is custom/niche
  */
 export const isCustomRole = (role) =>
-  !role.name || CUSTOM_ROLE_NAMES.includes(role.name.toLowerCase());
+  !role || !role.name || CUSTOM_ROLE_NAMES.includes(role.name.toLowerCase());
