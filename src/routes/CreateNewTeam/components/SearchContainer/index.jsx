@@ -5,73 +5,37 @@
  * search pages. Contains logic and supporting
  * components for searching for roles.
  */
-import React, { useCallback, useState } from "react";
+import React, { useCallback } from "react";
 import PT from "prop-types";
-import _ from "lodash";
-import { useDispatch } from "react-redux";
 import AddedRolesAccordion from "../AddedRolesAccordion";
 import Completeness from "../Completeness";
 import SearchCard from "../SearchCard";
 import ResultCard from "../ResultCard";
 import NoMatchingProfilesResultCard from "../NoMatchingProfilesResultCard";
-import { searchRoles } from "services/teams";
-import { setCurrentStage } from "utils/helpers";
-import { addRoleSearchId, addSearchedRole } from "../../actions";
+import { isCustomRole } from "utils/helpers";
 import "./styles.module.scss";
 
 function SearchContainer({
   stages,
-  setStages,
   isCompletenessDisabled,
   toRender,
-  searchObject,
+  onClick,
+  search,
   completenessStyle,
   navigate,
   addedRoles,
-  previousSearchId,
+  searchState,
+  matchingRole,
 }) {
-  const [searchState, setSearchState] = useState(null);
-  const [matchingRole, setMatchingRole] = useState(null);
-
-  const dispatch = useDispatch();
-
   const onSubmit = useCallback(() => {
-    navigate("result", { state: { matchingRole } });
-  }, [navigate, matchingRole]);
-
-  const search = () => {
-    setCurrentStage(1, stages, setStages);
-    setSearchState("searching");
-    setMatchingRole(null);
-    const searchObjectCopy = { ...searchObject };
-    if (previousSearchId) {
-      searchObjectCopy.previousRoleSearchRequestId = previousSearchId;
-    }
-    searchRoles(searchObjectCopy)
-      .then((res) => {
-        const name = _.get(res, "data.name");
-        const searchId = _.get(res, "data.roleSearchRequestId");
-        if (name && !name.toLowerCase().includes("niche")) {
-          setMatchingRole(res.data);
-          dispatch(addSearchedRole({ searchId, name }));
-        } else if (searchId) {
-          dispatch(addRoleSearchId(searchId));
-        }
-      })
-      .catch((err) => {
-        console.error(err);
-      })
-      .finally(() => {
-        setCurrentStage(2, stages, setStages);
-        setSearchState("done");
-      });
-  };
+    navigate("result");
+  }, [navigate]);
 
   const renderLeftSide = () => {
-    if (!searchState) return toRender;
+    if (!searchState) return toRender(search);
     if (searchState === "searching") return <SearchCard />;
-    if (matchingRole) return <ResultCard role={matchingRole} />;
-    return <NoMatchingProfilesResultCard />;
+    if (!isCustomRole(matchingRole)) return <ResultCard role={matchingRole} />;
+    return <NoMatchingProfilesResultCard role={matchingRole} />;
   };
 
   const getPercentage = useCallback(() => {
@@ -90,9 +54,9 @@ function SearchContainer({
           isDisabled={
             isCompletenessDisabled ||
             searchState === "searching" ||
-            (searchState === "done" && !matchingRole)
+            (searchState === "done" && (!addedRoles || !addedRoles.length))
           }
-          onClick={searchState ? onSubmit : search}
+          onClick={searchState ? onSubmit : onClick ? onClick : search}
           extraStyleName={completenessStyle}
           buttonLabel={searchState ? "Submit Request" : "Search"}
           stages={stages}
@@ -105,14 +69,15 @@ function SearchContainer({
 
 SearchContainer.propTypes = {
   stages: PT.array,
-  setStages: PT.func,
   isCompletenessDisabled: PT.bool,
-  searchObject: PT.object,
-  toRender: PT.node,
+  onClick: PT.func,
+  search: PT.func,
+  toRender: PT.func,
   completenessStyle: PT.string,
   navigate: PT.func,
   addedRoles: PT.array,
-  previousSearchId: PT.string,
+  searchState: PT.string,
+  matchingRole: PT.object,
 };
 
 export default SearchContainer;

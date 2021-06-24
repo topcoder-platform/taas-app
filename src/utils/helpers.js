@@ -5,6 +5,7 @@
  * If there are multiple methods which could be grouped into a separate file by their meaning they should be extracted from here to not make this file too big.
  */
 import _ from "lodash";
+import { CUSTOM_ROLE_NAMES } from "constants/";
 
 /**
  * Delay code for some milliseconds using promise.
@@ -62,3 +63,11 @@ export const setCurrentStage = (currentStepIdx, stages, setStagesCallback) => {
       .map((s) => ({ ...s, completed: false, isCurrent: false })),
   ]);
 };
+
+/**
+ * Checks if role is custom/niche
+ * @param {Object} role role to check
+ * @returns {boolean} whether the role is custom/niche
+ */
+export const isCustomRole = (role) =>
+  !role || !role.name || CUSTOM_ROLE_NAMES.includes(role.name.toLowerCase());

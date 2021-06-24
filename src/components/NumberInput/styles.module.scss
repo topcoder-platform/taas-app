@@ -1,0 +1,43 @@
+@import "styles/include";
+
+// remove default buttons and style input as text input
+.input {
+  appearance: textfield;
+  text-align: center;
+
+  &.error {
+    border-color: #fe665d;
+  }
+}
+.input::-webkit-inner-spin-button,
+.input::-webkit-outer-spin-button {
+  appearance: none;
+  margin: 0;
+}
+
+.container {
+  position: relative;
+  width: fit-content;
+}
+
+.left-button,
+.right-button {
+  @include font-roboto;
+  font-size: 22px;
+  color: #137D60;
+  outline: none;
+  border: none;
+  background: none;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  padding: 0 11px;
+}
+
+.left-button {
+  left: 0;
+}
+
+.right-button {
+  right: 0;
+}

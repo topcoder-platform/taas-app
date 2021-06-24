@@ -7,3 +7,12 @@
   padding: 0 30px 30px;
   flex: 1;
 }
+
+.job-title {
+  margin-bottom: 15px;
+
+  input:not([type="checkbox"]) {
+    line-height: normal;
+    padding: 8px 15px;
+  }
+}

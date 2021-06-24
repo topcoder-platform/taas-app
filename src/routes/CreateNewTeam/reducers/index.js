@@ -18,8 +18,17 @@ const loadState = () => {
     return defaultState;
   }
 };
-
 const initialState = loadState();
+
+const deleteRoleInState = (state, deleteId) => {
+  const filteredRoles = state.addedRoles.filter(
+    (role) => role.searchId !== deleteId
+  );
+  return {
+    ...state,
+    addedRoles: filteredRoles,
+  };
+};
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -42,12 +51,8 @@ const reducer = (state = initialState, action) => {
         previousSearchId: action.payload,
       };
 
-    case ACTION_TYPE.REPLACE_SEARCHED_ROLES:
-      return {
-        ...state,
-        addedRoles: action.payload.roles,
-        previousSearchId: action.payload.lastRoleId,
-      };
+    case ACTION_TYPE.DELETE_SEARCHED_ROLE:
+      return deleteRoleInState(state, action.payload);
 
     default:
       return state;

@@ -8,7 +8,6 @@ import React from "react";
 import { Link } from "@reach/router";
 import IconEarthCheck from "../../../../assets/images/icon-earth-check.svg";
 import Curve from "../../../../assets/images/curve.svg";
-import { MATCHING_RATE } from "constants";
 import "./styles.module.scss";
 import Button from "components/Button";
 
@@ -18,10 +17,7 @@ function SuccessCard() {
       <div styleName="heading">
         <IconEarthCheck />
         <h3>We have matching profiles</h3>
-        <p>
-          We have qualified candidates who match {MATCHING_RATE}% or more of
-          your job requirements.
-        </p>
+        <p>We have qualified candidates who match your job requirements.</p>
         <Curve styleName="curve" />
         <IconEarthCheck styleName="transparent-icon" />
       </div>
@@ -30,7 +26,7 @@ function SuccessCard() {
           Please use the button to the right to submit your request, or the
           button below to search for additional roles.
         </p>
-        <Link to="/taas/myteams/createnewteam">
+        <Link to="/taas/createnewteam">
           <Button type="secondary" styleName="button">
             Continue Search
           </Button>

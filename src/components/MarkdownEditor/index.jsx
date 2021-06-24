@@ -53,6 +53,9 @@ const MarkdownEditor = (props) => {
         ]}
         plugins={[]}
       />
+      {props.errorMessage && (
+        <div styleName="message">{props.errorMessage}</div>
+      )}
     </div>
   );
 };

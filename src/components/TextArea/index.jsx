@@ -18,6 +18,7 @@ function TextArea(props) {
       autoFocus={props.autoFocus}
       onBlur={props.onBlur}
       onFocus={props.onFocus}
+      maxLength={props.maxLength}
     />
   );
 }

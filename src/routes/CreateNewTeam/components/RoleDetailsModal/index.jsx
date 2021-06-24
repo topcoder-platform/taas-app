@@ -48,7 +48,7 @@ function RoleDetailsModal({ roleId, open, onClose }) {
     [role, imgError]
   );
 
-  const skills = role ? role.listOfSkills : [];
+  const skills = role && role.listOfSkills ? role.listOfSkills : [];
 
   const hideSkills = () => {
     onClose();
@@ -90,19 +90,21 @@ function RoleDetailsModal({ roleId, open, onClose }) {
             Skills
           </Button>
         </div>
-        {showSkills ? (
-          <ul styleName="body skill-list">
-            {skills.map((skill, i) => (
-              <li styleName="skill-item" key={i}>
-                {skill}
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <div styleName="markdown-container">
-            <MarkdownViewer value={role?.description} />
-          </div>
-        )}
+        <div styleName="content">
+          {showSkills ? (
+            <ul styleName="body skill-list">
+              {skills.map((skill, i) => (
+                <li styleName="skill-item" key={i}>
+                  {skill}
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <div styleName="markdown-container">
+              <MarkdownViewer value={role?.description} />
+            </div>
+          )}
+        </div>
       </div>
     </BaseCreateModal>
   );

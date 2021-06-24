@@ -257,7 +257,7 @@ export const ACTION_TYPE = {
   CLEAR_SEARCHED_ROLES: "CLEAR_SEARCHED_ROLES",
   ADD_SEARCHED_ROLE: "ADD_SEARCHED_ROLE",
   ADD_ROLE_SEARCH_ID: "ADD_ROLE_SEARCH_ID",
-  REPLACE_SEARCHED_ROLES: "REPLACE_SEARCHED_ROLES",
+  DELETE_SEARCHED_ROLE: "DELETE_SEARCHED_ROLE",
 };
 
 /**
@@ -357,6 +357,6 @@ export const INTERVIEW_POPUP_MEDIA_URL =
 export const MAX_ALLOWED_INTERVIEWS = 3;
 
 /**
- * Matching rate to show in CreateNewTeam ResultCard
+ * Custom role names to remove from RoleList component
  */
-export const MATCHING_RATE = "80";
+export const CUSTOM_ROLE_NAMES = ["custom", "niche"];

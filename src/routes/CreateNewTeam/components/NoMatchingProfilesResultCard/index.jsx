@@ -4,12 +4,14 @@
  */
 import React from "react";
 import { Link } from "@reach/router";
+import PT from "prop-types";
 import "./styles.module.scss";
 import IconEarthX from "../../../../assets/images/icon-earth-x.svg";
 import Curve from "../../../../assets/images/curve.svg";
 import Button from "components/Button";
+import { formatMoney } from "utils/format";
 
-function NoMatchingProfilesResultCard() {
+function NoMatchingProfilesResultCard({ role }) {
   return (
     <div styleName="result-card">
       <div styleName="heading">
@@ -23,12 +25,20 @@ function NoMatchingProfilesResultCard() {
           We will be looking internally for members matching your requirements
           and be back at them in about 2 weeks.
         </p>
-        <div styleName="niche-rate-box">
-          <p>Niche Rate</p>
-          <p styleName="cost">$1,200</p>
-          <p>/Week</p>
-        </div>
-        <Link to="/taas/myteams/createnewteam">
+        {role.rates && role.name ? (
+          <div styleName="niche-rate-box">
+            <p>{role.name} Rate</p>
+            <p styleName="cost">{formatMoney(role.rates[0].global)}</p>
+            <p>/Week</p>
+          </div>
+        ) : (
+          <div styleName="niche-rate-box">
+            <p>Custom Rate</p>
+            <p styleName="cost">$1,200</p>
+            <p>/Week</p>
+          </div>
+        )}
+        <Link to="/taas/createnewteam">
           <Button type="secondary" styleName="button">
             Modify Search Criteria
           </Button>
@@ -37,5 +47,9 @@ function NoMatchingProfilesResultCard() {
     </div>
   );
 }
+
+NoMatchingProfilesResultCard.propTypes = {
+  role: PT.object,
+};
 
 export default NoMatchingProfilesResultCard;
