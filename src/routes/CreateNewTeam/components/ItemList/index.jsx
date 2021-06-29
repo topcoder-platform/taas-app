@@ -36,7 +36,7 @@ function ItemList({
   return (
     <div styleName="item-list">
       <PageHeader
-        title={title}
+        title={<div styleName="title">{title}</div>}
         backTo="/taas/createnewteam"
         aside={
           <>

@@ -28,18 +28,16 @@ function SearchContainer({
   matchingRole,
 }) {
   const onSubmit = useCallback(() => {
-    navigate("result");
+    navigate("../result");
   }, [navigate]);
 
   const renderLeftSide = () => {
-    if (!searchState) return toRender(search);
     if (searchState === "searching") return <SearchCard />;
     if (!isCustomRole(matchingRole)) return <ResultCard role={matchingRole} />;
     return <NoMatchingProfilesResultCard role={matchingRole} />;
   };
 
   const getPercentage = useCallback(() => {
-    if (!searchState) return "26";
     if (searchState === "searching") return "52";
     if (matchingRole) return "98";
     return "88";
@@ -52,7 +50,6 @@ function SearchContainer({
         <AddedRolesAccordion addedRoles={addedRoles} />
         <Completeness
           isDisabled={
-            isCompletenessDisabled ||
             searchState === "searching" ||
             (searchState === "done" && (!addedRoles || !addedRoles.length))
           }

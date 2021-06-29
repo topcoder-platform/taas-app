@@ -95,8 +95,11 @@ function SubmitContainer({
     setRequestLoading(true);
     postTeamRequest(teamObject)
       .then(() => {
-        dispatch(clearSearchedRoles());
-        navigate("/taas/myteams");
+        setTimeout(() => {
+          dispatch(clearSearchedRoles());
+          // Backend api create project has sync issue, so delay 2 seconds
+          navigate("/taas/myteams");
+        }, 2000)
       })
       .catch((err) => {
         setRequestLoading(false);

@@ -6,23 +6,28 @@
  * or inputting a job description
  */
 import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { navigate } from "@reach/router";
 import _ from "lodash";
 import Page from "components/Page";
 import PageHeader from "components/PageHeader";
 import LandingBox from "./components/LandingBox";
+import { clearMatchingRole } from "./actions";
 import IconMultipleActionsCheck from "../../assets/images/icon-multiple-actions-check-2.svg";
 import IconListQuill from "../../assets/images/icon-list-quill.svg";
 import IconOfficeFileText from "../../assets/images/icon-office-file-text.svg";
+import "./styles.module.scss";
 
 function CreateNewTeam() {
+  const dispatch = useDispatch();
   const goToRoute = (path) => {
+    dispatch(clearMatchingRole());
     navigate(path);
   };
 
   return (
     <Page title="Create New Team">
-      <PageHeader title="Create New Team" />
+      <PageHeader title={<div styleName="title">Create New Team</div>} />
       <p>
         Please select how you want to find members that match your requirements.
       </p>
