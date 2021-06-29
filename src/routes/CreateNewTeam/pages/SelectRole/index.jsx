@@ -47,6 +47,7 @@ function SelectRole() {
       stages={stages}
       setStages={setStages}
       isCompletenessDisabled={!selectedRoleId}
+      page="role"
       searchObject={{ roleId: selectedRoleId }}
       completenessStyle="role-selection"
       toRender={() => (
