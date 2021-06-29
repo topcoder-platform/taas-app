@@ -2,6 +2,7 @@
 
 .completeness {
   @include rounded-card;
+  overflow: hidden;
   padding: 12px;
   position: relative;
   width: 250px;
@@ -25,12 +26,19 @@
 
 .list {
   margin-bottom: 55px;
+  & + button[disabled] {
+    background-color: #E9E9E9;
+    color: #FFF;
+    opacity: 1;
+    filter: none;
+  }
 }
 
 .list-item {
   margin-bottom: 14px;
   font-size: 14px;
   line-height: 16px;
+  font-weight: 400;
 
   &:before {
     content: "";
@@ -45,14 +53,14 @@
   }
 
   &.active {
-    font-weight: 700;
+    font-weight: 500;
     &:before {
       background-color: #fff;
     }
   }
 
   &.done {
-    font-weight: 700;
+    font-weight: 400;
     color: rgba(255, 255, 255, 0.6);
     &:before {
       content: "✓";

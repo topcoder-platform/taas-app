@@ -1,29 +1,44 @@
-import { Router } from "@reach/router";
+import { Router, navigate } from "@reach/router";
 import _ from "lodash";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { searchRoles } from "services/teams";
 import { isCustomRole, setCurrentStage } from "utils/helpers";
-import { addRoleSearchId, addSearchedRole } from "../../actions";
+import { clearMatchingRole, saveMatchingRole, addRoleSearchId, addSearchedRole } from "../../actions";
+import InputContainer from "../InputContainer";
 import SearchContainer from "../SearchContainer";
 import SubmitContainer from "../SubmitContainer";
 
 function SearchAndSubmit(props) {
-  const { stages, setStages, searchObject, onClick } = props;
+  const { stages, setStages, searchObject, onClick, page } = props;
 
   const [searchState, setSearchState] = useState(null);
-  const [matchingRole, setMatchingRole] = useState(null);
+
+  const { matchingRole } = useSelector(
+    (state) => state.searchedRoles
+  );
+
+  useEffect(()=> {
+    const isFromInputPage  = searchObject.role || searchObject.skills && searchObject.skills.length
+       || searchObject.jobDescription
+    // refresh in search page directly
+    if (matchingRole && !isFromInputPage) {
+      setCurrentStage(2, stages, setStages);
+      setSearchState("done");
+    }
+  }, [])
+
+  const dispatch = useDispatch();
 
   const { addedRoles, previousSearchId } = useSelector(
     (state) => state.searchedRoles
   );
 
-  const dispatch = useDispatch();
-
   const search = useCallback(() => {
+    navigate(`${page}/search`);
     setCurrentStage(1, stages, setStages);
     setSearchState("searching");
-    setMatchingRole(null);
+    dispatch(clearMatchingRole());
     const searchObjectCopy = { ...searchObject };
     if (previousSearchId) {
       searchObjectCopy.previousRoleSearchRequestId = previousSearchId;
@@ -37,7 +52,9 @@ function SearchAndSubmit(props) {
         } else if (searchId) {
           dispatch(addRoleSearchId(searchId));
         }
-        setMatchingRole(res.data);
+        // setMatchingRole(res.data);
+
+        dispatch(saveMatchingRole(res.data));
       })
       .catch((err) => {
         console.error(err);
@@ -51,8 +68,15 @@ function SearchAndSubmit(props) {
 
   return (
     <Router>
-      <SearchContainer
+      <InputContainer
         path="/"
+        addedRoles={addedRoles}
+        previousSearchId={previousSearchId}
+        search={search}
+        {...props}
+      />
+      <SearchContainer
+        path="search"
         addedRoles={addedRoles}
         previousSearchId={previousSearchId}
         search={search}

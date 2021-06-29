@@ -56,14 +56,15 @@ function InputJobDescription() {
     <SearchAndSubmit
       stages={stages}
       setStages={setStages}
-      isCompletenessDisabled={jdString.length < 10 || jdString.length > 255}
+      isCompletenessDisabled={jdString.length < 10 || jdString.length > 2000}
       completenessStyle="input-job-description"
       searchObject={searchObject}
+      page="jd"
       onClick={onClick}
       toRender={(searchFunc) => (
         <div styleName="edit-container">
           <PageHeader
-            title="Input Job Description"
+            title={<div styleName="title">Input Job Description</div>}
             backTo="/taas/createnewteam"
           />
           <div styleName="job-title">
@@ -80,8 +81,8 @@ function InputJobDescription() {
             placeholder="input job description"
             onChange={onEditChange}
             errorMessage={
-              jdString.length > 255
-                ? "Maximum of 255 characters. Please reduce job description length."
+              jdString.length > 2000
+                ? "Maximum of 2000 characters. Please reduce job description length."
                 : ""
             }
           />

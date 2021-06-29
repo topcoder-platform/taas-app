@@ -100,6 +100,8 @@ function TeamDetailsModal({ open, onClose, submitForm, addedRoles }) {
     return errors;
   };
 
+  const validateRequired = value => (value ? undefined : 'Please enter a positive integer')
+
   return (
     <Form
       onSubmit={submitForm}
@@ -108,7 +110,7 @@ function TeamDetailsModal({ open, onClose, submitForm, addedRoles }) {
           changeValue(state, fieldName, () => undefined);
         },
       }}
-      initialValues={{ teamName: "My Great Team" }}
+      initialValues={{ teamName: "" }}
       validate={validator}
     >
       {({
@@ -181,7 +183,7 @@ function TeamDetailsModal({ open, onClose, submitForm, addedRoles }) {
                   <tr styleName="role-row" key={id}>
                     <td>{name}</td>
                     <td>
-                      <Field name={`${id}.numberOfResources`} initialValue="3">
+                      <Field validate={validateRequired} name={`${id}.numberOfResources`} initialValue="3">
                         {({ input, meta }) => (
                           <NumberInput
                             name={input.name}
@@ -197,7 +199,7 @@ function TeamDetailsModal({ open, onClose, submitForm, addedRoles }) {
                       <Error name={`${id}.numberOfResources`} />
                     </td>
                     <td>
-                      <Field name={`${id}.durationWeeks`} initialValue="20">
+                      <Field validate={validateRequired} name={`${id}.durationWeeks`} initialValue="20">
                         {({ input, meta }) => (
                           <NumberInput
                             name={input.name}
