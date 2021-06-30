@@ -81,8 +81,6 @@ function SearchAndSubmit(props) {
       <SearchContainer
         path="search"
         addedRoles={addedRoles}
-        previousSearchId={previousSearchId}
-        search={search}
         searchState={searchState}
         matchingRole={matchingRole}
         {...props}

@@ -28,7 +28,7 @@ function InputContainer({
           isDisabled={isCompletenessDisabled}
           onClick={search}
           extraStyleName={completenessStyle}
-          buttonLabel={"Search"}
+          buttonLabel="Search"
           stages={stages}
           percentage="26"
         />

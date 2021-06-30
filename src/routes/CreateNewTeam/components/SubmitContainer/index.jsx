@@ -35,8 +35,8 @@ function SubmitContainer({
   matchingRole,
   addedRoles,
 }) {
-  const [addAnotherOpen, setAddAnotherOpen] = useState(true);
-  const [teamDetailsOpen, setTeamDetailsOpen] = useState(false);
+  const [addAnotherOpen, setAddAnotherOpen] = useState(false);
+  const [teamDetailsOpen, setTeamDetailsOpen] = useState(true);
   const [teamObject, setTeamObject] = useState(null);
   const [requestLoading, setRequestLoading] = useState(false);
 
@@ -99,7 +99,7 @@ function SubmitContainer({
           dispatch(clearSearchedRoles());
           // Backend api create project has sync issue, so delay 2 seconds
           navigate("/taas/myteams");
-        }, 2000)
+        }, 2000);
       })
       .catch((err) => {
         setRequestLoading(false);
