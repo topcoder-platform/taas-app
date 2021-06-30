@@ -5,14 +5,10 @@
  * input pages. Contains logic and supporting
  * components for selecting for roles.
  */
-import React, { useCallback } from "react";
+import React from "react";
 import PT from "prop-types";
 import AddedRolesAccordion from "../AddedRolesAccordion";
 import Completeness from "../Completeness";
-import SearchCard from "../SearchCard";
-import ResultCard from "../ResultCard";
-import NoMatchingProfilesResultCard from "../NoMatchingProfilesResultCard";
-import { isCustomRole } from "utils/helpers";
 import "./styles.module.scss";
 
 function InputContainer({

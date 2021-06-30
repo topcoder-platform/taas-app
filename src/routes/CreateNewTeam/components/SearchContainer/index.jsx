@@ -17,8 +17,6 @@ import "./styles.module.scss";
 
 function SearchContainer({
   stages,
-  isCompletenessDisabled,
-  toRender,
   onClick,
   search,
   completenessStyle,
@@ -66,10 +64,8 @@ function SearchContainer({
 
 SearchContainer.propTypes = {
   stages: PT.array,
-  isCompletenessDisabled: PT.bool,
   onClick: PT.func,
   search: PT.func,
-  toRender: PT.func,
   completenessStyle: PT.string,
   navigate: PT.func,
   addedRoles: PT.array,
