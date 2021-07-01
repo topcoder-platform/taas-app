@@ -40,7 +40,7 @@ function TeamDetailsModal({ open, onClose, submitForm, addedRoles }) {
       if (fieldName === "teamName" || fieldName === "teamDescription") {
         continue;
       }
-      if (addedRoles.findIndex((role) => role.searchId === fieldName)) {
+      if (addedRoles.findIndex((role) => role.searchId === fieldName) === -1) {
         clearFormField(fieldName);
         setStartMonthVisible((state) => ({ ...state, [fieldName]: false }));
       }
