@@ -16,6 +16,7 @@ function InputContainer({
   isCompletenessDisabled,
   toRender,
   search,
+  onClick,
   completenessStyle,
   addedRoles,
 }) {
@@ -26,7 +27,7 @@ function InputContainer({
         <AddedRolesAccordion addedRoles={addedRoles} />
         <Completeness
           isDisabled={isCompletenessDisabled}
-          onClick={search}
+          onClick={onClick ? onClick: search}
           extraStyleName={completenessStyle}
           buttonLabel="Search"
           stages={stages}
@@ -41,6 +42,7 @@ InputContainer.propTypes = {
   stages: PT.array,
   isCompletenessDisabled: PT.bool,
   search: PT.func,
+  onClick: PT.func,
   toRender: PT.func,
   completenessStyle: PT.string,
   addedRoles: PT.array,
