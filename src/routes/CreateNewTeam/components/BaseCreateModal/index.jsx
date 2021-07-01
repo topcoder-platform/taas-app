@@ -35,6 +35,7 @@ function BaseCreateModal({
   loadingMessage,
   maxWidth = "680px",
   darkHeader,
+  disableFocusTrap,
   children,
 }) {
   return (
@@ -51,8 +52,9 @@ function BaseCreateModal({
         modalContainer: containerStyle,
         closeButton: closeButtonStyle,
       }}
+      focusTrapped={!disableFocusTrap}
     >
-      <div styleName="modal-body">
+      <div styleName="modal-body" tabIndex="-1">
         {isLoading ? (
           <div styleName={cn("modal-header", { "dark-header": darkHeader })}>
             <CenteredSpinner />
@@ -86,6 +88,7 @@ BaseCreateModal.propTypes = {
   loadingMessage: PT.string,
   maxWidth: PT.string,
   darkHeader: PT.bool,
+  disableFocusTrap: PT.bool,
   children: PT.node,
 };
 

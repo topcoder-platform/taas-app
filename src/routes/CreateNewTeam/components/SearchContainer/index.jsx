@@ -5,7 +5,7 @@
  * search pages. Contains logic and supporting
  * components for searching for roles.
  */
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import PT from "prop-types";
 import AddedRolesAccordion from "../AddedRolesAccordion";
 import Completeness from "../Completeness";
@@ -13,22 +13,26 @@ import SearchCard from "../SearchCard";
 import ResultCard from "../ResultCard";
 import NoMatchingProfilesResultCard from "../NoMatchingProfilesResultCard";
 import { isCustomRole } from "utils/helpers";
+import AddAnotherModal from "../AddAnotherModal";
 import "./styles.module.scss";
 
 function SearchContainer({
   stages,
-  isCompletenessDisabled,
-  toRender,
-  onClick,
-  search,
   completenessStyle,
   navigate,
   addedRoles,
   searchState,
   matchingRole,
 }) {
+  const [addAnotherOpen, setAddAnotherOpen] = useState(false);
+
   const onSubmit = useCallback(() => {
+    setAddAnotherOpen(false);
     navigate("../result");
+  }, [navigate]);
+
+  const addAnother = useCallback(() => {
+    navigate("/taas/createnewteam");
   }, [navigate]);
 
   const renderLeftSide = () => {
@@ -53,23 +57,26 @@ function SearchContainer({
             searchState === "searching" ||
             (searchState === "done" && (!addedRoles || !addedRoles.length))
           }
-          onClick={searchState ? onSubmit : onClick ? onClick : search}
+          onClick={() => setAddAnotherOpen(true)}
           extraStyleName={completenessStyle}
-          buttonLabel={searchState ? "Submit Request" : "Search"}
+          buttonLabel="Submit Request"
           stages={stages}
           percentage={getPercentage()}
         />
       </div>
+      <AddAnotherModal
+        open={addAnotherOpen}
+        onClose={() => setAddAnotherOpen(false)}
+        submitDone={true}
+        onContinueClick={onSubmit}
+        addAnother={addAnother}
+      />
     </div>
   );
 }
 
 SearchContainer.propTypes = {
   stages: PT.array,
-  isCompletenessDisabled: PT.bool,
-  onClick: PT.func,
-  search: PT.func,
-  toRender: PT.func,
   completenessStyle: PT.string,
   navigate: PT.func,
   addedRoles: PT.array,

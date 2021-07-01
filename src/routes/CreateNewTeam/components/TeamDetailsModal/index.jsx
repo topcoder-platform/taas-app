@@ -3,7 +3,7 @@
  * Popup form to enter details about the
  * team request before submitting.
  */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PT from "prop-types";
 import { Form, Field, useField } from "react-final-form";
 import { useDispatch } from "react-redux";
@@ -18,6 +18,7 @@ import { deleteSearchedRole } from "../../actions";
 import IconCrossLight from "../../../../assets/images/icon-cross-light.svg";
 import "./styles.module.scss";
 import NumberInput from "components/NumberInput";
+import validator from "./utils/validator";
 
 const Error = ({ name }) => {
   const {
@@ -28,79 +29,29 @@ const Error = ({ name }) => {
 
 function TeamDetailsModal({ open, onClose, submitForm, addedRoles }) {
   const [showDescription, setShowDescription] = useState(false);
-  const [startMonthVisible, setStartMonthVisible] = useState(() => {
-    const roles = {};
-    addedRoles.forEach(({ searchId }) => {
-      roles[searchId] = false;
-    });
-    return roles;
-  });
+  const [startMonthVisible, setStartMonthVisible] = useState({});
+
+  // Ensure role is removed from form state when it is removed from redux store
+  let getFormState;
+  let clearFormField;
+  useEffect(() => {
+    const values = getFormState().values;
+    for (let fieldName of Object.keys(values)) {
+      if (fieldName === "teamName" || fieldName === "teamDescription") {
+        continue;
+      }
+      if (addedRoles.findIndex((role) => role.searchId === fieldName) === -1) {
+        clearFormField(fieldName);
+        setStartMonthVisible((state) => ({ ...state, [fieldName]: false }));
+      }
+    }
+  }, [getFormState, addedRoles, clearFormField]);
 
   const dispatch = useDispatch();
 
   const toggleDescription = () => {
     setShowDescription((prevState) => !prevState);
   };
-
-  const validateName = (name) => {
-    if (!name || name.trim().length === 0) {
-      return "Please enter a team name.";
-    }
-    return undefined;
-  };
-
-  const validateNumber = (number) => {
-    const converted = Number(number);
-
-    if (
-      Number.isNaN(converted) ||
-      converted !== Math.floor(converted) ||
-      converted < 1
-    ) {
-      return "Please enter a positive integer";
-    }
-    return undefined;
-  };
-
-  const validateMonth = (monthString) => {
-    const then = new Date(monthString);
-    const now = new Date();
-    const thenYear = then.getFullYear();
-    const nowYear = now.getFullYear();
-    const thenMonth = then.getMonth();
-    const nowMonth = now.getMonth();
-
-    if (thenYear < nowYear || (thenYear === nowYear && thenMonth < nowMonth)) {
-      return "Start month may not be before current month";
-    }
-    return undefined;
-  };
-
-  const validateRole = (role) => {
-    const roleErrors = {};
-    roleErrors.numberOfResources = validateNumber(role.numberOfResources);
-    roleErrors.durationWeeks = validateNumber(role.durationWeeks);
-    if (role.startMonth) {
-      roleErrors.startMonth = validateMonth(role.startMonth);
-    }
-
-    return roleErrors;
-  };
-
-  const validator = (values) => {
-    const errors = {};
-
-    errors.teamName = validateName(values.teamName);
-
-    for (const key of Object.keys(values)) {
-      if (key === "teamDescription" || key === "teamName") continue;
-      errors[key] = validateRole(values[key]);
-    }
-
-    return errors;
-  };
-
-  const validateRequired = value => (value ? undefined : 'Please enter a positive integer')
 
   return (
     <Form
@@ -110,7 +61,6 @@ function TeamDetailsModal({ open, onClose, submitForm, addedRoles }) {
           changeValue(state, fieldName, () => undefined);
         },
       }}
-      initialValues={{ teamName: "" }}
       validate={validator}
     >
       {({
@@ -118,8 +68,11 @@ function TeamDetailsModal({ open, onClose, submitForm, addedRoles }) {
         hasValidationErrors,
         form: {
           mutators: { clearField },
+          getState,
         },
       }) => {
+        getFormState = getState;
+        clearFormField = clearField;
         return (
           <BaseCreateModal
             open={open}
@@ -136,6 +89,7 @@ function TeamDetailsModal({ open, onClose, submitForm, addedRoles }) {
                 Submit
               </Button>
             }
+            disableFocusTrap
           >
             <div styleName="modal-body">
               <FormField
@@ -183,7 +137,7 @@ function TeamDetailsModal({ open, onClose, submitForm, addedRoles }) {
                   <tr styleName="role-row" key={id}>
                     <td>{name}</td>
                     <td>
-                      <Field validate={validateRequired} name={`${id}.numberOfResources`} initialValue="3">
+                      <Field name={`${id}.numberOfResources`} initialValue="3">
                         {({ input, meta }) => (
                           <NumberInput
                             name={input.name}
@@ -199,7 +153,7 @@ function TeamDetailsModal({ open, onClose, submitForm, addedRoles }) {
                       <Error name={`${id}.numberOfResources`} />
                     </td>
                     <td>
-                      <Field validate={validateRequired} name={`${id}.durationWeeks`} initialValue="20">
+                      <Field name={`${id}.durationWeeks`} initialValue="20">
                         {({ input, meta }) => (
                           <NumberInput
                             name={input.name}
@@ -257,7 +211,6 @@ function TeamDetailsModal({ open, onClose, submitForm, addedRoles }) {
                       <button
                         styleName="delete-role"
                         onClick={() => {
-                          clearField(id);
                           dispatch(deleteSearchedRole(id));
                         }}
                       >

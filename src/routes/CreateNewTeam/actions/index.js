@@ -32,7 +32,7 @@ const addMatchingRole = (matchingRole) => ({
   payload: matchingRole,
 });
 
-const deleteMatchingRole = (matchingRole) => ({
+const deleteMatchingRole = () => ({
   type: ACTION_TYPE.DELETE_MATCHING_ROLE,
 });
 
@@ -61,7 +61,7 @@ export const saveMatchingRole = (matchingRole) => (dispatch, getState) => {
   updateLocalStorage(getState().searchedRoles);
 };
 
-export const clearMatchingRole = (matchingRole) => (dispatch, getState) => {
+export const clearMatchingRole = () => (dispatch, getState) => {
   dispatch(deleteMatchingRole());
   updateLocalStorage(getState().searchedRoles);
 };

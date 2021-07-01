@@ -4,7 +4,12 @@ import React, { useCallback, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { searchRoles } from "services/teams";
 import { isCustomRole, setCurrentStage } from "utils/helpers";
-import { clearMatchingRole, saveMatchingRole, addRoleSearchId, addSearchedRole } from "../../actions";
+import {
+  clearMatchingRole,
+  saveMatchingRole,
+  addRoleSearchId,
+  addSearchedRole,
+} from "../../actions";
 import InputContainer from "../InputContainer";
 import SearchContainer from "../SearchContainer";
 import SubmitContainer from "../SubmitContainer";
@@ -14,19 +19,19 @@ function SearchAndSubmit(props) {
 
   const [searchState, setSearchState] = useState(null);
 
-  const { matchingRole } = useSelector(
-    (state) => state.searchedRoles
-  );
+  const { matchingRole } = useSelector((state) => state.searchedRoles);
 
-  useEffect(()=> {
-    const isFromInputPage  = searchObject.role || searchObject.skills && searchObject.skills.length
-       || searchObject.jobDescription
+  useEffect(() => {
+    const isFromInputPage =
+      searchObject.role ||
+      (searchObject.skills && searchObject.skills.length) ||
+      searchObject.jobDescription;
     // refresh in search page directly
     if (matchingRole && !isFromInputPage) {
       setCurrentStage(2, stages, setStages);
       setSearchState("done");
     }
-  }, [])
+  }, []);
 
   const dispatch = useDispatch();
 
@@ -52,8 +57,6 @@ function SearchAndSubmit(props) {
         } else if (searchId) {
           dispatch(addRoleSearchId(searchId));
         }
-        // setMatchingRole(res.data);
-
         dispatch(saveMatchingRole(res.data));
       })
       .catch((err) => {
@@ -78,8 +81,6 @@ function SearchAndSubmit(props) {
       <SearchContainer
         path="search"
         addedRoles={addedRoles}
-        previousSearchId={previousSearchId}
-        search={search}
         searchState={searchState}
         matchingRole={matchingRole}
         {...props}
