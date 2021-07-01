@@ -55,11 +55,12 @@
 .panel {
   padding: 12px 18px 14px 10px;
   .role-name {
-    height: 40px;
+    position: relative;
     width: 100%;
     background-color: #F4F4F4;
     border-radius: 6px;
     padding: 10px;
+    padding-right: 30px;
     @include font-barlow;
     font-size: 16px;
     line-height: 20px;
@@ -67,6 +68,20 @@
     text-transform: uppercase;
     &:not(:first-child) {
       margin-top: 5px;
+    }
+
+    >button {
+      outline: none;
+      border: none;
+      background: none;
+      position: absolute;
+      top: 12px;
+      right: 4px;
+      &:hover {
+        g {
+          stroke: red;
+        }
+      }
     }
   }
 }
