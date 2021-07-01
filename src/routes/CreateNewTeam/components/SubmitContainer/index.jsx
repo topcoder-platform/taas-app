@@ -26,7 +26,7 @@ import "./styles.module.scss";
 import { isCustomRole, setCurrentStage } from "utils/helpers";
 import { clearSearchedRoles } from "../../actions";
 import { postTeamRequest } from "services/teams";
-import SuccessCard from "../SuccessCard";
+import NoMatchingProfilesResultCard from "../NoMatchingProfilesResultCard";
 
 function SubmitContainer({
   stages,
@@ -112,7 +112,7 @@ function SubmitContainer({
       {!isCustomRole(matchingRole) ? (
         <ResultCard role={matchingRole} />
       ) : (
-        <SuccessCard />
+        <NoMatchingProfilesResultCard role={matchingRole} />
       )}
       <div styleName="right-side">
         <AddedRolesAccordion addedRoles={addedRoles} />
