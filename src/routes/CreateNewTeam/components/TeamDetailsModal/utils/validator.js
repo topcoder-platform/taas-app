@@ -9,7 +9,6 @@ const validateNumber = (number) => {
   const converted = Number(number);
 
   if (
-    !number ||
     Number.isNaN(converted) ||
     converted !== Math.floor(converted) ||
     converted < 1
@@ -57,4 +56,8 @@ const validator = (values) => {
   return errors;
 };
 
-export default validator;
+const validateExists = (value) => {
+  return value === undefined ? "Please enter a positive integer" : undefined;
+};
+
+export { validator, validateExists };
