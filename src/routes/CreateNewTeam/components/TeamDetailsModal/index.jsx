@@ -18,7 +18,7 @@ import { deleteSearchedRole } from "../../actions";
 import IconCrossLight from "../../../../assets/images/icon-cross-light.svg";
 import "./styles.module.scss";
 import NumberInput from "components/NumberInput";
-import validator from "./utils/validator";
+import { validator, validateExists } from "./utils/validator";
 
 const Error = ({ name }) => {
   const {
@@ -137,7 +137,11 @@ function TeamDetailsModal({ open, onClose, submitForm, addedRoles }) {
                   <tr styleName="role-row" key={id}>
                     <td>{name}</td>
                     <td>
-                      <Field name={`${id}.numberOfResources`} initialValue="3">
+                      <Field
+                        validate={validateExists}
+                        name={`${id}.numberOfResources`}
+                        initialValue="3"
+                      >
                         {({ input, meta }) => (
                           <NumberInput
                             name={input.name}
@@ -153,7 +157,11 @@ function TeamDetailsModal({ open, onClose, submitForm, addedRoles }) {
                       <Error name={`${id}.numberOfResources`} />
                     </td>
                     <td>
-                      <Field name={`${id}.durationWeeks`} initialValue="20">
+                      <Field
+                        validate={validateExists}
+                        name={`${id}.durationWeeks`}
+                        initialValue="20"
+                      >
                         {({ input, meta }) => (
                           <NumberInput
                             name={input.name}
