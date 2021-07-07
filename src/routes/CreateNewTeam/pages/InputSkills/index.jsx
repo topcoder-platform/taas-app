@@ -50,6 +50,7 @@ function InputSkills() {
       setStages={setStages}
       isCompletenessDisabled={selectedSkills.length < 1}
       searchObject={{ skills: selectedSkills }}
+      page="skills"
       completenessStyle="input-skills"
       toRender={() => (
         <SkillsList

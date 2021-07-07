@@ -26,7 +26,7 @@ import "./styles.module.scss";
 import { isCustomRole, setCurrentStage } from "utils/helpers";
 import { clearSearchedRoles } from "../../actions";
 import { postTeamRequest } from "services/teams";
-import SuccessCard from "../SuccessCard";
+import NoMatchingProfilesResultCard from "../NoMatchingProfilesResultCard";
 
 function SubmitContainer({
   stages,
@@ -35,8 +35,8 @@ function SubmitContainer({
   matchingRole,
   addedRoles,
 }) {
-  const [addAnotherOpen, setAddAnotherOpen] = useState(true);
-  const [teamDetailsOpen, setTeamDetailsOpen] = useState(false);
+  const [addAnotherOpen, setAddAnotherOpen] = useState(false);
+  const [teamDetailsOpen, setTeamDetailsOpen] = useState(true);
   const [teamObject, setTeamObject] = useState(null);
   const [requestLoading, setRequestLoading] = useState(false);
 
@@ -95,8 +95,11 @@ function SubmitContainer({
     setRequestLoading(true);
     postTeamRequest(teamObject)
       .then(() => {
-        dispatch(clearSearchedRoles());
-        navigate("/taas/myteams");
+        setTimeout(() => {
+          dispatch(clearSearchedRoles());
+          // Backend api create project has sync issue, so delay 2 seconds
+          navigate("/taas/myteams");
+        }, 2000);
       })
       .catch((err) => {
         setRequestLoading(false);
@@ -109,7 +112,7 @@ function SubmitContainer({
       {!isCustomRole(matchingRole) ? (
         <ResultCard role={matchingRole} />
       ) : (
-        <SuccessCard />
+        <NoMatchingProfilesResultCard role={matchingRole} />
       )}
       <div styleName="right-side">
         <AddedRolesAccordion addedRoles={addedRoles} />

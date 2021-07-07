@@ -36,7 +36,7 @@
   .role-row {
     td {
       padding: 18px 18px 18px 0;
-      vertical-align: middle;
+      vertical-align: top;
       @include font-barlow;
       font-weight: 600;
       font-size: 16px;
@@ -66,6 +66,7 @@
   align-items: center;
   justify-content: flex-start;
   width: 118px;
+  margin-top: 13px;
 }
 
 .error {
@@ -78,6 +79,8 @@
 .delete-role {
   border: none;
   background: none;
+
+  margin-top: 13px;
 
   &:hover {
     g {

@@ -7,6 +7,7 @@ const loadState = () => {
   const defaultState = {
     previousSearchId: undefined,
     addedRoles: [],
+    matchingRole: undefined,
   };
   try {
     const state = localStorage.getItem("rolesState");
@@ -38,6 +39,16 @@ const reducer = (state = initialState, action) => {
         addedRoles: [],
       };
 
+    case ACTION_TYPE.ADD_MATCHING_ROLE:
+      return {
+        ...state,
+        matchingRole: action.payload,
+      };
+    case ACTION_TYPE.DELETE_MATCHING_ROLE:
+      return {
+        ...state,
+        matchingRole: null,
+      };
     case ACTION_TYPE.ADD_SEARCHED_ROLE:
       return {
         ...state,
