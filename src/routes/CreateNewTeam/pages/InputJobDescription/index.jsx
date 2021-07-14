@@ -84,7 +84,7 @@ function InputJobDescription() {
             />
           </div>
           <MarkdownEditor
-            height="482px"
+            height="450px"
             placeholder="input job description"
             onChange={onEditChange}
             errorMessage={
