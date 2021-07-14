@@ -119,7 +119,7 @@ function SubmitContainer({
         <Completeness
           onClick={() => setAddAnotherOpen(true)}
           extraStyleName={completenessStyle}
-          buttonLabel="Submit Request"
+          buttonLabel="Continue"
           stages={stages}
           percentage="98"
         />

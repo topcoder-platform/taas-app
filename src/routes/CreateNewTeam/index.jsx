@@ -32,22 +32,22 @@ function CreateNewTeam() {
         Please select how you want to find members that match your requirements.
       </p>
       <LandingBox
-        title="Select a Role"
-        description="You know you want a front end developer, or a full stack developer, mobile one or others."
+        title="Choose a Role"
+        description="Select from a list of pre-defined roles which Topcoder develops talent for. Standardized Job Descriptions and baseline skills are available for review."
         icon={<IconMultipleActionsCheck />}
         backgroundImage="linear-gradient(101.95deg, #8B41B0 0%, #EF476F 100%)"
         onClick={() => goToRoute("/taas/createnewteam/role")}
       />
       <LandingBox
         title="Input Skills"
-        description="You know your developer has specific skills, such as for example: Java, Python, Oracle, etc."
+        description="Select one or more technical skills which you need. Topcoder will match your requirements to our talent."
         icon={<IconListQuill />}
         backgroundImage="linear-gradient(221.5deg, #2C95D7 0%, #9D41C9 100%)"
         onClick={() => goToRoute("/taas/createnewteam/skills")}
       />
       <LandingBox
         title="Input Job Description"
-        description="You would like to use a description to explain what you need."
+        description="Input a Job Description and Topcoder will extract the required skills from it, then find the best matching talent for the job duties."
         icon={<IconOfficeFileText />}
         backgroundImage="linear-gradient(135deg, #2984BD 0%, #0AB88A 100%)"
         onClick={() => goToRoute("/taas/createnewteam/jd")}
