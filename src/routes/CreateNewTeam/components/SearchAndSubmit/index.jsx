@@ -14,6 +14,8 @@ import InputContainer from "../InputContainer";
 import SearchContainer from "../SearchContainer";
 import SubmitContainer from "../SubmitContainer";
 
+const SEARCHINGTIME = 1600;
+
 function SearchAndSubmit(props) {
   const { stages, setStages, searchObject, onClick, page } = props;
 
@@ -48,6 +50,7 @@ function SearchAndSubmit(props) {
     if (previousSearchId) {
       searchObjectCopy.previousRoleSearchRequestId = previousSearchId;
     }
+    const searchingBegin = Date.now();
     searchRoles(searchObjectCopy)
       .then((res) => {
         const name = _.get(res, "data.name");
@@ -63,8 +66,13 @@ function SearchAndSubmit(props) {
         console.error(err);
       })
       .finally(() => {
-        setCurrentStage(2, stages, setStages);
-        setSearchState("done");
+        _.delay(
+          () => {
+            setCurrentStage(2, stages, setStages);
+            setSearchState("done");
+          },
+          Date.now() - searchingBegin > SEARCHINGTIME ? 0 : 1500
+        );
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, previousSearchId, searchObject]);
