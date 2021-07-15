@@ -1,24 +1,19 @@
 /**
- * Team Details Modal
- * Popup form to enter details about the
- * team request before submitting.
+ * Edit Role Modal
+ * Popup form to enter details about current role
  */
 import React, { useEffect, useState } from "react";
 import PT from "prop-types";
 import { Form, Field, useField } from "react-final-form";
-import { useDispatch } from "react-redux";
 import FormField from "components/FormField";
 import BaseCreateModal from "../BaseCreateModal";
-import { FORM_FIELD_TYPE } from "constants/";
-import { formatPlural } from "utils/format";
 import Button from "components/Button";
 import MonthPicker from "components/MonthPicker";
 import InformationTooltip from "components/InformationTooltip";
-import { deleteSearchedRole } from "../../actions";
 import IconCrossLight from "../../../../assets/images/icon-cross-light.svg";
 import "./styles.module.scss";
 import NumberInput from "components/NumberInput";
-import { validator, validateExists } from "./utils/validator";
+import { validator, validateExists, validateMin, composeValidators } from "./utils/validator";
 
 const Error = ({ name }) => {
   const {
@@ -27,31 +22,8 @@ const Error = ({ name }) => {
   return dirty && error ? <span styleName="error">{error}</span> : null;
 };
 
-function TeamDetailsModal({ open, onClose, submitForm, addedRoles }) {
-  const [showDescription, setShowDescription] = useState(false);
-  const [startMonthVisible, setStartMonthVisible] = useState({});
-
-  // Ensure role is removed from form state when it is removed from redux store
-  let getFormState;
-  let clearFormField;
-  useEffect(() => {
-    const values = getFormState().values;
-    for (let fieldName of Object.keys(values)) {
-      if (fieldName === "teamName" || fieldName === "teamDescription") {
-        continue;
-      }
-      if (addedRoles.findIndex((role) => role.searchId === fieldName) === -1) {
-        clearFormField(fieldName);
-        setStartMonthVisible((state) => ({ ...state, [fieldName]: false }));
-      }
-    }
-  }, [getFormState, addedRoles, clearFormField]);
-
-  const dispatch = useDispatch();
-
-  const toggleDescription = () => {
-    setShowDescription((prevState) => !prevState);
-  };
+function EditRoleModal({ open, onClose, submitForm, role }) {
+  const [startMonthVisible, setStartMonthVisible] = useState(false);
 
   return (
     <Form
@@ -71,13 +43,11 @@ function TeamDetailsModal({ open, onClose, submitForm, addedRoles }) {
           getState,
         },
       }) => {
-        getFormState = getState;
-        clearFormField = clearField;
         return (
           <BaseCreateModal
             open={open}
             onClose={onClose}
-            title="Team Details"
+            title="Edit Role"
             subtitle="Please provide your team details before submitting a request."
             buttons={
               <Button
@@ -92,55 +62,18 @@ function TeamDetailsModal({ open, onClose, submitForm, addedRoles }) {
             disableFocusTrap
           >
             <div styleName="modal-body">
-              <FormField
-                field={{
-                  type: FORM_FIELD_TYPE.TEXT,
-                  name: "teamName",
-                  label: "Team Name",
-                  placeholder: "Team Name",
-                  maxLength: 255,
-                  customValidator: true,
-                }}
-              />
-              {showDescription && (
-                <FormField
-                  field={{
-                    type: FORM_FIELD_TYPE.TEXTAREA,
-                    name: "teamDescription",
-                    label: "Short description about the team/ project",
-                    placeholder: "Short description about the team/ project",
-                    maxLength: 600,
-                  }}
-                />
-              )}
-              <button
-                styleName="toggle-button toggle-description"
-                onClick={() => {
-                  clearField("teamDescription");
-                  toggleDescription();
-                }}
-              >
-                <span>{showDescription ? "–" : "+"}</span>
-                {showDescription ? " Remove Description" : " Add Description"}
-              </button>
               <table styleName="table">
                 <tr>
-                  <th styleName="bold">
-                    {formatPlural(addedRoles.length, "Role")} Added
-                  </th>
                   <th># of resources</th>
                   <th>Duration (weeks)</th>
                   <th>Start month</th>
-                  <th></th>
                 </tr>
-                {addedRoles.map(({ searchId: id, name, numberOfResources, durationWeeks, startMonth }) => (
-                  <tr styleName="role-row" key={id}>
-                    <td>{name}</td>
+                  <tr styleName="role-row">
                     <td>
                       <Field
-                        validate={validateExists}
-                        name={`${id}.numberOfResources`}
-                        initialValue={numberOfResources}
+                        validate={composeValidators(validateExists, validateMin(1))}
+                        name="numberOfResources"
+                        initialValue={role.numberOfResources}
                       >
                         {({ input, meta }) => (
                           <NumberInput
@@ -154,13 +87,13 @@ function TeamDetailsModal({ open, onClose, submitForm, addedRoles }) {
                           />
                         )}
                       </Field>
-                      <Error name={`${id}.numberOfResources`} />
+                      <Error name="numberOfResources" />
                     </td>
                     <td>
                       <Field
-                        validate={validateExists}
-                        name={`${id}.durationWeeks`}
-                        initialValue={durationWeeks}
+                        validate={composeValidators(validateExists, validateMin(4))}
+                        name="durationWeeks"
+                        initialValue={role.durationWeeks}
                       >
                         {({ input, meta }) => (
                           <NumberInput
@@ -169,19 +102,19 @@ function TeamDetailsModal({ open, onClose, submitForm, addedRoles }) {
                             onChange={input.onChange}
                             onBlur={input.onBlur}
                             onFocus={input.onFocus}
-                            min="1"
+                            min="4"
                             error={meta.touched && meta.error}
                           />
                         )}
                       </Field>
-                      <Error name={`${id}.durationWeeks`} />
+                      <Error name="durationWeeks" />
                     </td>
                     <td>
-                      {startMonth || startMonthVisible[id] ? (
+                      {startMonthVisible ? (
                         <>
                           <Field
-                            name={`${id}.startMonth`}
-                            initialValue={new Date(startMonth).getTime()}
+                            name="startMonth"
+                            initialValue={Date.now()}
                           >
                             {(props) => (
                               <MonthPicker
@@ -193,17 +126,14 @@ function TeamDetailsModal({ open, onClose, submitForm, addedRoles }) {
                               />
                             )}
                           </Field>
-                          <Error name={`${id}.startMonth`} />
+                          <Error name="startMonth" />
                         </>
                       ) : (
                         <div styleName="flex-container">
                           <button
                             styleName="toggle-button"
                             onClick={() =>
-                              setStartMonthVisible((prevState) => ({
-                                ...prevState,
-                                [id]: true,
-                              }))
+                              setStartMonthVisible(true)
                             }
                           >
                             Add Start Month
@@ -215,18 +145,7 @@ function TeamDetailsModal({ open, onClose, submitForm, addedRoles }) {
                         </div>
                       )}
                     </td>
-                    <td>
-                      <button
-                        styleName="delete-role"
-                        onClick={() => {
-                          dispatch(deleteSearchedRole(id));
-                        }}
-                      >
-                        <IconCrossLight height="12px" width="12px" />
-                      </button>
-                    </td>
                   </tr>
-                ))}
               </table>
             </div>
           </BaseCreateModal>
@@ -236,11 +155,11 @@ function TeamDetailsModal({ open, onClose, submitForm, addedRoles }) {
   );
 }
 
-TeamDetailsModal.propTypes = {
+EditRoleModal.propTypes = {
   open: PT.bool,
   onClose: PT.func,
   submitForm: PT.func,
-  addedRoles: PT.array,
+  role: PT.object,
 };
 
-export default TeamDetailsModal;
+export default EditRoleModal;
