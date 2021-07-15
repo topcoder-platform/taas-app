@@ -1,3 +1,5 @@
+import { isUuid } from "utils/helpers";
+
 const validateName = (name) => {
   if (!name || name.trim().length === 0) {
     return "Please enter a team name.";
@@ -58,7 +60,7 @@ const validator = (values) => {
   errors.teamName = validateName(values.teamName);
 
   for (const key of Object.keys(values)) {
-    if (key === "teamDescription" || key === "teamName") continue;
+    if (!isUuid(key)) continue;
     errors[key] = validateRole(values[key]);
   }
 

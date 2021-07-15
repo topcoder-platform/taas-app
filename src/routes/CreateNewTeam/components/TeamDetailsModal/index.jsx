@@ -11,6 +11,7 @@ import FormField from "components/FormField";
 import BaseCreateModal from "../BaseCreateModal";
 import { FORM_FIELD_TYPE } from "constants/";
 import { formatPlural } from "utils/format";
+import { isUuid } from "utils/helpers";
 import Button from "components/Button";
 import MonthPicker from "components/MonthPicker";
 import InformationTooltip from "components/InformationTooltip";
@@ -28,7 +29,7 @@ const Error = ({ name }) => {
 };
 
 function TeamDetailsModal({ open, onClose, submitForm, addedRoles }) {
-  const [showDescription, setShowDescription] = useState(false);
+  const [showAdvanced, setShowAdvanced] = useState(false);
   const [startMonthVisible, setStartMonthVisible] = useState({});
 
   // Ensure role is removed from form state when it is removed from redux store
@@ -37,7 +38,7 @@ function TeamDetailsModal({ open, onClose, submitForm, addedRoles }) {
   useEffect(() => {
     const values = getFormState().values;
     for (let fieldName of Object.keys(values)) {
-      if (fieldName === "teamName" || fieldName === "teamDescription") {
+      if (!isUuid(fieldName)) {
         continue;
       }
       if (addedRoles.findIndex((role) => role.searchId === fieldName) === -1) {
@@ -49,8 +50,8 @@ function TeamDetailsModal({ open, onClose, submitForm, addedRoles }) {
 
   const dispatch = useDispatch();
 
-  const toggleDescription = () => {
-    setShowDescription((prevState) => !prevState);
+  const toggleAdvanced = () => {
+    setShowAdvanced((prevState) => !prevState);
   };
 
   return (
@@ -78,7 +79,7 @@ function TeamDetailsModal({ open, onClose, submitForm, addedRoles }) {
             open={open}
             onClose={onClose}
             title="Team Details"
-            subtitle="Please provide your team details before submitting a request."
+            subtitle="Please provide a name for your Team. This could be the name of the project they will work on, the name of the team they are joining, or whatever else will make this talent request meaningful for you."
             buttons={
               <Button
                 type="primary"
@@ -102,26 +103,38 @@ function TeamDetailsModal({ open, onClose, submitForm, addedRoles }) {
                   customValidator: true,
                 }}
               />
-              {showDescription && (
-                <FormField
-                  field={{
-                    type: FORM_FIELD_TYPE.TEXTAREA,
-                    name: "teamDescription",
-                    label: "Short description about the team/ project",
-                    placeholder: "Short description about the team/ project",
-                    maxLength: 600,
-                  }}
-                />
+              {showAdvanced && (
+                <>
+                  <FormField
+                    field={{
+                      type: FORM_FIELD_TYPE.TEXTAREA,
+                      name: "teamDescription",
+                      label: "Short description about the team/ project",
+                      placeholder: "Short description about the team/ project",
+                      maxLength: 600,
+                    }}
+                  />
+                  <FormField
+                    field={{
+                      type: FORM_FIELD_TYPE.TEXT,
+                      name: "refCode",
+                      label: "Ref Code",
+                      placeholder: "Ref Code",
+                      maxLength: 255,
+                    }}
+                  />
+                </>
               )}
               <button
-                styleName="toggle-button toggle-description"
+                styleName="toggle-button toggle-advanced"
                 onClick={() => {
                   clearField("teamDescription");
-                  toggleDescription();
+                  clearField("refCode");
+                  toggleAdvanced();
                 }}
               >
-                <span>{showDescription ? "–" : "+"}</span>
-                {showDescription ? " Remove Description" : " Add Description"}
+                <span>{showAdvanced ? "– " : "+ "}</span>
+                Advanced Options
               </button>
               <table styleName="table">
                 <tr>
@@ -147,7 +160,7 @@ function TeamDetailsModal({ open, onClose, submitForm, addedRoles }) {
                         <Field
                           validate={validateExists}
                           name={`${id}.numberOfResources`}
-                          initialValue={numberOfResources}
+                          initialValue={numberOfResources || 1}
                         >
                           {({ input, meta }) => (
                             <NumberInput
@@ -167,7 +180,7 @@ function TeamDetailsModal({ open, onClose, submitForm, addedRoles }) {
                         <Field
                           validate={validateExists}
                           name={`${id}.durationWeeks`}
-                          initialValue={durationWeeks}
+                          initialValue={durationWeeks || 4}
                         >
                           {({ input, meta }) => (
                             <NumberInput

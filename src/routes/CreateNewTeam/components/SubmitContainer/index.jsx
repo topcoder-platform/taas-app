@@ -23,7 +23,7 @@ import TeamDetailsModal from "../TeamDetailsModal";
 import ConfirmationModal from "../ConfirmationModal";
 import withAuthentication from "../../../../hoc/withAuthentication";
 import "./styles.module.scss";
-import { isCustomRole, setCurrentStage } from "utils/helpers";
+import { isCustomRole, isUuid, setCurrentStage } from "utils/helpers";
 import { clearSearchedRoles } from "../../actions";
 import { postTeamRequest } from "services/teams";
 import NoMatchingProfilesResultCard from "../NoMatchingProfilesResultCard";
@@ -65,11 +65,15 @@ function SubmitContainer({
   };
 
   const assembleTeam = (formData) => {
-    const teamObject = _.pick(formData, ["teamName", "teamDescription"]);
+    const teamObject = _.pick(formData, [
+      "teamName",
+      "teamDescription",
+      "refCode",
+    ]);
 
     const positions = [];
     for (let key of Object.keys(formData)) {
-      if (key === "teamName" || key === "teamDescription") {
+      if (!isUuid(key)) {
         continue;
       }
       const position = _.mapValues(formData[key], (val, key) =>
