@@ -32,10 +32,10 @@ function SkillListPopup({ open, skills, isLoading, onClose, onContinueClick }) {
       open={open}
       onClose={onClose}
       headerIcon={<IconSingleManAdd />}
-      title="Skills"
+      title="Identified Skills"
       subtitle={
         skills.length
-          ? "These skills are found in your Job Description"
+          ? "Topcoder has identified the following skills referenced in your Job Description."
           : "No skills are found in your Job Description"
       }
       isLoading={isLoading}
@@ -43,11 +43,11 @@ function SkillListPopup({ open, skills, isLoading, onClose, onContinueClick }) {
       maxWidth="460px"
       buttons={Buttons}
     >
-      <div>
+      <ul styleName="list">
         {_.map(skills, (s) => {
-          return <div>{s.tag}</div>;
+          return <li>{s.tag}</li>;
         })}
-      </div>
+      </ul>
     </BaseCreateModal>
   );
 }

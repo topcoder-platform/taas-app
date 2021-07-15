@@ -267,20 +267,7 @@ function ResultCard({ role }) {
               <p>Members matched</p>
             </div>
           </div>
-          <div styleName="footer">
-            <p>
-              <span>60%</span> of members are available 20 hours / week (part
-              time)
-            </p>
-            <p>
-              <span>20%</span> of members are available 30 hours / week (part
-              time)
-            </p>
-            <p>
-              <span>10%</span> of members are available 40 hours / week (full
-              time)
-            </p>
-          </div>
+          <div styleName="footer" />
         </div>
       )}
     </div>

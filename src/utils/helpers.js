@@ -5,7 +5,16 @@
  * If there are multiple methods which could be grouped into a separate file by their meaning they should be extracted from here to not make this file too big.
  */
 import _ from "lodash";
+import { validate } from "uuid";
+
 import { CUSTOM_ROLE_NAMES } from "constants/";
+
+/**
+ * @param {String} string a possible uuid
+ *
+ * @returns {Boolean} true if uuid, false if not
+ */
+export const isUuid = validate;
 
 /**
  * Delay code for some milliseconds using promise.

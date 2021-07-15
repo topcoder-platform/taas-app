@@ -1,3 +1,18 @@
-.title {
-  font-weight: 500;
+.logos {
+  position: fixed;
+  bottom: 15px;
+  width: calc(100vw - 270px);
+  z-index: -1;
+}
+
+@media only screen and (max-width: 1023px)  {
+  .logos {
+    width: 100vw;
+  }
+}
+
+@media only screen and (max-height: 859px) {
+  .logos {
+    display: none;
+  }
 }

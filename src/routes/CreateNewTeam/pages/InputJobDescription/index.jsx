@@ -56,7 +56,7 @@ function InputJobDescription() {
     <SearchAndSubmit
       stages={stages}
       setStages={setStages}
-      isCompletenessDisabled={jdString.length < 10 || jdString.length > 2000}
+      isCompletenessDisabled={jdString.length < 10 || jdString.length > 100000}
       completenessStyle="input-job-description"
       searchObject={searchObject}
       page="jd"
@@ -67,6 +67,13 @@ function InputJobDescription() {
             title={<div styleName="title">Input Job Description</div>}
             backTo="/taas/createnewteam"
           />
+          <p styleName="subtitle">
+            Input a Job Description for your opening and the Topcoder Platform
+            will identify the skills required to perform the job duties and find
+            the best matching freelancers for your job opening. After inputting
+            the Job Description click on the "Search" button to see the skills
+            identified.
+          </p>
           <div styleName="job-title">
             <TextInput
               placeholder="Job title"
@@ -77,12 +84,12 @@ function InputJobDescription() {
             />
           </div>
           <MarkdownEditor
-            height="482px"
+            height="450px"
             placeholder="input job description"
             onChange={onEditChange}
             errorMessage={
-              jdString.length > 2000
-                ? "Maximum of 2000 characters. Please reduce job description length."
+              jdString.length > 100000
+                ? "Maximum of 100,000 characters. Please reduce job description length."
                 : ""
             }
           />
