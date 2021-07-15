@@ -46,7 +46,7 @@ function RoleItem({
           onDescriptionClick(id);
         }}
       >
-        Description
+        View Description & Skills
       </button>
     </div>
   );
