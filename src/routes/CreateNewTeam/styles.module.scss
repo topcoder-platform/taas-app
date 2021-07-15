@@ -1,14 +1,13 @@
 .logos {
   position: fixed;
   bottom: 15px;
-  width: calc(100vw - 340px);
-  margin-left: 35px;
+  width: calc(100vw - 270px);
   z-index: -1;
 }
 
 @media only screen and (max-width: 1023px)  {
   .logos {
-    width: calc(100vw - 70px)
+    width: 100vw;
   }
 }
 

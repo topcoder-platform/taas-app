@@ -56,7 +56,7 @@ function InputJobDescription() {
     <SearchAndSubmit
       stages={stages}
       setStages={setStages}
-      isCompletenessDisabled={jdString.length < 10 || jdString.length > 2000}
+      isCompletenessDisabled={jdString.length < 10 || jdString.length > 100000}
       completenessStyle="input-job-description"
       searchObject={searchObject}
       page="jd"
@@ -88,8 +88,8 @@ function InputJobDescription() {
             placeholder="input job description"
             onChange={onEditChange}
             errorMessage={
-              jdString.length > 2000
-                ? "Maximum of 2000 characters. Please reduce job description length."
+              jdString.length > 100000
+                ? "Maximum of 100,000 characters. Please reduce job description length."
                 : ""
             }
           />

@@ -18,6 +18,15 @@ const validateNumber = (number) => {
   return undefined;
 };
 
+const validateGreaterThan = (number, min) => {
+  const isInvalidNum = validateNumber(number);
+  if (isInvalidNum) return isInvalidNum;
+
+  return number < min
+    ? "Talent as a Service engagements have a 4 week minimum commitment."
+    : undefined;
+};
+
 const validateMonth = (monthString) => {
   const then = new Date(monthString);
   const now = new Date();
@@ -35,7 +44,7 @@ const validateMonth = (monthString) => {
 const validateRole = (role) => {
   const roleErrors = {};
   roleErrors.numberOfResources = validateNumber(role.numberOfResources);
-  roleErrors.durationWeeks = validateNumber(role.durationWeeks);
+  roleErrors.durationWeeks = validateGreaterThan(role.durationWeeks, 4);
   if (role.startMonth) {
     roleErrors.startMonth = validateMonth(role.startMonth);
   }
