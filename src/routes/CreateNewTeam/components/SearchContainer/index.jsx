@@ -5,26 +5,48 @@
  * search pages. Contains logic and supporting
  * components for searching for roles.
  */
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState, useMemo, useEffect } from "react";
 import PT from "prop-types";
+import { useDispatch } from "react-redux";
+import { editRoleAction } from "../../actions";
 import AddedRolesAccordion from "../AddedRolesAccordion";
 import Completeness from "../Completeness";
 import SearchCard from "../SearchCard";
 import ResultCard from "../ResultCard";
+import EditRoleModal from '../EditRoleModal'
 import NoMatchingProfilesResultCard from "../NoMatchingProfilesResultCard";
 import { isCustomRole } from "utils/helpers";
 import AddAnotherModal from "../AddAnotherModal";
 import "./styles.module.scss";
 
 function SearchContainer({
+  isNewRole,
   stages,
   completenessStyle,
   navigate,
   addedRoles,
   searchState,
+  previousSearchId,
   matchingRole,
 }) {
   const [addAnotherOpen, setAddAnotherOpen] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
+
+  const dispatch = useDispatch();
+  const currentRole = useMemo(() => {
+    return _.find(addedRoles, { searchId: previousSearchId });
+  }, [addedRoles, previousSearchId]);
+
+  useEffect(() => {
+    if (isNewRole) {
+      setShowEditModal(true)
+    }
+  }, [isNewRole]);
+
+  const onSubmitEditRole = useCallback((role) => {
+    setShowEditModal(false)
+    dispatch(editRoleAction({...role, searchId: previousSearchId}))
+  }, [addedRoles, previousSearchId]);
 
   const onSubmit = useCallback(() => {
     setAddAnotherOpen(false);
@@ -64,6 +86,12 @@ function SearchContainer({
           percentage={getPercentage()}
         />
       </div>
+      {showEditModal && <EditRoleModal
+        role={currentRole}
+        open={showEditModal}
+        onClose={() => setShowEditModal(false)}
+        submitForm={onSubmitEditRole}
+      />}
       <AddAnotherModal
         open={addAnotherOpen}
         onClose={() => setAddAnotherOpen(false)}
@@ -76,8 +104,10 @@ function SearchContainer({
 }
 
 SearchContainer.propTypes = {
+  isNewRole: PT.bool,
   stages: PT.array,
   completenessStyle: PT.string,
+  previousSearchId: PT.string,
   navigate: PT.func,
   addedRoles: PT.array,
   searchState: PT.string,

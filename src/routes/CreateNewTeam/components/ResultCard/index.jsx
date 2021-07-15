@@ -78,10 +78,10 @@ function ResultCard({ role }) {
         </Button>
       </div>
       {showRates && !isExternalMember && (
-        <div styleName="xeno-rates">
+        <div styleName="wipro-rates">
           {userHandle && (
             <p styleName="greeting-txt">
-              Hi {userHandle}, we have special rates for you as a Xeno User!
+              Hi {userHandle}, we have special rates for you as a Wipro User!
             </p>
           )}
           <div styleName="rates">
@@ -97,8 +97,15 @@ function ResultCard({ role }) {
                   <p>/Week</p>
                 </div>
               </div>
-              <div styleName="in-country">
-                <h4>In-Country Rate</h4>
+              <div styleName="global-niche">
+                <h4>Global Niche Rate</h4>
+                <div styleName="cost">
+                  <h4>{formatRate(rates.niche)}</h4>
+                  <p>/Week</p>
+                </div>
+              </div>
+              <div styleName="offshore-niche">
+                <h4>Offshore Niche Rate</h4>
                 <div styleName="cost">
                   <h4>{formatRate(rates.inCountry)}</h4>
                   <p>/Week</p>
@@ -124,8 +131,15 @@ function ResultCard({ role }) {
                   <p>/Week</p>
                 </div>
               </div>
-              <div styleName="in-country">
-                <h4>In-Country Rate</h4>
+              <div styleName="global-niche">
+                <h4>Global Niche Rate</h4>
+                <div styleName="cost">
+                  <h4>{formatRate(rates.rate30Niche)}</h4>
+                  <p>/Week</p>
+                </div>
+              </div>
+              <div styleName="offshore-niche">
+                <h4>Offshore Niche Rate</h4>
                 <div styleName="cost">
                   <h4>{formatRate(rates.rate30InCountry)}</h4>
                   <p>/Week</p>
@@ -151,8 +165,16 @@ function ResultCard({ role }) {
                   <p>/Week</p>
                 </div>
               </div>
-              <div styleName="in-country">
-                <h4>In-Country Rate</h4>
+
+              <div styleName="global-niche">
+                <h4>Global Niche Rate</h4>
+                <div styleName="cost">
+                  <h4>{formatRate(rates.rate20Niche)}</h4>
+                  <p>/Week</p>
+                </div>
+              </div>
+              <div styleName="offshore-niche">
+                <h4>Offshore Niche Rate</h4>
                 <div styleName="cost">
                   <h4>{formatRate(rates.rate20InCountry)}</h4>
                   <p>/Week</p>

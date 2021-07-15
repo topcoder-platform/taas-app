@@ -138,7 +138,7 @@
   padding-bottom: 50px;
 }
 
-.xeno-rates {
+.wipro-rates {
   display: flex;
   flex-direction: column;
   padding: 0 25px 50px 52px;
@@ -180,7 +180,8 @@
         }
       }
       .global,
-      .in-country,
+      .global-niche,
+      .offshore-niche,
       .offshore {
         display: flex;
         flex-direction: column;
@@ -225,7 +226,12 @@
       .global::before {
         background-color: #c99014;
       }
-      .in-country::before {
+
+      .global-niche::before {
+        background-color: #0ab88a;
+      }
+
+      .offshore-niche::before {
         background-color: #716d67;
       }
       .offshore::before {
