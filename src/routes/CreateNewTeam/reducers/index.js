@@ -44,11 +44,27 @@ const reducer = (state = initialState, action) => {
         ...state,
         matchingRole: action.payload,
       };
+
     case ACTION_TYPE.DELETE_MATCHING_ROLE:
       return {
         ...state,
         matchingRole: null,
       };
+
+    case ACTION_TYPE.EDIT_MATCHING_ROLE:
+      const index = _.findIndex(state.addedRoles, {
+        searchId: action.payload.searchId,
+      });
+      state.addedRoles[index] = _.extend(
+        {},
+        state.addedRoles[index],
+        _.omit(action.payload, "searchId")
+      );
+      return {
+        ...state,
+        addedRoles: [...state.addedRoles],
+      };
+
     case ACTION_TYPE.ADD_SEARCHED_ROLE:
       return {
         ...state,
