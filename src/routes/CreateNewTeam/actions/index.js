@@ -36,6 +36,11 @@ const deleteMatchingRole = () => ({
   type: ACTION_TYPE.DELETE_MATCHING_ROLE,
 });
 
+const editMatchingRole = (role) => ({
+  type: ACTION_TYPE.EDIT_MATCHING_ROLE,
+  payload: role,
+});
+
 export const clearSearchedRoles = () => (dispatch, getState) => {
   dispatch(clearRoles());
   updateLocalStorage(getState().searchedRoles);
@@ -48,6 +53,11 @@ export const addSearchedRole = (searchedRole) => (dispatch, getState) => {
 
 export const addRoleSearchId = (id) => (dispatch, getState) => {
   dispatch(addPreviousSearchId(id));
+  updateLocalStorage(getState().searchedRoles);
+};
+
+export const editRoleAction = (role) => (dispatch, getState) => {
+  dispatch(editMatchingRole(role));
   updateLocalStorage(getState().searchedRoles);
 };
 
