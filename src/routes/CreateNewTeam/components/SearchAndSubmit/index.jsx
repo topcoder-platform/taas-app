@@ -14,10 +14,13 @@ import InputContainer from "../InputContainer";
 import SearchContainer from "../SearchContainer";
 import SubmitContainer from "../SubmitContainer";
 
+const SEARCHINGTIME = 1600;
+
 function SearchAndSubmit(props) {
   const { stages, setStages, searchObject, onClick, page } = props;
 
   const [searchState, setSearchState] = useState(null);
+  const [isNewRole, setIsNewRole] = useState(false);
 
   const { matchingRole } = useSelector((state) => state.searchedRoles);
 
@@ -48,12 +51,14 @@ function SearchAndSubmit(props) {
     if (previousSearchId) {
       searchObjectCopy.previousRoleSearchRequestId = previousSearchId;
     }
+    const searchingBegin = Date.now();
     searchRoles(searchObjectCopy)
       .then((res) => {
         const name = _.get(res, "data.name");
         const searchId = _.get(res, "data.roleSearchRequestId");
         if (name && !isCustomRole({ name })) {
-          dispatch(addSearchedRole({ searchId, name }));
+          dispatch(addSearchedRole({ searchId, name, numberOfResources: 1, durationWeeks: 4 }));
+          setIsNewRole(true)
         } else if (searchId) {
           dispatch(addRoleSearchId(searchId));
         }
@@ -63,8 +68,13 @@ function SearchAndSubmit(props) {
         console.error(err);
       })
       .finally(() => {
-        setCurrentStage(2, stages, setStages);
-        setSearchState("done");
+        _.delay(
+          () => {
+            setCurrentStage(2, stages, setStages);
+            setSearchState("done");
+          },
+          Date.now() - searchingBegin > SEARCHINGTIME ? 0 : 1500
+        );
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, previousSearchId, searchObject]);
@@ -80,9 +90,11 @@ function SearchAndSubmit(props) {
       />
       <SearchContainer
         path="search"
+        previousSearchId={previousSearchId}
         addedRoles={addedRoles}
         searchState={searchState}
         matchingRole={matchingRole}
+        isNewRole={isNewRole}
         {...props}
       />
       <SubmitContainer
