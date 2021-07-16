@@ -12,6 +12,7 @@ import IconEarthCheck from "../../../../assets/images/icon-earth-check.svg";
 import IconMultipleUsers from "../../../../assets/images/icon-multiple-users.svg";
 import IconMultipleActionsCheck from "../../../../assets/images/icon-multiple-actions-check-2.svg";
 import IconTeamMeetingChat from "../../../../assets/images/icon-team-meeting-chat.svg";
+import EditRoleForm from "../EditRoleForm";
 import Curve from "../../../../assets/images/curve.svg";
 import CircularProgressBar from "../CircularProgressBar";
 import Button from "components/Button";
@@ -26,7 +27,7 @@ function formatPercent(value) {
   return `${Math.round(value * 100)}%`;
 }
 
-function ResultCard({ role }) {
+function ResultCard({ role, currentRole, onSubmitEditRole }) {
   const {
     numberOfMembersAvailable,
     isExternalMember,
@@ -267,20 +268,9 @@ function ResultCard({ role }) {
               <p>Members matched</p>
             </div>
           </div>
-          <div styleName="footer">
-            <p>
-              <span>60%</span> of members are available 20 hours / week (part
-              time)
-            </p>
-            <p>
-              <span>20%</span> of members are available 30 hours / week (part
-              time)
-            </p>
-            <p>
-              <span>10%</span> of members are available 40 hours / week (full
-              time)
-            </p>
-          </div>
+          {currentRole && (
+            <EditRoleForm role={currentRole} submitForm={onSubmitEditRole} />
+          )}
         </div>
       )}
     </div>
@@ -289,6 +279,8 @@ function ResultCard({ role }) {
 
 ResultCard.propTypes = {
   role: PT.object,
+  currentRole: PT.object,
+  onSubmitEditRole: PT.func,
 };
 
 export default ResultCard;

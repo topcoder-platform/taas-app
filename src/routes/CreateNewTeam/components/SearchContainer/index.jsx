@@ -13,7 +13,6 @@ import AddedRolesAccordion from "../AddedRolesAccordion";
 import Completeness from "../Completeness";
 import SearchCard from "../SearchCard";
 import ResultCard from "../ResultCard";
-import EditRoleModal from '../EditRoleModal'
 import NoMatchingProfilesResultCard from "../NoMatchingProfilesResultCard";
 import { isCustomRole } from "utils/helpers";
 import AddAnotherModal from "../AddAnotherModal";
@@ -59,7 +58,10 @@ function SearchContainer({
 
   const renderLeftSide = () => {
     if (searchState === "searching") return <SearchCard />;
-    if (!isCustomRole(matchingRole)) return <ResultCard role={matchingRole} />;
+    if (!isCustomRole(matchingRole)) return <ResultCard 
+      role={matchingRole} 
+      onSubmitEditRole={onSubmitEditRole}
+      currentRole={currentRole}/>;
     return <NoMatchingProfilesResultCard role={matchingRole} />;
   };
 
@@ -86,12 +88,6 @@ function SearchContainer({
           percentage={getPercentage()}
         />
       </div>
-      {showEditModal && <EditRoleModal
-        role={currentRole}
-        open={showEditModal}
-        onClose={() => setShowEditModal(false)}
-        submitForm={onSubmitEditRole}
-      />}
       <AddAnotherModal
         open={addAnotherOpen}
         onClose={() => setAddAnotherOpen(false)}
