@@ -57,8 +57,15 @@ function SearchAndSubmit(props) {
         const name = _.get(res, "data.name");
         const searchId = _.get(res, "data.roleSearchRequestId");
         if (name && !isCustomRole({ name })) {
-          dispatch(addSearchedRole({ searchId, name, numberOfResources: 1, durationWeeks: 4 }));
-          setIsNewRole(true)
+          dispatch(
+            addSearchedRole({
+              searchId,
+              name,
+              numberOfResources: 1,
+              durationWeeks: 4,
+            })
+          );
+          setIsNewRole(true);
         } else if (searchId) {
           dispatch(addRoleSearchId(searchId));
         }
