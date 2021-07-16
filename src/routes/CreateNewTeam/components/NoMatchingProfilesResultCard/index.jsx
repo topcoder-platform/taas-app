@@ -42,7 +42,7 @@ function NoMatchingProfilesResultCard({ role }) {
     <div styleName="result-card">
       <div styleName="heading">
         <IconEarthX />
-        <h3>No Matching Profiles</h3>
+        <h3>Additional Evaluation Needed</h3>
         <Curve styleName="curve" />
         <IconEarthX styleName="transparent-icon" />
       </div>
@@ -53,8 +53,11 @@ function NoMatchingProfilesResultCard({ role }) {
             : "Custom Role"}
         </h4>
         <p styleName="info-txt">
-          We will be looking internally for members matching your requirements
-          and be back at them in about 2 weeks.
+          We did not get a perfect match to your requirements on the first pass,
+          but we are confident they are out there. We'd like to dig a little
+          deeper into our community to find someone who can fit your needs. This
+          may take up to two weeks. Please continue to submit your request, and
+          a Topcoder representative will reach out to you soon with next steps.
         </p>
         {role.rates && role.name ? (
           <div styleName="niche-rate-box">
