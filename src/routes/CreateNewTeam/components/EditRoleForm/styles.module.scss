@@ -91,6 +91,9 @@
 }
 
 .modal-body {
+  > button {
+    margin: 0 auto;
+  }
   overflow-x: auto;
   textarea {
     height: 95px;
