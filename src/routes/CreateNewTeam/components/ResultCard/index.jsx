@@ -27,7 +27,7 @@ function formatPercent(value) {
   return `${Math.round(value * 100)}%`;
 }
 
-function ResultCard({ role, currentRole, onSubmitEditRole }) {
+function ResultCard({ role, currentRole, onSaveEditRole }) {
   const {
     numberOfMembersAvailable,
     isExternalMember,
@@ -269,7 +269,7 @@ function ResultCard({ role, currentRole, onSubmitEditRole }) {
             </div>
           </div>
           {currentRole && (
-            <EditRoleForm role={currentRole} submitForm={onSubmitEditRole} />
+            <EditRoleForm role={currentRole} onChange={onSaveEditRole} />
           )}
         </div>
       )}
@@ -280,7 +280,7 @@ function ResultCard({ role, currentRole, onSubmitEditRole }) {
 ResultCard.propTypes = {
   role: PT.object,
   currentRole: PT.object,
-  onSubmitEditRole: PT.func,
+  onSaveEditRole: PT.func,
 };
 
 export default ResultCard;

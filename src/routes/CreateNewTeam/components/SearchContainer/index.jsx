@@ -7,6 +7,7 @@
  */
 import React, { useCallback, useState, useMemo, useEffect } from "react";
 import PT from "prop-types";
+import _ from "lodash";
 import { useDispatch } from "react-redux";
 import { editRoleAction } from "../../actions";
 import AddedRolesAccordion from "../AddedRolesAccordion";
@@ -30,6 +31,7 @@ function SearchContainer({
 }) {
   const [addAnotherOpen, setAddAnotherOpen] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
+  const [buttonClickable, setButtonClickable] = useState(true);
 
   const dispatch = useDispatch();
   const currentRole = useMemo(() => {
@@ -38,14 +40,19 @@ function SearchContainer({
 
   useEffect(() => {
     if (isNewRole) {
-      setShowEditModal(true)
+      setShowEditModal(true);
     }
   }, [isNewRole]);
 
-  const onSubmitEditRole = useCallback((role) => {
-    setShowEditModal(false)
-    dispatch(editRoleAction({...role, searchId: previousSearchId}))
-  }, [addedRoles, previousSearchId]);
+  const onSaveEditRole = useCallback(
+    (isValid, role) => {
+      setButtonClickable(isValid)
+      if (isValid) {
+        dispatch(editRoleAction({ ...role, searchId: previousSearchId }));
+      }
+    },
+    [addedRoles, previousSearchId]
+  );
 
   const onSubmit = useCallback(() => {
     setAddAnotherOpen(false);
@@ -58,10 +65,14 @@ function SearchContainer({
 
   const renderLeftSide = () => {
     if (searchState === "searching") return <SearchCard />;
-    if (!isCustomRole(matchingRole)) return <ResultCard 
-      role={matchingRole} 
-      onSubmitEditRole={onSubmitEditRole}
-      currentRole={currentRole}/>;
+    if (!isCustomRole(matchingRole))
+      return (
+        <ResultCard
+          role={matchingRole}
+          onSaveEditRole={onSaveEditRole}
+          currentRole={currentRole}
+        />
+      );
     return <NoMatchingProfilesResultCard role={matchingRole} />;
   };
 
@@ -78,6 +89,7 @@ function SearchContainer({
         <AddedRolesAccordion addedRoles={addedRoles} />
         <Completeness
           isDisabled={
+            !buttonClickable ||
             searchState === "searching" ||
             (searchState === "done" && (!addedRoles || !addedRoles.length))
           }

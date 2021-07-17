@@ -27,12 +27,19 @@ const Error = ({ name }) => {
   return dirty && error ? <span styleName="error">{error}</span> : null;
 };
 
-function EditRoleForm({ submitForm, role }) {
+function EditRoleForm({ onChange, role }) {
   const [startMonthVisible, setStartMonthVisible] = useState(false);
+  const onRoleChange = (state) => {
+    if (state.hasValidationErrors) {
+      onChange(false);
+    }else {
+      onChange(true, state.values);
+    }
+  };
 
   return (
     <Form
-      onSubmit={submitForm}
+      onSubmit={() => {}}
       mutators={{
         clearField: ([fieldName], state, { changeValue }) => {
           changeValue(state, fieldName, () => undefined);
@@ -41,15 +48,13 @@ function EditRoleForm({ submitForm, role }) {
       validate={validator}
     >
       {({
-        handleSubmit,
-        hasValidationErrors,
         form: {
           mutators: { clearField },
           getState,
         },
       }) => {
         return (
-          <div styleName="modal-body">
+          <div styleName="table-container">
             <table styleName="table">
               <tr>
                 <th># of resources</th>
@@ -59,7 +64,7 @@ function EditRoleForm({ submitForm, role }) {
               <tr styleName="role-row">
                 <td>
                   <Field
-                    validate={composeValidators(validateExists, validateMin(1))}
+                    validate={composeValidators(validateExists, validateMin(1, 'should be greater then 1'))}
                     name="numberOfResources"
                     initialValue={role.numberOfResources}
                   >
@@ -67,7 +72,10 @@ function EditRoleForm({ submitForm, role }) {
                       <NumberInput
                         name={input.name}
                         value={input.value}
-                        onChange={input.onChange}
+                        onChange={(v) => {
+                          input.onChange(v);
+                          onRoleChange(getState());
+                        }}
                         onBlur={input.onBlur}
                         onFocus={input.onFocus}
                         min="1"
@@ -79,7 +87,7 @@ function EditRoleForm({ submitForm, role }) {
                 </td>
                 <td>
                   <Field
-                    validate={composeValidators(validateExists, validateMin(4))}
+                    validate={composeValidators(validateExists, validateMin(4, 'Talent as a Service engagements have a 4 week minimum commitment.'))}
                     name="durationWeeks"
                     initialValue={role.durationWeeks}
                   >
@@ -87,7 +95,10 @@ function EditRoleForm({ submitForm, role }) {
                       <NumberInput
                         name={input.name}
                         value={input.value}
-                        onChange={input.onChange}
+                        onChange={(v) => {
+                          input.onChange(v);
+                          onRoleChange(getState());
+                        }}
                         onBlur={input.onBlur}
                         onFocus={input.onFocus}
                         min="4"
@@ -105,7 +116,10 @@ function EditRoleForm({ submitForm, role }) {
                           <MonthPicker
                             name={props.input.name}
                             value={props.input.value}
-                            onChange={props.input.onChange}
+                            onChange={(v) => {
+                              props.input.onChange(v);
+                              onRoleChange(getState());
+                            }}
                             onBlur={props.input.onBlur}
                             onFocus={props.input.onFocus}
                           />
@@ -130,14 +144,6 @@ function EditRoleForm({ submitForm, role }) {
                 </td>
               </tr>
             </table>
-            <Button
-              type="primary"
-              size="medium"
-              onClick={handleSubmit}
-              disabled={hasValidationErrors}
-            >
-              Save
-            </Button>
           </div>
         );
       }}

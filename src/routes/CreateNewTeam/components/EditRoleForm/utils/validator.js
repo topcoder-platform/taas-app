@@ -1,8 +1,8 @@
 const composeValidators = (...validators) => (value) =>
   validators.reduce((error, validator) => error || validator(value), undefined);
 
-const validateMin = (min) => (value) =>
-  isNaN(value) || value >= min ? undefined : `Should be greater than ${min}`;
+const validateMin = (min, message) => (value) =>
+  isNaN(value) || value >= min ? undefined : message;
 
 const validateName = (name) => {
   if (!name || name.trim().length === 0) {
