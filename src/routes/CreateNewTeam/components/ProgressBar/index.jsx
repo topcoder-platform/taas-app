@@ -1,13 +1,13 @@
 /**
- * Complete Progress Tracker
+ * Progress Tracker
  * Graphical representation of
- * completeness percentage for skill input.
+ * progress percentage for skill input.
  */
 import React from "react";
 import PT from "prop-types";
 import "./styles.module.scss";
 
-function CompleteProgress({ percentDone }) {
+function ProgressBar({ percentDone }) {
   if (!percentDone || percentDone < 0) {
     percentDone = 0;
   } else if (percentDone > 100) {
@@ -17,7 +17,7 @@ function CompleteProgress({ percentDone }) {
   return (
     <div styleName="progress">
       <div styleName="heading">
-        <p>Completeness</p>
+        <p>Progress</p>
         <h6>{percentDone}%</h6>
       </div>
       <div styleName="progress-bar">
@@ -30,8 +30,8 @@ function CompleteProgress({ percentDone }) {
   );
 }
 
-CompleteProgress.propTypes = {
+ProgressBar.propTypes = {
   percentDone: PT.number,
 };
 
-export default CompleteProgress;
+export default ProgressBar;

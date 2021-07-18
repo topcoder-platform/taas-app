@@ -8,16 +8,16 @@
 import React from "react";
 import PT from "prop-types";
 import AddedRolesAccordion from "../AddedRolesAccordion";
-import Completeness from "../Completeness";
+import Progress from "../Progress";
 import "./styles.module.scss";
 
 function InputContainer({
   stages,
-  isCompletenessDisabled,
+  isProgressDisabled,
   toRender,
   search,
   onClick,
-  completenessStyle,
+  progressStyle,
   addedRoles,
 }) {
   return (
@@ -25,10 +25,10 @@ function InputContainer({
       {toRender(search)}
       <div styleName="right-side">
         <AddedRolesAccordion addedRoles={addedRoles} />
-        <Completeness
-          isDisabled={isCompletenessDisabled}
+        <Progress
+          isDisabled={isProgressDisabled}
           onClick={onClick ? onClick: search}
-          extraStyleName={completenessStyle}
+          extraStyleName={progressStyle}
           buttonLabel="Search"
           stages={stages}
           percentage="26"
@@ -40,11 +40,11 @@ function InputContainer({
 
 InputContainer.propTypes = {
   stages: PT.array,
-  isCompletenessDisabled: PT.bool,
+  isProgressDisabled: PT.bool,
   search: PT.func,
   onClick: PT.func,
   toRender: PT.func,
-  completenessStyle: PT.string,
+  progressStyle: PT.string,
   addedRoles: PT.array,
 };
 

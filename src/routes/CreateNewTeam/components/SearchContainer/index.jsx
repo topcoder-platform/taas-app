@@ -11,7 +11,7 @@ import _ from "lodash";
 import { useDispatch } from "react-redux";
 import { editRoleAction } from "../../actions";
 import AddedRolesAccordion from "../AddedRolesAccordion";
-import Completeness from "../Completeness";
+import Progress from "../Progress";
 import SearchCard from "../SearchCard";
 import ResultCard from "../ResultCard";
 import NoMatchingProfilesResultCard from "../NoMatchingProfilesResultCard";
@@ -22,7 +22,7 @@ import "./styles.module.scss";
 function SearchContainer({
   isNewRole,
   stages,
-  completenessStyle,
+  progressStyle,
   navigate,
   addedRoles,
   searchState,
@@ -87,14 +87,14 @@ function SearchContainer({
       {renderLeftSide()}
       <div styleName="right-side">
         <AddedRolesAccordion addedRoles={addedRoles} />
-        <Completeness
+        <Progress
           isDisabled={
             !buttonClickable ||
             searchState === "searching" ||
             (searchState === "done" && (!addedRoles || !addedRoles.length))
           }
           onClick={() => setAddAnotherOpen(true)}
-          extraStyleName={completenessStyle}
+          extraStyleName={progressStyle}
           buttonLabel="Continue"
           stages={stages}
           percentage={getPercentage()}
@@ -114,7 +114,7 @@ function SearchContainer({
 SearchContainer.propTypes = {
   isNewRole: PT.bool,
   stages: PT.array,
-  completenessStyle: PT.string,
+  progressStyle: PT.string,
   previousSearchId: PT.string,
   navigate: PT.func,
   addedRoles: PT.array,
