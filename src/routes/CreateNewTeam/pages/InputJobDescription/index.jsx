@@ -56,8 +56,8 @@ function InputJobDescription() {
     <SearchAndSubmit
       stages={stages}
       setStages={setStages}
-      isCompletenessDisabled={jdString.length < 10 || jdString.length > 100000}
-      completenessStyle="input-job-description"
+      isProgressDisabled={jdString.length < 10 || jdString.length > 100000}
+      progressStyle="input-job-description"
       searchObject={searchObject}
       page="jd"
       onClick={onClick}

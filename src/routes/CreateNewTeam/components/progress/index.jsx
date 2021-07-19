@@ -1,6 +1,6 @@
 /**
- * Completeness Sidebar
- * Shows level of completeness through skill
+ * Progress Sidebar
+ * Shows level of progress through skill
  * input process and contains a button for
  * searching for users or submitting the job.
  */
@@ -8,13 +8,13 @@ import Button from "components/Button";
 import React from "react";
 import cn from "classnames";
 import PT from "prop-types";
-import CompleteProgress from "../CompleteProgress";
+import ProgressBar from "../ProgressBar";
 import "./styles.module.scss";
 import IconMultipleActionsCheck from "../../../../assets/images/icon-multiple-actions-check-2.svg";
 import IconListQuill from "../../../../assets/images/icon-list-quill.svg";
 import IconOfficeFileText from "../../../../assets/images/icon-office-file-text.svg";
 
-function Completeness({
+function Progress({
   extraStyleName,
   isDisabled,
   onClick,
@@ -23,7 +23,7 @@ function Completeness({
   percentage,
 }) {
 
-  let backgroundIcon 
+  let backgroundIcon
   if (extraStyleName === "input-skills") {
      backgroundIcon= <IconListQuill styleName="transparent-icon" />
   } else if (extraStyleName === "input-job-description") {
@@ -33,8 +33,8 @@ function Completeness({
   }
 
   return (
-    <div styleName={cn("completeness", extraStyleName)}>
-      <CompleteProgress percentDone={percentage} />
+    <div styleName={cn("progress", extraStyleName)}>
+      <ProgressBar percentDone={percentage} />
       <ul styleName="list">
         {stages.map((stage) => (
           <li
@@ -60,7 +60,7 @@ function Completeness({
   );
 }
 
-Completeness.propTypes = {
+Progress.propTypes = {
   extraStyleName: PT.string,
   isDisabled: PT.bool,
   onClick: PT.func,
@@ -69,4 +69,4 @@ Completeness.propTypes = {
   stages: PT.arrayOf(PT.string),
 };
 
-export default Completeness;
+export default Progress;
