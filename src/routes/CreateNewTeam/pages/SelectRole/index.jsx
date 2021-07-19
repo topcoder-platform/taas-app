@@ -46,10 +46,10 @@ function SelectRole() {
     <SearchAndSubmit
       stages={stages}
       setStages={setStages}
-      isCompletenessDisabled={!selectedRoleId}
+      isProgressDisabled={!selectedRoleId}
       page="role"
       searchObject={{ roleId: selectedRoleId }}
-      completenessStyle="role-selection"
+      progressStyle="role-selection"
       toRender={() => (
         <>
           <RolesList
