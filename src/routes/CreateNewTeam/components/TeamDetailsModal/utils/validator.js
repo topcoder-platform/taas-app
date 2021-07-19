@@ -1,4 +1,5 @@
 import { isUuid } from "utils/helpers";
+import { MIN_DURATION } from "constants";
 
 const validateName = (name) => {
   if (!name || name.trim().length === 0) {
@@ -25,7 +26,7 @@ const validateGreaterThan = (number, min) => {
   if (isInvalidNum) return isInvalidNum;
 
   return number < min
-    ? "Talent as a Service engagements have a 4 week minimum commitment."
+    ? `Talent as a Service engagements have a ${MIN_DURATION} week minimum commitment.`
     : undefined;
 };
 
@@ -46,7 +47,7 @@ const validateMonth = (monthString) => {
 const validateRole = (role) => {
   const roleErrors = {};
   roleErrors.numberOfResources = validateNumber(role.numberOfResources);
-  roleErrors.durationWeeks = validateGreaterThan(role.durationWeeks, 4);
+  roleErrors.durationWeeks = validateGreaterThan(role.durationWeeks, MIN_DURATION);
   if (role.startMonth) {
     roleErrors.startMonth = validateMonth(role.startMonth);
   }

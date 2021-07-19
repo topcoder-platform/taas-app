@@ -19,6 +19,7 @@ import {
   validateMin,
   composeValidators,
 } from "./utils/validator";
+import { MIN_DURATION } from "constants";
 
 const Error = ({ name }) => {
   const {
@@ -87,7 +88,7 @@ function EditRoleForm({ onChange, role }) {
                 </td>
                 <td>
                   <Field
-                    validate={composeValidators(validateExists, validateMin(4, 'Talent as a Service engagements have a 4 week minimum commitment.'))}
+                    validate={composeValidators(validateExists, validateMin(MIN_DURATION, `Talent as a Service engagements have a ${MIN_DURATION} week minimum commitment.`))}
                     name="durationWeeks"
                     initialValue={role.durationWeeks}
                   >
