@@ -368,4 +368,7 @@ export const MAX_ALLOWED_INTERVIEWS = 3;
  */
 export const CUSTOM_ROLE_NAMES = ["custom", "niche"];
 
+/**
+ * Minimal Resource Booking duration (weeks)
+ */
 export const MIN_DURATION = 4;
