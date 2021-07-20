@@ -39,7 +39,7 @@ function CreateNewTeam() {
       />
       <LandingBox
         title="Input Skills"
-        description="Select one or more technical skills which you need. Topcoder will match your requirements to our talent."
+        description="Select one or more technical skills you need. Topcoder will match your requirements to our talent."
         icon={<IconListQuill />}
         backgroundImage="linear-gradient(221.5deg, #2C95D7 0%, #9D41C9 100%)"
         onClick={() => goToRoute("/taas/createnewteam/skills")}

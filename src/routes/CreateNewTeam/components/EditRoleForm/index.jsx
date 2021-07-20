@@ -65,7 +65,7 @@ function EditRoleForm({ onChange, role }) {
               <tr styleName="role-row">
                 <td>
                   <Field
-                    validate={composeValidators(validateExists, validateMin(1, 'should be greater then 1'))}
+                    validate={composeValidators(validateExists, validateMin(1, 'Should be 1 or greater'))}
                     name="numberOfResources"
                     initialValue={role.numberOfResources}
                   >
