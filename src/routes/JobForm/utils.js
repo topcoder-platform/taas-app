@@ -30,7 +30,7 @@ const validateDuration = (x, y, {duration}) => {
   if (duration === undefined) return undefined;
   const converted = Number(duration);
 
-  if (isNaN(converted) || converted !== Math.floor(converted) || converted < MIN_DURATION) {
+  if (isNaN(converted) || converted < MIN_DURATION) {
     return `Talent as a Service engagements have a ${MIN_DURATION} week minimum commitment.`;
   }
 
