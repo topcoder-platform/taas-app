@@ -367,3 +367,5 @@ export const MAX_ALLOWED_INTERVIEWS = 3;
  * Custom role names to remove from RoleList component
  */
 export const CUSTOM_ROLE_NAMES = ["custom", "niche"];
+
+export const MIN_DURATION = 4;

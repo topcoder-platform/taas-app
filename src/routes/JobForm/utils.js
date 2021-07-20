@@ -11,6 +11,7 @@ import {
   RESOURCE_TYPE_OPTIONS,
   FORM_ROW_TYPE,
   FORM_FIELD_TYPE,
+  MIN_DURATION,
 } from "../../constants";
 
 const EDIT_JOB_ROWS = [
@@ -24,6 +25,17 @@ const EDIT_JOB_ROWS = [
   { type: FORM_ROW_TYPE.SINGLE, fields: ["workload"] },
   { type: FORM_ROW_TYPE.SINGLE, fields: ["status"] },
 ];
+
+const validateDuration = (x, y, {duration}) => {
+  if (duration === undefined) return undefined;
+  const converted = Number(duration);
+
+  if (isNaN(converted) || converted !== Math.floor(converted) || converted < MIN_DURATION) {
+    return `Talent as a Service engagements have a ${MIN_DURATION} week minimum commitment.`;
+  }
+
+  return undefined;
+}
 
 /**
  * return edit job configuration
@@ -92,6 +104,7 @@ export const getEditJobConfig = (
         placeholder: "Duration",
         disabled: onlyEnableStatus,
         step: 1,
+        customValidator: validateDuration,
       },
       {
         label: "Resource Type",
