@@ -133,6 +133,7 @@ export const CANDIDATE_STATUS_FILTERS = [
     title: "Candidates to Review",
     noCandidateMessage: "No Candidates To Review",
     statuses: [CANDIDATE_STATUS.OPEN],
+    urlParam: "to-review",
   },
   {
     key: CANDIDATE_STATUS_FILTER_KEY.INTERESTED,
@@ -140,6 +141,7 @@ export const CANDIDATE_STATUS_FILTERS = [
     title: "Interviews",
     noCandidateMessage: "No Interviews",
     statuses: [CANDIDATE_STATUS.INTERVIEW],
+    urlParam: "interviews",
   },
   {
     key: CANDIDATE_STATUS_FILTER_KEY.SELECTED,
@@ -147,6 +149,7 @@ export const CANDIDATE_STATUS_FILTERS = [
     title: "Selected",
     noCandidateMessage: "No Selected Candidates",
     statuses: [CANDIDATE_STATUS.SELECTED, CANDIDATE_STATUS.OFFERED],
+    urlParam: "selected",
   },
   {
     key: CANDIDATE_STATUS_FILTER_KEY.NOT_INTERESTED,
@@ -160,6 +163,7 @@ export const CANDIDATE_STATUS_FILTERS = [
       CANDIDATE_STATUS.TOPCODER_REJECTED,
       CANDIDATE_STATUS.JOB_CLOSED,
     ],
+    urlParam: "declined",
   },
 ];
 
