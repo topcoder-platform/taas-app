@@ -111,6 +111,7 @@ export const CANDIDATE_STATUS = {
   TOPCODER_REJECTED: "topcoder-rejected",
   JOB_CLOSED: "job-closed",
   OFFERED: "offered",
+  WITHDRAWN: "withdrawn",
 };
 
 /**
@@ -159,6 +160,7 @@ export const CANDIDATE_STATUS_FILTERS = [
       CANDIDATE_STATUS.REJECTED_OTHER,
       CANDIDATE_STATUS.TOPCODER_REJECTED,
       CANDIDATE_STATUS.JOB_CLOSED,
+      CANDIDATE_STATUS.WITHDRAWN,
     ],
   },
 ];
