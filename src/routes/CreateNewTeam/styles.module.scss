@@ -11,8 +11,15 @@
   }
 }
 
-@media only screen and (max-height: 820px) {
+@media only screen and (max-height: 859px) {
   .logos {
-    display: none;
+    position: relative;
+    width: 100vw;
+  }
+}
+
+@media only screen and (max-height: 859px) and (min-width: 1024px) {
+  .logos {
+    left: -270px;
   }
 }

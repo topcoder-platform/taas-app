@@ -32,7 +32,7 @@ export default function Root() {
           <JobForm path="/taas/myteams/:teamId/positions/new" />
           <ResourceBookingDetails path="/taas/myteams/:teamId/rb/:resourceBookingId" />
           <ResourceBookingForm path="/taas/myteams/:teamId/rb/:resourceBookingId/edit" />
-          <PositionDetails path="/taas/myteams/:teamId/positions/:positionId/candidates" />
+          <PositionDetails path="/taas/myteams/:teamId/positions/:positionId/candidates/*candidateStatus" />
           <TeamAccess path="/taas/myteams/:teamId/access" />
           <CreateNewTeam path="/taas/createnewteam">
             <CreateTeamLanding path="/" />

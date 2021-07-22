@@ -17,6 +17,7 @@
 
 .scrolling-logos {
   background-image: url("../../assets/images/customer-logos.svg");
+  background-size: cover;
   height: 60px;
   width: 100%;
   animation: scroll 300s linear infinite;
@@ -41,5 +42,15 @@
     top: 0;
     width: 60px;
     z-index: 2;
+  }
+}
+
+@media only screen and (max-height: 859px) {
+  .scrolling-logos {
+    height: 30px;
+  }
+  .title {
+    font-size: 16px;
+    margin-bottom: 15px;
   }
 }
