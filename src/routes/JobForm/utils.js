@@ -27,7 +27,7 @@ const EDIT_JOB_ROWS = [
 ];
 
 const validateDuration = (x, y, {duration}) => {
-  if (duration === undefined) return undefined;
+  if (!duration) return undefined;
   const converted = Number(duration);
 
   if (isNaN(converted) || converted < MIN_DURATION) {
