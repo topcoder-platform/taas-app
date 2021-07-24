@@ -5,6 +5,7 @@
  */
 import React, { useCallback, useEffect, useState } from "react";
 import PT from "prop-types";
+import { navigate } from "@reach/router";
 import Page from "components/Page";
 import LoadingIndicator from "components/LoadingIndicator";
 import PageHeader from "components/PageHeader";
@@ -39,9 +40,9 @@ const PositionDetails = ({ teamId, positionId, candidateStatus }) => {
 
   const onCandidateStatusChange = useCallback(
     (statusFilter) => {
-      setCandidateStatusFilterKey(statusFilter.key);
+      navigate(`/taas/myteams/${teamId}/positions/${positionId}/candidates/${statusFilter.urlParam}`);
     },
-    [setCandidateStatusFilterKey]
+    [teamId, positionId]
   );
 
   // if there are some candidates to review, then show "To Review" tab by default
