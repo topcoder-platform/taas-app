@@ -17,13 +17,13 @@ import { toastr } from "react-redux-toastr";
 import { navigate } from "@reach/router";
 import ResultCard from "../ResultCard";
 import AddedRolesAccordion from "../AddedRolesAccordion";
-import Completeness from "../Completeness";
+import Progress from "../Progress";
 import AddAnotherModal from "../AddAnotherModal";
 import TeamDetailsModal from "../TeamDetailsModal";
 import ConfirmationModal from "../ConfirmationModal";
 import withAuthentication from "../../../../hoc/withAuthentication";
 import "./styles.module.scss";
-import { isCustomRole, setCurrentStage } from "utils/helpers";
+import { isCustomRole, isUuid, setCurrentStage } from "utils/helpers";
 import { clearSearchedRoles } from "../../actions";
 import { postTeamRequest } from "services/teams";
 import NoMatchingProfilesResultCard from "../NoMatchingProfilesResultCard";
@@ -31,7 +31,7 @@ import NoMatchingProfilesResultCard from "../NoMatchingProfilesResultCard";
 function SubmitContainer({
   stages,
   setStages,
-  completenessStyle,
+  progressStyle,
   matchingRole,
   addedRoles,
 }) {
@@ -65,11 +65,15 @@ function SubmitContainer({
   };
 
   const assembleTeam = (formData) => {
-    const teamObject = _.pick(formData, ["teamName", "teamDescription"]);
+    const teamObject = _.pick(formData, [
+      "teamName",
+      "teamDescription",
+      "refCode",
+    ]);
 
     const positions = [];
     for (let key of Object.keys(formData)) {
-      if (key === "teamName" || key === "teamDescription") {
+      if (!isUuid(key)) {
         continue;
       }
       const position = _.mapValues(formData[key], (val, key) =>
@@ -116,10 +120,10 @@ function SubmitContainer({
       )}
       <div styleName="right-side">
         <AddedRolesAccordion addedRoles={addedRoles} />
-        <Completeness
+        <Progress
           onClick={() => setAddAnotherOpen(true)}
-          extraStyleName={completenessStyle}
-          buttonLabel="Submit Request"
+          extraStyleName={progressStyle}
+          buttonLabel="Continue"
           stages={stages}
           percentage="98"
         />
@@ -150,7 +154,7 @@ function SubmitContainer({
 SubmitContainer.propTypes = {
   stages: PT.array,
   setStages: PT.func,
-  completenessStyle: PT.string,
+  progressStyle: PT.string,
   addedRoles: PT.array,
   matchingRole: PT.object,
 };

@@ -5,6 +5,7 @@
  */
 import React, { useCallback, useEffect, useState } from "react";
 import PT from "prop-types";
+import { navigate } from "@reach/router";
 import Page from "components/Page";
 import LoadingIndicator from "components/LoadingIndicator";
 import PageHeader from "components/PageHeader";
@@ -22,7 +23,12 @@ const inReviewStatusFilter = _.find(CANDIDATE_STATUS_FILTERS, {
   key: CANDIDATE_STATUS_FILTER_KEY.TO_REVIEW,
 });
 
-const PositionDetails = ({ teamId, positionId }) => {
+const getKeyFromParam = (urlParam) => {
+  const filter = _.find(CANDIDATE_STATUS_FILTERS, { urlParam });
+  return filter?.key || undefined;
+}
+
+const PositionDetails = ({ teamId, positionId, candidateStatus }) => {
   // by default show "interested" tab
   const [candidateStatusFilterKey, setCandidateStatusFilterKey] = useState(
     CANDIDATE_STATUS_FILTER_KEY.INTERESTED
@@ -34,22 +40,25 @@ const PositionDetails = ({ teamId, positionId }) => {
 
   const onCandidateStatusChange = useCallback(
     (statusFilter) => {
-      setCandidateStatusFilterKey(statusFilter.key);
+      navigate(`/taas/myteams/${teamId}/positions/${positionId}/candidates/${statusFilter.urlParam}`);
     },
-    [setCandidateStatusFilterKey]
+    [teamId, positionId]
   );
 
   // if there are some candidates to review, then show "To Review" tab by default
   useEffect(() => {
-    if (
-      position &&
-      _.filter(position.candidates, (candidate) =>
+    if (position) {
+      const key = getKeyFromParam(candidateStatus);
+      if (key) {
+        setCandidateStatusFilterKey(key);
+      } else if (_.filter(position.candidates, (candidate) =>
         inReviewStatusFilter.statuses.includes(candidate.status)
-      ).length > 0
-    ) {
-      setCandidateStatusFilterKey(CANDIDATE_STATUS_FILTER_KEY.TO_REVIEW);
+        ).length > 0
+      ) {
+        setCandidateStatusFilterKey(CANDIDATE_STATUS_FILTER_KEY.TO_REVIEW);
+      }
     }
-  }, [position]);
+  }, [position, candidateStatus]);
 
   return (
     <Page title="Job Details">

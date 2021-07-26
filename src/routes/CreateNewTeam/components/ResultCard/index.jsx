@@ -12,6 +12,7 @@ import IconEarthCheck from "../../../../assets/images/icon-earth-check.svg";
 import IconMultipleUsers from "../../../../assets/images/icon-multiple-users.svg";
 import IconMultipleActionsCheck from "../../../../assets/images/icon-multiple-actions-check-2.svg";
 import IconTeamMeetingChat from "../../../../assets/images/icon-team-meeting-chat.svg";
+import EditRoleForm from "../EditRoleForm";
 import Curve from "../../../../assets/images/curve.svg";
 import CircularProgressBar from "../CircularProgressBar";
 import Button from "components/Button";
@@ -26,7 +27,7 @@ function formatPercent(value) {
   return `${Math.round(value * 100)}%`;
 }
 
-function ResultCard({ role }) {
+function ResultCard({ role, currentRole, onSaveEditRole }) {
   const {
     numberOfMembersAvailable,
     isExternalMember,
@@ -78,10 +79,10 @@ function ResultCard({ role }) {
         </Button>
       </div>
       {showRates && !isExternalMember && (
-        <div styleName="xeno-rates">
+        <div styleName="wipro-rates">
           {userHandle && (
             <p styleName="greeting-txt">
-              Hi {userHandle}, we have special rates for you as a Xeno User!
+              Hi {userHandle}, we have special rates for you as a Wipro User!
             </p>
           )}
           <div styleName="rates">
@@ -97,8 +98,15 @@ function ResultCard({ role }) {
                   <p>/Week</p>
                 </div>
               </div>
-              <div styleName="in-country">
-                <h4>In-Country Rate</h4>
+              <div styleName="global-niche">
+                <h4>Global Niche Rate</h4>
+                <div styleName="cost">
+                  <h4>{formatRate(rates.niche)}</h4>
+                  <p>/Week</p>
+                </div>
+              </div>
+              <div styleName="offshore-niche">
+                <h4>Offshore Niche Rate</h4>
                 <div styleName="cost">
                   <h4>{formatRate(rates.inCountry)}</h4>
                   <p>/Week</p>
@@ -124,8 +132,15 @@ function ResultCard({ role }) {
                   <p>/Week</p>
                 </div>
               </div>
-              <div styleName="in-country">
-                <h4>In-Country Rate</h4>
+              <div styleName="global-niche">
+                <h4>Global Niche Rate</h4>
+                <div styleName="cost">
+                  <h4>{formatRate(rates.rate30Niche)}</h4>
+                  <p>/Week</p>
+                </div>
+              </div>
+              <div styleName="offshore-niche">
+                <h4>Offshore Niche Rate</h4>
                 <div styleName="cost">
                   <h4>{formatRate(rates.rate30InCountry)}</h4>
                   <p>/Week</p>
@@ -151,8 +166,16 @@ function ResultCard({ role }) {
                   <p>/Week</p>
                 </div>
               </div>
-              <div styleName="in-country">
-                <h4>In-Country Rate</h4>
+
+              <div styleName="global-niche">
+                <h4>Global Niche Rate</h4>
+                <div styleName="cost">
+                  <h4>{formatRate(rates.rate20Niche)}</h4>
+                  <p>/Week</p>
+                </div>
+              </div>
+              <div styleName="offshore-niche">
+                <h4>Offshore Niche Rate</h4>
                 <div styleName="cost">
                   <h4>{formatRate(rates.rate20InCountry)}</h4>
                   <p>/Week</p>
@@ -245,20 +268,9 @@ function ResultCard({ role }) {
               <p>Members matched</p>
             </div>
           </div>
-          <div styleName="footer">
-            <p>
-              <span>60%</span> of members are available 20 hours / week (part
-              time)
-            </p>
-            <p>
-              <span>20%</span> of members are available 30 hours / week (part
-              time)
-            </p>
-            <p>
-              <span>10%</span> of members are available 40 hours / week (full
-              time)
-            </p>
-          </div>
+          {currentRole && (
+            <EditRoleForm role={currentRole} onChange={onSaveEditRole} />
+          )}
         </div>
       )}
     </div>
@@ -267,6 +279,8 @@ function ResultCard({ role }) {
 
 ResultCard.propTypes = {
   role: PT.object,
+  currentRole: PT.object,
+  onSaveEditRole: PT.func,
 };
 
 export default ResultCard;

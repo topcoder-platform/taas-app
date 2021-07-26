@@ -111,6 +111,7 @@ export const CANDIDATE_STATUS = {
   TOPCODER_REJECTED: "topcoder-rejected",
   JOB_CLOSED: "job-closed",
   OFFERED: "offered",
+  WITHDRAWN: "withdrawn",
 };
 
 /**
@@ -133,6 +134,7 @@ export const CANDIDATE_STATUS_FILTERS = [
     title: "Candidates to Review",
     noCandidateMessage: "No Candidates To Review",
     statuses: [CANDIDATE_STATUS.OPEN],
+    urlParam: "to-review",
   },
   {
     key: CANDIDATE_STATUS_FILTER_KEY.INTERESTED,
@@ -140,6 +142,7 @@ export const CANDIDATE_STATUS_FILTERS = [
     title: "Interviews",
     noCandidateMessage: "No Interviews",
     statuses: [CANDIDATE_STATUS.INTERVIEW],
+    urlParam: "interviews",
   },
   {
     key: CANDIDATE_STATUS_FILTER_KEY.SELECTED,
@@ -147,6 +150,7 @@ export const CANDIDATE_STATUS_FILTERS = [
     title: "Selected",
     noCandidateMessage: "No Selected Candidates",
     statuses: [CANDIDATE_STATUS.SELECTED, CANDIDATE_STATUS.OFFERED],
+    urlParam: "selected",
   },
   {
     key: CANDIDATE_STATUS_FILTER_KEY.NOT_INTERESTED,
@@ -159,7 +163,9 @@ export const CANDIDATE_STATUS_FILTERS = [
       CANDIDATE_STATUS.REJECTED_OTHER,
       CANDIDATE_STATUS.TOPCODER_REJECTED,
       CANDIDATE_STATUS.JOB_CLOSED,
+      CANDIDATE_STATUS.WITHDRAWN,
     ],
+    urlParam: "declined",
   },
 ];
 
@@ -264,6 +270,7 @@ export const ACTION_TYPE = {
    */
   ADD_MATCHING_ROLE: "ADD_MATCHING_ROLE",
   DELETE_MATCHING_ROLE: "DELETE_MATCHING_ROLE",
+  EDIT_MATCHING_ROLE: "EDIT_MATCHING_ROLE",
 };
 
 /**
@@ -366,3 +373,8 @@ export const MAX_ALLOWED_INTERVIEWS = 3;
  * Custom role names to remove from RoleList component
  */
 export const CUSTOM_ROLE_NAMES = ["custom", "niche"];
+
+/**
+ * Minimal Resource Booking duration (weeks)
+ */
+export const MIN_DURATION = 4;

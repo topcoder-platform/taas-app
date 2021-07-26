@@ -10,6 +10,7 @@ import JobDetails from "./routes/JobDetails";
 import JobForm from "./routes/JobForm";
 import TeamAccess from "./routes/TeamAccess";
 import CreateNewTeam from "./routes/CreateNewTeam";
+import CreateTeamLanding from "./routes/CreateNewTeam/pages/CreateTeamLanding";
 import InputSkills from "./routes/CreateNewTeam/pages/InputSkills";
 import InputJobDescription from "./routes/CreateNewTeam/pages/InputJobDescription";
 import SelectRole from "./routes/CreateNewTeam/pages/SelectRole";
@@ -25,18 +26,20 @@ export default function Root() {
         <Router>
           <Redirect from="/taas" to="/taas/myteams" exact />
           <MyTeamsList path="/taas/myteams" />
-          <CreateNewTeam path="/taas/createnewteam" />
           <MyTeamsDetails path="/taas/myteams/:teamId" />
           <JobDetails path="/taas/myteams/:teamId/positions/:jobId" />
           <JobForm path="/taas/myteams/:teamId/positions/:jobId/edit" />
           <JobForm path="/taas/myteams/:teamId/positions/new" />
           <ResourceBookingDetails path="/taas/myteams/:teamId/rb/:resourceBookingId" />
           <ResourceBookingForm path="/taas/myteams/:teamId/rb/:resourceBookingId/edit" />
-          <PositionDetails path="/taas/myteams/:teamId/positions/:positionId/candidates" />
+          <PositionDetails path="/taas/myteams/:teamId/positions/:positionId/candidates/*candidateStatus" />
           <TeamAccess path="/taas/myteams/:teamId/access" />
-          <InputJobDescription path="/taas/createnewteam/jd/*" />
-          <InputSkills path="/taas/createnewteam/skills/*" />
-          <SelectRole path="/taas/createnewteam/role/*" />
+          <CreateNewTeam path="/taas/createnewteam">
+            <CreateTeamLanding path="/" />
+            <InputJobDescription path="jd/*" />
+            <InputSkills path="skills/*" />
+            <SelectRole path="role/*" />
+          </CreateNewTeam>
         </Router>
 
         {/* Global config for Toastr popups */}

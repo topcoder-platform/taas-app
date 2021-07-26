@@ -8,6 +8,7 @@ import React, { useCallback, useState } from "react";
 import PT from "prop-types";
 import SkillItem from "../SkillItem";
 import ItemList from "../../../../components/ItemList";
+import "./styles.module.scss";
 import { formatPlural } from "utils/format";
 
 function SkillsList({ skills, selectedSkills, toggleSkill }) {
@@ -38,6 +39,11 @@ function SkillsList({ skills, selectedSkills, toggleSkill }) {
           : null
       }
     >
+      <p styleName="subtitle">
+        Please select one or more essential skills you require your talent to
+        have. Topcoder will match to profiles which contain most or all of these
+        skills.
+      </p>
       {filteredSkills.map(({ id, name }) => (
         <SkillItem
           key={id}

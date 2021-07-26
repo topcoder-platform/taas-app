@@ -11,6 +11,7 @@ import FormField from "components/FormField";
 import BaseCreateModal from "../BaseCreateModal";
 import { FORM_FIELD_TYPE } from "constants/";
 import { formatPlural } from "utils/format";
+import { isUuid } from "utils/helpers";
 import Button from "components/Button";
 import MonthPicker from "components/MonthPicker";
 import InformationTooltip from "components/InformationTooltip";
@@ -28,7 +29,7 @@ const Error = ({ name }) => {
 };
 
 function TeamDetailsModal({ open, onClose, submitForm, addedRoles }) {
-  const [showDescription, setShowDescription] = useState(false);
+  const [showAdvanced, setShowAdvanced] = useState(false);
   const [startMonthVisible, setStartMonthVisible] = useState({});
 
   // Ensure role is removed from form state when it is removed from redux store
@@ -37,7 +38,7 @@ function TeamDetailsModal({ open, onClose, submitForm, addedRoles }) {
   useEffect(() => {
     const values = getFormState().values;
     for (let fieldName of Object.keys(values)) {
-      if (fieldName === "teamName" || fieldName === "teamDescription") {
+      if (!isUuid(fieldName)) {
         continue;
       }
       if (addedRoles.findIndex((role) => role.searchId === fieldName) === -1) {
@@ -49,8 +50,8 @@ function TeamDetailsModal({ open, onClose, submitForm, addedRoles }) {
 
   const dispatch = useDispatch();
 
-  const toggleDescription = () => {
-    setShowDescription((prevState) => !prevState);
+  const toggleAdvanced = () => {
+    setShowAdvanced((prevState) => !prevState);
   };
 
   return (
@@ -78,7 +79,7 @@ function TeamDetailsModal({ open, onClose, submitForm, addedRoles }) {
             open={open}
             onClose={onClose}
             title="Team Details"
-            subtitle="Please provide your team details before submitting a request."
+            subtitle="Please provide a name for your Team. This could be the name of the project they will work on, the name of the team they are joining, or whatever else will make this talent request meaningful for you."
             buttons={
               <Button
                 type="primary"
@@ -102,26 +103,38 @@ function TeamDetailsModal({ open, onClose, submitForm, addedRoles }) {
                   customValidator: true,
                 }}
               />
-              {showDescription && (
-                <FormField
-                  field={{
-                    type: FORM_FIELD_TYPE.TEXTAREA,
-                    name: "teamDescription",
-                    label: "Short description about the team/ project",
-                    placeholder: "Short description about the team/ project",
-                    maxLength: 600,
-                  }}
-                />
+              {showAdvanced && (
+                <>
+                  <FormField
+                    field={{
+                      type: FORM_FIELD_TYPE.TEXTAREA,
+                      name: "teamDescription",
+                      label: "Short description about the team/ project",
+                      placeholder: "Short description about the team/ project",
+                      maxLength: 600,
+                    }}
+                  />
+                  <FormField
+                    field={{
+                      type: FORM_FIELD_TYPE.TEXT,
+                      name: "refCode",
+                      label: "Ref Code",
+                      placeholder: "Ref Code",
+                      maxLength: 255,
+                    }}
+                  />
+                </>
               )}
               <button
-                styleName="toggle-button toggle-description"
+                styleName="toggle-button toggle-advanced"
                 onClick={() => {
                   clearField("teamDescription");
-                  toggleDescription();
+                  clearField("refCode");
+                  toggleAdvanced();
                 }}
               >
-                <span>{showDescription ? "–" : "+"}</span>
-                {showDescription ? " Remove Description" : " Add Description"}
+                <span>{showAdvanced ? "– " : "+ "}</span>
+                Advanced Options
               </button>
               <table styleName="table">
                 <tr>
@@ -133,100 +146,108 @@ function TeamDetailsModal({ open, onClose, submitForm, addedRoles }) {
                   <th>Start month</th>
                   <th></th>
                 </tr>
-                {addedRoles.map(({ searchId: id, name }) => (
-                  <tr styleName="role-row" key={id}>
-                    <td>{name}</td>
-                    <td>
-                      <Field
-                        validate={validateExists}
-                        name={`${id}.numberOfResources`}
-                        initialValue="3"
-                      >
-                        {({ input, meta }) => (
-                          <NumberInput
-                            name={input.name}
-                            value={input.value}
-                            onChange={input.onChange}
-                            onBlur={input.onBlur}
-                            onFocus={input.onFocus}
-                            min="1"
-                            error={meta.touched && meta.error}
-                          />
+                {addedRoles.map(
+                  ({
+                    searchId: id,
+                    name,
+                    numberOfResources,
+                    durationWeeks,
+                    startMonth,
+                  }) => (
+                    <tr styleName="role-row" key={id}>
+                      <td>{name}</td>
+                      <td>
+                        <Field
+                          validate={validateExists}
+                          name={`${id}.numberOfResources`}
+                          initialValue={numberOfResources || 1}
+                        >
+                          {({ input, meta }) => (
+                            <NumberInput
+                              name={input.name}
+                              value={input.value}
+                              onChange={input.onChange}
+                              onBlur={input.onBlur}
+                              onFocus={input.onFocus}
+                              min="1"
+                              error={meta.touched && meta.error}
+                            />
+                          )}
+                        </Field>
+                        <Error name={`${id}.numberOfResources`} />
+                      </td>
+                      <td>
+                        <Field
+                          validate={validateExists}
+                          name={`${id}.durationWeeks`}
+                          initialValue={durationWeeks || 4}
+                        >
+                          {({ input, meta }) => (
+                            <NumberInput
+                              name={input.name}
+                              value={input.value}
+                              onChange={input.onChange}
+                              onBlur={input.onBlur}
+                              onFocus={input.onFocus}
+                              min="4"
+                              error={meta.touched && meta.error}
+                            />
+                          )}
+                        </Field>
+                        <Error name={`${id}.durationWeeks`} />
+                      </td>
+                      <td>
+                        {startMonth || startMonthVisible[id] ? (
+                          <>
+                            <Field
+                              name={`${id}.startMonth`}
+                              initialValue={new Date(startMonth).getTime()}
+                            >
+                              {(props) => (
+                                <MonthPicker
+                                  name={props.input.name}
+                                  value={props.input.value}
+                                  onChange={props.input.onChange}
+                                  onBlur={props.input.onBlur}
+                                  onFocus={props.input.onFocus}
+                                />
+                              )}
+                            </Field>
+                            <Error name={`${id}.startMonth`} />
+                          </>
+                        ) : (
+                          <div styleName="flex-container">
+                            <button
+                              styleName="toggle-button"
+                              onClick={() =>
+                                setStartMonthVisible((prevState) => ({
+                                  ...prevState,
+                                  [id]: true,
+                                }))
+                              }
+                            >
+                              Add Start Month
+                            </button>
+                            <InformationTooltip
+                              iconSize="14px"
+                              text="Requested start month for this position."
+                            />
+                          </div>
                         )}
-                      </Field>
-                      <Error name={`${id}.numberOfResources`} />
-                    </td>
-                    <td>
-                      <Field
-                        validate={validateExists}
-                        name={`${id}.durationWeeks`}
-                        initialValue="20"
-                      >
-                        {({ input, meta }) => (
-                          <NumberInput
-                            name={input.name}
-                            value={input.value}
-                            onChange={input.onChange}
-                            onBlur={input.onBlur}
-                            onFocus={input.onFocus}
-                            min="1"
-                            error={meta.touched && meta.error}
-                          />
-                        )}
-                      </Field>
-                      <Error name={`${id}.durationWeeks`} />
-                    </td>
-                    <td>
-                      {startMonthVisible[id] ? (
-                        <>
-                          <Field
-                            name={`${id}.startMonth`}
-                            initialValue={Date.now()}
-                          >
-                            {(props) => (
-                              <MonthPicker
-                                name={props.input.name}
-                                value={props.input.value}
-                                onChange={props.input.onChange}
-                                onBlur={props.input.onBlur}
-                                onFocus={props.input.onFocus}
-                              />
-                            )}
-                          </Field>
-                          <Error name={`${id}.startMonth`} />
-                        </>
-                      ) : (
-                        <div styleName="flex-container">
-                          <button
-                            styleName="toggle-button"
-                            onClick={() =>
-                              setStartMonthVisible((prevState) => ({
-                                ...prevState,
-                                [id]: true,
-                              }))
-                            }
-                          >
-                            Add Start Month
-                          </button>
-                          <InformationTooltip
-                            iconSize="14px"
-                            text="Requested start month for this position."
-                          />
-                        </div>
-                      )}
-                    </td>
-                    <td>
-                      <button
-                        styleName="delete-role"
-                        onClick={() => {
-                          dispatch(deleteSearchedRole(id));
-                        }}
-                      >
-                        <IconCrossLight height="12px" width="12px" />
-                      </button>
-                    </td>
-                  </tr>
-                ))}
+                      </td>
+                      <td>
+                        <button
+                          styleName="delete-role"
+                          onClick={() => {
+                            dispatch(deleteSearchedRole(id));
+                          }}
+                        >
+                          <IconCrossLight height="12px" width="12px" />
+                        </button>
+                      </td>
+                    </tr>
+                  )
+                )}
               </table>
             </div>
           </BaseCreateModal>

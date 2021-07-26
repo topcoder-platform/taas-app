@@ -1,5 +1,8 @@
-import { isUuid } from "utils/helpers";
-import { MIN_DURATION } from "constants";
+const composeValidators = (...validators) => (value) =>
+  validators.reduce((error, validator) => error || validator(value), undefined);
+
+const validateMin = (min, message) => (value) =>
+  isNaN(value) || value >= min ? undefined : message;
 
 const validateName = (name) => {
   if (!name || name.trim().length === 0) {
@@ -21,15 +24,6 @@ const validateNumber = (number) => {
   return undefined;
 };
 
-const validateGreaterThan = (number, min) => {
-  const isInvalidNum = validateNumber(number);
-  if (isInvalidNum) return isInvalidNum;
-
-  return number < min
-    ? `Talent as a Service engagements have a ${MIN_DURATION} week minimum commitment.`
-    : undefined;
-};
-
 const validateMonth = (monthString) => {
   const then = new Date(monthString);
   const now = new Date();
@@ -44,10 +38,10 @@ const validateMonth = (monthString) => {
   return undefined;
 };
 
-const validateRole = (role) => {
+const validator = (role) => {
   const roleErrors = {};
   roleErrors.numberOfResources = validateNumber(role.numberOfResources);
-  roleErrors.durationWeeks = validateGreaterThan(role.durationWeeks, MIN_DURATION);
+  roleErrors.durationWeeks = validateNumber(role.durationWeeks);
   if (role.startMonth) {
     roleErrors.startMonth = validateMonth(role.startMonth);
   }
@@ -55,21 +49,8 @@ const validateRole = (role) => {
   return roleErrors;
 };
 
-const validator = (values) => {
-  const errors = {};
-
-  errors.teamName = validateName(values.teamName);
-
-  for (const key of Object.keys(values)) {
-    if (!isUuid(key)) continue;
-    errors[key] = validateRole(values[key]);
-  }
-
-  return errors;
-};
-
 const validateExists = (value) => {
   return value === undefined ? "Please enter a positive integer" : undefined;
 };
 
-export { validator, validateExists };
+export { validator, validateExists, validateMin, composeValidators };

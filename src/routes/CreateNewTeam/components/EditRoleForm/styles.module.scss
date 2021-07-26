@@ -10,7 +10,7 @@
   color: #137D60;
   padding: 1px 6px 0 6px;
 
-  &.toggle-advanced {
+  &.toggle-description {
     margin-top: 12px;
     > span {
       font-size: 18px;
@@ -21,6 +21,7 @@
 
 .table {
   margin-top: 40px;
+  width: 100%;
   th {
     @include font-roboto;
     font-size: 12px;
@@ -35,7 +36,13 @@
 
   .role-row {
     td {
+      > div {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
       padding: 18px 18px 18px 0;
+      width: 30%;
       vertical-align: top;
       @include font-barlow;
       font-weight: 600;
@@ -89,8 +96,12 @@
   }
 }
 
-.modal-body {
-  overflow-x: auto;
+.table-container {
+  > button {
+    margin: 0 auto;
+  }
+  padding: 0 30px;
+  width: 80%;
   textarea {
     height: 95px;
   }
