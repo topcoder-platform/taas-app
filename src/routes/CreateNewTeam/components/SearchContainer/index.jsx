@@ -46,12 +46,12 @@ function SearchContainer({
 
   const onSaveEditRole = useCallback(
     (isValid, role) => {
-      setButtonClickable(isValid)
+      setButtonClickable(isValid);
       if (isValid) {
         dispatch(editRoleAction({ ...role, searchId: previousSearchId }));
       }
     },
-    [addedRoles, previousSearchId]
+    [dispatch, previousSearchId]
   );
 
   const onSubmit = useCallback(() => {

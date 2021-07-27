@@ -75,3 +75,8 @@ export const clearMatchingRole = () => (dispatch, getState) => {
   dispatch(deleteMatchingRole());
   updateLocalStorage(getState().searchedRoles);
 };
+
+export const setIsLoading = (isLoading) => ({
+  type: ACTION_TYPE.SET_IS_LOADING,
+  payload: isLoading,
+});

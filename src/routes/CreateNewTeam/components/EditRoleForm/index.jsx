@@ -13,13 +13,14 @@ import InformationTooltip from "components/InformationTooltip";
 import IconCrossLight from "../../../../assets/images/icon-cross-light.svg";
 import "./styles.module.scss";
 import NumberInput from "components/NumberInput";
+import Select from "components/Select";
 import {
   validator,
   validateExists,
   validateMin,
   composeValidators,
 } from "./utils/validator";
-import { MIN_DURATION } from "constants";
+import { MIN_DURATION, FULL_OR_PART_TIME_OPTIONS } from "constants";
 
 const Error = ({ name }) => {
   const {
@@ -33,7 +34,7 @@ function EditRoleForm({ onChange, role }) {
   const onRoleChange = (state) => {
     if (state.hasValidationErrors) {
       onChange(false);
-    }else {
+    } else {
       onChange(true, state.values);
     }
   };
@@ -61,11 +62,15 @@ function EditRoleForm({ onChange, role }) {
                 <th># of resources</th>
                 <th>Duration (weeks)</th>
                 <th>Start month</th>
+                <th>Full or Part Time</th>
               </tr>
               <tr styleName="role-row">
                 <td>
                   <Field
-                    validate={composeValidators(validateExists, validateMin(1, 'Should be 1 or greater'))}
+                    validate={composeValidators(
+                      validateExists,
+                      validateMin(1, "Should be 1 or greater")
+                    )}
                     name="numberOfResources"
                     initialValue={role.numberOfResources}
                   >
@@ -88,7 +93,13 @@ function EditRoleForm({ onChange, role }) {
                 </td>
                 <td>
                   <Field
-                    validate={composeValidators(validateExists, validateMin(MIN_DURATION, `Talent as a Service engagements have a ${MIN_DURATION} week minimum commitment.`))}
+                    validate={composeValidators(
+                      validateExists,
+                      validateMin(
+                        MIN_DURATION,
+                        `Talent as a Service engagements have a ${MIN_DURATION} week minimum commitment.`
+                      )
+                    )}
                     name="durationWeeks"
                     initialValue={role.durationWeeks}
                   >
@@ -142,6 +153,22 @@ function EditRoleForm({ onChange, role }) {
                       />
                     </div>
                   )}
+                </td>
+                <td>
+                  <Field name="hoursPerWeek" initialValue={"40"}>
+                    {(props) => (
+                      <Select
+                        name={props.input.name}
+                        value={props.input.value}
+                        onChange={(v) => {
+                          props.input.onChange(v);
+                          onRoleChange(getState());
+                        }}
+                        options={FULL_OR_PART_TIME_OPTIONS}
+                        styleName="select"
+                      />
+                    )}
+                  </Field>
                 </td>
               </tr>
             </table>

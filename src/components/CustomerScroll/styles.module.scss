@@ -10,45 +10,15 @@
   margin-bottom: 30px;
 }
 
-@keyframes scroll {
-  from {background-position: 0 0;}
-  to {background-position: -7701px 0;}
-}
-
-.scrolling-logos {
+.customer-logos {
   background-image: url("../../assets/images/customer-logos.svg");
-  background-size: cover;
-  height: 60px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  height: 56px;
   width: 100%;
-  animation: scroll 300s linear infinite;
-  position: relative;
-
-  &:before {
-    background: linear-gradient(to right, #F4F5F6 0%, rgba(255, 255, 255, 0) 100%);
-    content: '';
-    height: 60px;
-    left: 0;
-    position: absolute;
-    top: 0;
-    width: 60px;
-    z-index: 2;
-  }
-  &:after {
-    background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, #F4F5F6 100%);
-    content: '';
-    height: 60px;
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 60px;
-    z-index: 2;
-  }
 }
 
 @media only screen and (max-height: 859px) {
-  .scrolling-logos {
-    height: 30px;
-  }
   .title {
     font-size: 16px;
     margin-bottom: 15px;

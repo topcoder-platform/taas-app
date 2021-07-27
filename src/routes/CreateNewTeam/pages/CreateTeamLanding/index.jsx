@@ -25,10 +25,11 @@ function CreateNewTeam() {
   };
 
   return (
-    <Page title="Create New Team">
-      <PageHeader title={<div styleName="title">Create New Team</div>} />
+    <Page title="Find your Talent">
+      <PageHeader title={<div styleName="title">Find your Talent</div>} />
       <p>
-        Please select how you want to find members that match your requirements.
+        Please select how you'd like to search the Topcoder community for a
+        perfect match.
       </p>
       <LandingBox
         title="Choose a Role"

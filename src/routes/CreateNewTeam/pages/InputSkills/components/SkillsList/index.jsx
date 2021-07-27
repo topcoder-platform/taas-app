@@ -50,7 +50,7 @@ function SkillsList({ skills, selectedSkills, toggleSkill }) {
           id={id}
           name={name}
           onClick={toggleSkill}
-          isSelected={selectedSkills.includes(id)}
+          isSelected={selectedSkills.findIndex((s) => s.id === id) > -1}
         />
       ))}
     </ItemList>

@@ -186,6 +186,15 @@ export const CANDIDATES_SORT_OPTIONS = [
 ];
 
 /**
+ * "Full or Part Time" select options
+ */
+export const FULL_OR_PART_TIME_OPTIONS = [
+  { label: "Full Time - 40hr/wk", value: "40" },
+  { label: "Part Time - 30hr/wk", value: "30" },
+  { label: "Part Time - 20hr/wk", value: "20" },
+];
+
+/**
  * All action types
  */
 export const ACTION_TYPE = {
@@ -271,6 +280,11 @@ export const ACTION_TYPE = {
   ADD_MATCHING_ROLE: "ADD_MATCHING_ROLE",
   DELETE_MATCHING_ROLE: "DELETE_MATCHING_ROLE",
   EDIT_MATCHING_ROLE: "EDIT_MATCHING_ROLE",
+
+  /*
+   * global loading state
+   */
+  SET_IS_LOADING: "SET_IS_LOADING",
 };
 
 /**
@@ -378,3 +392,8 @@ export const CUSTOM_ROLE_NAMES = ["custom", "niche"];
  * Minimal Resource Booking duration (weeks)
  */
 export const MIN_DURATION = 4;
+
+/**
+ * Maximum allowed numbers of selecter skills for search.
+ */
+export const MAX_SELECTED_SKILLS = 3;

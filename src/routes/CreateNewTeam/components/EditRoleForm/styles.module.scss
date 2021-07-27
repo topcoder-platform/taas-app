@@ -41,7 +41,14 @@
         margin-right: auto;
       }
 
-      padding: 18px 18px 18px 0;
+      .select {
+        border-radius: 4px;
+        width: 160px;
+        height: 34px;
+        font-size: 14px;
+      }
+
+      padding: 18px 9px;
       width: 30%;
       vertical-align: top;
       @include font-barlow;

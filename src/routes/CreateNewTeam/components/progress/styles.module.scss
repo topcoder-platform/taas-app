@@ -39,6 +39,7 @@
   font-size: 14px;
   line-height: 16px;
   font-weight: 400;
+  color: rgba(255, 255, 255, 0.6);
 
   &:before {
     content: "";
@@ -50,23 +51,26 @@
     margin-right: 10px;
     display: block;
     float: left;
+    visibility: hidden;
   }
 
   &.active {
     font-weight: 500;
+    color: #fff;
     &:before {
+      visibility: visible;
       background-color: #fff;
     }
   }
 
   &.done {
     font-weight: 400;
-    color: rgba(255, 255, 255, 0.6);
     &:before {
       content: "✓";
       font-size: 9px;
       line-height: 14px;
-      padding-left: 2px;
+      padding-left: 4px;
+      visibility: visible;
     }
   }
 }

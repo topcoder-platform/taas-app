@@ -18,8 +18,10 @@ const assets = require.context(
 function SkillItem({ id, name, onClick, isSelected }) {
   return (
     <div
+      role="button"
+      tabIndex="0"
       styleName={cn("item-card", { selected: isSelected })}
-      onClick={() => onClick(id)}
+      onClick={() => onClick({ id, name })}
     >
       {assets && assets.keys().includes(`./id-${id}.svg`) ? (
         <img

@@ -8,6 +8,7 @@ const loadState = () => {
     previousSearchId: undefined,
     addedRoles: [],
     matchingRole: undefined,
+    isLoading: false,
   };
   try {
     const state = localStorage.getItem("rolesState");
@@ -80,6 +81,12 @@ const reducer = (state = initialState, action) => {
 
     case ACTION_TYPE.DELETE_SEARCHED_ROLE:
       return deleteRoleInState(state, action.payload);
+
+    case ACTION_TYPE.SET_IS_LOADING:
+      return {
+        ...state,
+        isLoading: action.payload,
+      };
 
     default:
       return state;
