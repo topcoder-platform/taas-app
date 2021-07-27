@@ -1,0 +1,32 @@
+@import "styles/include";
+
+.list {
+  @include font-roboto;
+  font-size: 18px;
+  line-height: normal;
+  color: #2a2a2a;
+  align-self: center;
+  text-align: left;
+  li {
+    padding-right: 30px;
+    &:not(:last-child) {
+      margin-bottom: 5px;
+    }
+    label:hover {
+      color: rgba(#2a2a2a, 0.8);
+      font-weight: 700;
+    }
+  }
+}
+
+.max-selection {
+  @include font-roboto;
+  font-size: 14px;
+  color: #da0e0e;
+  padding-left: 30px;
+  margin-top: 15px;
+}
+
+.continue-button:disabled {
+  background-color: #997b7be6;
+}

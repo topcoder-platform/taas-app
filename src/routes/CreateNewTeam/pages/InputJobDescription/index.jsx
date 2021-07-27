@@ -11,7 +11,7 @@ import "./styles.module.scss";
 import SearchAndSubmit from "../../components/SearchAndSubmit";
 import TextInput from "components/TextInput";
 import { getSkillsByJobDescription } from "services/teams";
-import SkillListPopup from "./components/SkillListPopup";
+import SkillListPopup from "../../components/SkillListPopup";
 
 function InputJobDescription() {
   const [stages, setStages] = useState([
@@ -23,6 +23,7 @@ function InputJobDescription() {
   const [jobTitle, setJobTitle] = useState("");
   const [skills, setSkills] = useState([]);
   const [loadingSkills, setLoadingSkills] = useState(true);
+  const [selectedSkills, setSelectedSkills] = useState([]);
   const [popupOpen, setPopupOpen] = useState(false);
 
   const onEditChange = useCallback((value) => {
@@ -30,15 +31,13 @@ function InputJobDescription() {
   }, []);
 
   const searchObject = useMemo(() => {
-    if (jobTitle && jobTitle.length) {
-      return { jobDescription: jdString, jobTitle };
-    }
-    return { jobDescription: jdString };
-  }, [jobTitle, jdString]);
+    return { skills: selectedSkills };
+  }, [selectedSkills]);
 
   const onClick = useCallback(() => {
     setLoadingSkills(true);
     setSkills([]);
+    setSelectedSkills([]);
     setPopupOpen(true);
     getSkillsByJobDescription(jdString)
       .then((res) => {
@@ -51,6 +50,11 @@ function InputJobDescription() {
         setLoadingSkills(false);
       });
   }, [jdString]);
+
+  const onContinueClick = useCallback((searchFunc) => {
+    setLoadingSkills(true);
+    setTimeout(searchFunc, 100);
+  }, []);
 
   return (
     <SearchAndSubmit
@@ -94,11 +98,15 @@ function InputJobDescription() {
             }
           />
           <SkillListPopup
+            page="jd"
             open={popupOpen}
             onClose={() => setPopupOpen(false)}
             skills={skills}
+            selectedSkills={selectedSkills}
+            setSelectedSkills={setSelectedSkills}
             isLoading={loadingSkills}
-            onContinueClick={searchFunc}
+            loadingTxt={selectedSkills.length === 0 && "Loading skills..."}
+            onContinueClick={() => onContinueClick(searchFunc)}
           />
         </div>
       )}

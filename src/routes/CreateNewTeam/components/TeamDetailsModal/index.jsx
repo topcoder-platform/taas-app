@@ -9,10 +9,11 @@ import { Form, Field, useField } from "react-final-form";
 import { useDispatch } from "react-redux";
 import FormField from "components/FormField";
 import BaseCreateModal from "../BaseCreateModal";
-import { FORM_FIELD_TYPE } from "constants/";
+import { FORM_FIELD_TYPE, FULL_OR_PART_TIME_OPTIONS } from "constants/";
 import { formatPlural } from "utils/format";
 import { isUuid } from "utils/helpers";
 import Button from "components/Button";
+import Select from "components/Select";
 import MonthPicker from "components/MonthPicker";
 import InformationTooltip from "components/InformationTooltip";
 import { deleteSearchedRole } from "../../actions";
@@ -78,6 +79,7 @@ function TeamDetailsModal({ open, onClose, submitForm, addedRoles }) {
           <BaseCreateModal
             open={open}
             onClose={onClose}
+            maxWidth="830px"
             title="Team Details"
             subtitle="Please provide a name for your Team. This could be the name of the project they will work on, the name of the team they are joining, or whatever else will make this talent request meaningful for you."
             buttons={
@@ -144,6 +146,7 @@ function TeamDetailsModal({ open, onClose, submitForm, addedRoles }) {
                   <th># of resources</th>
                   <th>Duration (weeks)</th>
                   <th>Start month</th>
+                  <th>Full or Part Time</th>
                   <th></th>
                 </tr>
                 {addedRoles.map(
@@ -153,6 +156,7 @@ function TeamDetailsModal({ open, onClose, submitForm, addedRoles }) {
                     numberOfResources,
                     durationWeeks,
                     startMonth,
+                    hoursPerWeek,
                   }) => (
                     <tr styleName="role-row" key={id}>
                       <td>{name}</td>
@@ -234,6 +238,22 @@ function TeamDetailsModal({ open, onClose, submitForm, addedRoles }) {
                             />
                           </div>
                         )}
+                      </td>
+                      <td>
+                        <Field
+                          name={`${id}.hoursPerWeek`}
+                          initialValue={hoursPerWeek || 40}
+                        >
+                          {(props) => (
+                            <Select
+                              name={props.input.name}
+                              value={props.input.value}
+                              onChange={props.input.onChange}
+                              options={FULL_OR_PART_TIME_OPTIONS}
+                              styleName="select"
+                            />
+                          )}
+                        </Field>
                       </td>
                       <td>
                         <button

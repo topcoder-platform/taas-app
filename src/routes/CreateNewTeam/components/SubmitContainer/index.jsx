@@ -21,7 +21,7 @@ import Progress from "../Progress";
 import AddAnotherModal from "../AddAnotherModal";
 import TeamDetailsModal from "../TeamDetailsModal";
 import ConfirmationModal from "../ConfirmationModal";
-import withAuthentication from "../../../../hoc/withAuthentication";
+import { withBusinessAuthentication } from "../../../../hoc/withAuthentication";
 import "./styles.module.scss";
 import { isCustomRole, isUuid, setCurrentStage } from "utils/helpers";
 import { clearSearchedRoles } from "../../actions";
@@ -159,4 +159,4 @@ SubmitContainer.propTypes = {
   matchingRole: PT.object,
 };
 
-export default withAuthentication(SubmitContainer);
+export default withBusinessAuthentication(SubmitContainer);
