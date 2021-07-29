@@ -7,6 +7,7 @@
 import React, {
   useCallback,
   useEffect,
+  useMemo,
   useLayoutEffect,
   useState,
 } from "react";
@@ -24,7 +25,7 @@ import ConfirmationModal from "../ConfirmationModal";
 import { withBusinessAuthentication } from "../../../../hoc/withAuthentication";
 import "./styles.module.scss";
 import { isCustomRole, isUuid, setCurrentStage } from "utils/helpers";
-import { clearSearchedRoles } from "../../actions";
+import { clearSearchedRoles, editRoleAction } from "../../actions";
 import { postTeamRequest } from "services/teams";
 import NoMatchingProfilesResultCard from "../NoMatchingProfilesResultCard";
 
@@ -33,15 +34,30 @@ function SubmitContainer({
   setStages,
   progressStyle,
   matchingRole,
+  previousSearchId,
   addedRoles,
 }) {
   const [addAnotherOpen, setAddAnotherOpen] = useState(false);
   const [teamDetailsOpen, setTeamDetailsOpen] = useState(true);
   const [teamObject, setTeamObject] = useState(null);
   const [requestLoading, setRequestLoading] = useState(false);
+  const [buttonClickable, setButtonClickable] = useState(true);
 
   const dispatch = useDispatch();
 
+  const currentRole = useMemo(() => {
+    return _.find(addedRoles, { searchId: previousSearchId });
+  }, [addedRoles, previousSearchId]);
+
+  const onSaveEditRole = useCallback(
+    (isValid, role) => {
+      setButtonClickable(isValid);
+      if (isValid) {
+        dispatch(editRoleAction({ ...role, searchId: previousSearchId }));
+      }
+    },
+    [dispatch, previousSearchId]
+  );
   useEffect(() => {
     setCurrentStage(2, stages, setStages);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -114,7 +130,11 @@ function SubmitContainer({
   return (
     <div styleName="page">
       {!isCustomRole(matchingRole) ? (
-        <ResultCard role={matchingRole} />
+        <ResultCard
+          role={matchingRole}
+          onSaveEditRole={onSaveEditRole}
+          currentRole={currentRole}
+        />
       ) : (
         <NoMatchingProfilesResultCard role={matchingRole} />
       )}
@@ -123,6 +143,7 @@ function SubmitContainer({
         <Progress
           onClick={() => setAddAnotherOpen(true)}
           extraStyleName={progressStyle}
+          isDisabled={!buttonClickable}
           buttonLabel="Continue"
           stages={stages}
           percentage="98"
@@ -135,12 +156,14 @@ function SubmitContainer({
         onContinueClick={openTeamDetails}
         addAnother={addAnother}
       />
-      <TeamDetailsModal
-        open={teamDetailsOpen}
-        onClose={() => setTeamDetailsOpen(false)}
-        submitForm={assembleTeam}
-        addedRoles={addedRoles}
-      />
+      {teamDetailsOpen && (
+        <TeamDetailsModal
+          open={teamDetailsOpen}
+          onClose={() => setTeamDetailsOpen(false)}
+          submitForm={assembleTeam}
+          addedRoles={addedRoles}
+        />
+      )}
       <ConfirmationModal
         open={!!teamObject}
         onClose={() => setTeamObject(null)}
@@ -156,6 +179,7 @@ SubmitContainer.propTypes = {
   setStages: PT.func,
   progressStyle: PT.string,
   addedRoles: PT.array,
+  previousSearchId: PT.string,
   matchingRole: PT.object,
 };
 

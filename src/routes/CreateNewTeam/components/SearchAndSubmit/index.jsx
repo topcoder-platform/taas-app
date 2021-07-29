@@ -107,6 +107,7 @@ function SearchAndSubmit(props) {
       <SubmitContainer
         path="result"
         addedRoles={addedRoles}
+        previousSearchId={previousSearchId}
         matchingRole={matchingRole}
         {...props}
       />
