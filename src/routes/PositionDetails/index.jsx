@@ -6,6 +6,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import PT from "prop-types";
 import { navigate } from "@reach/router";
+import _ from "lodash";
 import Page from "components/Page";
 import LoadingIndicator from "components/LoadingIndicator";
 import PageHeader from "components/PageHeader";
@@ -26,7 +27,7 @@ const inReviewStatusFilter = _.find(CANDIDATE_STATUS_FILTERS, {
 const getKeyFromParam = (urlParam) => {
   const filter = _.find(CANDIDATE_STATUS_FILTERS, { urlParam });
   return filter?.key || undefined;
-}
+};
 
 const PositionDetails = ({ teamId, positionId, candidateStatus }) => {
   // by default show "interested" tab
@@ -40,25 +41,31 @@ const PositionDetails = ({ teamId, positionId, candidateStatus }) => {
 
   const onCandidateStatusChange = useCallback(
     (statusFilter) => {
-      navigate(`/taas/myteams/${teamId}/positions/${positionId}/candidates/${statusFilter.urlParam}`);
+      navigate(
+        `/taas/myteams/${teamId}/positions/${positionId}/candidates/${statusFilter.urlParam}`,
+        { replace: true }
+      );
     },
     [teamId, positionId]
   );
 
   // if there are some candidates to review, then show "To Review" tab by default
   useEffect(() => {
+    const key = getKeyFromParam(candidateStatus);
     if (position) {
-      const key = getKeyFromParam(candidateStatus);
       if (key) {
         setCandidateStatusFilterKey(key);
-      } else if (_.filter(position.candidates, (candidate) =>
-        inReviewStatusFilter.statuses.includes(candidate.status)
+      } else if (
+        _.filter(position.candidates, (candidate) =>
+          inReviewStatusFilter.statuses.includes(candidate.status)
         ).length > 0
       ) {
-        setCandidateStatusFilterKey(CANDIDATE_STATUS_FILTER_KEY.TO_REVIEW);
+        onCandidateStatusChange({ urlParam: "to-review" });
+      } else {
+        onCandidateStatusChange({ urlParam: "interviews" });
       }
     }
-  }, [position, candidateStatus]);
+  }, [position, candidateStatus, onCandidateStatusChange]);
 
   return (
     <Page title="Job Details">
