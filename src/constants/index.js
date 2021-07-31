@@ -397,3 +397,9 @@ export const MIN_DURATION = 4;
  * Maximum allowed numbers of selecter skills for search.
  */
 export const MAX_SELECTED_SKILLS = 3;
+
+/**
+ * Milliseconds for each stage of role search
+ * There are 3 stages, so total search takes 3x this number
+ */
+export const SEARCH_STAGE_TIME = 1500;

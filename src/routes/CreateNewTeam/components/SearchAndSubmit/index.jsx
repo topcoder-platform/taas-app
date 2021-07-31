@@ -2,6 +2,7 @@ import { Router, navigate } from "@reach/router";
 import _ from "lodash";
 import React, { useCallback, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { SEARCH_STAGE_TIME } from "constants/";
 import { searchRoles } from "services/teams";
 import { isCustomRole, setCurrentStage } from "utils/helpers";
 import {
@@ -14,7 +15,7 @@ import InputContainer from "../InputContainer";
 import SearchContainer from "../SearchContainer";
 import SubmitContainer from "../SubmitContainer";
 
-const SEARCHINGTIME = 1600;
+const SEARCHINGTIME = SEARCH_STAGE_TIME * 3 + 100;
 
 function SearchAndSubmit(props) {
   const { stages, setStages, searchObject, onClick, page } = props;
@@ -80,7 +81,9 @@ function SearchAndSubmit(props) {
             setCurrentStage(2, stages, setStages);
             setSearchState("done");
           },
-          Date.now() - searchingBegin > SEARCHINGTIME ? 0 : 1500
+          Date.now() - searchingBegin > SEARCHINGTIME
+            ? 0
+            : SEARCH_STAGE_TIME * 3
         );
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
