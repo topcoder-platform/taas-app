@@ -6,6 +6,7 @@
  */
 import React, { useState, useEffect } from "react";
 import PT from "prop-types";
+import _ from "lodash";
 import { getAuthUserProfile } from "@topcoder/micro-frontends-navbar-app";
 import "./styles.module.scss";
 import IconEarthCheck from "../../../../assets/images/icon-earth-check.svg";
@@ -15,6 +16,7 @@ import IconTeamMeetingChat from "../../../../assets/images/icon-team-meeting-cha
 import EditRoleForm from "../EditRoleForm";
 import Curve from "../../../../assets/images/curve.svg";
 import CircularProgressBar from "../CircularProgressBar";
+import SkillTag from "../SkillTag";
 import Button from "components/Button";
 import { formatMoney } from "utils/format";
 
@@ -27,7 +29,13 @@ function formatPercent(value) {
   return `${Math.round(value * 100)}%`;
 }
 
-function ResultCard({ role, currentRole, onSaveEditRole }) {
+function ResultCard({
+  role,
+  currentRole,
+  onSaveEditRole,
+  matchedSkills,
+  unMatchedSkills,
+}) {
   const {
     numberOfMembersAvailable,
     isExternalMember,
@@ -249,17 +257,29 @@ function ResultCard({ role, currentRole, onSaveEditRole }) {
         <div styleName="content">
           <div styleName="matching-info">
             <div>
-              <CircularProgressBar
-                size="160"
-                progress={skillsMatch}
-                strokeWidth="6"
-                children={
-                  <div styleName="progressbar-child">
-                    <h4>{formatPercent(skillsMatch)}</h4>
-                    <p>Skills Match</p>
-                  </div>
-                }
-              />
+              {matchedSkills.length
+                ? _.map(matchedSkills, (s) => (
+                    <SkillTag name={s.name} id={s.id} />
+                  ))
+                : null}
+              {matchedSkills.length
+                ? _.map(unMatchedSkills, (s) => (
+                    <SkillTag name={s.name} id={s.id} unmatched />
+                  ))
+                : null}
+              {!matchedSkills.length ? (
+                <CircularProgressBar
+                  size="160"
+                  progress={skillsMatch}
+                  strokeWidth="6"
+                  children={
+                    <div styleName="progressbar-child">
+                      <h4>{formatPercent(skillsMatch)}</h4>
+                      <p>Skills Match</p>
+                    </div>
+                  }
+                />
+              ) : null}
             </div>
             <div styleName="vertical-line" />
             <div>
@@ -279,6 +299,8 @@ function ResultCard({ role, currentRole, onSaveEditRole }) {
 
 ResultCard.propTypes = {
   role: PT.object,
+  matchedSkills: PT.array,
+  unMatchedSkills: PT.array,
   currentRole: PT.object,
   onSaveEditRole: PT.func,
 };

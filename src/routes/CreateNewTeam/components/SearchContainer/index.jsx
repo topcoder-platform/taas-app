@@ -20,6 +20,8 @@ import AddAnotherModal from "../AddAnotherModal";
 import "./styles.module.scss";
 
 function SearchContainer({
+  matchedSkills,
+  unMatchedSkills,
   isNewRole,
   stages,
   progressStyle,
@@ -68,6 +70,8 @@ function SearchContainer({
     if (!isCustomRole(matchingRole))
       return (
         <ResultCard
+          matchedSkills={matchedSkills}
+          unMatchedSkills={unMatchedSkills}
           role={matchingRole}
           onSaveEditRole={onSaveEditRole}
           currentRole={currentRole}
@@ -114,6 +118,8 @@ function SearchContainer({
 SearchContainer.propTypes = {
   isNewRole: PT.bool,
   stages: PT.array,
+  matchedSkills: PT.array,
+  unMatchedSkills: PT.array,
   progressStyle: PT.string,
   previousSearchId: PT.string,
   navigate: PT.func,

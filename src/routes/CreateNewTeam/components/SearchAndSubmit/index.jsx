@@ -1,7 +1,9 @@
 import { Router, navigate } from "@reach/router";
 import _ from "lodash";
-import React, { useCallback, useState, useEffect } from "react";
+import React, { useCallback, useState, useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useData } from "hooks/useData";
+import { getSkills } from "services/skills";
 import { searchRoles } from "services/teams";
 import { isCustomRole, setCurrentStage } from "utils/helpers";
 import {
@@ -21,9 +23,42 @@ function SearchAndSubmit(props) {
 
   const [searchState, setSearchState] = useState(null);
   const [isNewRole, setIsNewRole] = useState(false);
-
+  const [skills] = useData(getSkills);
   const { matchingRole } = useSelector((state) => state.searchedRoles);
 
+  const matchedSkills = useMemo(() => {
+    if (
+      skills &&
+      matchingRole &&
+      matchingRole.listOfSkills &&
+      searchObject &&
+      searchObject.skills &&
+      searchObject.skills.length
+    ) {
+      return _.map(searchObject.skills, (s) =>
+        _.find(skills, (skill) => skill.id === s)
+      );
+    } else {
+      return [];
+    }
+  }, [skills, matchingRole, searchObject]);
+
+  const unMatchedSkills = useMemo(() => {
+    if (
+      skills &&
+      matchingRole &&
+      matchingRole.listOfSkills &&
+      matchedSkills.length
+    ) {
+      const list = _.filter(
+        matchingRole.listOfSkills,
+        (l) => !_.find(matchedSkills, (m) => m.name === l)
+      );
+      return _.map(list, (s) => _.find(skills, (skill) => skill.name === s));
+    } else {
+      return [];
+    }
+  }, [skills, matchingRole, matchedSkills]);
   useEffect(() => {
     const isFromInputPage =
       searchObject.role ||
@@ -99,6 +134,8 @@ function SearchAndSubmit(props) {
         path="search"
         previousSearchId={previousSearchId}
         addedRoles={addedRoles}
+        matchedSkills={matchedSkills}
+        unMatchedSkills={unMatchedSkills}
         searchState={searchState}
         matchingRole={matchingRole}
         isNewRole={isNewRole}
@@ -106,6 +143,8 @@ function SearchAndSubmit(props) {
       />
       <SubmitContainer
         path="result"
+        matchedSkills={matchedSkills}
+        unMatchedSkills={unMatchedSkills}
         addedRoles={addedRoles}
         previousSearchId={previousSearchId}
         matchingRole={matchingRole}
