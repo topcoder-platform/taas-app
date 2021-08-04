@@ -30,35 +30,29 @@ function SearchAndSubmit(props) {
     if (
       skills &&
       matchingRole &&
-      matchingRole.listOfSkills &&
-      searchObject &&
-      searchObject.skills &&
-      searchObject.skills.length
+      matchingRole.matchedSkills
     ) {
-      return _.map(searchObject.skills, (s) =>
-        _.find(skills, (skill) => skill.id === s)
+      return _.map(matchingRole.matchedSkills, (s) =>
+        _.find(skills, (skill) => skill.name === s)
       );
     } else {
       return [];
     }
-  }, [skills, matchingRole, searchObject]);
+  }, [skills, matchingRole]);
 
   const unMatchedSkills = useMemo(() => {
     if (
       skills &&
       matchingRole &&
-      matchingRole.listOfSkills &&
-      matchedSkills.length
+      matchingRole.unMatchedSkills
     ) {
-      const list = _.filter(
-        matchingRole.listOfSkills,
-        (l) => !_.find(matchedSkills, (m) => m.name === l)
+      return _.map(matchingRole.unMatchedSkills, (s) =>
+        _.find(skills, (skill) => skill.name === s)
       );
-      return _.map(list, (s) => _.find(skills, (skill) => skill.name === s));
     } else {
       return [];
     }
-  }, [skills, matchingRole, matchedSkills]);
+  }, [skills, matchingRole]);
   useEffect(() => {
     const isFromInputPage =
       searchObject.role ||

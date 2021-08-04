@@ -256,7 +256,7 @@ function ResultCard({
       {!showRates && (
         <div styleName="content">
           <div styleName="matching-info">
-            <div>
+            <div styleName="matching-info-left">
               {matchedSkills.length
                 ? _.map(matchedSkills, (s) => (
                     <SkillTag name={s.name} id={s.id} />
@@ -282,7 +282,7 @@ function ResultCard({
               ) : null}
             </div>
             <div styleName="vertical-line" />
-            <div>
+            <div styleName="matching-info-right">
               <IconMultipleUsers styleName="users" />
               <h4>{numberOfMembersAvailable}+</h4>
               <p>Members matched</p>
