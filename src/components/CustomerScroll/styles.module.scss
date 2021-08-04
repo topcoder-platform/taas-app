@@ -7,13 +7,13 @@
   color: #7f7f7f;
   text-align: center;
   text-transform: uppercase;
-  margin-bottom: 30px;
 }
 
 .customer-logos {
   background-image: url("../../assets/images/customer-logos.svg");
   background-size: contain;
   background-repeat: no-repeat;
+  background-position: center;
   height: 56px;
   width: 100%;
 }
@@ -21,6 +21,5 @@
 @media only screen and (max-height: 859px) {
   .title {
     font-size: 16px;
-    margin-bottom: 15px;
   }
 }
