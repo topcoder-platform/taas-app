@@ -71,6 +71,9 @@
     display: flex;
     text-align: center;
     align-items: center;
+    .matching-info-left, .matching-info-right {
+      flex: 1;
+    }
     > div.vertical-line {
       display: block;
       height: 170px;
