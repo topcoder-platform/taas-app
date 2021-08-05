@@ -9,6 +9,7 @@ import "./styles.module.scss";
 import Button from "components/Button";
 
 function LandingBox({
+  showGap,
   icon,
   title,
   description,
@@ -23,24 +24,20 @@ function LandingBox({
         backgroundImage,
       }}
     >
+      {showGap && <div styleName='gap'>OR</div>}
       <div styleName="flex-container">
-        <div styleName="icon-and-text">
           <div styleName="icon">{icon}</div>
-          <div>
-            <h3 styleName="title">{title}</h3>
-            <p>{description}</p>
-          </div>
-        </div>
-        <Button
-          size="large"
-          type="secondary"
-          onClick={onClick}
-          disabled={isDisabled}
-        >
-          Select
-        </Button>
+          <h3 styleName="title">{title}</h3>
+          <p styleName="description">{description}</p>
+          <Button
+            size="large"
+            type="secondary"
+            onClick={onClick}
+            disabled={isDisabled}
+          >
+            Select
+          </Button>
       </div>
-      <div styleName="bg-icon">{icon}</div>
     </div>
   );
 }
@@ -51,6 +48,7 @@ LandingBox.propTypes = {
   description: PT.string,
   onClick: PT.func,
   isDisabled: PT.bool,
+  showGap: PT.bool,
   backgroundImage: PT.string,
 };
 

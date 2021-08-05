@@ -9,6 +9,13 @@
   color: #fff;
   button {
     border: none;
+    &.searching {
+      pointer-events: none;
+    }
+    .spinner {
+      margin-top: 3px;
+      margin-right: 5px;
+    }
   }
 }
 
@@ -39,47 +46,41 @@
   font-size: 14px;
   line-height: 16px;
   font-weight: 400;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(#fff, 0.6);
 
   &:before {
-    content: "";
-    color: #fff;
-    border: 1px solid #ffffff;
+    content: attr(data-index);
+    font-size: 10px;
+    line-height: 14px;
+    font-weight: 600;
+    padding-left: 4px;
+    color: rgba(#fff, 0.6);
+    border: 1px solid rgba(#fff, 0.6);
     border-radius: 100%;
     width: 16px;
     height: 16px;
     margin-right: 10px;
     display: block;
     float: left;
-    visibility: hidden;
   }
 
   &.active {
     font-weight: 500;
     color: #fff;
     &:before {
-      visibility: visible;
+      color: #555555;
       background-color: #fff;
     }
   }
 
   &.done {
-    font-weight: 400;
+    font-weight: 500;
     &:before {
       content: "✓";
+      padding-left: 3px;
       font-size: 9px;
-      line-height: 14px;
-      padding-left: 4px;
-      visibility: visible;
+      font-weight: 900;
+      background-color: #0AB88A;
     }
   }
-}
-
-.transparent-icon {
-  position: absolute;
-  right: -50px;
-  top: 85px;
-  opacity: 10%;
-  width: 144px;
-  height: 144px;
 }

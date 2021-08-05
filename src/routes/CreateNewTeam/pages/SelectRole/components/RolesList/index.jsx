@@ -7,6 +7,7 @@
 import React, { useCallback, useState } from "react";
 import PT from "prop-types";
 import RoleItem from "../RoleItem";
+import RoleStaticCard from "../RoleStaticCard";
 import ItemList from "../../../../components/ItemList";
 
 function RolesList({ roles, selectedRoleId, onDescriptionClick, toggleRole }) {
@@ -43,6 +44,7 @@ function RolesList({ roles, selectedRoleId, onDescriptionClick, toggleRole }) {
           isSelected={selectedRoleId === id}
         />
       ))}
+      <RoleStaticCard />
     </ItemList>
   );
 }

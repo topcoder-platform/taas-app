@@ -30,6 +30,8 @@ import { postTeamRequest } from "services/teams";
 import NoMatchingProfilesResultCard from "../NoMatchingProfilesResultCard";
 
 function SubmitContainer({
+  matchedSkills,
+  unMatchedSkills,
   stages,
   setStages,
   progressStyle,
@@ -131,6 +133,8 @@ function SubmitContainer({
     <div styleName="page">
       {!isCustomRole(matchingRole) ? (
         <ResultCard
+          matchedSkills={matchedSkills}
+          unMatchedSkills={unMatchedSkills}
           role={matchingRole}
           onSaveEditRole={onSaveEditRole}
           currentRole={currentRole}
@@ -175,6 +179,8 @@ function SubmitContainer({
 }
 
 SubmitContainer.propTypes = {
+  matchedSkills: PT.array,
+  unMatchedSkills: PT.array,
   stages: PT.array,
   setStages: PT.func,
   progressStyle: PT.string,
