@@ -80,8 +80,8 @@ function TeamDetailsModal({ open, onClose, submitForm, addedRoles }) {
             open={open}
             onClose={onClose}
             maxWidth="830px"
-            title="Team Details"
-            subtitle="Please provide a name for your Team. This could be the name of the project they will work on, the name of the team they are joining, or whatever else will make this talent request meaningful for you."
+            title="Customize Your Team"
+            subtitle="Give your new team a name. This could be the name of the project they will work on or the team they will be joining."
             buttons={
               <Button
                 type="primary"

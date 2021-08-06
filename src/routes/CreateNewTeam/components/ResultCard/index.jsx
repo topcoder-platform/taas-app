@@ -59,10 +59,11 @@ function ResultCard({
     <div styleName="result-card">
       <div styleName="heading">
         <IconEarthCheck />
-        <h3>We have matching profiles</h3>
+        <h3>You've Got Matches</h3>
         <p>
-          We have qualified candidates who match {formatPercent(skillsMatch)}
-          {skillsMatch < 1 ? " or more " : " "} of your job requirements.
+          You’re one step closer to hiring great talent. Please provide details
+          about how many people you need, how long you need them, and when you’d
+          like to start.
         </p>
         <Curve styleName="curve" />
         <IconEarthCheck styleName="transparent-icon" />
@@ -257,6 +258,7 @@ function ResultCard({
         <div styleName="content">
           <div styleName="matching-info">
             <div styleName="matching-info-left">
+              <h5 styleName="skills-head">Matched Skills</h5>
               {matchedSkills.length
                 ? _.map(matchedSkills, (s) => (
                     <SkillTag name={s.name} id={s.id} />
