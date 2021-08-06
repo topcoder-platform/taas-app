@@ -39,11 +39,7 @@ function SkillsList({ skills, selectedSkills, toggleSkill }) {
           : null
       }
     >
-      <p styleName="subtitle">
-        Please select one or more essential skills you require your talent to
-        have. Topcoder will match to profiles which contain most or all of these
-        skills.
-      </p>
+      <p styleName="subtitle">Select one or more skills.</p>
       {filteredSkills.map(({ id, name }) => (
         <SkillItem
           key={id}

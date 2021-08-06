@@ -42,7 +42,7 @@ function NoMatchingProfilesResultCard({ role }) {
     <div styleName="result-card">
       <div styleName="heading">
         <IconEarthX />
-        <h3>Additional Evaluation Needed</h3>
+        <h3>Dang. No matching talent (yet)</h3>
         <Curve styleName="curve" />
         <IconEarthX styleName="transparent-icon" />
       </div>
@@ -50,24 +50,24 @@ function NoMatchingProfilesResultCard({ role }) {
         <h4 styleName="job-title">
           {role.jobTitle && role.jobTitle.length
             ? role.jobTitle
-            : "Custom Role"}
+            : "What happens next"}
         </h4>
         <p styleName="info-txt">
-          We did not get a perfect match to your requirements on the first pass,
-          but we are confident they are out there. We'd like to dig a little
-          deeper into our community to find someone who can fit your needs. This
-          may take up to two weeks. Please continue to submit your request, and
-          a Topcoder representative will reach out to you soon with next steps.
+          We did not find a perfect match to your requirements, but we'd like to
+          dig a little deeper into our community. We’ll start right away, and
+          this may take up to two weeks. You can modify your criteria, or
+          continue this search. If you choose to continue, we will reach out
+          soon with next steps.
         </p>
         {role.rates && role.name ? (
           <div styleName="niche-rate-box">
-            <p>{role.name} Rate</p>
+            <p>Estimate for this role</p>
             <p styleName="cost">{formatMoney(role.rates[0].global)}</p>
             <p>/Week</p>
           </div>
         ) : (
           <div styleName="niche-rate-box">
-            <p>Custom Rate</p>
+            <p>Estimate for this role</p>
             <p styleName="cost">$1,200</p>
             <p>/Week</p>
           </div>
@@ -83,7 +83,7 @@ function NoMatchingProfilesResultCard({ role }) {
             disabled={!role.roleSearchRequestId || alreadyAdded}
             type="primary"
           >
-            {alreadyAdded ? "Added" : "Add Custom Role"}
+            {alreadyAdded ? "Added" : "Continue this search"}
           </Button>
         </div>
       </div>
