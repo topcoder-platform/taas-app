@@ -281,6 +281,11 @@ export const ACTION_TYPE = {
   DELETE_MATCHING_ROLE: "DELETE_MATCHING_ROLE",
   EDIT_MATCHING_ROLE: "EDIT_MATCHING_ROLE",
 
+  /**
+   * team object
+   */
+  ADD_TEAM_OBJECT: "ADD_TEAM_OBJECT",
+
   /*
    * global loading state
    */

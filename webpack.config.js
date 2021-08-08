@@ -80,6 +80,7 @@ module.exports = (webpackConfigEnv) => {
       new webpack.DefinePlugin({
         "process.env": {
           APPENV: JSON.stringify(process.env.APPENV),
+          STRIPE_PUBLIC_KEY: JSON.stringify(process.env.STRIPE_PUBLIC_KEY),
         },
       }),
     ],

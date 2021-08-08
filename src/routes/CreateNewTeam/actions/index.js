@@ -41,6 +41,16 @@ const editMatchingRole = (role) => ({
   payload: role,
 });
 
+const addTeamObject = (teamObject) => ({
+  type: ACTION_TYPE.ADD_TEAM_OBJECT,
+  payload: teamObject,
+});
+
+export const addTeamObjects = (teamObject) => (dispatch, getState) => {
+  dispatch(addTeamObject(teamObject));
+  updateLocalStorage(getState().teamObject);
+};
+
 export const clearSearchedRoles = () => (dispatch, getState) => {
   dispatch(clearRoles());
   updateLocalStorage(getState().searchedRoles);

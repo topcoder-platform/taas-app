@@ -91,11 +91,15 @@ function SearchAndSubmit(props) {
       .then((res) => {
         const name = _.get(res, "data.name");
         const searchId = _.get(res, "data.roleSearchRequestId");
+        const imageUrl = _.get(res, "data.imageUrl");
+        const rates = _.get(res, "data.rates");
         if (name && !isCustomRole({ name })) {
           dispatch(
             addSearchedRole({
               searchId,
               name,
+              imageUrl,
+              rates,
               numberOfResources: 1,
               durationWeeks: 4,
             })

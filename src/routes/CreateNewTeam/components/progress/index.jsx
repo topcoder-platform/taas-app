@@ -22,14 +22,13 @@ function Progress({
   stages,
   percentage,
 }) {
-
-  let backgroundIcon
+  let backgroundIcon;
   if (extraStyleName === "input-skills") {
-     backgroundIcon= <IconListQuill styleName="transparent-icon" />
+    backgroundIcon = <IconListQuill styleName="transparent-icon" />;
   } else if (extraStyleName === "input-job-description") {
-     backgroundIcon= <IconOfficeFileText styleName="transparent-icon" />
+    backgroundIcon = <IconOfficeFileText styleName="transparent-icon" />;
   } else {
-     backgroundIcon= <IconMultipleActionsCheck styleName="transparent-icon" />
+    backgroundIcon = <IconMultipleActionsCheck styleName="transparent-icon" />;
   }
 
   return (
@@ -47,15 +46,19 @@ function Progress({
           </li>
         ))}
       </ul>
-      <Button
-        size="medium"
-        type="secondary"
-        disabled={isDisabled}
-        onClick={onClick}
-      >
-        {buttonLabel}
-      </Button>
-      {backgroundIcon}
+      {buttonLabel !== undefined ? (
+        <>
+          <Button
+            size="medium"
+            type="secondary"
+            disabled={isDisabled}
+            onClick={onClick}
+          >
+            {buttonLabel}
+          </Button>
+          {backgroundIcon}
+        </>
+      ) : null}
     </div>
   );
 }

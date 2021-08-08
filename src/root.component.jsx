@@ -14,6 +14,7 @@ import CreateTeamLanding from "./routes/CreateNewTeam/pages/CreateTeamLanding";
 import InputSkills from "./routes/CreateNewTeam/pages/InputSkills";
 import InputJobDescription from "./routes/CreateNewTeam/pages/InputJobDescription";
 import SelectRole from "./routes/CreateNewTeam/pages/SelectRole";
+import CreateTaasPayment from "./routes/CreateNewTeam/pages/CreateTaasPayment";
 import ReduxToastr from "react-redux-toastr";
 import store from "./store";
 import "./styles/main.vendor.scss";
@@ -34,6 +35,7 @@ export default function Root() {
           <ResourceBookingForm path="/taas/myteams/:teamId/rb/:resourceBookingId/edit" />
           <PositionDetails path="/taas/myteams/:teamId/positions/:positionId/candidates/*candidateStatus" />
           <TeamAccess path="/taas/myteams/:teamId/access" />
+          <CreateTaasPayment path="/taas/myteams/createnewteam/create-taas-payment" />
           <CreateNewTeam path="/taas/createnewteam">
             <CreateTeamLanding path="/" />
             <InputJobDescription path="jd/*" />

@@ -81,9 +81,9 @@ function SearchContainer({
   };
 
   const getPercentage = useCallback(() => {
-    if (searchState === "searching") return "52";
-    if (matchingRole) return "98";
-    return "88";
+    if (searchState === "searching") return "26";
+    if (matchingRole) return "53";
+    return "84";
   }, [searchState, matchingRole]);
 
   return (
