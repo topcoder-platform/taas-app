@@ -14,10 +14,11 @@ import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 
 import { postTeamPayment, postTeamRequest } from "services/teams";
-import { clearSearchedRoles, setRequestLoading } from "../../../actions";
+import { clearSearchedRoles } from "../../../actions";
 import StripeElement from "../StripeElement";
 import FormField from "../FormField";
 import SelectField from "../SelectField";
+import ConfirmationModal from "../../../components/ConfirmationModal";
 
 import "./styles.module.scss";
 
@@ -49,6 +50,7 @@ const PaymentForm = ({ calculatedAmount }) => {
   const [formValues, setFormValues] = useState(initialFormValues);
   const [dropdownValue, setDropdownValue] = useState("");
   const [processing, setProcessing] = useState(false);
+  const [requestLoading, setRequestLoading] = useState(false);
   const [errors, setErrors] = useState({});
   const stripe = useStripe();
   const elements = useElements();
@@ -114,10 +116,11 @@ const PaymentForm = ({ calculatedAmount }) => {
             }
           );
           if (payload.error) {
-            toastr.error("Payment failed", payload.error.message);
             setProcessing(false);
+            toastr.error("Payment failed", payload.error.message);
           } else if (payload.paymentIntent.status === "succeeded") {
             toastr.success("Payment is successful");
+            setRequestLoading(true);
             postTeamRequest(teamObject)
               .then(() => {
                 setTimeout(() => {
@@ -130,7 +133,6 @@ const PaymentForm = ({ calculatedAmount }) => {
                 setRequestLoading(false);
                 toastr.error("Error Requesting Team", err.message);
               });
-            setProcessing(false);
           }
         })
         .catch((err) => {
@@ -153,51 +155,54 @@ const PaymentForm = ({ calculatedAmount }) => {
 
   const classes = useStyles();
   return (
-    <form onSubmit={handleFormSubmit}>
-      <FormField
-        label="Email"
-        name="email"
-        handleInputValue={handleInputValue}
-        errors={errors}
-      />
-      <Box m={1}>
-        <Typography classes={{ root: classes.typography }}>
-          Card Information
-        </Typography>
-      </Box>
-      <StripeElement element={CardNumberElement} icon="card" />
-      <div styleName="horizontal">
-        <StripeElement element={CardExpiryElement} width="150px" />
-        <StripeElement
-          className={classes.cvc}
-          element={CardCvcElement}
-          icon="cvc"
-          width="112px"
+    <>
+      <form onSubmit={handleFormSubmit}>
+        <FormField
+          label="Email"
+          name="email"
+          handleInputValue={handleInputValue}
+          errors={errors}
         />
-      </div>
-      <FormField
-        label="Name on the card"
-        name="name"
-        handleInputValue={handleInputValue}
-        errors={errors}
-      />
-      <SelectField
-        handleDropdown={handleDropdown}
-        dropdownValue={dropdownValue}
-      />
-      <FormField
-        label="Zip code"
-        name="zipcode"
-        handleInputValue={handleInputValue}
-        errors={errors}
-      />
-      <button
-        type="submit"
-        styleName={`button ${!formIsValid() ? "disabled" : ""}`}
-      >
-        {processing ? "Payment Processing" : `Pay $${calculatedAmount}`}
-      </button>
-    </form>
+        <Box m={1}>
+          <Typography classes={{ root: classes.typography }}>
+            Card Information
+          </Typography>
+        </Box>
+        <StripeElement element={CardNumberElement} icon="card" />
+        <div styleName="horizontal">
+          <StripeElement element={CardExpiryElement} width="150px" />
+          <StripeElement
+            className={classes.cvc}
+            element={CardCvcElement}
+            icon="cvc"
+            width="112px"
+          />
+        </div>
+        <FormField
+          label="Name on the card"
+          name="name"
+          handleInputValue={handleInputValue}
+          errors={errors}
+        />
+        <SelectField
+          handleDropdown={handleDropdown}
+          dropdownValue={dropdownValue}
+        />
+        <FormField
+          label="Zip code"
+          name="zipcode"
+          handleInputValue={handleInputValue}
+          errors={errors}
+        />
+        <button
+          type="submit"
+          styleName={`button ${!formIsValid() ? "disabled" : ""}`}
+        >
+          {processing ? "Payment Processing" : `Pay $${calculatedAmount}`}
+        </button>
+      </form>
+      <ConfirmationModal open={requestLoading} isLoading={requestLoading} />
+    </>
   );
 };
 
