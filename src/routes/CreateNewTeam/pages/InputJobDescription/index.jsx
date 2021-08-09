@@ -18,6 +18,7 @@ function InputJobDescription() {
     { name: "Input Job Description", isCurrent: true },
     { name: "Search Member" },
     { name: "Overview of the Results" },
+    { name: "Refundable Deposite Payment" },
   ]);
   const [jdString, setJdString] = useState("");
   const [jobTitle, setJobTitle] = useState("");

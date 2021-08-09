@@ -64,6 +64,7 @@ TaaS App is done using Single SPA micro-frontend architecture https://single-spa
 ### Local Authentication
 
 First of all, to authenticate locally we have to run a local authentication service.
+
 - Clone this repository into `taas-app`.
 - Inside the folder `taas-app/local/login-locally` run `npm run start`.
 - You would need npm 5+ for it. This would start a local sever on port 5000 which could be used for local Authentication.
@@ -76,36 +77,36 @@ Some config files are using domain `local.topcoder-dev.com`. You can change it t
 
 1. Run **Frame** App:
 
-    ```sh
-    git clone https://github.com/topcoder-platform/micro-frontends-frame.git
-    cd micro-frontends-frame
-    # inside folder "micro-frontends-frame" run:
+   ```sh
+   git clone https://github.com/topcoder-platform/micro-frontends-frame.git
+   cd micro-frontends-frame
+   # inside folder "micro-frontends-frame" run:
 
-    nvm use # or make sure to use Node 10
-    npm i   # to install dependencies
+   nvm use # or make sure to use Node 10
+   npm i   # to install dependencies
 
-    # set environment variables:
+   # set environment variables:
 
-    export APPMODE="development"
-    export APPENV="local-multi"
+   export APPMODE="development"
+   export APPENV="local-multi"
 
-    npm run local-server
+   npm run local-server
 
-    # this would start frame server on http://localhost:3000
-    ```
+   # this would start frame server on http://localhost:3000
+   ```
 
-    open one more terminal window in the same folder and run:
+   open one more terminal window in the same folder and run:
 
-    ```sh
-    # set environment variables:
+   ```sh
+   # set environment variables:
 
-    export APPMODE="development"
-    export APPENV="local-multi"
+   export APPMODE="development"
+   export APPENV="local-multi"
 
-    npm run local-client
+   npm run local-client
 
-    # this host frame client code on http://localhost:8080
-    ```
+   # this host frame client code on http://localhost:8080
+   ```
 
 2. Run **Navbar** micro-app:
 
@@ -135,6 +136,10 @@ Some config files are using domain `local.topcoder-dev.com`. You can change it t
    nvm use # or make sure to use Node 10
    npm i   # to install dependencies
 
+    # set environment variables:
+
+   export STRIPE_PUBLIC_KEY=""
+
    npm run dev
 
    # this host TaaS App as http://localhost:8501/taas-app/topcoder-micro-frontends-teams.js
@@ -142,13 +147,13 @@ Some config files are using domain `local.topcoder-dev.com`. You can change it t
 
 4. Now we have to update the `micro-frontends-frame` app to show our local version of TaaS App, instead of remote one. Update file `micro-frontends-frame/config/micro-frontends-config-local.json`:
 
-    ```js
-    // replace line
-    "@topcoder/micro-frontends-teams": "https://platform.topcoder-dev.com/taas-app/topcoder-micro-frontends-teams.js",
+   ```js
+   // replace line
+   "@topcoder/micro-frontends-teams": "https://platform.topcoder-dev.com/taas-app/topcoder-micro-frontends-teams.js",
 
-    // with line:
-    "@topcoder/micro-frontends-teams": "http://localhost:8501/taas-app/topcoder-micro-frontends-teams.js",
-    ```
+   // with line:
+   "@topcoder/micro-frontends-teams": "http://localhost:8501/taas-app/topcoder-micro-frontends-teams.js",
+   ```
 
 - Now open in the browser http://localhost:8080/taas/myteams.
 - If you are not logged-in yet, you should be redirected to the login page.
