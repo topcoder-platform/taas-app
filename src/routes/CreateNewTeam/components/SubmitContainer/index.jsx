@@ -25,7 +25,11 @@ import ConfirmationModal from "../ConfirmationModal";
 import { withBusinessAuthentication } from "../../../../hoc/withAuthentication";
 import "./styles.module.scss";
 import { isCustomRole, isUuid, setCurrentStage } from "utils/helpers";
-import { clearSearchedRoles, editRoleAction } from "../../actions";
+import {
+  addTeamObjects,
+  clearSearchedRoles,
+  editRoleAction,
+} from "../../actions";
 import { postTeamRequest } from "services/teams";
 import NoMatchingProfilesResultCard from "../NoMatchingProfilesResultCard";
 
@@ -115,18 +119,23 @@ function SubmitContainer({
 
   const requestTeam = useCallback(() => {
     setRequestLoading(true);
-    postTeamRequest(teamObject)
-      .then(() => {
-        setTimeout(() => {
-          dispatch(clearSearchedRoles());
-          // Backend api create project has sync issue, so delay 2 seconds
-          navigate("/taas/myteams");
-        }, 2000);
-      })
-      .catch((err) => {
-        setRequestLoading(false);
-        toastr.error("Error Requesting Team", err.message);
-      });
+    if (matchingRole.isExternalMember) {
+      dispatch(addTeamObjects(teamObject));
+      navigate("/taas/myteams/createnewteam/create-taas-payment");
+    } else {
+      postTeamRequest(teamObject)
+        .then(() => {
+          setTimeout(() => {
+            dispatch(clearSearchedRoles());
+            // Backend api create project has sync issue, so delay 2 seconds
+            navigate("/taas/myteams");
+          }, 2000);
+        })
+        .catch((err) => {
+          setRequestLoading(false);
+          toastr.error("Error Requesting Team", err.message);
+        });
+    }
   }, [dispatch, teamObject]);
 
   return (

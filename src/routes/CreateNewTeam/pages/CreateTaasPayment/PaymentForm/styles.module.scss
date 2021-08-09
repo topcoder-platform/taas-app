@@ -1,0 +1,21 @@
+.button {
+  background: #137d60;
+  border-radius: 20px;
+  width: 258px;
+  height: 40px;
+  border: 0;
+  color: #ffffff;
+  text-transform: uppercase;
+  text-align: center;
+  display: block;
+  margin: 12px auto;
+}
+
+.disabled {
+  background: #d4d4d4;
+}
+
+.horizontal {
+  display: flex;
+  width: "100%";
+}

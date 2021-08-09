@@ -1,6 +1,7 @@
 /**
  * Reducer for CreateNewTeam flow
  */
+import _ from "lodash";
 import { ACTION_TYPE } from "constants";
 
 const loadState = () => {
@@ -9,6 +10,7 @@ const loadState = () => {
     addedRoles: [],
     matchingRole: undefined,
     isLoading: false,
+    teamObject: undefined,
   };
   try {
     const state = localStorage.getItem("rolesState");
@@ -38,6 +40,12 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         addedRoles: [],
+      };
+
+    case ACTION_TYPE.ADD_TEAM_OBJECT:
+      return {
+        ...state,
+        teamObject: action.payload,
       };
 
     case ACTION_TYPE.ADD_MATCHING_ROLE:
