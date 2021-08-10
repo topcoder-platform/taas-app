@@ -17,22 +17,26 @@ const CandidatesStatusFilter = ({ statusFilterKey, onChange, candidates }) => {
   return (
     <div styleName="candidates-status-filter">
       {CANDIDATE_STATUS_FILTERS.map((statusFilter) => {
-        const count = _.filter(candidates, (candidate) => statusFilter.statuses.includes(candidate.status)).length;
+        const count = _.filter(candidates, (candidate) =>
+          statusFilter.statuses.includes(candidate.status)
+        ).length;
 
         return (
           <Button
             key={statusFilter.key}
-            type={statusFilterKey === statusFilter.key ? "segment-selected" : "segment"}
+            type={
+              statusFilterKey === statusFilter.key
+                ? "segment-selected"
+                : "segment"
+            }
             onClick={() => onChange(statusFilter)}
           >
-            {statusFilter.buttonText} (
-            {count})
-            {statusFilter.key === CANDIDATE_STATUS_FILTER_KEY.TO_REVIEW && count > 0 && (
-              <Badge type="danger">Pending</Badge>
-            )}
+            {statusFilter.buttonText} ({count})
+            {statusFilter.key === CANDIDATE_STATUS_FILTER_KEY.TO_REVIEW &&
+              count > 0 && <Badge type="danger">Pending</Badge>}
           </Button>
-        )
-    })}
+        );
+      })}
     </div>
   );
 };

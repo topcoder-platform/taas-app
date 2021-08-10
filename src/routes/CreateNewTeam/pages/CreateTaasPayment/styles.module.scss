@@ -58,14 +58,14 @@
           display: flex;
           justify-content: space-between;
           margin-right: 15px;
-        }
 
-        .image {
-          background-color: #ffffff;
-          border: 1px solid #d4d4d4;
-          border-radius: 5px;
-          width: 30px;
-          height: 30px;
+          .role-icon {
+            width: 42px;
+            height: 42px;
+            object-fit: cover;
+            border: 1px solid #d4d4d4;
+            border-radius: 5px;
+          }
         }
 
         .title {

@@ -3,7 +3,7 @@
 .accordion {
   border-radius: 8px;
   box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.02);
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   width: 250px;
 }
 
@@ -27,8 +27,8 @@
   display: inline-block;
   height: 10px;
   width: 10px;
-  border-bottom: 3px solid #2A2A2A;
-  border-right: 3px solid #2A2A2A;
+  border-bottom: 3px solid #2a2a2a;
+  border-right: 3px solid #2a2a2a;
   margin-bottom: 4px;
   &.down {
     transform: rotate(45deg);
@@ -57,7 +57,7 @@
   .role-name {
     position: relative;
     width: 100%;
-    background-color: #F4F4F4;
+    background-color: #f4f4f4;
     border-radius: 6px;
     padding: 10px;
     padding-right: 30px;
@@ -70,7 +70,7 @@
       margin-top: 5px;
     }
 
-    >button {
+    > button {
       outline: none;
       border: none;
       background: none;

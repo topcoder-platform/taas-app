@@ -26,21 +26,23 @@ function CreateNewTeam() {
 
   return (
     <Page title="Find your Talent">
-      <PageHeader title={<div styleName="title">Let’s find you great talent</div>} />
-      <p>
-        You can search for your perfect talent matches in 3 unique ways:
-      </p>
+      <PageHeader
+        title={<div styleName="title">Let’s find you great talent</div>}
+      />
+      <p>You can search for your perfect talent matches in 3 unique ways:</p>
       <div styleName="landing-box-container">
         <LandingBox
-          showGap 
+          showGap
           title="Search by Role"
-          description={"Examples:\n Search “Front-End Developer”\n or “UI Designer”"}
+          description={
+            "Examples:\n Search “Front-End Developer”\n or “UI Designer”"
+          }
           icon={<IconMultipleActionsCheck />}
           backgroundImage="linear-gradient(101.95deg, #8B41B0 0%, #EF476F 100%)"
           onClick={() => goToRoute("/taas/createnewteam/role")}
         />
         <LandingBox
-          showGap 
+          showGap
           title="Search by Skills"
           description={"Examples: \nJava, Python, React, Sketch"}
           icon={<IconListQuill />}
@@ -49,13 +51,13 @@ function CreateNewTeam() {
         />
         <LandingBox
           title="Describe the Work"
-          description={"Provide a short description of talent\n you want or project work you’re \nlooking to do"}
+          description={
+            "Provide a short description of talent\n you want or project work you’re \nlooking to do"
+          }
           icon={<IconOfficeFileText />}
           backgroundImage="linear-gradient(135deg, #2984BD 0%, #0AB88A 100%)"
           onClick={() => goToRoute("/taas/createnewteam/jd")}
         />
-
-
       </div>
     </Page>
   );

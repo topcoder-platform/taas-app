@@ -12,8 +12,14 @@ import { TOPCODER_COMMUNITY_WEBSITE_URL } from "../../../config";
 import IconDirectArrow from "../../assets/images/icon-direct-arrow.svg";
 import { Link } from "@reach/router";
 
-const User = ({ showArrow, user, hideFullName = false, handleLinkTo, noLink }) => {
-  let link = <strong>{user.handle}</strong>
+const User = ({
+  showArrow,
+  user,
+  hideFullName = false,
+  handleLinkTo,
+  noLink,
+}) => {
+  let link = <strong>{user.handle}</strong>;
 
   // if we set flag for no-link, then don't add link
   if (!noLink) {
@@ -29,7 +35,7 @@ const User = ({ showArrow, user, hideFullName = false, handleLinkTo, noLink }) =
       >
         <strong>{user.handle}</strong>
       </a>
-    )
+    );
   }
 
   return (

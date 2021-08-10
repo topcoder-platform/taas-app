@@ -23,11 +23,12 @@ const getText = (isSelf, userHandleOrEmail) =>
 access to the team and couldn't see or interact with it anymore. Do
 you still want to remove the member?`;
 
-const getSuccessTitle = (isSelf) =>
-  isSelf ? "Team Left" : "Member Removed";
+const getSuccessTitle = (isSelf) => (isSelf ? "Team Left" : "Member Removed");
 
 const getSuccessText = (isSelf, userHandleOrEmail) =>
-  isSelf ? "You have successfully left the team" : `You have successfully removed ${userHandleOrEmail} from the team`;
+  isSelf
+    ? "You have successfully left the team"
+    : `You have successfully removed ${userHandleOrEmail} from the team`;
 
 const getFailedTitle = (isSelf) =>
   isSelf ? "Failed to Leave the Team" : "Failed to Remove Member";
@@ -39,7 +40,10 @@ function DeleteModal({ selected, open, onClose, teamId }) {
   const [loading, setLoading] = useState(false);
   const { userId } = useSelector((state) => state.authUser);
 
-  const isSelf = useMemo(() => selected && selected.userId === userId, [selected, userId]);
+  const isSelf = useMemo(() => selected && selected.userId === userId, [
+    selected,
+    userId,
+  ]);
   const userHandleOrEmail = useMemo(() => {
     if (selected) {
       return selected.handle ? selected.handle : selected.email;

@@ -22,40 +22,41 @@ function Progress({
 }) {
   return (
     <div styleName={cn("progress", extraStyleName)}>
-    <ProgressBar percentDone={percentage} />
-    <ul styleName="list">
-      {stages.map((stage, idx) => (
-        <li
-          styleName={cn("list-item", {
-            active: stage.isCurrent,
-            done: stage.completed,
-          })}
-          data-index={idx + 1}
+      <ProgressBar percentDone={percentage} />
+      <ul styleName="list">
+        {stages.map((stage, idx) => (
+          <li
+            styleName={cn("list-item", {
+              active: stage.isCurrent,
+              done: stage.completed,
+            })}
+            data-index={idx + 1}
+          >
+            {stage.name}
+          </li>
+        ))}
+      </ul>
+      {buttonLabel !== undefined ? (
+        <Button
+          styleName={cn({ searching: isSearching })}
+          size="medium"
+          type="secondary"
+          disabled={isDisabled}
+          onClick={onClick}
         >
-          {stage.name}
-        </li>
-      ))}
-    </ul>
-    {buttonLabel !== undefined ? (
-    <Button
-      styleName={cn({ searching: isSearching })}
-      size="medium"
-      type="secondary"
-      disabled={isDisabled}
-      onClick={onClick}
-    >
-      {isSearching ? (
-        <>
-          <div styleName="spinner">
-            <Spinner stype="Oval" width="16" height="16" />
-          </div>
-          Searching
-        </>
-      ) : (
-        buttonLabel
-      )}
-    </Button>) : null}
-  </div>
+          {isSearching ? (
+            <>
+              <div styleName="spinner">
+                <Spinner stype="Oval" width="16" height="16" />
+              </div>
+              Searching
+            </>
+          ) : (
+            buttonLabel
+          )}
+        </Button>
+      ) : null}
+    </div>
   );
 }
 

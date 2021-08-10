@@ -28,11 +28,7 @@ function SearchAndSubmit(props) {
   const { matchingRole } = useSelector((state) => state.searchedRoles);
 
   const matchedSkills = useMemo(() => {
-    if (
-      skills &&
-      matchingRole &&
-      matchingRole.matchedSkills
-    ) {
+    if (skills && matchingRole && matchingRole.matchedSkills) {
       return _.map(matchingRole.matchedSkills, (s) =>
         _.find(skills, (skill) => skill.name === s)
       );
@@ -42,11 +38,7 @@ function SearchAndSubmit(props) {
   }, [skills, matchingRole]);
 
   const unMatchedSkills = useMemo(() => {
-    if (
-      skills &&
-      matchingRole &&
-      matchingRole.unMatchedSkills
-    ) {
+    if (skills && matchingRole && matchingRole.unMatchedSkills) {
       return _.map(matchingRole.unMatchedSkills, (s) =>
         _.find(skills, (skill) => skill.name === s)
       );
