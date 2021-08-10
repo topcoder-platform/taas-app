@@ -18,7 +18,6 @@ export function getSkills() {
       cachedSkillsAsPromise = null;
       return { data: [] };
     });
-
   return cachedSkillsAsPromise;
 }
 
@@ -50,6 +49,9 @@ function getAllSkills() {
         .catch((ex) => reject(ex));
 
     loop(1);
+  }).then((skills) => {
+    console.log("skills: ", JSON.stringify(skills)); // eslint-disable-line no-console
+    return skills;
   });
 }
 
