@@ -25,6 +25,7 @@ const CreateTassPayment = () => {
   useEffect(() => {
     const temp = [];
     const amount = [];
+
     addedRoles.map((role) => {
       const {
         imageUrl,
@@ -35,12 +36,11 @@ const CreateTassPayment = () => {
         hoursPerWeek,
       } = role;
       let rate;
-      if (hoursPerWeek) {
-        if (hoursPerWeek === "30") rate = rates.rate30Global;
-        else if (hoursPerWeek === "20") rate = rates.rate20Global;
-      } else {
-        rate = rates.global;
-      }
+
+      if (hoursPerWeek === "30") rate = rates.rate30Global;
+      else if (hoursPerWeek === "20") rate = rates.rate20Global;
+      else if (hoursPerWeek === "40") rate = rates.global;
+
       temp.push({
         imageUrl,
         name,
