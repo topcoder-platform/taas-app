@@ -5,7 +5,6 @@ import { loadStripe } from "@stripe/stripe-js";
 import { ThemeProvider } from "@material-ui/styles";
 import { toastr } from "react-redux-toastr";
 
-import config from "../../../../../config";
 import PaymentForm from "./PaymentForm";
 import PageHeader from "components/PageHeader";
 import { calculateAmount } from "services/teams";
@@ -14,7 +13,7 @@ import theme from "./theme";
 import FallbackIcon from "../../../../assets/images/icon-role-fallback.svg";
 import "./styles.module.scss";
 
-const stripePromise = loadStripe(config.STRIPE_PUBLIC_KEY);
+const stripePromise = loadStripe(process.env.STRIPE_PUBLIC_KEY);
 
 const CreateTassPayment = () => {
   const [calculatedAmount, setCalculatedAmount] = useState(0);
@@ -37,9 +36,11 @@ const CreateTassPayment = () => {
       } = role;
       let rate;
 
-      if (hoursPerWeek === "30") rate = rates.rate30Global;
-      else if (hoursPerWeek === "20") rate = rates.rate20Global;
-      else if (hoursPerWeek === "40") rate = rates.global;
+      if (hoursPerWeek) {
+        if (hoursPerWeek === "30") rate = rates.rate30Global;
+        else if (hoursPerWeek === "20") rate = rates.rate20Global;
+        else if (hoursPerWeek === "40") rate = rates.global;
+      } else rate = rates.global;
 
       temp.push({
         imageUrl,
