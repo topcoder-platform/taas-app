@@ -1,50 +1,75 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useSelector } from "react-redux";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { ThemeProvider } from "@material-ui/styles";
 import { toastr } from "react-redux-toastr";
 
+import config from "../../../../../config";
 import PaymentForm from "./PaymentForm";
 import PageHeader from "components/PageHeader";
 import { calculateAmount } from "services/teams";
 import Progress from "../../components/Progress";
 import theme from "./theme";
+import FallbackIcon from "../../../../assets/images/icon-role-fallback.svg";
 import "./styles.module.scss";
 
-const stripePromise = loadStripe(process.env.STRIPE_PUBLIC_KEY);
+const stripePromise = loadStripe(config.STRIPE_PUBLIC_KEY);
+
 const CreateTassPayment = () => {
   const [calculatedAmount, setCalculatedAmount] = useState(0);
+  const [error, setError] = useState(false);
+  const [value, setValue] = useState([]);
   const { addedRoles } = useSelector((state) => state.searchedRoles);
 
-  // Backend has wrong test data so created dummy data for logic to work
-  const dummyRates = {
-    global: 50,
-    rate20Global: 20,
-    rate30Global: 20,
-  };
-
   useEffect(() => {
-    const obj = {
-      numberOfResources: addedRoles.numberOfResources || 1,
-      rates: dummyRates.global,
-      durationWeeks: addedRoles.durationWeeks || 1,
-    };
-    calculateAmount(obj)
+    const temp = [];
+    const amount = [];
+    addedRoles.map((role) => {
+      const {
+        imageUrl,
+        name,
+        rates: [rates],
+        numberOfResources,
+        durationWeeks,
+        hoursPerWeek,
+      } = role;
+      let rate;
+      if (hoursPerWeek) {
+        if (hoursPerWeek === "30") rate = rates.rate30Global;
+        else if (hoursPerWeek === "20") rate = rates.rate20Global;
+      } else {
+        rate = rates.global;
+      }
+      temp.push({
+        imageUrl,
+        name,
+        rate,
+        numberOfResources,
+        durationWeeks,
+        hoursPerWeek,
+      });
+      amount.push({ rate, numberOfResources, durationWeeks });
+    });
+    setValue(temp);
+
+    calculateAmount(amount)
       .then((res) => {
         setCalculatedAmount(res.data.totalAmount);
       })
       .catch((err) => {
         toastr.error("Error Requesting Team", err.message);
       });
-  });
+  }, [addedRoles, setValue]);
 
   const stages = [
     { name: "Input Job Description", completed: true },
     { name: "Search Member", completed: true },
     { name: "Overview of the Results", completed: true },
-    { name: "Refundable Deposite Payment", isCurrent: true },
+    { name: "Refundable Deposit Payment", isCurrent: true },
   ];
+
+  const onImgError = useCallback(() => setError(true), []);
 
   return (
     <div styleName="taas-payment">
@@ -59,31 +84,35 @@ const CreateTassPayment = () => {
               <div styleName="summary">
                 <p styleName="heading">summary</p>
                 <div styleName="scroll">
-                  {addedRoles.map((role) => (
+                  {value.map((data) => (
                     <div styleName="role-container">
                       <div styleName="roles">
-                        <img
-                          styleName="image"
-                          src={addedRoles.imageUrl}
-                          alt="role"
-                        />
+                        {data.imageUrl && !error ? (
+                          <img
+                            src={data.imageUrl}
+                            onError={onImgError}
+                            alt={data.name}
+                            styleName="role-icon"
+                          />
+                        ) : (
+                          <FallbackIcon styleName="role-icon" />
+                        )}
                         <div>
-                          <p styleName="title">{role.name}</p>
+                          <p styleName="title">{data.name}</p>
                           <ul styleName="details">
                             <li>
-                              {role.numberOfResources} x ${dummyRates.global}/
-                              Week
+                              {data.numberOfResources} x ${data.rate}/ Week
                             </li>
-                            <li>{role.durationWeeks} Week Duration</li>
+                            <li>{data.durationWeeks} Week Duration</li>
                             <li>
-                              {role.hoursPerWeek
+                              {data.hoursPerWeek
                                 ? "Part-Time Availability"
                                 : "Full-Time Availability"}
                             </li>
                           </ul>
                         </div>
                         <p styleName="amount">
-                          ${role.numberOfResources * dummyRates.global}
+                          ${data.numberOfResources * data.rate}
                         </p>
                       </div>
                       <hr styleName="divider" />
@@ -130,7 +159,7 @@ const CreateTassPayment = () => {
         stages={stages}
         extraStyleName="role-selection final-step"
         disabled="true"
-        percentage="97"
+        percentage="98"
       />
     </div>
   );

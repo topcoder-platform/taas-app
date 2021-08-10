@@ -67,18 +67,18 @@ const ResourceBookingDetails = ({ teamId, resourceBookingId }) => {
 
   const getRequestData = (values) => {
     // omit read-only fields
-    const data = _.omit(values, ['handle', 'jobTitle'])
+    const data = _.omit(values, ["handle", "jobTitle"]);
 
     // convert dates to the API format before sending
     if (data.startDate) {
-      data.startDate = moment(data.startDate).format('YYYY-MM-DD')
+      data.startDate = moment(data.startDate).format("YYYY-MM-DD");
     }
     if (data.endDate) {
-      data.endDate = moment(data.endDate).format('YYYY-MM-DD')
+      data.endDate = moment(data.endDate).format("YYYY-MM-DD");
     }
 
-    return data
-  }
+    return data;
+  };
 
   return (
     <Page title="Edit Resource Booking">

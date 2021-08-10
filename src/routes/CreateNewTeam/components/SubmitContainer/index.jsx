@@ -115,6 +115,7 @@ function SubmitContainer({
 
     setTeamDetailsOpen(false);
     setTeamObject(teamObject);
+    requestTeam();
   };
 
   const requestTeam = useCallback(() => {
@@ -177,12 +178,12 @@ function SubmitContainer({
           addedRoles={addedRoles}
         />
       )}
-      <ConfirmationModal
+      {/* <ConfirmationModal
         open={!!teamObject}
         onClose={() => setTeamObject(null)}
         onSubmit={requestTeam}
         isLoading={requestLoading}
-      />
+      /> */}
     </div>
   );
 }

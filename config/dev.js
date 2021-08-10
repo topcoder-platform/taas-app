@@ -13,4 +13,6 @@ module.exports = {
     V5: "https://api.topcoder-dev.com/v5", //"http://localhost:3030/api/v5"
     V3: "https://api.topcoder-dev.com/v3",
   },
+
+  STRIPE_PUBLIC_KEY: "",
 };

@@ -24,19 +24,19 @@ function LandingBox({
         backgroundImage,
       }}
     >
-      {showGap && <div styleName='gap'>OR</div>}
+      {showGap && <div styleName="gap">OR</div>}
       <div styleName="flex-container">
-          <div styleName="icon">{icon}</div>
-          <h3 styleName="title">{title}</h3>
-          <p styleName="description">{description}</p>
-          <Button
-            size="large"
-            type="secondary"
-            onClick={onClick}
-            disabled={isDisabled}
-          >
-            Select
-          </Button>
+        <div styleName="icon">{icon}</div>
+        <h3 styleName="title">{title}</h3>
+        <p styleName="description">{description}</p>
+        <Button
+          size="large"
+          type="secondary"
+          onClick={onClick}
+          disabled={isDisabled}
+        >
+          Select
+        </Button>
       </div>
     </div>
   );

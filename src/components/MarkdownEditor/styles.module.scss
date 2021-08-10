@@ -2,22 +2,28 @@
 
 // we use viewer mode to show editor when it's "disabled"
 .editor-viewer {
-    > div:first-child {
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      overflow: hidden;
-      box-sizing: border-box;
-      padding: 16px 25px 0px 25px;
-      height: 280px;
-      overflow-y: auto;
-      background: #fafafb;
-    }
+  > div:first-child {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    overflow: hidden;
+    box-sizing: border-box;
+    padding: 16px 25px 0px 25px;
+    height: 280px;
+    overflow-y: auto;
+    background: #fafafb;
+  }
 }
 .editor-container {
   :global {
     // reset style for heading list in  headings selection popup
     .tui-popup-body {
-      h1,h2,h3,h4,h4,h5,h6 {
+      h1,
+      h2,
+      h3,
+      h4,
+      h4,
+      h5,
+      h6 {
         font-weight: revert;
         line-height: revert;
       }
@@ -44,15 +50,16 @@
     }
 
     // hide uplodd file
-    .tui-editor-popup{
-        box-shadow: 0px 0px 15px 5px rgba(0,0,0,0.26);
+    .tui-editor-popup {
+      box-shadow: 0px 0px 15px 5px rgba(0, 0, 0, 0.26);
     }
 
-    .te-popup-add-image .te-tab button, .te-popup-add-image .te-file-type{
+    .te-popup-add-image .te-tab button,
+    .te-popup-add-image .te-file-type {
       display: none !important;
     }
 
-    .te-popup-add-image .te-url-type{
+    .te-popup-add-image .te-url-type {
       display: block !important;
     }
   }

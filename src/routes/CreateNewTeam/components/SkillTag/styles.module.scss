@@ -4,23 +4,21 @@
   align-items: center;
   height: 32px;
   border-radius: 32px;
-  border: 1px solid #0AB88A;
-  color: #2A2A2A;
+  border: 1px solid #0ab88a;
+  color: #2a2a2a;
   font-size: 10px;
   padding: 8px;
   line-height: 12px;
   margin-right: 6px;
   margin-bottom: 6px;
 
-
   .image {
     height: 20px;
   }
   &.unmatched {
-    border-color: #EF476F;
-    background-color: #E9E9E9;
-    color: #2A2A2A;
-
+    border-color: #ef476f;
+    background-color: #e9e9e9;
+    color: #2a2a2a;
   }
 }
 .item-card {

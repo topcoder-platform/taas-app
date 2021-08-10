@@ -17,30 +17,30 @@ import { getMemberSuggestions } from "services/teams";
  *
  * @returns {Promise<Array>} A promise that resolves to list of suggested users
  */
-const loadSuggestions = inputVal => {
+const loadSuggestions = (inputVal) => {
   return getMemberSuggestions(inputVal)
-    .then(res => {
+    .then((res) => {
       const users = _.get(res, "data.result.content", []);
-      return users.map(user => ({
+      return users.map((user) => ({
         label: user.handle,
-        value: user.handle
-      }))
+        value: user.handle,
+      }));
     })
     .catch(() => {
       console.warn("could not get suggestions");
       return [];
-    })
-}
+    });
+};
 
 /**
  * Function to call if user does not have permission to see suggestions
  * @returns {Promise<Array>} Promise resolving to empty array
  */
 const emptySuggestions = () => {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     resolve([]);
-  })
-}
+  });
+};
 
 /**
  * Filters selected members, keeping those who could not be added to team
@@ -120,7 +120,7 @@ const AddModal = ({ open, onClose, teamId, validateAdds, showSuggestions }) => {
           const numAdds = success.length;
           toastr.success(
             "Members Added",
-            `Successfully added ${formatPlural(numAdds, 'member')}`
+            `Successfully added ${formatPlural(numAdds, "member")}`
           );
         }
 
@@ -210,7 +210,7 @@ const AddModal = ({ open, onClose, teamId, validateAdds, showSuggestions }) => {
         placeholder="Enter email address(es) or user handles"
         noOptionsText="Type to search"
         loadingText="Loading..."
-        loadOptions={showSuggestions ? loadSuggestions: emptySuggestions}
+        loadOptions={showSuggestions ? loadSuggestions : emptySuggestions}
         defaultOptions={[]}
       />
       {validationError && (
