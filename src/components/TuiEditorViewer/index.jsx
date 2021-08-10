@@ -43,11 +43,11 @@ class TuiViewer extends React.Component {
 
   componentWillUnmount() {
     Object.keys(this.props)
-    .filter((key) => /^on[A-Z][a-zA-Z]+/.test(key))
-    .forEach((key) => {
-      const eventName = key[2].toLowerCase() + key.slice(3);
-      this.editorInst.off(eventName);
-    });
+      .filter((key) => /^on[A-Z][a-zA-Z]+/.test(key))
+      .forEach((key) => {
+        const eventName = key[2].toLowerCase() + key.slice(3);
+        this.editorInst.off(eventName);
+      });
   }
 
   shouldComponentUpdate(nextProps) {

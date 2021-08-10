@@ -25,7 +25,9 @@ const checkForMatches = (newMember, memberList) => {
       return member.email && member.email.toLowerCase() === lowered;
     });
   }
-  return memberList.find((member) => member.handle && member.handle.toLowerCase() === lowered);
+  return memberList.find(
+    (member) => member.handle && member.handle.toLowerCase() === lowered
+  );
 };
 
 const AddModalContainer = ({

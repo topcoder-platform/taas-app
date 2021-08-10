@@ -18,7 +18,7 @@ function InputJobDescription() {
     { name: "Input Job Description", isCurrent: true },
     { name: "Search Member" },
     { name: "Overview of the Results" },
-    { name: "Refundable Deposite Payment" },
+    { name: "Refundable Deposit Payment" },
   ]);
   const [jdString, setJdString] = useState("");
   const [jobTitle, setJobTitle] = useState("");
@@ -73,11 +73,7 @@ function InputJobDescription() {
             backTo="/taas/createnewteam"
           />
           <p styleName="subtitle">
-            Input a Job Description for your opening and the Topcoder Platform
-            will identify the skills required to perform the job duties and find
-            the best matching freelancers for your job opening. After inputting
-            the Job Description click on the "Search" button to see the skills
-            identified.
+            Copy and paste in a job description, or enter it manually.
           </p>
           <div styleName="job-title">
             <TextInput

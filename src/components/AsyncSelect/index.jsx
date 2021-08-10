@@ -87,8 +87,8 @@ const AsyncSelect = (props) => {
         defaultOptions={props.defaultOptions}
       />
     </div>
-  )
-}
+  );
+};
 
 AsyncSelect.propTypes = {
   value: PT.string,
@@ -106,6 +106,6 @@ AsyncSelect.propTypes = {
   loadOptions: PT.func,
   defaultOptions: PT.bool || PT.array,
   disabled: PT.bool,
-}
+};
 
 export default AsyncSelect;

@@ -26,7 +26,7 @@ const EDIT_JOB_ROWS = [
   { type: FORM_ROW_TYPE.SINGLE, fields: ["status"] },
 ];
 
-const validateDuration = (x, y, {duration}) => {
+const validateDuration = (x, y, { duration }) => {
   if (!duration) return undefined;
   const converted = Number(duration);
 
@@ -35,7 +35,7 @@ const validateDuration = (x, y, {duration}) => {
   }
 
   return undefined;
-}
+};
 
 /**
  * return edit job configuration

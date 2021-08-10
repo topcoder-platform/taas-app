@@ -115,28 +115,32 @@ function SubmitContainer({
 
     setTeamDetailsOpen(false);
     setTeamObject(teamObject);
+    requestTeam(teamObject);
   };
 
-  const requestTeam = useCallback(() => {
-    setRequestLoading(true);
-    if (matchingRole.isExternalMember) {
-      dispatch(addTeamObjects(teamObject));
-      navigate("/taas/myteams/createnewteam/create-taas-payment");
-    } else {
-      postTeamRequest(teamObject)
-        .then(() => {
-          setTimeout(() => {
-            dispatch(clearSearchedRoles());
-            // Backend api create project has sync issue, so delay 2 seconds
-            navigate("/taas/myteams");
-          }, 2000);
-        })
-        .catch((err) => {
-          setRequestLoading(false);
-          toastr.error("Error Requesting Team", err.message);
-        });
-    }
-  }, [dispatch, teamObject]);
+  const requestTeam = useCallback(
+    (teamObject) => {
+      setRequestLoading(true);
+      if (matchingRole.isExternalMember) {
+        dispatch(addTeamObjects(teamObject));
+        navigate("/taas/myteams/createnewteam/create-taas-payment");
+      } else {
+        postTeamRequest(teamObject)
+          .then(() => {
+            setTimeout(() => {
+              dispatch(clearSearchedRoles());
+              // Backend api create project has sync issue, so delay 2 seconds
+              navigate("/taas/myteams");
+            }, 2000);
+          })
+          .catch((err) => {
+            setRequestLoading(false);
+            toastr.error("Error Requesting Team", err.message);
+          });
+      }
+    },
+    [dispatch, teamObject]
+  );
 
   return (
     <div styleName="page">
@@ -177,12 +181,12 @@ function SubmitContainer({
           addedRoles={addedRoles}
         />
       )}
-      <ConfirmationModal
+      {/* <ConfirmationModal
         open={!!teamObject}
         onClose={() => setTeamObject(null)}
         onSubmit={requestTeam}
         isLoading={requestLoading}
-      />
+      /> */}
     </div>
   );
 }
