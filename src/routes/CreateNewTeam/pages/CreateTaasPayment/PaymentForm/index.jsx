@@ -52,6 +52,7 @@ const PaymentForm = ({ calculatedAmount }) => {
   const [processing, setProcessing] = useState(false);
   const [requestLoading, setRequestLoading] = useState(false);
   const [errors, setErrors] = useState({});
+  const [clicked, setClicked] = useState(true);
   const stripe = useStripe();
   const elements = useElements();
   const dispatch = useDispatch();
@@ -96,7 +97,8 @@ const PaymentForm = ({ calculatedAmount }) => {
   };
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    if (formIsValid()) {
+    if (formIsValid() && clicked) {
+      setClicked(false);
       setProcessing(true);
       postTeamPayment({ totalAmount: calculatedAmount })
         .then(async (res) => {
