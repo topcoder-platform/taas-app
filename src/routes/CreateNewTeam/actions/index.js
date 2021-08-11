@@ -48,7 +48,7 @@ const addTeamObject = (teamObject) => ({
 
 export const addTeamObjects = (teamObject) => (dispatch, getState) => {
   dispatch(addTeamObject(teamObject));
-  updateLocalStorage(getState().teamObject);
+  updateLocalStorage(getState().searchedRoles);
 };
 
 export const clearSearchedRoles = () => (dispatch, getState) => {
