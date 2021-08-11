@@ -30,8 +30,8 @@ const CreateTassPayment = () => {
         imageUrl,
         name,
         rates: [rates],
-        numberOfResources,
-        durationWeeks,
+        numberOfResources = 1,
+        durationWeeks = 4,
         hoursPerWeek,
       } = role;
       let rate;
@@ -50,7 +50,7 @@ const CreateTassPayment = () => {
         durationWeeks,
         hoursPerWeek,
       });
-      amount.push({ rate, numberOfResources, durationWeeks });
+      amount.push({ rate, numberOfResources });
     });
     setValue(temp);
 
