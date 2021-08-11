@@ -160,7 +160,7 @@ const CreateTassPayment = () => {
         stages={stages}
         extraStyleName="role-selection final-step"
         disabled="true"
-        percentage="98"
+        percentage="97"
       />
     </div>
   );

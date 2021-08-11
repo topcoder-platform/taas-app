@@ -163,7 +163,7 @@ function SubmitContainer({
           isDisabled={!buttonClickable}
           buttonLabel="Continue"
           stages={stages}
-          percentage="98"
+          percentage="84"
         />
       </div>
       <AddAnotherModal
