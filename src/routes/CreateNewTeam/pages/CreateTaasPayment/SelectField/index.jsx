@@ -56,7 +56,7 @@ function SelectField({ dropdownValue, handleDropdown }) {
         variant="outlined"
         label="Country or region"
         error={error}
-        helperText={error ? "This field is require." : ""}
+        helperText={error ? "This field is required." : ""}
         value={dropdownValue}
         onBlur={handleChange}
         onChange={handleChange}

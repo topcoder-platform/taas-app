@@ -68,7 +68,7 @@ const PaymentForm = ({ calculatedAmount }) => {
     };
 
     if ("name" in fieldValues)
-      temp.name = fieldValues.name ? "" : "This field is require.";
+      temp.name = fieldValues.name ? "" : "This field is required.";
 
     if ("email" in fieldValues) {
       temp.email = fieldValues.email ? "" : "This field is required.";
