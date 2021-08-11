@@ -23,10 +23,11 @@ function SkillListPopup({
   onClose,
   onContinueClick,
 }) {
+  const title = page === "jd" ? "Identified Skills" : "Selected Skills";
   const subTitle =
     page === "jd"
-      ? `Topcoder has identified the following skills referenced in your job description. Select your the ${MAX_SELECTED_SKILLS} skills most important to be successful in the job. These skills will be weighted more heavily in matching.`
-      : `You have chosen the following skills in your request. Please select your the ${MAX_SELECTED_SKILLS} skills most important to be successful in the job. These skills will be weighted more heavily in matching.`;
+      ? `Topcoder has identified the following skills referenced in your job description. Select the ${MAX_SELECTED_SKILLS} skills most important to be successful in the job. These skills will be weighted more heavily in matching.`
+      : `You have chosen the following skills in your request. Please select the ${MAX_SELECTED_SKILLS} skills most important to be successful in the job. These skills will be weighted more heavily in matching.`;
   const skillsNotFoundTxt = "No skills are found in your Job Description";
 
   const toggleSkill = useCallback(
@@ -62,7 +63,7 @@ function SkillListPopup({
       open={open}
       onClose={onClose}
       headerIcon={<IconSingleManAdd />}
-      title="Identified Skills"
+      title={title}
       subtitle={skills.length ? subTitle : skillsNotFoundTxt}
       isLoading={isLoading}
       loadingMessage={loadingTxt || "Loading..."}
