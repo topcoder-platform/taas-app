@@ -3,9 +3,14 @@ import TextField from "@material-ui/core/TextField";
 import Box from "@material-ui/core/Box";
 import StripeInput from "./StripeInput";
 
-function StripeElement({ element, icon, width }) {
+function StripeElement({ onErrorChange, element, icon, width, name }) {
   const [errorMessage, setErrorMessage] = React.useState(null);
-  function handleElementChange({ error, elementType }) {
+  function handleElementChange({empty, complete, error, elementType }) {
+    if (!complete || error || empty) {
+      onErrorChange(name, true)
+    }else {
+      onErrorChange(name, false)
+    }
     if (error) {
       if (elementType === "cardNumber") {
         setErrorMessage("Credit card incomplete");
@@ -24,7 +29,6 @@ function StripeElement({ element, icon, width }) {
         variant="outlined"
         error={hasError}
         helperText={hasError ? errorMessage || "Invalid" : ""}
-        onBlur={handleElementChange}
         onChange={handleElementChange}
         size="small"
         style={{ width }}
