@@ -35,7 +35,14 @@ function NoMatchingProfilesResultCard({ role }) {
     if (role.jobTitle && role.jobTitle.length) {
       name = role.jobTitle;
     }
-    dispatch(addSearchedRole({ searchId, name }));
+    dispatch(
+      addSearchedRole({
+        searchId,
+        name,
+        rates: role.rates,
+        imageUrl: role.imageUrl,
+      })
+    );
   }, [dispatch, role]);
 
   return (
