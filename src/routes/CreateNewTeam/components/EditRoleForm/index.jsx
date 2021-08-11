@@ -155,7 +155,7 @@ function EditRoleForm({ onChange, role }) {
                   )}
                 </td>
                 <td>
-                  <Field name="hoursPerWeek" initialValue={"40"}>
+                  <Field name="hoursPerWeek" initialValue={role.hoursPerWeek}>
                     {(props) => (
                       <Select
                         name={props.input.name}

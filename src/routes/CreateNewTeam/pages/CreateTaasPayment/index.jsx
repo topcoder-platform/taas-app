@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
+import _ from "lodash";
 import { useSelector } from "react-redux";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
@@ -19,7 +20,7 @@ const CreateTassPayment = () => {
   const [calculatedAmount, setCalculatedAmount] = useState(0);
   const [error, setError] = useState(false);
   const [value, setValue] = useState([]);
-  const { addedRoles } = useSelector((state) => state.searchedRoles);
+  const { addedRoles, teamObject } = useSelector((state) => state.searchedRoles );
 
   useEffect(() => {
     const temp = [];
@@ -30,10 +31,12 @@ const CreateTassPayment = () => {
         imageUrl,
         name,
         rates: [rates],
+      } = role;
+      const {
         numberOfResources = 1,
         durationWeeks = 4,
         hoursPerWeek,
-      } = role;
+      } = _.find(teamObject.positions, p => p.roleSearchRequestId === role.searchId) || {}
       let rate;
 
       if (hoursPerWeek) {
