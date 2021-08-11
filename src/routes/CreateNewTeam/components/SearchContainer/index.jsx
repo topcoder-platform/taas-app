@@ -80,11 +80,10 @@ function SearchContainer({
     return <NoMatchingProfilesResultCard role={matchingRole} />;
   };
 
-  const getPercentage = useCallback(() => {
-    if (searchState === "searching") return "26";
-    if (matchingRole) return "53";
-    return "84";
-  }, [searchState, matchingRole]);
+  const progressBarPercentage = useMemo(
+    () => (searchState === "searching" ? 53 : 84),
+    [searchState]
+  );
 
   return (
     <div styleName="page">
@@ -94,14 +93,14 @@ function SearchContainer({
         <Progress
           isDisabled={
             !buttonClickable ||
-            searchState === "searching" ||
             (searchState === "done" && (!addedRoles || !addedRoles.length))
           }
+          isSearching={searchState === "searching"}
           onClick={() => setAddAnotherOpen(true)}
           extraStyleName={progressStyle}
           buttonLabel="Continue"
           stages={stages}
-          percentage={getPercentage()}
+          percentage={progressBarPercentage}
         />
       </div>
       <AddAnotherModal
