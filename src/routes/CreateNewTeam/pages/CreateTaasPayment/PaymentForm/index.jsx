@@ -57,7 +57,7 @@ const PaymentForm = ({ calculatedAmount }) => {
   const [errors, setErrors] = useState({
     card: true,
     cardExpire: true,
-    cardCvc: true,
+    cvc: true,
   });
   const [clicked, setClicked] = useState(true);
   const [projectId, setProjectId] = useState(null);
@@ -172,8 +172,8 @@ const PaymentForm = ({ calculatedAmount }) => {
       fieldValues.name &&
       fieldValues.zipcode &&
       dropdown &&
-      cardValid;
-    Object.values(errors).every((x) => x === "");
+      cardValid &&
+      Object.values(errors).every((x) => x === "" || x === false);
 
     return isValid;
   };
@@ -240,14 +240,20 @@ const PaymentForm = ({ calculatedAmount }) => {
         </button>
       </form>
 
-      <ConfirmationModal open={requestLoading} isLoading={requestLoading}  loadingMessage="Creating A New Team"/>
-      <PaymentResultPopup
-        open={showPaymentResultPopup}
-        onContinueClick={goToTassProject}
-        onClose={() => {
-          setShowPaymentResultPopup(false);
-        }}
+      <ConfirmationModal
+        open={requestLoading}
+        isLoading={requestLoading}
+        loadingMessage="Creating A New Team"
       />
+      {showPaymentResultPopup ? (
+        <PaymentResultPopup
+          open={showPaymentResultPopup}
+          onContinueClick={goToTassProject}
+          onClose={() => {
+            setShowPaymentResultPopup(false);
+          }}
+        />
+      ) : null}
     </>
   );
 };
