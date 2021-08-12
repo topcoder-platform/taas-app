@@ -20,7 +20,9 @@ const CreateTassPayment = () => {
   const [calculatedAmount, setCalculatedAmount] = useState(0);
   const [error, setError] = useState(false);
   const [value, setValue] = useState([]);
-  const { addedRoles, teamObject } = useSelector((state) => state.searchedRoles );
+  const { addedRoles, teamObject } = useSelector(
+    (state) => state.searchedRoles
+  );
 
   useEffect(() => {
     const temp = [];
@@ -32,17 +34,17 @@ const CreateTassPayment = () => {
         name,
         rates: [rates],
       } = role;
-      const {
-        numberOfResources = 1,
-        durationWeeks = 4,
-        hoursPerWeek,
-      } = _.find(teamObject.positions, p => p.roleSearchRequestId === role.searchId) || {}
+      const { numberOfResources = 1, durationWeeks = 4, hoursPerWeek } =
+        _.find(
+          teamObject.positions,
+          (p) => p.roleSearchRequestId === role.searchId
+        ) || {};
       let rate;
 
       if (hoursPerWeek) {
-        if (hoursPerWeek === "30") rate = rates.rate30Global;
-        else if (hoursPerWeek === "20") rate = rates.rate20Global;
-        else if (hoursPerWeek === "40") rate = rates.global;
+        if (hoursPerWeek === 30) rate = rates.rate30Global;
+        else if (hoursPerWeek === 20) rate = rates.rate20Global;
+        else if (hoursPerWeek === 40) rate = rates.global;
       } else rate = rates.global;
 
       temp.push({
@@ -109,9 +111,9 @@ const CreateTassPayment = () => {
                             </li>
                             <li>{data.durationWeeks} Week Duration</li>
                             <li>
-                              {data.hoursPerWeek
-                                ? "Part-Time Availability"
-                                : "Full-Time Availability"}
+                              {data.hoursPerWeek === 40
+                                ? "Full-Time Availability"
+                                : "Part-Time Availability"}
                             </li>
                           </ul>
                         </div>
