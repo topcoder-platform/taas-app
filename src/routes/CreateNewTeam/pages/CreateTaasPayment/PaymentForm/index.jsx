@@ -141,7 +141,7 @@ const PaymentForm = ({ calculatedAmount }) => {
             toastr.error("Payment failed", payload.error.message);
           } else if (payload.paymentIntent.status === "succeeded") {
             toastr.success("Payment is successful");
-            setRequestLoading(true);
+            // setRequestLoading(true);
             postTeamRequest(teamObject)
               .then((res) => {
                 setProjectId(_.get(res, "data.projectId"));
