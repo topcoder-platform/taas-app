@@ -148,9 +148,9 @@ function SubmitContainer({
               .then(() => {
                 setTimeout(() => {
                   dispatch(clearSearchedRoles());
-                  // Backend api create project has sync issue, so delay 2 seconds
+                  // Backend api create project has sync issue, so delay 4 seconds
                   navigate("/taas/myteams");
-                }, 2000);
+                }, 4000);
               })
               .catch((err) => {
                 setRequestLoading(false);
