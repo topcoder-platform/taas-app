@@ -35,6 +35,7 @@ const CreateTassPayment = () => {
         durationWeeks = 4,
         hoursPerWeek = "40",
       } = role;
+      
       let rate;
       let availability;
 
@@ -48,6 +49,7 @@ const CreateTassPayment = () => {
         rate = rates.global;
         availability = "Full-Time Availability";
       }
+
       temp.push({
         imageUrl,
         name,
