@@ -1,0 +1,44 @@
+@import "styles/include";
+
+.header {
+    margin-top: -30px;
+    background-color: #ffffff;
+    background-image: linear-gradient(
+90deg
+, #9D41C9, #EF476F);
+    background-size: 100%;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-family: BarlowCondensed;
+    font-size: 34px;
+    line-height: 38px;
+    text-align: center;
+}
+
+.sub-header {
+  @include font-roboto;
+  margin-top: 20px;
+  color: #2A2A2A;
+  font-size: 16px;
+  line-height: 26px;
+  text-align: center;
+}
+
+.button-contaier {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .time-label {
+    @include font-roboto;
+    margin-top: 10px;
+    color: #2A2A2A;
+    font-size: 14px;
+    line-height: 22px;
+    text-align: center;
+  }
+}
+
+.continue-button:disabled {
+  background-color: #997b7be6;
+}

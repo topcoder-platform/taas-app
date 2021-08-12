@@ -8,6 +8,7 @@ import {
   useElements,
 } from "@stripe/react-stripe-js";
 import { navigate } from "@reach/router";
+import _ from "lodash";
 import { toastr } from "react-redux-toastr";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
@@ -19,6 +20,7 @@ import StripeElement from "../StripeElement";
 import FormField from "../FormField";
 import SelectField from "../SelectField";
 import ConfirmationModal from "../../../components/ConfirmationModal";
+import PaymentResultPopup from "../PaymentResultPopup";
 
 import "./styles.module.scss";
 
@@ -50,6 +52,7 @@ const PaymentForm = ({ calculatedAmount }) => {
   const [formValues, setFormValues] = useState(initialFormValues);
   const [dropdownValue, setDropdownValue] = useState("");
   const [processing, setProcessing] = useState(false);
+  const [showPaymentResultPopup, setShowPaymentResultPopup] = useState(false);
   const [requestLoading, setRequestLoading] = useState(false);
   const [errors, setErrors] = useState({
     card: true,
@@ -57,6 +60,7 @@ const PaymentForm = ({ calculatedAmount }) => {
     cardCvc: true,
   });
   const [clicked, setClicked] = useState(true);
+  const [projectId, setProjectId] = useState(null);
   const stripe = useStripe();
   const elements = useElements();
   const dispatch = useDispatch();
@@ -105,6 +109,11 @@ const PaymentForm = ({ calculatedAmount }) => {
       [name]: value,
     });
   };
+  const goToTassProject = () => {
+    dispatch(clearSearchedRoles());
+    setShowPaymentResultPopup(false);
+    navigate(`/taas/myteams/${projectId}`);
+  };
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     if (formIsValid() && clicked) {
@@ -132,14 +141,11 @@ const PaymentForm = ({ calculatedAmount }) => {
             toastr.error("Payment failed", payload.error.message);
           } else if (payload.paymentIntent.status === "succeeded") {
             toastr.success("Payment is successful");
-            setRequestLoading(true);
+            // setRequestLoading(true);
             postTeamRequest(teamObject)
-              .then(() => {
-                setTimeout(() => {
-                  dispatch(clearSearchedRoles());
-                  // Backend api create project has sync issue, so delay 2 seconds
-                  navigate("/taas/myteams");
-                }, 2000);
+              .then((res) => {
+                setProjectId(_.get(res, "data.projectId"));
+                setShowPaymentResultPopup(true);
               })
               .catch((err) => {
                 setRequestLoading(false);
@@ -233,10 +239,14 @@ const PaymentForm = ({ calculatedAmount }) => {
           {processing ? "Payment Processing" : `Pay $${calculatedAmount}`}
         </button>
       </form>
-      <ConfirmationModal
-        open={requestLoading}
-        isLoading={requestLoading}
-        loadingMessage="Creating A New Team"
+
+      <ConfirmationModal open={requestLoading} isLoading={requestLoading}  loadingMessage="Creating A New Team"/>
+      <PaymentResultPopup
+        open={showPaymentResultPopup}
+        onContinueClick={goToTassProject}
+        onClose={() => {
+          setShowPaymentResultPopup(false);
+        }}
       />
     </>
   );
