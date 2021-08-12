@@ -20,9 +20,7 @@ const CreateTassPayment = () => {
   const [calculatedAmount, setCalculatedAmount] = useState(0);
   const [error, setError] = useState(false);
   const [value, setValue] = useState([]);
-  const { addedRoles, teamObject } = useSelector(
-    (state) => state.searchedRoles
-  );
+  const { addedRoles } = useSelector((state) => state.searchedRoles);
 
   useEffect(() => {
     const temp = [];
@@ -33,19 +31,24 @@ const CreateTassPayment = () => {
         imageUrl,
         name,
         rates: [rates],
+        numberOfResources = 1,
+        durationWeeks = 4,
+        hoursPerWeek = "40",
       } = role;
-      const { numberOfResources = 1, durationWeeks = 4, hoursPerWeek } =
-        _.find(
-          teamObject.positions,
-          (p) => p.roleSearchRequestId === role.searchId
-        ) || {};
+      
       let rate;
+      let availability;
 
-      if (hoursPerWeek) {
-        if (hoursPerWeek === 30) rate = rates.rate30Global;
-        else if (hoursPerWeek === 20) rate = rates.rate20Global;
-        else if (hoursPerWeek === 40) rate = rates.global;
-      } else rate = rates.global;
+      if (hoursPerWeek === "30") {
+        rate = rates.rate30Global;
+        availability = "Part-Time Availability";
+      } else if (hoursPerWeek === "20") {
+        rate = rates.rate20Global;
+        availability = "Part-Time Availability";
+      } else if (hoursPerWeek === "40") {
+        rate = rates.global;
+        availability = "Full-Time Availability";
+      }
 
       temp.push({
         imageUrl,
@@ -53,7 +56,7 @@ const CreateTassPayment = () => {
         rate,
         numberOfResources,
         durationWeeks,
-        hoursPerWeek,
+        availability,
       });
       amount.push({ rate, numberOfResources });
     });
@@ -110,11 +113,7 @@ const CreateTassPayment = () => {
                               {data.numberOfResources} x ${data.rate}/ Week
                             </li>
                             <li>{data.durationWeeks} Week Duration</li>
-                            <li>
-                              {data.hoursPerWeek === 40
-                                ? "Full-Time Availability"
-                                : "Part-Time Availability"}
-                            </li>
+                            <li>{data.availability}</li>
                           </ul>
                         </div>
                         <p styleName="amount">
