@@ -10,7 +10,13 @@ import Button from "components/Button";
 import "./styles.module.scss";
 import Checkbox from "components/Checkbox";
 
-function ConfirmationModal({ open, onClose, onSubmit, isLoading }) {
+function ConfirmationModal({
+  open,
+  onClose,
+  onSubmit,
+  isLoading,
+  loadingMessage,
+}) {
   const [agreed, setAgreed] = useState(false);
 
   const toggleAgreed = () => {
@@ -35,7 +41,7 @@ function ConfirmationModal({ open, onClose, onSubmit, isLoading }) {
       title="Confirmation"
       buttons={confirmButton}
       isLoading={isLoading}
-      loadingMessage="Creating A New Team"
+      loadingMessage={loadingMessage}
     >
       <div styleName="agreement">
         <h5>Our Commitment to You</h5>

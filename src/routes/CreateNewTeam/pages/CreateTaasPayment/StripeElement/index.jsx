@@ -5,11 +5,11 @@ import StripeInput from "./StripeInput";
 
 function StripeElement({ onErrorChange, element, icon, width, name }) {
   const [errorMessage, setErrorMessage] = React.useState(null);
-  function handleElementChange({empty, complete, error, elementType }) {
+  function handleElementChange({ empty, complete, error, elementType }) {
     if (!complete || error || empty) {
-      onErrorChange(name, true)
-    }else {
-      onErrorChange(name, false)
+      onErrorChange(name, true);
+    } else {
+      onErrorChange(name, false);
     }
     if (error) {
       if (elementType === "cardNumber") {

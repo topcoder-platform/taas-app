@@ -35,7 +35,7 @@ const CreateTassPayment = () => {
         durationWeeks = 4,
         hoursPerWeek = "40",
       } = role;
-      
+
       let rate;
       let availability;
 

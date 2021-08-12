@@ -239,7 +239,8 @@ const PaymentForm = ({ calculatedAmount }) => {
           {processing ? "Payment Processing" : `Pay $${calculatedAmount}`}
         </button>
       </form>
-      <ConfirmationModal open={requestLoading} isLoading={requestLoading} />
+
+      <ConfirmationModal open={requestLoading} isLoading={requestLoading}  loadingMessage="Creating A New Team"/>
       <PaymentResultPopup
         open={showPaymentResultPopup}
         onContinueClick={goToTassProject}

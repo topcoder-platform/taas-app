@@ -12,7 +12,7 @@ import React, {
   useState,
 } from "react";
 import PT from "prop-types";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import _ from "lodash";
 import { toastr } from "react-redux-toastr";
 import { navigate } from "@reach/router";
@@ -30,7 +30,7 @@ import {
   clearSearchedRoles,
   editRoleAction,
 } from "../../actions";
-import { postTeamRequest } from "services/teams";
+import { postTeamRequest, isExternalMemberRequest } from "services/teams";
 import NoMatchingProfilesResultCard from "../NoMatchingProfilesResultCard";
 
 function SubmitContainer({
@@ -48,8 +48,10 @@ function SubmitContainer({
   const [teamObject, setTeamObject] = useState(null);
   const [requestLoading, setRequestLoading] = useState(false);
   const [buttonClickable, setButtonClickable] = useState(true);
+  const [msg, setMsg] = useState(false);
 
   const dispatch = useDispatch();
+  const { userId } = useSelector((state) => state.authUser);
 
   const currentRole = useMemo(() => {
     return _.find(addedRoles, { searchId: previousSearchId });
@@ -133,23 +135,33 @@ function SubmitContainer({
   const requestTeam = useCallback(
     (teamObject) => {
       setRequestLoading(true);
-      if (matchingRole.isExternalMember) {
-        dispatch(addTeamObjects(teamObject));
-        navigate("/taas/myteams/createnewteam/create-taas-payment");
-      } else {
-        postTeamRequest(teamObject)
-          .then(() => {
-            setTimeout(() => {
-              dispatch(clearSearchedRoles());
-              // Backend api create project has sync issue, so delay 2 seconds
-              navigate("/taas/myteams");
-            }, 2000);
-          })
-          .catch((err) => {
-            setRequestLoading(false);
-            toastr.error("Error Requesting Team", err.message);
-          });
-      }
+      isExternalMemberRequest({
+        memberId: userId,
+      })
+        .then((res) => {
+          if (res.data) {
+            dispatch(addTeamObjects(teamObject));
+            navigate("/taas/myteams/createnewteam/create-taas-payment");
+          } else {
+            setMsg(true);
+            postTeamRequest(teamObject)
+              .then(() => {
+                setTimeout(() => {
+                  dispatch(clearSearchedRoles());
+                  // Backend api create project has sync issue, so delay 2 seconds
+                  navigate("/taas/myteams");
+                }, 2000);
+              })
+              .catch((err) => {
+                setRequestLoading(false);
+                toastr.error("Error Requesting Team", err.message);
+              });
+          }
+        })
+        .catch((err) => {
+          setRequestLoading(false);
+          toastr.error("Error validating Member", err.message);
+        });
     },
     [dispatch, teamObject]
   );
@@ -193,6 +205,11 @@ function SubmitContainer({
           addedRoles={addedRoles}
         />
       )}
+      <ConfirmationModal
+        open={requestLoading}
+        isLoading={requestLoading}
+        loadingMessage={msg ? "Creating A New Team" : ""}
+      />
       {/* <ConfirmationModal
         open={!!teamObject}
         onClose={() => setTeamObject(null)}
