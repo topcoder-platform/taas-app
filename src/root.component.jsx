@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Provider } from "react-redux";
 import { Router, Redirect } from "@reach/router";
 import MyTeamsList from "./routes/MyTeamsList";
@@ -21,32 +21,6 @@ import "./styles/main.vendor.scss";
 import styles from "./styles/main.module.scss";
 
 export default function Root() {
-  useEffect(() => {
-    const script = window.document.createElement("script");
-    script.innerHTML = `
-      window._chatlio = window._chatlio || [];
-      ! function() {
-          var t = document.getElementById("chatlio-widget-embed");
-          if (t && window.ChatlioReact && _chatlio.init) return void _chatlio.init(t, ChatlioReact);
-          for (var e = function(t) {
-                  return function() {
-                      _chatlio.push([t].concat(arguments))
-                  }
-              }, i = ["configure", "identify", "track", "show", "hide", "isShown", "isOnline", "page", "open", "showOrHide"], a = 0; a < i.length; a++) _chatlio[i[a]] || (_chatlio[i[a]] = e(i[a]));
-          var n = document.createElement("script"),
-              c = document.getElementsByTagName("script")[0];
-          n.id = "chatlio-widget-embed", n.src = "https://w.chatlio.com/w.chatlio-widget.js", n.async = !0, n.setAttribute("data-embed-version", "2.3");
-          n.setAttribute('data-widget-id', 'df6d6a4d-7193-4eaf-648b-4569f0e6b262');
-          c.parentNode.insertBefore(n, c);
-      }();
-    `;
-    window.document.body.appendChild(script);
-    return () => {
-      window.document.body.removeChild(
-        document.querySelector("#chatlio-widget")
-      );
-    };
-  }, []);
   return (
     <div className={styles["topcoder-micro-frontends-teams-app"]}>
       <Provider store={store}>
