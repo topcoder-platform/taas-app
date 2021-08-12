@@ -112,9 +112,21 @@ function SubmitContainer({
       positions.push(position);
     }
     teamObject.positions = positions;
-
     setTeamDetailsOpen(false);
     setTeamObject(teamObject);
+
+    addedRoles.map((data) => {
+      if (_.has(formData, data.searchId)) {
+        const temp = {
+          ...data,
+          numberOfResources: formData[data.searchId].numberOfResources,
+          durationWeeks: formData[data.searchId].durationWeeks,
+          hoursPerWeek: formData[data.searchId].hoursPerWeek,
+        };
+        dispatch(editRoleAction({ ...temp, searchId: data.searchId }));
+      }
+    });
+
     requestTeam(teamObject);
   };
 

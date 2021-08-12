@@ -242,7 +242,7 @@ function TeamDetailsModal({ open, onClose, submitForm, addedRoles }) {
                       <td>
                         <Field
                           name={`${id}.hoursPerWeek`}
-                          initialValue={hoursPerWeek || 40}
+                          initialValue={hoursPerWeek || "40"}
                         >
                           {(props) => (
                             <Select
