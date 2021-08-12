@@ -30,7 +30,6 @@ const Error = ({ name }) => {
 };
 
 function EditRoleForm({ onChange, role }) {
-  const [startMonthVisible, setStartMonthVisible] = useState(false);
   const onRoleChange = (state) => {
     if (state.hasValidationErrors) {
       onChange(false);
@@ -121,9 +120,9 @@ function EditRoleForm({ onChange, role }) {
                   <Error name="durationWeeks" />
                 </td>
                 <td>
-                  {startMonthVisible ? (
+                  {role.startMonth ? (
                     <>
-                      <Field name="startMonth" initialValue={Date.now()}>
+                      <Field name="startMonth" initialValue={role.startMonth}>
                         {(props) => (
                           <MonthPicker
                             name={props.input.name}
@@ -143,7 +142,9 @@ function EditRoleForm({ onChange, role }) {
                     <div styleName="flex-container">
                       <button
                         styleName="toggle-button"
-                        onClick={() => setStartMonthVisible(true)}
+                        onClick={() =>
+                          onRoleChange({ values: { startMonth: Date.now() } })
+                        }
                       >
                         Add Start Month
                       </button>
