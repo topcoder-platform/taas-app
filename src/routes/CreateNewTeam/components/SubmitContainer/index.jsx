@@ -48,6 +48,7 @@ function SubmitContainer({
   const [teamObject, setTeamObject] = useState(null);
   const [requestLoading, setRequestLoading] = useState(false);
   const [buttonClickable, setButtonClickable] = useState(true);
+  const [msg, setMsg] = useState(false);
 
   const dispatch = useDispatch();
   const { userId } = useSelector((state) => state.authUser);
@@ -142,6 +143,7 @@ function SubmitContainer({
             dispatch(addTeamObjects(teamObject));
             navigate("/taas/myteams/createnewteam/create-taas-payment");
           } else {
+            setMsg(true);
             postTeamRequest(teamObject)
               .then(() => {
                 setTimeout(() => {
@@ -203,7 +205,11 @@ function SubmitContainer({
           addedRoles={addedRoles}
         />
       )}
-      <ConfirmationModal open={requestLoading} isLoading={requestLoading} />
+      <ConfirmationModal
+        open={requestLoading}
+        isLoading={requestLoading}
+        loadingMessage={msg ? "Creating A New Team" : ""}
+      />
       {/* <ConfirmationModal
         open={!!teamObject}
         onClose={() => setTeamObject(null)}
