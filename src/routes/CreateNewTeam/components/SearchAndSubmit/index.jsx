@@ -29,9 +29,11 @@ function SearchAndSubmit(props) {
 
   const matchedSkills = useMemo(() => {
     if (skills && matchingRole && matchingRole.matchedSkills) {
-      return _.compact(_.map(matchingRole.matchedSkills, (s) =>
-        _.find(skills, (skill) => skill.name === s)
-      ));
+      return _.compact(
+        _.map(matchingRole.matchedSkills, (s) =>
+          _.find(skills, (skill) => skill.name === s)
+        )
+      );
     } else {
       return [];
     }
@@ -39,9 +41,11 @@ function SearchAndSubmit(props) {
 
   const unMatchedSkills = useMemo(() => {
     if (skills && matchingRole && matchingRole.unMatchedSkills) {
-      return _.compact(_.map(matchingRole.unMatchedSkills, (s) =>
-        _.find(skills, (skill) => skill.name === s)
-      ));
+      return _.compact(
+        _.map(matchingRole.unMatchedSkills, (s) =>
+          _.find(skills, (skill) => skill.name === s)
+        )
+      );
     } else {
       return [];
     }
