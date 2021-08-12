@@ -8,6 +8,7 @@ import {
   useElements,
 } from "@stripe/react-stripe-js";
 import { navigate } from "@reach/router";
+import _ from "lodash";
 import { toastr } from "react-redux-toastr";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
@@ -19,6 +20,7 @@ import StripeElement from "../StripeElement";
 import FormField from "../FormField";
 import SelectField from "../SelectField";
 import ConfirmationModal from "../../../components/ConfirmationModal";
+import PaymentResultPopup from "../PaymentResultPopup";
 
 import "./styles.module.scss";
 
@@ -50,9 +52,15 @@ const PaymentForm = ({ calculatedAmount }) => {
   const [formValues, setFormValues] = useState(initialFormValues);
   const [dropdownValue, setDropdownValue] = useState("");
   const [processing, setProcessing] = useState(false);
+  const [showPaymentResultPopup, setShowPaymentResultPopup] = useState(false);
   const [requestLoading, setRequestLoading] = useState(false);
-  const [errors, setErrors] = useState({card: true, cardExpire: true, cardCvc: true});
+  const [errors, setErrors] = useState({
+    card: true,
+    cardExpire: true,
+    cardCvc: true,
+  });
   const [clicked, setClicked] = useState(true);
+  const [projectId, setProjectId] = useState(null);
   const stripe = useStripe();
   const elements = useElements();
   const dispatch = useDispatch();
@@ -86,11 +94,11 @@ const PaymentForm = ({ calculatedAmount }) => {
     });
   };
   const handleStripeElementError = (fieldName, error) => {
-    errors[fieldName] = error ? true: false
+    errors[fieldName] = error ? true : false;
     setErrors({
       ...errors,
     });
-  }
+  };
   const handleInputValue = (e) => {
     const { name, value } = e.target;
     setFormValues({
@@ -100,6 +108,11 @@ const PaymentForm = ({ calculatedAmount }) => {
     validate({
       [name]: value,
     });
+  };
+  const goToTassProject = () => {
+    dispatch(clearSearchedRoles());
+    setShowPaymentResultPopup(false);
+    navigate(`/taas/myteams/${projectId}`);
   };
   const handleFormSubmit = async (e) => {
     e.preventDefault();
@@ -130,12 +143,9 @@ const PaymentForm = ({ calculatedAmount }) => {
             toastr.success("Payment is successful");
             setRequestLoading(true);
             postTeamRequest(teamObject)
-              .then(() => {
-                setTimeout(() => {
-                  dispatch(clearSearchedRoles());
-                  // Backend api create project has sync issue, so delay 2 seconds
-                  navigate("/taas/myteams");
-                }, 2000);
+              .then((res) => {
+                setProjectId(_.get(res, "data.projectId"));
+                setShowPaymentResultPopup(true);
               })
               .catch((err) => {
                 setRequestLoading(false);
@@ -154,14 +164,16 @@ const PaymentForm = ({ calculatedAmount }) => {
 
   const formIsValid = (fieldValues = formValues) => {
     // check card valid
-    const cardValid = !errors['card'] && !errors['cardExpire'] && !errors['cvc']
+    const cardValid =
+      !errors["card"] && !errors["cardExpire"] && !errors["cvc"];
     const dropdown = dropdownValue === "" ? false : true;
     const isValid =
       fieldValues.email &&
       fieldValues.name &&
       fieldValues.zipcode &&
-      dropdown && cardValid
-      Object.values(errors).every((x) => x === "");
+      dropdown &&
+      cardValid;
+    Object.values(errors).every((x) => x === "");
 
     return isValid;
   };
@@ -181,9 +193,20 @@ const PaymentForm = ({ calculatedAmount }) => {
             Card Information
           </Typography>
         </Box>
-        <StripeElement onErrorChange={handleStripeElementError} element={CardNumberElement} name="card" icon="card" />
+        <StripeElement
+          onErrorChange={handleStripeElementError}
+          element={CardNumberElement}
+          name="card"
+          icon="card"
+        />
         <div styleName="horizontal">
-          <StripeElement onErrorChange={handleStripeElementError} element={CardExpiryElement} name=""width="150px" name='cardExpire' />
+          <StripeElement
+            onErrorChange={handleStripeElementError}
+            element={CardExpiryElement}
+            name=""
+            width="150px"
+            name="cardExpire"
+          />
           <StripeElement
             className={classes.cvc}
             name="cvc"
@@ -217,6 +240,13 @@ const PaymentForm = ({ calculatedAmount }) => {
         </button>
       </form>
       <ConfirmationModal open={requestLoading} isLoading={requestLoading} />
+      <PaymentResultPopup
+        open={showPaymentResultPopup}
+        onContinueClick={goToTassProject}
+        onClose={() => {
+          setShowPaymentResultPopup(false);
+        }}
+      />
     </>
   );
 };
