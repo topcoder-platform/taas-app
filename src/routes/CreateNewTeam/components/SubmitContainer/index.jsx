@@ -89,11 +89,10 @@ function SubmitContainer({
   };
 
   const assembleTeam = (formData) => {
-    const teamObject = _.pick(formData, [
-      "teamName",
-      "teamDescription",
-      "refCode",
-    ]);
+    const teamObject = {
+      intakeSource: "taasAppIntake",
+      ..._.pick(formData, ["teamName", "teamDescription", "refCode"]),
+    };
 
     const positions = [];
     for (let key of Object.keys(formData)) {
