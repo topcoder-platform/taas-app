@@ -32,8 +32,11 @@ function InputJobDescription() {
   }, []);
 
   const searchObject = useMemo(() => {
+    if (jobTitle && jobTitle.length) {
+      return { jobTitle, skills: selectedSkills };
+    }
     return { skills: selectedSkills };
-  }, [selectedSkills]);
+  }, [jobTitle, selectedSkills]);
 
   const onClick = useCallback(() => {
     setLoadingSkills(true);
