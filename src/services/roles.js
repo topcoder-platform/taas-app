@@ -11,7 +11,7 @@ import config from "../../config";
 export function getRoles() {
   return axios.get(`${config.API.V5}/taas-roles`).then((response) => {
     response.data = _.filter(response.data, (role) =>
-      _.find(role.rates, (r) => r.global)
+      _.find(role.rates, (r) => r.global && r.rate20Global && r.rate30Global)
     );
     return response;
   });
