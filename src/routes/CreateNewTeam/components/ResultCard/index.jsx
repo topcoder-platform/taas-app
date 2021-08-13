@@ -68,7 +68,9 @@ function ResultCard({
         <Curve styleName="curve" />
         <IconEarthCheck styleName="transparent-icon" />
       </div>
-      <h4 styleName="job-title">{name}</h4>
+      <h4 styleName="job-title">
+        {jobTitle && jobTitle.length ? jobTitle : name}
+      </h4>
       <div styleName="button-group">
         <Button
           type={!showRates ? "segment-selected" : "segment"}
