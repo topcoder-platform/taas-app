@@ -2,10 +2,13 @@ import { Router, navigate } from "@reach/router";
 import _ from "lodash";
 import React, { useCallback, useState, useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { getAuthUserTokens } from "@topcoder/micro-frontends-navbar-app";
+import { decodeToken } from "tc-auth-lib";
 import { SEARCH_STAGE_TIME } from "constants/";
 import { useData } from "hooks/useData";
 import { getSkills } from "services/skills";
-import { searchRoles } from "services/teams";
+import { searchRoles, isExternalMemberRequest } from "services/teams";
+import { getRoleById } from "services/roles";
 import { isCustomRole, setCurrentStage } from "utils/helpers";
 import {
   clearMatchingRole,
@@ -21,11 +24,44 @@ const SEARCHINGTIME = SEARCH_STAGE_TIME * 3 + 100;
 
 function SearchAndSubmit(props) {
   const { stages, setStages, searchObject, onClick, page } = props;
-
   const [searchState, setSearchState] = useState(null);
   const [isNewRole, setIsNewRole] = useState(false);
+  const [isExternalMember, setIsExternalMember] = useState(null);
   const [skills] = useData(getSkills);
   const { matchingRole } = useSelector((state) => state.searchedRoles);
+  const { userId } = useSelector((state) => state.authUser);
+  useEffect(() => {
+    if (stages.length === 3) {
+      getAuthUserTokens().then(({ tokenV3 }) => {
+        if (!!tokenV3) {
+          const tokenData = decodeToken(tokenV3);
+          isExternalMemberRequest({
+            memberId: tokenData.userId,
+          }).then((res) => {
+            const newStages = [...stages, { name: "Overview of the Results" }];
+            setIsExternalMember(res.data);
+            setStages(newStages);
+          });
+        }
+      });
+    }
+  }, [stages, setStages]);
+
+  useEffect(() => {
+    if (isExternalMember === false) {
+      if (matchingRole && matchingRole.isExternalMember) {
+        getRoleById(matchingRole.id).then((res) => {
+          // update role info
+          const newRole = {
+            ...matchingRole,
+            rates: res.data.rates,
+            isExternalMember: false,
+          };
+          dispatch(saveMatchingRole(newRole));
+        });
+      }
+    }
+  }, [isExternalMember, matchingRole, dispatch]);
 
   const matchedSkills = useMemo(() => {
     if (skills && matchingRole && matchingRole.matchedSkills) {

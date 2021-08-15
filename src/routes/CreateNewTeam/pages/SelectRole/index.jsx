@@ -25,7 +25,6 @@ function SelectRole() {
     { name: "Select a Role", isCurrent: true },
     { name: "Search Member" },
     { name: "Overview of the Results" },
-    { name: "Refundable Deposit Payment" },
   ]);
   const [selectedRoleId, setSelectedRoleId] = useState(null);
   const [roleDetailsModalOpen, setRoleDetailsModalOpen] = useState(false);

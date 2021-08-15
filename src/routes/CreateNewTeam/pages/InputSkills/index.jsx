@@ -21,7 +21,6 @@ function InputSkills() {
     { name: "Input Skills", isCurrent: true },
     { name: "Search Member" },
     { name: "Overview of the Results" },
-    { name: "Refundable Deposit Payment" },
   ]);
   const [selectedSkills, setSelectedSkills] = useState([]);
   const [popupSelectedSkills, setPopupSelectedSkills] = useState([]);
