@@ -38,9 +38,14 @@ function SearchAndSubmit(props) {
           isExternalMemberRequest({
             memberId: tokenData.userId,
           }).then((res) => {
-            const newStages = [...stages, { name: "Overview of the Results" }];
+            if (res.data) {
+              const newStages = [
+                ...stages,
+                { name: "Refundable Deposit Payment" },
+              ];
+              setStages(newStages);
+            }
             setIsExternalMember(res.data);
-            setStages(newStages);
           });
         }
       });
