@@ -49,7 +49,7 @@ const JobForm = ({ teamId, jobId }) => {
       const createValues = {
         ...values,
         projectId: teamId,
-      }
+      };
       await createJob(createValues).then(
         () => {
           toastr.success("Job created successfully.");

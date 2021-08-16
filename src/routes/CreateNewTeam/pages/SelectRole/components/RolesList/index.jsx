@@ -7,7 +7,9 @@
 import React, { useCallback, useState } from "react";
 import PT from "prop-types";
 import RoleItem from "../RoleItem";
+import RoleStaticCard from "../RoleStaticCard";
 import ItemList from "../../../../components/ItemList";
+import "./styles.module.scss";
 
 function RolesList({ roles, selectedRoleId, onDescriptionClick, toggleRole }) {
   const [filteredRoles, setFilteredRoles] = useState(roles);
@@ -32,6 +34,7 @@ function RolesList({ roles, selectedRoleId, onDescriptionClick, toggleRole }) {
       filterPlaceholder="Find a role.."
       filterItems={filterRoles}
     >
+      <p styleName="subtitle">Choose the role you want to fill</p>
       {filteredRoles.map(({ id, name, imageUrl }) => (
         <RoleItem
           key={id}
@@ -43,6 +46,7 @@ function RolesList({ roles, selectedRoleId, onDescriptionClick, toggleRole }) {
           isSelected={selectedRoleId === id}
         />
       ))}
+      <RoleStaticCard />
     </ItemList>
   );
 }

@@ -17,7 +17,7 @@ function ProgressBar({ percentDone }) {
   return (
     <div styleName="progress">
       <div styleName="heading">
-        <p>Progress</p>
+        <p>Completeness</p>
         <h6>{percentDone}%</h6>
       </div>
       <div styleName="progress-bar">

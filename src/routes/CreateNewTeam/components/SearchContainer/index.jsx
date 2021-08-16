@@ -20,6 +20,8 @@ import AddAnotherModal from "../AddAnotherModal";
 import "./styles.module.scss";
 
 function SearchContainer({
+  matchedSkills,
+  unMatchedSkills,
   isNewRole,
   stages,
   progressStyle,
@@ -46,12 +48,12 @@ function SearchContainer({
 
   const onSaveEditRole = useCallback(
     (isValid, role) => {
-      setButtonClickable(isValid)
+      setButtonClickable(isValid);
       if (isValid) {
         dispatch(editRoleAction({ ...role, searchId: previousSearchId }));
       }
     },
-    [addedRoles, previousSearchId]
+    [dispatch, previousSearchId]
   );
 
   const onSubmit = useCallback(() => {
@@ -68,6 +70,8 @@ function SearchContainer({
     if (!isCustomRole(matchingRole))
       return (
         <ResultCard
+          matchedSkills={matchedSkills}
+          unMatchedSkills={unMatchedSkills}
           role={matchingRole}
           onSaveEditRole={onSaveEditRole}
           currentRole={currentRole}
@@ -76,11 +80,10 @@ function SearchContainer({
     return <NoMatchingProfilesResultCard role={matchingRole} />;
   };
 
-  const getPercentage = useCallback(() => {
-    if (searchState === "searching") return "52";
-    if (matchingRole) return "98";
-    return "88";
-  }, [searchState, matchingRole]);
+  const progressBarPercentage = useMemo(
+    () => (searchState === "searching" ? 53 : 84),
+    [searchState]
+  );
 
   return (
     <div styleName="page">
@@ -90,14 +93,14 @@ function SearchContainer({
         <Progress
           isDisabled={
             !buttonClickable ||
-            searchState === "searching" ||
             (searchState === "done" && (!addedRoles || !addedRoles.length))
           }
+          isSearching={searchState === "searching"}
           onClick={() => setAddAnotherOpen(true)}
           extraStyleName={progressStyle}
           buttonLabel="Continue"
           stages={stages}
-          percentage={getPercentage()}
+          percentage={progressBarPercentage}
         />
       </div>
       <AddAnotherModal
@@ -114,6 +117,8 @@ function SearchContainer({
 SearchContainer.propTypes = {
   isNewRole: PT.bool,
   stages: PT.array,
+  matchedSkills: PT.array,
+  unMatchedSkills: PT.array,
   progressStyle: PT.string,
   previousSearchId: PT.string,
   navigate: PT.func,

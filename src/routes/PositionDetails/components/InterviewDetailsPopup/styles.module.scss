@@ -7,7 +7,7 @@
 
 .user {
   font-size: 14px;
-  color: #0D61BF;
+  color: #0d61bf;
   max-width: 37%;
   .max-warning-txt {
     padding-top: 5px;
@@ -20,7 +20,7 @@
 .top {
   width: 100%;
   padding-bottom: 25px;
-  border-bottom: 1px solid #E9E9E9;
+  border-bottom: 1px solid #e9e9e9;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -29,7 +29,7 @@
 
 .center {
   padding: 25px 0;
-  border-bottom: 1px solid #E9E9E9;
+  border-bottom: 1px solid #e9e9e9;
 }
 
 .center-header {
@@ -56,7 +56,7 @@
   background: #fff;
   margin: 10px 0 0 0;
   padding: 0;
-  color: #0D61BF;
+  color: #0d61bf;
   border: none;
   border-radius: 0;
 
@@ -73,7 +73,7 @@
 }
 
 .array-input {
-  width: 100%
+  width: 100%;
 }
 
 .remove-item {
@@ -81,7 +81,7 @@
   right: 45px;
   margin-top: 33px;
   font-size: 33px;
-  color: #EF476F;
+  color: #ef476f;
   cursor: pointer;
   &:focus {
     outline: none;

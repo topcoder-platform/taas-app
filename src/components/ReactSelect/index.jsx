@@ -14,7 +14,7 @@ const ReactSelect = (props) => {
     control: (provided, state) => ({
       ...provided,
       minHeight: "40px",
-      border:state.isDisabled ? "1px solid #ddd" : "1px solid #aaaaab",
+      border: state.isDisabled ? "1px solid #ddd" : "1px solid #aaaaab",
       borderColor: state.isFocused ? "#55a5ff" : "#aaaaab",
       boxShadow: state.isFocused ? "0 0 2px 1px #cee6ff" : provided.boxShadow,
       backgroundColor: state.isDisabled ? "#fafafb" : provided.backgroundColor,

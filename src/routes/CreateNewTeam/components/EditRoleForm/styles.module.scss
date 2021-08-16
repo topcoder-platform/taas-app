@@ -7,7 +7,7 @@
   background: none;
   font-size: 12px;
   font-weight: 500;
-  color: #137D60;
+  color: #137d60;
   padding: 1px 6px 0 6px;
 
   &.toggle-description {
@@ -41,7 +41,14 @@
         margin-right: auto;
       }
 
-      padding: 18px 18px 18px 0;
+      .select {
+        border-radius: 4px;
+        width: 160px;
+        height: 34px;
+        font-size: 14px;
+      }
+
+      padding: 18px 9px;
       width: 30%;
       vertical-align: top;
       @include font-barlow;

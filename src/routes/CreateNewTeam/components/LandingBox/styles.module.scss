@@ -2,20 +2,29 @@
 
 .landing-box {
   @include rounded-card;
-  padding: 44px 50px;
+  flex: 1;
   color: #fff;
+  padding-bottom: 30px;
+  height: 324px;
+  margin: 20px 10px;
   position: relative;
-  overflow: hidden;
-  margin-top: 20px;
 }
 
 .flex-container {
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  height: 100%;
+  flex-direction: column;
   align-items: center;
-  position: relative;
-  z-index: 10;
+
+  .icon {
+    margin: 30px 0 20px;
+    width: 50px;
+    height: 50px;
+    > svg {
+      width: 100%;
+      height: 100%;
+    }
+  }
   button {
     border: none;
   }
@@ -29,27 +38,29 @@
   margin-bottom: 10px;
 }
 
-.bg-icon {
+.description {
+  flex: 1;
+  white-space: pre-line;
+  font-size: 16px;
+  line-height: 26px;
+  width: 268px;
+  text-align: center;
+}
+
+.gap {
+  font-family: Roboto;
   position: absolute;
-  right: 0;
-  top: 60px;
-  opacity: 10%;
-  svg {
-    width: 144px;
-    height: 144px;
-  }
-}
-
-.icon-and-text {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: stretch;
-  margin-right: 40px;
-}
-
-.icon {
-  width: 72px;
-  height: 72px;
-  margin-right: 40px;
+  background-color: #d4d4d4;
+  border: 3px solid #f4f5f6;
+  border-radius: 100%;
+  width: 42px;
+  height: 42px;
+  line-height: 42px;
+  box-sizing: content-box;
+  color: #7f7f7f;
+  font-size: 16px;
+  text-align: center;
+  right: -32.5px;
+  z-index: 2;
+  top: 130px;
 }

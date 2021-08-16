@@ -237,3 +237,33 @@ export const postTeamRequest = (teamObject) => {
   const url = `${config.API.V5}/taas-teams/submitTeamRequest`;
   return axios.post(url, teamObject);
 };
+
+/**
+ *
+ * @param {Object} amountObject object containing details for calculating total amount
+ * @returns {Promise<object>} object containing calculated amount
+ */
+export const calculateAmount = (amountObject) => {
+  const url = `${config.API.V5}/taas-teams/calculateAmount`;
+  return axios.post(url, amountObject);
+};
+
+/**
+ *
+ * @param {Object} paymentObject object containing total amount
+ * @returns {Promise<object>} object containing paymentInitiation token obtained from stripe
+ */
+export const postTeamPayment = (paymentObject) => {
+  const url = `${config.API.V5}/taas-teams/createPayment`;
+  return axios.post(url, paymentObject);
+};
+
+/**
+ *
+ * @param {int} memberIdObject object containing memberId
+ * @returns {Promise<object>} object containing whether member is external or internal
+ */
+export const isExternalMemberRequest = (memberId) => {
+  const url = `${config.API.V5}/taas-teams/isExternalMember`;
+  return axios.post(url, memberId);
+};

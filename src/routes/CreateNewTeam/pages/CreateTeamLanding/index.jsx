@@ -25,32 +25,40 @@ function CreateNewTeam() {
   };
 
   return (
-    <Page title="Create New Team">
-      <PageHeader title={<div styleName="title">Create New Team</div>} />
-      <p>
-        Please select how you want to find members that match your requirements.
-      </p>
-      <LandingBox
-        title="Choose a Role"
-        description="Select from a list of pre-defined roles which Topcoder develops talent for. Standardized Job Descriptions and baseline skills are available for review."
-        icon={<IconMultipleActionsCheck />}
-        backgroundImage="linear-gradient(101.95deg, #8B41B0 0%, #EF476F 100%)"
-        onClick={() => goToRoute("/taas/createnewteam/role")}
+    <Page title="Find your Talent">
+      <PageHeader
+        title={<div styleName="title">Let’s find you great talent</div>}
       />
-      <LandingBox
-        title="Input Skills"
-        description="Select one or more technical skills you need. Topcoder will match your requirements to our talent."
-        icon={<IconListQuill />}
-        backgroundImage="linear-gradient(221.5deg, #2C95D7 0%, #9D41C9 100%)"
-        onClick={() => goToRoute("/taas/createnewteam/skills")}
-      />
-      <LandingBox
-        title="Input Job Description"
-        description="Input a Job Description and Topcoder will extract the required skills from it, then find the best matching talent for the job duties."
-        icon={<IconOfficeFileText />}
-        backgroundImage="linear-gradient(135deg, #2984BD 0%, #0AB88A 100%)"
-        onClick={() => goToRoute("/taas/createnewteam/jd")}
-      />
+      <p>You can search for your perfect talent matches in 3 unique ways:</p>
+      <div styleName="landing-box-container">
+        <LandingBox
+          showGap
+          title="Search by Role"
+          description={
+            "Examples:\n Search “Front-End Developer”\n or “UI Designer”"
+          }
+          icon={<IconMultipleActionsCheck />}
+          backgroundImage="linear-gradient(101.95deg, #8B41B0 0%, #EF476F 100%)"
+          onClick={() => goToRoute("/taas/createnewteam/role")}
+        />
+        <LandingBox
+          showGap
+          title="Search by Skills"
+          description={"Examples: \nJava, Python, React, Sketch"}
+          icon={<IconListQuill />}
+          backgroundImage="linear-gradient(221.5deg, #2C95D7 0%, #9D41C9 100%)"
+          onClick={() => goToRoute("/taas/createnewteam/skills")}
+        />
+        <LandingBox
+          title="Describe the Work"
+          description={
+            "Provide a short description of talent\n you want or project work you’re \nlooking to do"
+          }
+          icon={<IconOfficeFileText />}
+          backgroundImage="linear-gradient(135deg, #2984BD 0%, #0AB88A 100%)"
+          onClick={() => goToRoute("/taas/createnewteam/jd")}
+        />
+      </div>
     </Page>
   );
 }

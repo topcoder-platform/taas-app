@@ -11,7 +11,7 @@ import "./styles.module.scss";
 import SearchAndSubmit from "../../components/SearchAndSubmit";
 import TextInput from "components/TextInput";
 import { getSkillsByJobDescription } from "services/teams";
-import SkillListPopup from "./components/SkillListPopup";
+import SkillListPopup from "../../components/SkillListPopup";
 
 function InputJobDescription() {
   const [stages, setStages] = useState([
@@ -23,6 +23,7 @@ function InputJobDescription() {
   const [jobTitle, setJobTitle] = useState("");
   const [skills, setSkills] = useState([]);
   const [loadingSkills, setLoadingSkills] = useState(true);
+  const [selectedSkills, setSelectedSkills] = useState([]);
   const [popupOpen, setPopupOpen] = useState(false);
 
   const onEditChange = useCallback((value) => {
@@ -31,14 +32,15 @@ function InputJobDescription() {
 
   const searchObject = useMemo(() => {
     if (jobTitle && jobTitle.length) {
-      return { jobDescription: jdString, jobTitle };
+      return { jobTitle, skills: selectedSkills };
     }
-    return { jobDescription: jdString };
-  }, [jobTitle, jdString]);
+    return { skills: selectedSkills };
+  }, [jobTitle, selectedSkills]);
 
   const onClick = useCallback(() => {
     setLoadingSkills(true);
     setSkills([]);
+    setSelectedSkills([]);
     setPopupOpen(true);
     getSkillsByJobDescription(jdString)
       .then((res) => {
@@ -51,6 +53,11 @@ function InputJobDescription() {
         setLoadingSkills(false);
       });
   }, [jdString]);
+
+  const onContinueClick = useCallback((searchFunc) => {
+    setLoadingSkills(true);
+    setTimeout(searchFunc, 100);
+  }, []);
 
   return (
     <SearchAndSubmit
@@ -68,11 +75,7 @@ function InputJobDescription() {
             backTo="/taas/createnewteam"
           />
           <p styleName="subtitle">
-            Input a Job Description for your opening and the Topcoder Platform
-            will identify the skills required to perform the job duties and find
-            the best matching freelancers for your job opening. After inputting
-            the Job Description click on the "Search" button to see the skills
-            identified.
+            Copy and paste in a job description, or enter it manually.
           </p>
           <div styleName="job-title">
             <TextInput
@@ -94,11 +97,15 @@ function InputJobDescription() {
             }
           />
           <SkillListPopup
+            page="jd"
             open={popupOpen}
             onClose={() => setPopupOpen(false)}
             skills={skills}
+            selectedSkills={selectedSkills}
+            setSelectedSkills={setSelectedSkills}
             isLoading={loadingSkills}
-            onContinueClick={searchFunc}
+            loadingTxt={selectedSkills.length === 0 && "Loading skills..."}
+            onContinueClick={() => onContinueClick(searchFunc)}
           />
         </div>
       )}

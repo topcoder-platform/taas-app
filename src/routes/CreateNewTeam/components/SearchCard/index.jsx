@@ -9,6 +9,7 @@ import IconEarthSearch from "../../../../assets/images/icon-earth-search.svg";
 import WorldMapDotted from "../../../../assets/images/world-map-dotted.svg";
 import WorldMapSearch1 from "../../../../assets/images/world-map-search1.svg";
 import WorldMapSearch2 from "../../../../assets/images/world-map-search2.svg";
+import { SEARCH_STAGE_TIME } from "constants/";
 
 function SearchCard() {
   const [searchState, setSearchState] = useState(null);
@@ -19,8 +20,8 @@ function SearchCard() {
       setSearchState("state1");
       timer2 = setTimeout(() => {
         setSearchState("state2");
-      }, 500);
-    }, 500);
+      }, SEARCH_STAGE_TIME);
+    }, SEARCH_STAGE_TIME);
 
     return () => {
       clearTimeout(timer1);

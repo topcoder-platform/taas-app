@@ -3,9 +3,11 @@ FROM node:10
 
 ARG APPMODE
 ARG APPENV
+ARG STRIPE_PUBLIC_KEY
 
 ENV APPMODE=$APPMODE
 ENV APPENV=$APPENV
+ENV STRIPE_PUBLIC_KEY=$STRIPE_PUBLIC_KEY
 
 # Copy the current directory into the Docker image
 COPY . /taas-app

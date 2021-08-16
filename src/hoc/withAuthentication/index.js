@@ -13,7 +13,11 @@
  */
 import React, { useEffect } from "react";
 import _ from "lodash";
-import { getAuthUserTokens, login } from "@topcoder/micro-frontends-navbar-app";
+import {
+  getAuthUserTokens,
+  login,
+  businessLogin,
+} from "@topcoder/micro-frontends-navbar-app";
 import LoadingIndicator from "../../components/LoadingIndicator";
 import {
   authUserSuccess,
@@ -22,11 +26,12 @@ import {
   authLoadV5UserProfile,
   authClearTeamMembers,
 } from "./actions";
+import { setIsLoading } from "../../routes/CreateNewTeam/actions";
 import { decodeToken } from "tc-auth-lib";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "@reach/router";
 
-export default function withAuthentication(Component) {
+export default function withAuthentication(Component, businessAuth = false) {
   const AuthenticatedComponent = (props) => {
     const dispatch = useDispatch();
     const {
@@ -49,6 +54,7 @@ export default function withAuthentication(Component) {
       let isUnmount = false;
 
       if (!isLoggedIn) {
+        dispatch(setIsLoading(true));
         getAuthUserTokens()
           .then(({ tokenV3 }) => {
             if (!!tokenV3) {
@@ -59,7 +65,7 @@ export default function withAuthentication(Component) {
                 )
               );
             } else if (!isUnmount) {
-              login();
+              businessAuth ? businessLogin() : login();
             }
           })
           .catch((error) => dispatch(authUserError(error)));
@@ -81,6 +87,7 @@ export default function withAuthentication(Component) {
         params.teamId &&
         (!teamId || params.teamId !== teamId)
       ) {
+        dispatch(setIsLoading(true));
         dispatch(authLoadTeamMembers(params.teamId));
 
         // if we are going to some page without `teamId` then we have to clear team members
@@ -96,6 +103,7 @@ export default function withAuthentication(Component) {
     useEffect(() => {
       // is user is logged-in, but V5 user profile is not loaded yet, then load it
       if (isLoggedIn && !v5UserProfileLoading && !v5UserProfile) {
+        dispatch(setIsLoading(true));
         dispatch(authLoadV5UserProfile());
       }
     }, [dispatch, isLoggedIn, v5UserProfileLoading, v5UserProfile]);
@@ -128,4 +136,8 @@ export default function withAuthentication(Component) {
   };
 
   return AuthenticatedComponent;
+}
+
+export function withBusinessAuthentication(Component) {
+  return withAuthentication(Component, true);
 }

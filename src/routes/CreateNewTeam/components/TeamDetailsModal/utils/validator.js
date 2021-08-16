@@ -47,7 +47,10 @@ const validateMonth = (monthString) => {
 const validateRole = (role) => {
   const roleErrors = {};
   roleErrors.numberOfResources = validateNumber(role.numberOfResources);
-  roleErrors.durationWeeks = validateGreaterThan(role.durationWeeks, MIN_DURATION);
+  roleErrors.durationWeeks = validateGreaterThan(
+    role.durationWeeks,
+    MIN_DURATION
+  );
   if (role.startMonth) {
     roleErrors.startMonth = validateMonth(role.startMonth);
   }

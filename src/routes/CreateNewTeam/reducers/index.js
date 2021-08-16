@@ -1,6 +1,7 @@
 /**
  * Reducer for CreateNewTeam flow
  */
+import _ from "lodash";
 import { ACTION_TYPE } from "constants";
 
 const loadState = () => {
@@ -8,6 +9,8 @@ const loadState = () => {
     previousSearchId: undefined,
     addedRoles: [],
     matchingRole: undefined,
+    isLoading: false,
+    teamObject: undefined,
   };
   try {
     const state = localStorage.getItem("rolesState");
@@ -37,6 +40,12 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         addedRoles: [],
+      };
+
+    case ACTION_TYPE.ADD_TEAM_OBJECT:
+      return {
+        ...state,
+        teamObject: action.payload,
       };
 
     case ACTION_TYPE.ADD_MATCHING_ROLE:
@@ -80,6 +89,12 @@ const reducer = (state = initialState, action) => {
 
     case ACTION_TYPE.DELETE_SEARCHED_ROLE:
       return deleteRoleInState(state, action.payload);
+
+    case ACTION_TYPE.SET_IS_LOADING:
+      return {
+        ...state,
+        isLoading: action.payload,
+      };
 
     default:
       return state;

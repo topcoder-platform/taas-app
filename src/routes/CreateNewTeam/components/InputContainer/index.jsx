@@ -27,7 +27,7 @@ function InputContainer({
         <AddedRolesAccordion addedRoles={addedRoles} />
         <Progress
           isDisabled={isProgressDisabled}
-          onClick={onClick ? onClick: search}
+          onClick={onClick ? onClick : search}
           extraStyleName={progressStyle}
           buttonLabel="Search"
           stages={stages}

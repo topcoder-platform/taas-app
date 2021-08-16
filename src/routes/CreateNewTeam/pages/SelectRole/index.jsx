@@ -5,7 +5,9 @@
  * with that role, and submitting a job requiring the roles.
  */
 import React, { useCallback, useState } from "react";
+import { useDispatch } from "react-redux";
 import { useData } from "hooks/useData";
+import { setIsLoading } from "../../actions";
 import RolesList from "./components/RolesList";
 import { getRoles } from "services/roles";
 import LoadingIndicator from "components/LoadingIndicator";
@@ -18,6 +20,7 @@ const removeCustomRoles = (roles) =>
   roles.filter((role) => !isCustomRole(role));
 
 function SelectRole() {
+  const dispatch = useDispatch();
   const [stages, setStages] = useState([
     { name: "Select a Role", isCurrent: true },
     { name: "Search Member" },
@@ -39,7 +42,10 @@ function SelectRole() {
   }, []);
 
   if (!roles) {
+    dispatch(setIsLoading(true));
     return <LoadingIndicator error={loadingError} />;
+  } else {
+    dispatch(setIsLoading(false));
   }
 
   return (
