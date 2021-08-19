@@ -5,6 +5,7 @@
  */
 import React, { useMemo, useState, useCallback, useEffect } from "react";
 import PT from "prop-types";
+import cn from "classnames";
 import _ from "lodash";
 import CardHeader from "components/CardHeader";
 import "./styles.module.scss";
@@ -24,6 +25,7 @@ import Pagination from "components/Pagination";
 import IconResume from "../../../../assets/images/icon-resume.svg";
 import { toastr } from "react-redux-toastr";
 import { getJobById } from "services/jobs";
+import { touchCandidateResume } from "services/teams";
 import { PERMISSIONS } from "constants/permissions";
 import { hasPermission } from "utils/permissions";
 import ActionsMenu from "components/ActionsMenu";
@@ -140,6 +142,27 @@ const PositionCandidates = ({ position, statusFilterKey, updateCandidate }) => {
     [setPage]
   );
 
+  const [isTouchingResume, setIsTouchingResume] = useState(false);
+  const onClickResumeLink = (event) => {
+    let targetData = event.target.dataset;
+    let candidateId = targetData.candidateId;
+    if (!candidateId) {
+      return;
+    }
+    let resumeLink = targetData.resumeLink;
+    setIsTouchingResume(true);
+    touchCandidateResume(candidateId)
+      .then(() => {
+        if (resumeLink) {
+          window.open(resumeLink, "_blank");
+        }
+      })
+      .catch(console.error)
+      .finally(() => {
+        setIsTouchingResume(false);
+      });
+  };
+
   const markCandidateSelected = useCallback(
     (candidate) => {
       return updateCandidate(candidate.id, {
@@ -222,14 +245,16 @@ const PositionCandidates = ({ position, statusFilterKey, updateCandidate }) => {
                     limit={7}
                   />
                   {candidate.resume && (
-                    <a
-                      href={`${candidate.resume}`}
-                      styleName="resume-link"
-                      target="_blank"
+                    <button
+                      type="button"
+                      data-candidate-id={candidate.id}
+                      data-resume-link={`${candidate.resume}`}
+                      onClick={onClickResumeLink}
+                      styleName={cn("resume-link", { busy: isTouchingResume })}
                     >
                       <IconResume />
                       Download Resume
-                    </a>
+                    </button>
                   )}
                 </div>
                 {statusFilterKey === CANDIDATE_STATUS_FILTER_KEY.INTERESTED && (
