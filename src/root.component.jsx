@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useLayoutEffect } from "react";
 import { Provider } from "react-redux";
 import { Router, Redirect } from "@reach/router";
+import { setNotificationPlatform, PLATFORM } from "@topcoder/micro-frontends-navbar-app";
 import MyTeamsList from "./routes/MyTeamsList";
 import MyTeamsDetails from "./routes/MyTeamsDetails";
 import PositionDetails from "./routes/PositionDetails";
@@ -21,6 +22,10 @@ import "./styles/main.vendor.scss";
 import styles from "./styles/main.module.scss";
 
 export default function Root() {
+  useLayoutEffect(() => {
+    setNotificationPlatform(PLATFORM.TAAS);
+  }, []);
+
   return (
     <div className={styles["topcoder-micro-frontends-teams-app"]}>
       <Provider store={store}>
