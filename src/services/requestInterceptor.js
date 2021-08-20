@@ -35,3 +35,11 @@ axiosInstance.interceptors.response.use(
     return Promise.reject(error);
   }
 );
+
+export const fetchCustom = async (url, init = {}) => {
+  let { tokenV3 } = await getAuthUserTokens();
+  let headers = init.headers || {};
+  headers.Authorization = `Bearer ${tokenV3}`;
+  init.headers = headers;
+  return fetch(url, init);
+};
