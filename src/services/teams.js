@@ -1,7 +1,11 @@
 /**
  * Topcoder TaaS Service
  */
-import { axiosInstance as axios } from "./requestInterceptor";
+import {
+  axiosInstance as axios,
+  fetchCustom as fetch,
+} from "./requestInterceptor";
+
 import config from "../../config";
 
 /**
@@ -91,6 +95,25 @@ export const patchCandidateInterview = (candidateId, interviewData) => {
     `${config.API.V5}/jobCandidates/${candidateId}/requestInterview`,
     interviewData
   );
+};
+
+/**
+ * Sends request to candidate's resume URL while trying to avoid downloading
+ * the resume itself.
+ *
+ * @param {string} candidateId interview candidate id
+ * @returns {Promise}
+ */
+export const touchCandidateResume = async (candidateId) => {
+  try {
+    // The result of redirect to different origin will not contain any useful
+    // data. See https://fetch.spec.whatwg.org/#atomic-http-redirect-handling
+    await fetch(`${config.API.V5}/jobCandidates/${candidateId}/resume`, {
+      redirect: "manual",
+    });
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 /**

@@ -81,10 +81,22 @@
   display: inline-flex;
   align-items: center;
   margin-top: 5px;
+  border: none;
+  padding: 0;
+  width: auto;
+  height: auto;
+  color: #0d61bf;
+  background: transparent;
+  outline: none !important;
+  box-shadow: none !important;
 
   > svg {
     margin-right: 10px;
   }
+}
+
+.busy {
+  cursor: wait;
 }
 
 @media (max-width: 850px) {
