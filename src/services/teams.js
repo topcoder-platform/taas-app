@@ -5,7 +5,8 @@ import {
   axiosInstance as axios,
   fetchCustom as fetch,
 } from "./requestInterceptor";
-
+import _ from "lodash";
+import moment from "moment";
 import config from "../../config";
 
 /**
@@ -257,6 +258,11 @@ export const searchRoles = (searchObject) => {
  * @returns {Promise<object>} object containing new projectId
  */
 export const postTeamRequest = (teamObject) => {
+  _.forEach(teamObject.positions, (p) => {
+    if (p.startMonth) {
+      p.startMonth = moment(p.startMonth).format("YYYY-MM-DD");
+    }
+  });
   const url = `${config.API.V5}/taas-teams/submitTeamRequest`;
   return axios.post(url, teamObject);
 };

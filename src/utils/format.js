@@ -299,7 +299,7 @@ export const formatOpenPositions = (job, resources) => {
  * @returns {string} formatted string
  */
 export const formatJobDate = (startDate, duration) => {
-  const dateStr = startDate ? moment(startDate).format(DAY_FORMAT) : "";
+  const dateStr = startDate ? startDate : "";
 
   if (startDate && duration) {
     return `Requested starting ${dateStr} for ${formatPlural(
