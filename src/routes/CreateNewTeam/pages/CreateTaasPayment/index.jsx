@@ -5,6 +5,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { ThemeProvider } from "@material-ui/styles";
 import { toastr } from "react-redux-toastr";
+import { isCustomRole } from "utils/helpers";
 
 import PaymentForm from "./PaymentForm";
 import PageHeader from "components/PageHeader";
@@ -58,7 +59,9 @@ const CreateTassPayment = () => {
         durationWeeks,
         availability,
       });
-      amount.push({ rate, numberOfResources });
+      if (!isCustomRole(role)) {
+        amount.push({ rate, numberOfResources });
+      }
     });
     setValue(temp);
 
@@ -109,15 +112,15 @@ const CreateTassPayment = () => {
                         <div>
                           <p styleName="title">{data.name}</p>
                           <ul styleName="details">
-                            <li>
+                            {!isCustomRole(data) && <li>
                               {data.numberOfResources} x ${data.rate}/ Week
-                            </li>
+                            </li>}
                             <li>{data.durationWeeks} Week Duration</li>
                             <li>{data.availability}</li>
                           </ul>
                         </div>
                         <p styleName="amount">
-                          ${data.numberOfResources * data.rate}
+                          ${isCustomRole(data) ? '0' : data.numberOfResources * data.rate}
                         </p>
                       </div>
                       <hr styleName="divider" />

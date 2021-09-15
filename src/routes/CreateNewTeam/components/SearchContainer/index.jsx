@@ -77,7 +77,7 @@ function SearchContainer({
           currentRole={currentRole}
         />
       );
-    return <NoMatchingProfilesResultCard role={matchingRole} />;
+    return <NoMatchingProfilesResultCard role={matchingRole} onSubmit={onSubmit}/>;
   };
 
   const progressBarPercentage = useMemo(
