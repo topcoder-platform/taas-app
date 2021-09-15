@@ -12,6 +12,7 @@ import { calculateAmount } from "services/teams";
 import Progress from "../../components/Progress";
 import theme from "./theme";
 import FallbackIcon from "../../../../assets/images/icon-role-fallback.svg";
+import TrustedLogos from "../../../../assets/images/trusted-logos.svg";
 import "./styles.module.scss";
 
 const stripePromise = loadStripe(process.env.STRIPE_PUBLIC_KEY);
@@ -160,12 +161,18 @@ const CreateTassPayment = () => {
         </div>
       </div>
 
-      <Progress
-        stages={stages}
-        extraStyleName="role-selection final-step"
-        disabled="true"
-        percentage="97"
-      />
+      <div styleName="right-side">
+        <Progress
+          stages={stages}
+          extraStyleName="role-selection final-step"
+          disabled="true"
+          percentage="97"
+        />
+        <div styleName="trusted">
+          <h6>Trusted By</h6>
+          <TrustedLogos />
+        </div>
+      </div>
     </div>
   );
 };
