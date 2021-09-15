@@ -7,13 +7,12 @@
  */
 import React, { useCallback, useState } from "react";
 import { useDispatch } from "react-redux";
-import { useData } from "hooks/useData";
 import { setIsLoading } from "../../actions";
 import SkillsList from "./components/SkillsList";
-import { getSkills } from "services/skills";
 import LoadingIndicator from "components/LoadingIndicator";
 import SkillListPopup from "../../components/SkillListPopup";
 import SearchAndSubmit from "../../components/SearchAndSubmit";
+import { useLoadSkills } from "../../hooks/useLoadSkills";
 
 function InputSkills() {
   const dispatch = useDispatch();
@@ -26,7 +25,7 @@ function InputSkills() {
   const [popupSelectedSkills, setPopupSelectedSkills] = useState([]);
   const [popupOpen, setPopupOpen] = useState(false);
   const [isPopupLoading, setIsPopupLoading] = useState(false);
-  const [skills, loadingError] = useData(getSkills);
+  const [skills, loadingError] = useLoadSkills();
 
   const toggleSkill = useCallback(
     (skill) => {
