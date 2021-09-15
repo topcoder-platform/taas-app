@@ -245,10 +245,8 @@ function ResultCard({
               </div>
             </div>
             <div styleName="timeline-info">
-              <IconTeamMeetingChat />
               <div>
-                <p>Interviews can start within</p>
-                <h6>{timeToInterview}h</h6>
+                (NEED TO DEVELOP TEXT W/ ANNIKA)
               </div>
             </div>
           </div>
