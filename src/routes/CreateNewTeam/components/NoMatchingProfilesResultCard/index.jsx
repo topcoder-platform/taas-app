@@ -35,16 +35,18 @@ function NoMatchingProfilesResultCard({ role, onSubmit }) {
     if (role.jobTitle && role.jobTitle.length) {
       name = role.jobTitle;
     }
-    dispatch(
-      addSearchedRole({
-        searchId,
-        name,
-        rates: role.rates,
-        imageUrl: role.imageUrl,
-      })
-    );
-    onSubmit()
-  }, [dispatch, role]);
+    if (!alreadyAdded) {
+      dispatch(
+        addSearchedRole({
+          searchId,
+          name,
+          rates: role.rates,
+          imageUrl: role.imageUrl,
+        })
+      );
+    }
+    onSubmit();
+  }, [dispatch, role, alreadyAdded]);
 
   return (
     <div styleName="result-card">
@@ -54,11 +56,13 @@ function NoMatchingProfilesResultCard({ role, onSubmit }) {
         <Curve styleName="curve" />
       </div>
       <div styleName="content">
-        <h4 styleName="job-title">
-          What happens next
-        </h4>
+        <h4 styleName="job-title">What happens next</h4>
         <p styleName="info-txt">
-          We routinely place great people with the skills you’ve asked for. Right now, we don’t have anyone available. However, our database is dynamic and updated often. Please continue below so we can finalize your talent request and alert you when a great candidate becomes available. 
+          We routinely place great people with the skills you’ve asked for.
+          Right now, we don’t have anyone available. However, our database is
+          dynamic and updated often. Please continue below so we can finalize
+          your talent request and alert you when a great candidate becomes
+          available.
         </p>
         <div styleName="button-group">
           <Link to="/taas/createnewteam">
