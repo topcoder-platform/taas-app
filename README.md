@@ -8,6 +8,7 @@ This is a [single-spa](https://single-spa.js.org/) example React microapp.
 
 - node - v10.22.1
 - npm - v6.14.6
+- [Nylas account](https://dashboard.nylas.com/)
 
 ## Technology Stack
 
@@ -72,6 +73,11 @@ First of all, to authenticate locally we have to run a local authentication serv
 ### Local Domain
 
 Some config files are using domain `local.topcoder-dev.com`. You can change it to `localhost` in all the configs of each repo mentioned below. Or on your local machine, update file `/etc/hosts` add the line `127.0.0.1 local.topcoder-dev.com`. This file has another path on Windows.
+
+### Setup Nylas
+
+1. You need to create an account in Nylas. Follow instructions located [here](https://developer.nylas.com/docs/the-basics/create-an-app/#step-1-sign-up-for-nylas). Upto step 1 is enough
+2. Setup your Google Account as an authentication provider. Follow instructions located [here](https://developer.nylas.com/docs/the-basics/provider-guides/google/create-google-app/)
 
 ### Run Applications
 
@@ -139,6 +145,7 @@ Some config files are using domain `local.topcoder-dev.com`. You can change it t
     # set environment variables:
 
    export STRIPE_PUBLIC_KEY=""
+   export NYLAS_CLIENT_ID="your-nylas-app-client-id"
 
    npm run dev
 
@@ -154,6 +161,14 @@ Some config files are using domain `local.topcoder-dev.com`. You can change it t
    // with line:
    "@topcoder/micro-frontends-teams": "http://localhost:8501/taas-app/topcoder-micro-frontends-teams.js",
    ```
+
+5. We also have to inser the Nylas scheduler front end client script. In the `micro-frontends-frame` app, proceed to create the following entry in `src/index.ejs` file, below the existing `<script>` tags under `<head>` tag.
+
+```html
+<script src="https://schedule.nylas.com/schedule-editor/v1.0/schedule-editor.js" type="text/javascript"></script>
+```
+
+You may have to restart this app (see step 1 above)
 
 - Now open in the browser http://localhost:8080/taas/myteams.
 - If you are not logged-in yet, you should be redirected to the login page.

@@ -9,8 +9,9 @@ import React from "react";
 import PT from "prop-types";
 import Radio from "components/Radio";
 import { Field } from "react-final-form";
+import { OnChange } from "react-final-form-listeners";
 
-function RadioFieldGroup({ name, isHorizontal, radios }) {
+function RadioFieldGroup({ name, isHorizontal, radios, onChange }) {
   return (
     <div>
       {radios.map((radio) => (
@@ -30,6 +31,7 @@ function RadioFieldGroup({ name, isHorizontal, radios }) {
           )}
         </Field>
       ))}
+      <OnChange name={name}>{onChange}</OnChange>
     </div>
   );
 }
@@ -43,6 +45,7 @@ RadioFieldGroup.propTypes = {
       value: PT.any.isRequired,
     })
   ),
+  onChange: PT.func,
 };
 
 export default RadioFieldGroup;
