@@ -32,7 +32,6 @@ import ActionsMenu from "components/ActionsMenu";
 import LatestInterview from "../LatestInterview";
 import InterviewDetailsPopup from "../InterviewDetailsPopup";
 import PreviousInterviewsPopup from "../PreviousInterviewsPopup";
-import InterviewConfirmPopup from "../InterviewConfirmPopup";
 import SelectCandidatePopup from "../SelectCandidatePopup";
 
 /**
@@ -70,7 +69,6 @@ const PositionCandidates = ({ position, statusFilterKey, updateCandidate }) => {
   const [interviewDetailsOpen, setInterviewDetailsOpen] = useState(false);
   const [prevInterviewsOpen, setPrevInterviewsOpen] = useState(false);
   const [selectedCandidate, setSelectedCandidate] = useState(null);
-  const [interviewConfirmOpen, setInterviewConfirmOpen] = useState(false);
   const [selectCandidateOpen, setSelectCandidateOpen] = useState(false);
   const [isReject, setIsReject] = useState(false);
 
@@ -370,11 +368,6 @@ const PositionCandidates = ({ position, statusFilterKey, updateCandidate }) => {
         open={interviewDetailsOpen}
         onClose={() => setInterviewDetailsOpen(false)}
         candidate={selectedCandidate}
-        openNext={() => setInterviewConfirmOpen(true)}
-      />
-      <InterviewConfirmPopup
-        open={interviewConfirmOpen}
-        onClose={() => setInterviewConfirmOpen(false)}
       />
       <SelectCandidatePopup
         candidate={selectedCandidate}

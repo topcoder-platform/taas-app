@@ -4,7 +4,7 @@
  * Popup that allows user to schedule an interview
  * Calls addInterview action
  */
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { getAuthUserProfile } from "@topcoder/micro-frontends-navbar-app";
 import { Form } from "react-final-form";
 import arrayMutators from "final-form-arrays";
@@ -23,6 +23,8 @@ import {
   initializeScheduler,
   editSchedulingPage,
   redirectToNylasHostedAuth,
+  fetchLatestSchedule,
+  scheduleInterview,
 } from "services/scheduler";
 
 /* Validators for Form */
@@ -39,15 +41,18 @@ const INTERVIEW_DURATIONS = {
 
 /********************* */
 // TODO: preserve form input in case of error
-function InterviewDetailsPopup({ open, onClose, candidate, openNext }) {
+function InterviewDetailsPopup({ open, onClose, candidate }) {
   const [isLoading, setIsLoading] = useState(true);
-  const [currentDuration, setCurrentDuration] = useState(30)
+  const [profile, setProfile] = useState({});
+  const [currentDuration, setCurrentDuration] = useState(30);
   const [schedulingPage, setSchedulingPage] = React.useState({});
   const [updateInProgress, setUpdateInProgress] = React.useState(false);
   const [scheduleDataIsStale, setScheduleDataIsStale] = React.useState(false);
+  const [schedulingPageUrl, setSchedulingPageUrl] = React.useState(null);
   const { loading } = useSelector((state) => state.positionDetails);
   const dispatch = useDispatch();
 
+  // On component display, initialize the scheduling page
   useEffect(() => {
     if (!open || !candidate) {
       return;
@@ -58,7 +63,7 @@ function InterviewDetailsPopup({ open, onClose, candidate, openNext }) {
     getAuthUserProfile()
       .then((res) => {
         // Initialize the Nylas scheduler
-        const profile = {
+        const newProfile = {
           customer: {
             userId: res.userId,
             handle: res.handle,
@@ -72,7 +77,9 @@ function InterviewDetailsPopup({ open, onClose, candidate, openNext }) {
           },
         };
 
-        return initializeScheduler(profile);
+        setProfile(newProfile);
+
+        return initializeScheduler(newProfile);
       })
       .then((res) => {
         setSchedulingPage(res.data.schedulingPage);
@@ -81,15 +88,16 @@ function InterviewDetailsPopup({ open, onClose, candidate, openNext }) {
       });
   }, [open, candidate]);
 
+  // When user changes duration, update the scheduling page
   const onChangeDuration = async (newDuration) => {
     let latestSchedulingPage;
     setUpdateInProgress(true);
     setCurrentDuration(newDuration === INTERVIEW_DURATIONS.THIRTY ? 30 : 60);
 
     if (scheduleDataIsStale) {
-      // TODO
-      // Should have used useRef() here, but could not figure it out in time!!
-      // latestSchedulingPage = await fetchLatestSchedule()
+      latestSchedulingPage = (
+        await fetchLatestSchedule(schedulingPage.id, schedulingPage.edit_token)
+      ).data;
       setScheduleDataIsStale(false);
     } else {
       latestSchedulingPage = JSON.parse(JSON.stringify(schedulingPage));
@@ -108,29 +116,15 @@ function InterviewDetailsPopup({ open, onClose, candidate, openNext }) {
     setUpdateInProgress(false);
   };
 
-  const onSubmitCallback = useCallback(
-    async (formData) => {
-      const hostEmail = formData.emails[0];
-      const guestEmails =
-        formData.emails
-          .slice(1)
-          .filter((email) => typeof email === "string" && email.length > 0) ||
-        [];
-      const interviewData = {
-        templateUrl: formData.time,
-        hostEmail,
-        guestEmails,
-      };
+  const onSubmitCallback = async () => {
+    setUpdateInProgress(true);
 
-      try {
-        await dispatch(addInterview(candidate.id, interviewData));
-      } catch (err) {
-        toastr.error("Interview Creation Failed", err.message);
-        throw err;
-      }
-    },
-    [dispatch, candidate]
-  );
+    const res = await scheduleInterview(schedulingPage, profile);
+
+    setSchedulingPageUrl(res.data.url);
+
+    setUpdateInProgress(false);
+  };
 
   // Display Nylas modal to edit availability time
   const openEditAvailabilityTimeModal = () => {
@@ -158,6 +152,7 @@ function InterviewDetailsPopup({ open, onClose, candidate, openNext }) {
     redirectToNylasHostedAuth();
   };
 
+  // If we are still initializing, display loading indicator
   if (isLoading) {
     return (
       <BaseModal
@@ -169,6 +164,22 @@ function InterviewDetailsPopup({ open, onClose, candidate, openNext }) {
         <p styleName="exceeds-max-number-txt">
           Initializing the scheduler based on the selected candidate. This may
           take some time. Do not close this window...
+        </p>
+      </BaseModal>
+    );
+  }
+
+  // If we have the scheduling page url, display it
+  if (schedulingPageUrl) {
+    return (
+      <BaseModal
+        open={open}
+        onClose={onClose}
+        closeButtonText="Cancel"
+        title="Interview Scheduled"
+      >
+        <p styleName="exceeds-max-number-txt">
+          The interview url is {schedulingPageUrl}
         </p>
       </BaseModal>
     );
@@ -227,13 +238,7 @@ function InterviewDetailsPopup({ open, onClose, candidate, openNext }) {
           title="Schedule an Interview"
           button={
             <Button
-              onClick={() => {
-                handleSubmit().then(() => {
-                  reset();
-                  onClose();
-                  openNext();
-                });
-              }}
+              onClick={() => handleSubmit()}
               size="medium"
               isSubmit
               disabled={
