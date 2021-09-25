@@ -5,6 +5,7 @@
  */
 import React, { useEffect } from "react";
 import { useLocation } from "@reach/router";
+import { getAuthUserProfile } from "@topcoder/micro-frontends-navbar-app";
 import _ from "lodash";
 import Page from "components/Page";
 import LoadingIndicator from "components/LoadingIndicator";
@@ -25,16 +26,27 @@ const SchedulingPage = () => {
 
   // if there are some candidates to review, then show "To Review" tab by default
   useEffect(() => {
-    getSchedulingPage(interviewId, roundId)
+    getAuthUserProfile()
       .then((res) => {
-        if (res.data.url) {
-          setSchedulingPageUrl(res.data.url);
-        } else {
-          setErrorMessage("No interviews scheduled");
-        }
+        return {
+          handle: res.handle,
+          email: res.email,
+        };
       })
-      .catch((err) => {
-        setErrorMessage(err);
+      .then((profile) => {
+        getSchedulingPage(interviewId, roundId)
+          .then((res) => {
+            if (res.data.url) {
+              setSchedulingPageUrl(
+                `${res.data.url}?email=${profile.email}&name=${profile.handle}&prefilled_readonly=true`
+              );
+            } else {
+              setErrorMessage("No interviews scheduled");
+            }
+          })
+          .catch((err) => {
+            setErrorMessage(err);
+          });
       });
   }, [interviewId, roundId]);
 
