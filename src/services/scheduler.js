@@ -1,8 +1,11 @@
+/* global process */
+
 /**
  * Scheduler Service
  */
 import { axiosInstance as axiosWrapper } from "./requestInterceptor";
 import axios from "axios";
+import jwt from "jsonwebtoken";
 import config from "../../config";
 
 /**
@@ -62,17 +65,25 @@ export function editSchedulingPage(pageId, page, editToken) {
 /**
  * Redirects to Nylas Hosted Auth
  */
-export function redirectToNylasHostedAuth() {
+export function redirectToNylasHostedAuth(
+  pageId,
+  pageEditToken,
+  candidateId,
+  path
+) {
   const clientId = process.env.NYLAS_CLIENT_ID;
-  const redirectUri = "http://localhost:3001/oauth/callback";
+  const redirectUri = `${config.INTERVIEW_SCHEDULER_URL}/oauth/callback`;
   const responseType = "code";
   const scopes = "calendar";
-  const state = "";
-  // const state = jwt.sign({
-  //   schedulingPageId: schedulingPage.id,
-  //   candidateHandle: props.inputData.candidate.handle,
-  //   pageEditToken: schedulingPage.edit_token
-  // }, 'secret')
+  const state = jwt.sign(
+    {
+      pageId,
+      candidateId,
+      pageEditToken,
+      path,
+    },
+    process.env.SCHEDULER_SECRET
+  );
   window.location.href = `https://api.nylas.com/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=${responseType}&scopes=${scopes}&state=${state}`;
 }
 

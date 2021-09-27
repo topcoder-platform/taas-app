@@ -71,6 +71,8 @@ const PositionCandidates = ({ position, statusFilterKey, updateCandidate }) => {
   const [selectedCandidate, setSelectedCandidate] = useState(null);
   const [selectCandidateOpen, setSelectCandidateOpen] = useState(false);
   const [isReject, setIsReject] = useState(false);
+  const [connectCalendarError, setConnectCalendarError] = useState("");
+  const [connectCalendarSuccess, setConnectCalendarSuccess] = useState("");
 
   const openInterviewDetailsPopup = (candidate) => {
     setSelectedCandidate(candidate);
@@ -132,6 +134,36 @@ const PositionCandidates = ({ position, statusFilterKey, updateCandidate }) => {
     () => filteredCandidates.slice((page - 1) * perPage, page * perPage),
     [filteredCandidates, page, perPage]
   );
+
+  useEffect(() => {
+    if (statusFilterKey !== CANDIDATE_STATUS_FILTER_KEY.TO_REVIEW) {
+      return;
+    }
+
+    const query = new URLSearchParams(window.location.search);
+    const params = Object.fromEntries(query);
+
+    if (params.calendarConnected) {
+      const calendarConnected = params.calendarConnected === "true";
+      // User connected their calendar. Resume where user left off...
+      window.history.replaceState(null, null, window.location.pathname);
+
+      const candidate = pageCandidates.find(
+        (c) => c.id === params.interviewWithCandidate
+      );
+
+      if (!calendarConnected) {
+        setConnectCalendarError(
+          params.error
+            ? params.error
+            : "Connect calendar failed due to reasons unknown. Try again after sometime"
+        );
+      } else {
+        setConnectCalendarSuccess("Calendar connected successfully");
+      }
+      openInterviewDetailsPopup(candidate);
+    }
+  }, [pageCandidates, statusFilterKey]);
 
   const onPageClick = useCallback(
     (newPage) => {
@@ -204,6 +236,12 @@ const PositionCandidates = ({ position, statusFilterKey, updateCandidate }) => {
     },
     [updateCandidate]
   );
+
+  const openInterviewDetailsPopupClose = () => {
+    setConnectCalendarError("");
+    setConnectCalendarSuccess("");
+    setInterviewDetailsOpen(false);
+  };
 
   return (
     <>
@@ -366,8 +404,10 @@ const PositionCandidates = ({ position, statusFilterKey, updateCandidate }) => {
       />
       <InterviewDetailsPopup
         open={interviewDetailsOpen}
-        onClose={() => setInterviewDetailsOpen(false)}
+        onClose={openInterviewDetailsPopupClose}
         candidate={selectedCandidate}
+        connectCalendarError={connectCalendarError}
+        connectCalendarSuccess={connectCalendarSuccess}
       />
       <SelectCandidatePopup
         candidate={selectedCandidate}

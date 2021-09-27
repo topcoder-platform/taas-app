@@ -41,7 +41,13 @@ const INTERVIEW_DURATIONS = {
 
 /********************* */
 // TODO: preserve form input in case of error
-function InterviewDetailsPopup({ open, onClose, candidate }) {
+function InterviewDetailsPopup({
+  open,
+  onClose,
+  candidate,
+  connectCalendarError,
+  connectCalendarSuccess,
+}) {
   const [isLoading, setIsLoading] = useState(true);
   const [profile, setProfile] = useState({});
   const [currentDuration, setCurrentDuration] = useState(30);
@@ -149,7 +155,12 @@ function InterviewDetailsPopup({ open, onClose, candidate }) {
 
   // Trigger Nylas's Hosted authentication
   const triggerNylasHostedAuth = () => {
-    redirectToNylasHostedAuth();
+    redirectToNylasHostedAuth(
+      schedulingPage.id,
+      schedulingPage.edit_token,
+      candidate.id,
+      window.location.href
+    );
   };
 
   // If we are still initializing, display loading indicator
@@ -301,6 +312,14 @@ function InterviewDetailsPopup({ open, onClose, candidate }) {
                 Connect Calendar
               </Button>
             </div>
+            {connectCalendarError && (
+              <div styleName="center connectError">{connectCalendarError}</div>
+            )}
+            {connectCalendarSuccess && (
+              <div styleName="center connectSuccess">
+                {connectCalendarSuccess}
+              </div>
+            )}
           </div>
         </BaseModal>
       )}

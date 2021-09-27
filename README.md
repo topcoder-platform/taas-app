@@ -146,6 +146,7 @@ Some config files are using domain `local.topcoder-dev.com`. You can change it t
 
    export STRIPE_PUBLIC_KEY=""
    export NYLAS_CLIENT_ID="your-nylas-app-client-id"
+   export SCHEDULER_SECRET="your-jwt-secret"
 
    npm run dev
 
