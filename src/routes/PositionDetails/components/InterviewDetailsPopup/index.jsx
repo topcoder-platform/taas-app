@@ -11,6 +11,7 @@ import arrayMutators from "final-form-arrays";
 import { FieldArray } from "react-final-form-arrays";
 import { toastr } from "react-redux-toastr";
 import { useDispatch, useSelector } from "react-redux";
+import useScript from "react-script-hook";
 import { addInterview } from "../../actions";
 import User from "components/User";
 import BaseModal from "components/BaseModal";
@@ -57,6 +58,9 @@ function InterviewDetailsPopup({
   const [schedulingPageUrl, setSchedulingPageUrl] = React.useState(null);
   const { loading } = useSelector((state) => state.positionDetails);
   const dispatch = useDispatch();
+  const [loadingScript, errorLoadingScript] = useScript({
+    src: "https://schedule.nylas.com/schedule-editor/v1.0/schedule-editor.js",
+  });
 
   // On component display, initialize the scheduling page
   useEffect(() => {
@@ -163,8 +167,22 @@ function InterviewDetailsPopup({
     );
   };
 
-  // If we are still initializing, display loading indicator
-  if (isLoading) {
+  if (errorLoadingScript) {
+    return (
+      <BaseModal
+        open={open}
+        onClose={onClose}
+        closeButtonText="Close"
+        title="Failed to load script"
+      >
+        <p styleName="exceeds-max-number-txt">
+          There was a problem loading the script needed to run the scheduler.
+          Try again after sometime. If this problem persis, contact
+          administrator
+        </p>
+      </BaseModal>
+    );
+  } else if (isLoading || loadingScript) {
     return (
       <BaseModal
         open={open}

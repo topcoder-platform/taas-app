@@ -74,20 +74,6 @@ const PositionCandidates = ({ position, statusFilterKey, updateCandidate }) => {
   const [connectCalendarError, setConnectCalendarError] = useState("");
   const [connectCalendarSuccess, setConnectCalendarSuccess] = useState("");
 
-  // Load the Nylas script
-  useEffect(() => {
-    const script = document.createElement("script");
-    script.src =
-      "https://schedule.nylas.com/schedule-editor/v1.0/schedule-editor.js";
-    script.async = true;
-    document.body.appendChild(script);
-
-    // Unload on component unmount
-    return () => {
-      document.body.removeChild(script);
-    };
-  });
-
   const openInterviewDetailsPopup = (candidate) => {
     setSelectedCandidate(candidate);
     setInterviewDetailsOpen(true);

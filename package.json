@@ -88,6 +88,7 @@
     "react-redux": "^7.2.2",
     "react-redux-toastr": "^7.6.5",
     "react-responsive-modal": "^6.0.1",
+    "react-script-hook": "^1.5.0",
     "react-select": "^4.0.2",
     "react-use": "^15.3.4",
     "redux": "^4.0.5",

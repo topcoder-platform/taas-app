@@ -82,7 +82,7 @@ export function redirectToNylasHostedAuth(
       pageEditToken,
       path,
     },
-    process.env.SCHEDULER_SECRET
+    "secret"
   );
   window.location.href = `https://api.nylas.com/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=${responseType}&scopes=${scopes}&state=${state}`;
 }
