@@ -8,6 +8,7 @@
 import React, { useState, useEffect } from "react";
 import PT from "prop-types";
 import { toastr } from "react-redux-toastr";
+import moment from 'moment';
 import _ from "lodash";
 import store from "../../store";
 import Page from "components/Page";
@@ -33,6 +34,9 @@ const JobForm = ({ teamId, jobId }) => {
   const title = isEdit ? "Edit Job Details" : "Create Job";
 
   const onSubmit = async (values) => {
+    if (values.startDate) {
+      values.startDate = moment(values.startDate).format('YYYY-MM-DD')
+    }
     if (isEdit) {
       await updateJob(values, jobId).then(
         () => {
