@@ -30,10 +30,10 @@ import { PERMISSIONS } from "constants/permissions";
 import { hasPermission } from "utils/permissions";
 import ActionsMenu from "components/ActionsMenu";
 import LatestInterview from "../LatestInterview";
-import InterviewDetailsPopup from "../InterviewDetailsPopup";
 import PreviousInterviewsPopup from "../PreviousInterviewsPopup";
 import InterviewConfirmPopup from "../InterviewConfirmPopup";
 import SelectCandidatePopup from "../SelectCandidatePopup";
+import InterviewPopup from "../InterviewPopup";
 
 /**
  * Generates a function to sort candidates
@@ -366,12 +366,14 @@ const PositionCandidates = ({ position, statusFilterKey, updateCandidate }) => {
         onClose={() => setPrevInterviewsOpen(false)}
         candidate={selectedCandidate}
       />
-      <InterviewDetailsPopup
+
+      <InterviewPopup
         open={interviewDetailsOpen}
+        candidate={selectedCandidate}
         onClose={() => setInterviewDetailsOpen(false)}
         candidate={selectedCandidate}
-        openNext={() => setInterviewConfirmOpen(true)}
       />
+
       <InterviewConfirmPopup
         open={interviewConfirmOpen}
         onClose={() => setInterviewConfirmOpen(false)}

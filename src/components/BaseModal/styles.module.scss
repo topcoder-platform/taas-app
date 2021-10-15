@@ -5,14 +5,24 @@ svg {
 }
 
 .title {
-  @include font-barlow-condensed;
+  @include font-barlow;
   font-weight: normal;
-  font-size: 34px;
-  line-height: 40px;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 24px;
   margin: 0 0 24px 0;
   overflow-wrap: anywhere;
   padding: 0;
   text-transform: uppercase;
+  border-bottom: 2px solid #e9e9e9;
+  padding-bottom: 20px;
+  color: #2a2a2a;
+}
+
+.center-title {
+  text-align: center;
+  border-bottom-color: transparent;
+  margin-bottom: 0;
 }
 
 .content {
