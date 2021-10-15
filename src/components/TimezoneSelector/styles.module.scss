@@ -1,0 +1,71 @@
+@import "styles/include";
+
+.select {
+  /* Reset Select */
+  appearance: none;
+  outline: 0;
+  border: 0;
+  box-shadow: none;
+  /* Personalize */
+  @include font-roboto;
+  flex: 1;
+  color: #2a2a2a;
+  margin-left: 10px;
+  font-size: 16px;
+  font-weight: 400;
+  background-image: none;
+  cursor: pointer;
+  margin-bottom: 7px;
+}
+
+/* Remove IE arrow */
+.select::-ms-expand {
+  display: none;
+}
+
+/* Custom Select wrapper */
+.timezone-selector {
+  position: relative;
+  display: flex;
+  width: 384px;
+  height: 48px;
+  overflow: hidden;
+  margin-top: 59px;
+  flex-direction: column;
+  border: 1px solid #aaaaaa;
+  border-radius: 4px;
+}
+
+.label {
+  @include font-roboto;
+  color: #137d60;
+  font-weight: 500;
+  font-size: 11px;
+  margin-left: 10px;
+}
+
+/* Arrow */
+.timezone-selector::after {
+  content: "";
+  position: absolute;
+  background-image: url(../../assets/images/icon-down-arrow-black.svg);
+  background-size: 16px;
+  background-repeat: no-repeat;
+  bottom: 10px;
+  right: 10px;
+  width: 16px;
+  height: 16px;
+  transition: 0.25s all ease;
+  pointer-events: none;
+}
+
+/* Transition */
+.timezone-selector:hover::after {
+  color: #f39c12;
+}
+
+@media (max-width: 420px) {
+  .timezone-selector {
+    width: 100%;
+  }
+}

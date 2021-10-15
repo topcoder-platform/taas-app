@@ -1,0 +1,20 @@
+@import "styles/include";
+
+.success-wrapper {
+}
+
+.success-text {
+  margin-top: 70px;
+  margin-bottom: 232px;
+  @include font-roboto;
+  font-size: 16px;
+  line-height: 26px;
+  font-weight: 400;
+}
+
+.button-wrapper {
+  display: flex;
+  align-items: center;
+  margin-top: 16px;
+  justify-content: flex-end;
+}

@@ -10,6 +10,7 @@
 
 import React from "react";
 import PT from "prop-types";
+import cn from "classnames";
 import { Modal } from "react-responsive-modal";
 import Button from "../Button";
 import IconCross from "../../assets/images/icon-cross-light.svg";
@@ -17,7 +18,7 @@ import "./styles.module.scss";
 
 const modalStyle = {
   borderRadius: "8px",
-  padding: "32px 32px 22px 32px",
+  padding: "20px 24px",
   maxWidth: "640px",
   width: "100%",
   margin: 0,
@@ -26,6 +27,11 @@ const modalStyle = {
 
 const containerStyle = {
   padding: "10px",
+};
+
+const closeButton = {
+  right: "24px",
+  top: "24px",
 };
 
 function BaseModal({
@@ -37,31 +43,47 @@ function BaseModal({
   closeButtonText,
   disabled,
   extraModalStyle,
+  alignTitleCenter = false,
+  showButton = true,
+  closeIcon: CloseIcon,
 }) {
   return (
     <Modal
       open={open}
       onClose={onClose}
-      closeIcon={<IconCross width="15px" height="15px" />}
+      closeIcon={
+        CloseIcon ? CloseIcon : <IconCross width="15px" height="15px" />
+      }
       styles={{
         modal: { ...modalStyle, ...extraModalStyle },
         modalContainer: containerStyle,
+        closeButton,
       }}
       center={true}
     >
-      {title && <h2 styleName="title">{title}</h2>}
-      <div styleName="content">{children}</div>
-      <div styleName="button-group">
-        {button && button}
-        <Button
-          type="secondary"
-          size="medium"
-          onClick={onClose}
-          disabled={disabled}
+      {title && (
+        <h2
+          styleName={cn("title", {
+            "center-title": alignTitleCenter,
+          })}
         >
-          {closeButtonText ? closeButtonText : "Cancel"}
-        </Button>
-      </div>
+          {title}
+        </h2>
+      )}
+      <div styleName="content">{children}</div>
+      {showButton && (
+        <div styleName="button-group">
+          {button && button}
+          <Button
+            type="secondary"
+            size="medium"
+            onClick={onClose}
+            disabled={disabled}
+          >
+            {closeButtonText ? closeButtonText : "Cancel"}
+          </Button>
+        </div>
+      )}
     </Modal>
   );
 }
@@ -75,6 +97,9 @@ BaseModal.propTypes = {
   closeButtonText: PT.string,
   disabled: PT.bool,
   extraModalStyle: PT.object,
+  showButton: PT.bool,
+  alignTitleCenter: PT.bool,
+  closeIcon: PT.node,
 };
 
 export default BaseModal;

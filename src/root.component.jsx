@@ -1,7 +1,10 @@
 import React, { useLayoutEffect } from "react";
 import { Provider } from "react-redux";
 import { Router, Redirect } from "@reach/router";
-import { setNotificationPlatform, PLATFORM } from "@topcoder/micro-frontends-navbar-app";
+import {
+  setNotificationPlatform,
+  PLATFORM,
+} from "@topcoder/micro-frontends-navbar-app";
 import MyTeamsList from "./routes/MyTeamsList";
 import MyTeamsDetails from "./routes/MyTeamsDetails";
 import PositionDetails from "./routes/PositionDetails";

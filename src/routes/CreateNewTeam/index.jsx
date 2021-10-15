@@ -36,7 +36,6 @@ const CreateNewTeam = (props) => {
     };
   }, []);
   const { isLoading } = useSelector((state) => state.searchedRoles);
-
   return (
     <div>
       {props.children}

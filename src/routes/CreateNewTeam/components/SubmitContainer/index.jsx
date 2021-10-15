@@ -176,7 +176,10 @@ function SubmitContainer({
           currentRole={currentRole}
         />
       ) : (
-        <NoMatchingProfilesResultCard role={matchingRole} onSubmit={()=> setAddAnotherOpen(true)}/>
+        <NoMatchingProfilesResultCard
+          role={matchingRole}
+          onSubmit={() => setAddAnotherOpen(true)}
+        />
       )}
       <div styleName="right-side">
         <AddedRolesAccordion addedRoles={addedRoles} />

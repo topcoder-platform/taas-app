@@ -245,9 +245,7 @@ function ResultCard({
               </div>
             </div>
             <div styleName="timeline-info">
-              <div>
-                (NEED TO DEVELOP TEXT W/ ANNIKA)
-              </div>
+              <div>(NEED TO DEVELOP TEXT W/ ANNIKA)</div>
             </div>
           </div>
         </div>

@@ -1,0 +1,66 @@
+@import "styles/include";
+
+.steps-indicator {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.default-line {
+  height: 2px;
+  background-color: #c4c4c4;
+  margin: 0 24px;
+  position: absolute;
+  left: 0;
+  right: 0;
+}
+
+.progress-line {
+  height: 2px;
+  background-color: #6569ff;
+  margin: 0 24px;
+  position: absolute;
+  left: 0;
+}
+
+.dots-wrapper {
+  margin: 0 24px;
+  position: relative;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  background-color: #aaaaaa;
+  position: absolute;
+  border-radius: 50%;
+  top: -6px;
+}
+
+.dot-completed {
+  background-color: #6569ff;
+}
+
+.outer-dot {
+  width: 16px;
+  height: 16px;
+  background-color: #ffffff;
+  position: absolute;
+  border-radius: 50%;
+  top: -8px;
+}
+
+.step-label {
+  @include font-roboto;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  position: absolute;
+  transform: translateX(-40%);
+  margin-top: 11px;
+  color: #aaaaaa;
+}
+
+.step-completed {
+  color: #6569ff;
+}
