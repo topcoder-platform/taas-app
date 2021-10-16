@@ -11,7 +11,7 @@ const modalStyle = {
   padding: "72px 0 60px 0",
   width: "100%",
   margin: 0,
-  "overflow-x": "hidden",
+  overflowX: "hidden",
 };
 
 const containerStyle = {
