@@ -23,12 +23,11 @@ const TimezoneSelector = ({ value, onChange }) => {
   return (
     <div styleName="timezone-selector">
       <div styleName="label">Interview Timezone</div>
-      <select styleName="select" onChange={onChange}>
-        {timezoneList.map((zone, index) => (
+      <select styleName="select" onChange={onChange} value={value} defaultValue={value}>
+        {timezoneList.map((zone) => (
           <option
-            key={index}
+            key={zone}
             value={zone}
-            selected={zone === value}
           >{`${zone} - UTC${moment().tz(zone).format("Z")}`}</option>
         ))}
       </select>

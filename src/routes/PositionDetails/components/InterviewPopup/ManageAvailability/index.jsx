@@ -124,8 +124,8 @@ const ManageAvailability = ({ scheduleDetails, onContinue }) => {
   };
 
   // Set time zone
-  const onChangeTimezone = (value) => {
-    setTimezone(value);
+  const onChangeTimezone = (event) => {
+    setTimezone(event.target.value);
   };
 
   /**
@@ -186,7 +186,7 @@ const ManageAvailability = ({ scheduleDetails, onContinue }) => {
               <div styleName="days">
                 {days.map((day, index) => (
                   <div
-                    key={index}
+                    key={day}
                     onClick={() => onDayChanged(daysMapped[index], slotIndex)}
                     styleName={cn("day", {
                       "selected-day": slot.days.indexOf(daysMapped[index]) > -1,

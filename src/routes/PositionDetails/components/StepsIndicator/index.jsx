@@ -35,7 +35,7 @@ const StepsIndicator = ({ steps, currentStep }) => {
           const isCompleted = index <= currentStepIndex;
 
           return (
-            <div key={index}>
+            <div key={step.id}>
               <div styleName="outer-dot" style={styles} />
               <div
                 styleName={cn("dot", { "dot-completed": isCompleted })}
