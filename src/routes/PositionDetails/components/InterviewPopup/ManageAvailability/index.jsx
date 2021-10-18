@@ -125,7 +125,9 @@ const ManageAvailability = ({ scheduleDetails, onContinue }) => {
 
   // Set time zone
   const onChangeTimezone = (event) => {
-    setTimezone(event.target.value);
+    if (event && event.target) {
+      setTimezone(event.target.value);
+    }
   };
 
   /**
