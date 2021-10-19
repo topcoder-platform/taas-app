@@ -12,9 +12,8 @@ const TimezoneSelector = ({ value, onChange }) => {
     const isBrowserTimezoneAvailable = TIME_ZONES.findIndex(item => item === browserTimezone);
 
     if (isBrowserTimezoneAvailable === -1) {
-      const finalList = [...TIME_ZONES, browserTimezone].sort();
+      const finalList = [browserTimezone, ...TIME_ZONES];
       setTimezoneList(finalList);
-      onChange(browserTimezone);
     } else {
       setTimezoneList(TIME_ZONES);
     }
