@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import cn from "classnames";
 import PT from "prop-types";
+import moment from "moment";
 import Spinner from "components/CenteredSpinner";
 import { toastr } from "react-redux-toastr";
 
@@ -273,7 +274,7 @@ const InterviewPopup = ({
               "show-spinner": isLoading,
             })}
           >
-            <Spinner stype="Oval" width="80" height="80" />
+            <Spinner stype="Oval" width={80} height={80} />
           </div>
           <div
             styleName={cn("component-wrapper", {
@@ -289,7 +290,7 @@ const InterviewPopup = ({
 };
 
 InterviewPopup.propTypes = {
-  candidate: PT.object.isRequired,
+  candidate: PT.object,
   open: PT.bool,
   initialStage: PT.string,
   onClose: PT.func.isRequired,

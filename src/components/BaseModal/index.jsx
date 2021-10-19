@@ -22,7 +22,7 @@ const modalStyle = {
   maxWidth: "640px",
   width: "100%",
   margin: 0,
-  "overflow-x": "hidden",
+  overflowX: "hidden",
 };
 
 const containerStyle = {

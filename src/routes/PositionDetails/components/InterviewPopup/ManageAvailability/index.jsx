@@ -124,8 +124,10 @@ const ManageAvailability = ({ scheduleDetails, onContinue }) => {
   };
 
   // Set time zone
-  const onChangeTimezone = (value) => {
-    setTimezone(value);
+  const onChangeTimezone = (event) => {
+    if (event && event.target) {
+      setTimezone(event.target.value);
+    }
   };
 
   /**
@@ -182,10 +184,11 @@ const ManageAvailability = ({ scheduleDetails, onContinue }) => {
           ];
 
           return (
-            <div styleName="slot">
+            <div styleName="slot" key={slotIndex}>
               <div styleName="days">
                 {days.map((day, index) => (
                   <div
+                    key={day}
                     onClick={() => onDayChanged(daysMapped[index], slotIndex)}
                     styleName={cn("day", {
                       "selected-day": slot.days.indexOf(daysMapped[index]) > -1,
@@ -264,18 +267,16 @@ const ManageAvailability = ({ scheduleDetails, onContinue }) => {
 };
 
 ManageAvailability.propTypes = {
-  scheduleDetails: PT.arrayOf(
-    PT.shape({
-      timezone: PT.string,
-      slots: PT.arrayOf(
-        PT.shape({
-          days: PT.array,
-          end: PT.string,
-          start: PT.string,
-        })
-      ),
-    })
-  ),
+  scheduleDetails: PT.shape({
+    timezone: PT.string,
+    slots: PT.arrayOf(
+      PT.shape({
+        days: PT.array,
+        end: PT.string,
+        start: PT.string,
+      })
+    ),
+  }),
   onContinue: PT.func,
 };
 
