@@ -13,10 +13,4 @@ module.exports = {
     V5: "https://api.topcoder-dev.com/v5", //"http://localhost:3030/api/v5"
     V3: "https://api.topcoder-dev.com/v3",
   },
-
-  /**
-   * The interview api url is the mock server url.
-   * This has to be replaced with the real url once the API is implemented.
-   */
-  INTERVIEW_API_URL: "http://localhost:5555/",
 };
