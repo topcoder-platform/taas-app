@@ -17,6 +17,7 @@ import IconDelete from "../../../../../assets/images/icon-delete-slot.svg";
 import IconPlus from "../../../../../assets/images/icon-plus.svg";
 import "./styles.module.scss";
 import Button from "components/Button";
+import { formatAs2Digits } from "utils/format";
 
 /**
  * This component lets user to choose the availability of the interview candidate
@@ -47,7 +48,7 @@ const ManageAvailability = ({ scheduleDetails, onContinue }) => {
             currentVal < 12
               ? `${!currentVal ? 12 : currentVal}:00`
               : `${Math.abs((currentVal === 12 ? 0 : currentVal) - 12)}:00`,
-          time24HourFormat: currentVal + 1,
+          time24HourFormat: `${formatAs2Digits(currentVal + 1)}:00`,
           suffix: currentVal < 12 ? "AM" : "PM",
         },
       ],

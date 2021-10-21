@@ -59,14 +59,7 @@ const InterviewPopup = ({
 
   const prepareSlots = (userSettings) => ({
     timezone: userSettings.defaultTimezone,
-    slots:
-      (userSettings.defaultAvailableTime &&
-        userSettings.defaultAvailableTime.map((item) => ({
-          days: item.days,
-          end: parseInt(item.end.split(":")[0]),
-          start: parseInt(item.start.split(":")[0]),
-        }))) ||
-      [],
+    slots: userSettings.defaultAvailableTime || []
   });
 
   /**

@@ -34,11 +34,7 @@ const Confirm = ({
     const params = {
       timezone: scheduleDetails.timezone,
       duration: scheduleDetails.duration,
-      availableTime: scheduleDetails.slots.map((slot) => ({
-        ...slot,
-        end: `${slot.end}:00`,
-        start: `${slot.start}:00`,
-      })),
+      availableTime: scheduleDetails.slots,
     };
     onShowingLoader(true);
 

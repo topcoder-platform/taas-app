@@ -2,9 +2,7 @@ import { axiosInstance as axios } from "./requestInterceptor";
 import config from "../../config";
 
 export const getUserSettings = (userId) => {
-  return axios.get(
-    `${config.API.V5}/taas/user-meeting-settings/${userId}`
-  );
+  return axios.get(`${config.API.V5}/taas/user-meeting-settings/${userId}`);
 };
 
 export const deleteCalendar = (userId, calendarId) => {

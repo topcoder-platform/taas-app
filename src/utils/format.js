@@ -360,3 +360,21 @@ export const formatWorkTime = (time) => {
 export const formatInviteTime = (time) => {
   return moment(time).format("MMM D, YY");
 };
+
+/**
+ * Format number as 2 digits:
+ *  7 -> 07
+ * 07 -> 07
+ *
+ * @param {number|string} value 1 or 2 digits number to format
+ * @returns {string} formatted 2-digits number
+ */
+export const formatAs2Digits = (number) => {
+  const str = number.toString();
+
+  if (str.length < 2) {
+    return "0" + str;
+  }
+
+  return str;
+};
