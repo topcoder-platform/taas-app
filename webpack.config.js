@@ -81,6 +81,7 @@ module.exports = (webpackConfigEnv) => {
         "process.env": {
           APPENV: JSON.stringify(process.env.APPENV),
           STRIPE_PUBLIC_KEY: JSON.stringify(process.env.STRIPE_PUBLIC_KEY),
+          NYLAS_CLIENT_ID: JSON.stringify(process.env.NYLAS_CLIENT_ID),
         },
       }),
     ],
