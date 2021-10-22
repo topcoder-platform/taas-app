@@ -20,7 +20,7 @@ module.exports = {
   NYLAS_API_URL: "https://api.schedule.nylas.com",
 
   API: {
-    V5: "https://api.topcoder-dev.com/v5", //"http://localhost:3030/api/v5"
+    V5: "http://localhost:3000/api/v5", //"http://localhost:3030/api/v5"
     V3: "https://api.topcoder-dev.com/v3",
   },
 };

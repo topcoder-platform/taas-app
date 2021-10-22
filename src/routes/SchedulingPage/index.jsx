@@ -36,9 +36,9 @@ const SchedulingPage = () => {
       .then((profile) => {
         getSchedulingPage(interviewId, roundId)
           .then((res) => {
-            if (res.data.url) {
+            if (res.data.nylasPageSlug) {
               setSchedulingPageUrl(
-                `${res.data.url}?email=${profile.email}&name=${profile.handle}&prefilled_readonly=true`
+                `https://schedule.nylas.com/${res.data.nylasPageSlug}?email=${profile.email}&name=${profile.handle}&prefilled_readonly=true`
               );
             } else {
               setErrorMessage("No interviews scheduled");

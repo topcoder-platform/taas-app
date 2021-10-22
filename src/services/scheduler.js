@@ -39,12 +39,7 @@ export function scheduleInterview(page, profile) {
  * @returns Promise
  */
 export function getSchedulingPage(interviewId, roundId) {
-  return axiosWrapper.get(`${config.INTERVIEW_SCHEDULER_URL}/interview`, {
-    params: {
-      interviewId,
-      roundId,
-    },
-  });
+  return axiosWrapper.get(`${config.API.V5}/getInterview/${interviewId}`);
 }
 
 /**
