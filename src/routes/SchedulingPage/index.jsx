@@ -9,7 +9,7 @@ import _ from "lodash";
 import Page from "components/Page";
 import LoadingIndicator from "components/LoadingIndicator";
 import PageHeader from "components/PageHeader";
-import { getInterview } from "services/scheduler";
+import { getInterview } from "services/interviews";
 import { INTERVIEW_STATUS } from "constants";
 import withAuthentication from "../../hoc/withAuthentication";
 
@@ -30,10 +30,7 @@ const SchedulingPage = ({ interviewId }) => {
       .then((profile) => {
         getInterview(interviewId)
           .then(({ data }) => {
-            if (
-              data.status === INTERVIEW_STATUS.SCHEDULED ||
-              data.status === INTERVIEW_STATUS.RESCHEDULED
-            ) {
+            if (data.status === INTERVIEW_STATUS.SCHEDULING) {
               setSchedulingPageUrl(
                 `https://schedule.nylas.com/${data.nylasPageSlug}?email=${
                   profile.email
