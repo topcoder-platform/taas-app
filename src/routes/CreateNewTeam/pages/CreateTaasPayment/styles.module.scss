@@ -138,6 +138,10 @@
       min-height: 570px;
       margin-left: 15px;
 
+      &.show-rule {
+        min-height: auto;
+      }
+
       hr {
         background-color: #aaaaaa;
         height: 1px;
