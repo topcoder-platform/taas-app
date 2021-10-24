@@ -172,7 +172,7 @@ const CreateTassPayment = () => {
                   {calculatedAmount ? (
                     <PaymentForm calculatedAmount={calculatedAmount} />
                   ) : (
-                    <PaymentRule calculatedAmount={calculatedAmount} />
+                    <PaymentRule />
                   )}
                 </ThemeProvider>
               </Elements>

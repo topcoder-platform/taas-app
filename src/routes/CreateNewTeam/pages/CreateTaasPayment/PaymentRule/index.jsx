@@ -12,7 +12,7 @@ import { clearSearchedRoles } from "../../../actions";
 
 import "./styles.module.scss";
 
-const PaymentRule = ({ calculatedAmount }) => {
+const PaymentRule = () => {
   const [processing, setProcessing] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
   const [clicked, setClicked] = useState(true);
