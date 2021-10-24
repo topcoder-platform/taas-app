@@ -49,6 +49,19 @@ export const POSITION_STATUS = {
 };
 
 /**
+ * Interview related constants
+ */
+export const INTERVIEW_STATUS = {
+  SCHEDULING: "Scheduling",
+  SCHEDULED: "Scheduled",
+  REQUESTEDFORRESCHEDULE: "Requested for reschedule",
+  RESCHEDULED: "Rescheduled",
+  COMPLETED: "Completed",
+  CANCELLED: "Cancelled",
+  EXPIRED: "Expired",
+};
+
+/**
  * Mapping between position status "server value" and human readable value
  */
 export const POSITION_STATUS_TO_TEXT = {

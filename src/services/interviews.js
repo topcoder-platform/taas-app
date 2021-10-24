@@ -17,3 +17,12 @@ export const confirmInterview = (candidateJobId, data) => {
     data
   );
 };
+
+/**
+ * Returns the interview page url for the given interview
+ * @param {String} interviewId The interview id
+ * @returns Promise
+ */
+export const getInterview = (interviewId) => {
+  return axios.get(`${config.API.V5}/getInterview/${interviewId}`);
+};
