@@ -39,6 +39,7 @@ function NoMatchingProfilesResultCard({ role, onSubmit }) {
       dispatch(
         addSearchedRole({
           searchId,
+          isCustomRole: true,
           name,
           rates: role.rates,
           imageUrl: role.imageUrl,
