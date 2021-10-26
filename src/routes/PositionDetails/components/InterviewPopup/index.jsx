@@ -164,7 +164,12 @@ const InterviewPopup = ({
         return <ScheduleInterview onClick={onChangeStage} />;
       case POPUP_STAGES.CONNECT_CALENDAR:
         return (
-          <ConnectCalendar isConnected={false} onGoingBack={onGoingBack} />
+          <ConnectCalendar
+            userProfile={v5UserProfile}
+            isConnected={false}
+            onGoingBack={onGoingBack}
+            candidate={candidate}
+          />
         );
       case POPUP_STAGES.MANAGE_CALENDAR:
         const calendar = getCalendar(userSettings);
@@ -175,6 +180,7 @@ const InterviewPopup = ({
             calendar={calendar}
             onGoingBack={onGoingBack}
             onCalendarRemoved={onCalendarRemoved}
+            candidate={candidate}
           />
         );
       case POPUP_STAGES.MANAGE_AVAILABILITY:

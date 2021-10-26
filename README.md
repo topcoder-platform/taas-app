@@ -136,9 +136,15 @@ Some config files are using domain `local.topcoder-dev.com`. You can change it t
    nvm use # or make sure to use Node 10
    npm i   # to install dependencies
 
-    # set environment variables:
+   # set environment variables:
 
    export STRIPE_PUBLIC_KEY=""
+
+   # get the below client id from Nylas app settings in Nylas account
+   export NYLAS_CLIENT_ID=""
+
+   # configure the below JWT secret by matching with the one set in TAAS APIS
+   export NYLAS_CONNECT_CALENDAR_JWT_SECRET=""
 
    npm run dev
 

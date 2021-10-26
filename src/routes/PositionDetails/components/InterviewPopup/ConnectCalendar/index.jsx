@@ -4,9 +4,10 @@ import PT from "prop-types";
 import { BUTTON_SIZE, BUTTON_TYPE } from "constants";
 import GoogleLogo from "../../../../../assets/images/icon-google.svg";
 import MicrosoftLogo from "../../../../../assets/images/icon-microsoft.svg";
-import { deleteCalendar } from "../../../../../services/interviews";
-import React, { useState } from "react";
+import { connectCalendar, deleteCalendar } from "../../../../../services/interviews";
+import React, { useEffect, useState } from "react";
 import { toastr } from "react-redux-toastr";
+import { useLocation } from "@reach/router";
 import Spinner from "components/CenteredSpinner";
 import "./styles.module.scss";
 
@@ -22,6 +23,7 @@ const ConnectCalendar = ({
   userProfile,
   onGoingBack,
   onCalendarRemoved,
+  candidate,
 }) => {
   const [showLoader, setLoader] = useState();
 
@@ -40,6 +42,13 @@ const ConnectCalendar = ({
       .finally(() => {
         setLoader(false);
       });
+  };
+
+  const handleConnectCalendar = () => {
+    // construct the appRedirectUrl with current window url and added query params
+    const appRedirectUrl = `${window.location.href}?interviewWithCandidate=${candidate.id}`;
+
+    return connectCalendar(userProfile.id, appRedirectUrl)
   };
 
   return (
@@ -72,16 +81,26 @@ const ConnectCalendar = ({
           <div styleName="switch-calendar">Switch to a New calendar</div>
         </>
       )}
-      <div styleName="button-wrapper">
-        <Button size={BUTTON_SIZE.SMALL} styleName={cn("button", "google-btn")}>
-          <GoogleLogo styleName="icons-wrapper" />
-          Sign in with google
-        </Button>
-        <Button size={BUTTON_SIZE.SMALL}>
-          <MicrosoftLogo styleName="icons-wrapper" />
-          Sign in with microsoft
-        </Button>
-      </div>
+      {showLoader && <Spinner stype="Oval" width="20" height="20" />}
+      {!showLoader && <>  
+        <div styleName="button-wrapper">
+          <Button
+            size={BUTTON_SIZE.SMALL}
+            styleName={cn("button", "google-btn")}
+            onClick={() => handleConnectCalendar()}
+          >
+            <GoogleLogo styleName="icons-wrapper" />
+            Sign in with google
+          </Button>
+          <Button
+            size={BUTTON_SIZE.SMALL}
+            onClick={() => handleConnectCalendar()}
+          >
+            <MicrosoftLogo styleName="icons-wrapper" />
+            Sign in with microsoft
+          </Button>
+        </div>
+      </>}
 
       <div styleName="description">
         Our calendar integration only checks the duration and free/busy status
@@ -118,6 +137,7 @@ ConnectCalendar.propTypes = {
   }),
   onCalendarRemoved: PT.func,
   onGoingBack: PT.func,
+  candidate: PT.object,
 };
 
 export default ConnectCalendar;
