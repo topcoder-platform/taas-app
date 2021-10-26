@@ -57,12 +57,12 @@ const CreateTassPayment = () => {
         imageUrl,
         name,
         rate,
+        isCustomRole: role.isCustomRole,
         numberOfResources,
         durationWeeks,
         availability,
       });
-      // not custome role
-      if (role.imageUrl) {
+      if (!role.isCustomRole) {
         amount.push({ rate, numberOfResources });
       }
     });
@@ -115,7 +115,7 @@ const CreateTassPayment = () => {
                         <div>
                           <p styleName="title">{data.name}</p>
                           <ul styleName="details">
-                            {data.imageUrl && (
+                            {!data.isCustomRole && (
                               <li>
                                 {data.numberOfResources} x ${data.rate}/ Week
                               </li>
@@ -126,7 +126,7 @@ const CreateTassPayment = () => {
                         </div>
                         <p styleName="amount">
                           $
-                          {!data.imageUrl
+                          {data.isCustomRole
                             ? "0"
                             : data.numberOfResources * data.rate}
                         </p>

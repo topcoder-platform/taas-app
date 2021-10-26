@@ -109,7 +109,9 @@ function SubmitContainer({
 
       position.roleSearchRequestId = key;
       position.roleName = addedRoles.find((role) => role.searchId === key).name;
-
+      const role = addedRoles.find((role) => role.searchId === key)
+      position.roleName = role.name;
+      position.isCustomRole = role.isCustomRole
       positions.push(position);
     }
     teamObject.positions = positions;
