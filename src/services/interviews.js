@@ -3,6 +3,8 @@
 import { axiosInstance as axios } from "./requestInterceptor";
 import config from "../../config";
 import jwt from "jsonwebtoken";
+const connectCalendarJWTSecret = process.env.NYLAS_CONNECT_CALENDAR_JWT_SECRET;
+const nylasClientId = process.env.NYLAS_CLIENT_ID;
 
 export const getUserSettings = (userId) => {
   return axios.get(`${config.API.V5}/taas/user-meeting-settings/${userId}`);
@@ -32,14 +34,14 @@ export const connectCalendar = (userId, appRedirectUrl) => {
       userId,
       redirectTo: appRedirectUrl,
     },
-    process.env.NYLAS_CONNECT_CALENDAR_JWT_SECRET,
+    connectCalendarJWTSecret,
     {
       algorithm: "HS256",
       expiresIn: 60,
     }
   );
 
-  const nylasCalendarConnectionUrl = `https://api.nylas.com/oauth/authorize?client_id=${process.env.NYLAS_CLIENT_ID}&redirect_uri=${apiRedirectUrl}&response_type=code&scopes=calendar&state=${state}`;
+  const nylasCalendarConnectionUrl = `https://api.nylas.com/oauth/authorize?client_id=${nylasClientId}&redirect_uri=${apiRedirectUrl}&response_type=code&scopes=calendar&state=${state}`;
 
   return (window.location.href = nylasCalendarConnectionUrl);
 };
