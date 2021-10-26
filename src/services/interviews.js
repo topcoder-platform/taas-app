@@ -3,7 +3,7 @@
 import { axiosInstance as axios } from "./requestInterceptor";
 import config from "../../config";
 import jwt from "jsonwebtoken";
-const connectCalendarJWTSecret = process.env.NYLAS_CONNECT_CALENDAR_JWT_SECRET;
+import { NYLAS_CONNECT_CALENDAR_JWT_SECRET } from "constants/";
 const nylasClientId = process.env.NYLAS_CLIENT_ID;
 
 export const getUserSettings = (userId) => {
@@ -34,7 +34,7 @@ export const connectCalendar = (userId, appRedirectUrl) => {
       userId,
       redirectTo: appRedirectUrl,
     },
-    connectCalendarJWTSecret,
+    NYLAS_CONNECT_CALENDAR_JWT_SECRET,
     {
       algorithm: "HS256",
       expiresIn: 60,

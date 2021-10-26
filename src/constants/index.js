@@ -702,3 +702,10 @@ export const DAYS = {
  * These are the default selected days
  */
 export const DEFAULT_SELECTED_DAYS = ["M", "T", "W", "R", "F"];
+
+/**
+ * Used to sign `state` when connecting calendars using Nylas
+ * It should match the same in TaaS API
+ * Actually it's not secret, we just use JWT to compress data not to secure it
+ */
+export const NYLAS_CONNECT_CALENDAR_JWT_SECRET = "secret";
