@@ -22,6 +22,7 @@ const PaymentRule = () => {
 
   const handlePostTeam = async (e) => {
     setProcessing(true);
+    teamObject.positions = _.map(teamObject.positions, p=> _.omit(p, 'isCustomRole'))
     postTeamRequest(teamObject)
       .then((res) => {
         const projectId = _.get(res, "data.projectId");

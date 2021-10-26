@@ -142,6 +142,7 @@ const PaymentForm = ({ calculatedAmount }) => {
           } else if (payload.paymentIntent.status === "succeeded") {
             toastr.success("Payment is successful");
             // setRequestLoading(true);
+            teamObject.positions = _.map(teamObject.positions, p=> _.omit(p, 'isCustomRole'))
             postTeamRequest(teamObject)
               .then((res) => {
                 setProjectId(_.get(res, "data.projectId"));
