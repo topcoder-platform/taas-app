@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import _ from "lodash";
+import cn from "classnames";
 import { useSelector } from "react-redux";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
@@ -7,11 +8,13 @@ import { ThemeProvider } from "@material-ui/styles";
 import { toastr } from "react-redux-toastr";
 
 import PaymentForm from "./PaymentForm";
+import PaymentRule from "./PaymentRule";
 import PageHeader from "components/PageHeader";
 import { calculateAmount } from "services/teams";
 import Progress from "../../components/Progress";
 import theme from "./theme";
 import FallbackIcon from "../../../../assets/images/icon-role-fallback.svg";
+import TrustedLogos from "../../../../assets/images/trusted-logos.svg";
 import "./styles.module.scss";
 
 const stripePromise = loadStripe(process.env.STRIPE_PUBLIC_KEY);
@@ -54,11 +57,14 @@ const CreateTassPayment = () => {
         imageUrl,
         name,
         rate,
+        isCustomRole: role.isCustomRole,
         numberOfResources,
         durationWeeks,
         availability,
       });
-      amount.push({ rate, numberOfResources });
+      if (!role.isCustomRole) {
+        amount.push({ rate, numberOfResources });
+      }
     });
     setValue(temp);
 
@@ -109,15 +115,20 @@ const CreateTassPayment = () => {
                         <div>
                           <p styleName="title">{data.name}</p>
                           <ul styleName="details">
-                            <li>
-                              {data.numberOfResources} x ${data.rate}/ Week
-                            </li>
+                            {!data.isCustomRole && (
+                              <li>
+                                {data.numberOfResources} x ${data.rate}/ Week
+                              </li>
+                            )}
                             <li>{data.durationWeeks} Week Duration</li>
                             <li>{data.availability}</li>
                           </ul>
                         </div>
                         <p styleName="amount">
-                          ${data.numberOfResources * data.rate}
+                          $
+                          {data.isCustomRole
+                            ? "0"
+                            : data.numberOfResources * data.rate}
                         </p>
                       </div>
                       <hr styleName="divider" />
@@ -125,34 +136,44 @@ const CreateTassPayment = () => {
                   ))}
                 </div>
               </div>
-              <p styleName="heading terms-title">Deposit & Refund Terms</p>
-              <ul styleName="terms">
-                <li>This is a refundable deposit payment.</li>
-                <li>
-                  Topcoder will find you qualified candidates within 2 weeks, or
-                  your money back.
-                </li>
-                <li>
-                  If we find you talent that meets your needs, this deposit will
-                  be credited towards your payment.
-                </li>
-                <li>
-                  If we are only able to partially fill your talent order, we
-                  will refund any portion we cannot fulfill.
-                </li>
-                <li>
-                  Future payments can be processed on this credit card or you
-                  can arrange invoicing.
-                </li>
-              </ul>
+              {calculatedAmount ? (
+                <>
+                  <p styleName="heading terms-title">Deposit & Refund Terms</p>
+                  <ul styleName="terms">
+                    <li>This is a refundable deposit payment.</li>
+                    <li>
+                      Topcoder will find you qualified candidates within 2
+                      weeks, or your money back.
+                    </li>
+                    <li>
+                      If we find you talent that meets your needs, this deposit
+                      will be credited towards your payment.
+                    </li>
+                    <li>
+                      If we are only able to partially fill your talent order,
+                      we will refund any portion we cannot fulfill.
+                    </li>
+                    <li>
+                      Future payments can be processed on this credit card or
+                      you can arrange invoicing.
+                    </li>
+                  </ul>
+                </>
+              ) : null}
             </div>
-            <div styleName="payment">
+            <div
+              styleName={cn("payment", { "show-rule": calculatedAmount === 0 })}
+            >
               <p styleName="amount">${calculatedAmount}</p>
               <p styleName="deposit">Total Deposit</p>
               <hr />
               <Elements stripe={stripePromise}>
                 <ThemeProvider theme={theme}>
-                  <PaymentForm calculatedAmount={calculatedAmount} />
+                  {calculatedAmount ? (
+                    <PaymentForm calculatedAmount={calculatedAmount} />
+                  ) : (
+                    <PaymentRule />
+                  )}
                 </ThemeProvider>
               </Elements>
             </div>
@@ -160,12 +181,18 @@ const CreateTassPayment = () => {
         </div>
       </div>
 
-      <Progress
-        stages={stages}
-        extraStyleName="role-selection final-step"
-        disabled="true"
-        percentage="97"
-      />
+      <div styleName="right-side">
+        <Progress
+          stages={stages}
+          extraStyleName="role-selection final-step"
+          disabled="true"
+          percentage="97"
+        />
+        <div styleName="trusted">
+          <h6>Trusted By</h6>
+          <TrustedLogos />
+        </div>
+      </div>
     </div>
   );
 };

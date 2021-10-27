@@ -138,6 +138,10 @@
       min-height: 570px;
       margin-left: 15px;
 
+      &.show-rule {
+        min-height: auto;
+      }
+
       hr {
         background-color: #aaaaaa;
         height: 1px;
@@ -165,5 +169,22 @@
         margin-top: 6px;
       }
     }
+  }
+}
+
+.trusted {
+  background-color: #FFF;
+  border-radius: 8px;
+  padding: 12px 10px 15px 10px;
+  width: 250px;
+
+  h6 {
+    @include font-barlow;
+    font-weight: 600;
+    text-align: center;
+    color: #9D41C9;
+    font-size: 16px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
   }
 }

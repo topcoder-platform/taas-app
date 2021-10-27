@@ -15,7 +15,7 @@
   padding: 30px 0 60px 0;
   margin-bottom: 14px;
   color: #fff;
-  background-image: linear-gradient(225deg, #555555 0%, #2a2a2a 100%);
+  background-image: linear-gradient(90deg, #F45500 0%, #FF940F 100%);
   position: relative;
   text-align: center;
   border-radius: 8px 8px 0 0;
@@ -59,38 +59,6 @@
     width: 80%;
     text-align: center;
   }
-  .niche-rate-box {
-    margin-top: 32px;
-    background-color: #fbfbfb;
-    padding: 30px;
-    border: 1px solid #f4f4f4;
-    border-radius: 6px;
-    width: 196px;
-    p:first-child {
-      @include font-barlow;
-      margin-top: 4px;
-      font-size: 16px;
-      line-height: 20px;
-      font-weight: 600;
-      text-align: center;
-      text-transform: uppercase;
-    }
-    p:last-child {
-      @include font-roboto;
-      color: #555555;
-      font-size: 14px;
-      line-height: 22px;
-      text-align: center;
-    }
-    .cost {
-      @include font-barlow-condensed;
-      margin-top: 8px;
-      font-size: 48px;
-      line-height: 50px;
-      font-weight: 500;
-      text-align: center;
-    }
-  }
 
   .button-group {
     margin-top: 62px;
@@ -109,13 +77,4 @@
   left: 0;
   bottom: -70px;
   width: 100%;
-}
-
-.transparent-icon {
-  position: absolute;
-  top: -40px;
-  right: 10px;
-  opacity: 12%;
-  height: 142px;
-  width: 142px;
 }
