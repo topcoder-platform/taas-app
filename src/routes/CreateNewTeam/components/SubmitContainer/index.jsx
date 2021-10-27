@@ -109,9 +109,9 @@ function SubmitContainer({
 
       position.roleSearchRequestId = key;
       position.roleName = addedRoles.find((role) => role.searchId === key).name;
-      const role = addedRoles.find((role) => role.searchId === key)
+      const role = addedRoles.find((role) => role.searchId === key);
       position.roleName = role.name;
-      position.isCustomRole = role.isCustomRole
+      position.isCustomRole = role.isCustomRole;
       positions.push(position);
     }
     teamObject.positions = positions;
@@ -145,6 +145,9 @@ function SubmitContainer({
             navigate("/taas/myteams/createnewteam/create-taas-payment");
           } else {
             setMsg(true);
+            teamObject.positions = _.map(teamObject.positions, (p) =>
+              _.omit(p, "isCustomRole")
+            );
             postTeamRequest(teamObject)
               .then(() => {
                 setTimeout(() => {
@@ -178,7 +181,10 @@ function SubmitContainer({
           currentRole={currentRole}
         />
       ) : (
-        <NoMatchingProfilesResultCard role={matchingRole} onSubmit={()=> setAddAnotherOpen(true)}/>
+        <NoMatchingProfilesResultCard
+          role={matchingRole}
+          onSubmit={() => setAddAnotherOpen(true)}
+        />
       )}
       <div styleName="right-side">
         <AddedRolesAccordion addedRoles={addedRoles} />
