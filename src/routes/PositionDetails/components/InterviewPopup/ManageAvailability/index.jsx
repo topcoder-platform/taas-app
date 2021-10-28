@@ -36,7 +36,7 @@ const ManageAvailability = ({ scheduleDetails, onContinue }) => {
   const [timezone, setTimezone] = useState(moment.tz.guess(true));
   const days = Object.values(DAYS);
   const daysMapped = Object.keys(DAYS);
-  const timeSlots = new Array(24)
+  const timeSlots = new Array(25)
     .join(",")
     .split(",")
     .map((item, index) => index)
@@ -48,8 +48,8 @@ const ManageAvailability = ({ scheduleDetails, onContinue }) => {
             currentVal < 12
               ? `${!currentVal ? 12 : currentVal}:00`
               : `${Math.abs((currentVal === 12 ? 0 : currentVal) - 12)}:00`,
-          time24HourFormat: `${formatAs2Digits(currentVal + 1)}:00`,
-          suffix: currentVal < 12 ? "AM" : "PM",
+          time24HourFormat: currentVal === 24 ? '00:00' : `${formatAs2Digits(currentVal)}:00`,
+          suffix: currentVal < 12 ? "AM" : (currentVal === 24 ? "AM" : "PM"),
         },
       ],
       []

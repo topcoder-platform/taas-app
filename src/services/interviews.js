@@ -7,7 +7,9 @@ import { NYLAS_CONNECT_CALENDAR_JWT_SECRET } from "constants/";
 const nylasClientId = process.env.NYLAS_CLIENT_ID;
 
 export const getUserSettings = (userId) => {
-  return axios.get(`${config.API.V5}/taas-teams/user-meeting-settings/${userId}`);
+  return axios.get(
+    `${config.API.V5}/taas-teams/user-meeting-settings/${userId}`
+  );
 };
 
 export const deleteCalendar = (userId, calendarId) => {
