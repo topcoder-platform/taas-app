@@ -7,12 +7,12 @@ import { NYLAS_CONNECT_CALENDAR_JWT_SECRET } from "constants/";
 const nylasClientId = process.env.NYLAS_CLIENT_ID;
 
 export const getUserSettings = (userId) => {
-  return axios.get(`${config.API.V5}/taas/user-meeting-settings/${userId}`);
+  return axios.get(`${config.API.V5}/taas-teams/user-meeting-settings/${userId}`);
 };
 
 export const deleteCalendar = (userId, calendarId) => {
   return axios.delete(
-    `${config.API.V5}/taas/user-meeting-settings/${userId}/calendars/${calendarId}`
+    `${config.API.V5}/taas-teams/user-meeting-settings/${userId}/calendars/${calendarId}`
   );
 };
 
@@ -26,7 +26,7 @@ export const deleteCalendar = (userId, calendarId) => {
  */
 export const connectCalendar = (userId, appRedirectUrl) => {
   const apiRedirectUrl = encodeURIComponent(
-    `${config.API.V5}/taas/user-meeting-settings/callback`
+    `${config.API.V5}/taas-teams/user-meeting-settings/callback`
   );
 
   const state = jwt.sign(
