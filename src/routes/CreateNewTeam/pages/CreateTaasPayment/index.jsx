@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import _ from "lodash";
+import cn from "classnames";
 import { useSelector } from "react-redux";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
@@ -7,6 +8,7 @@ import { ThemeProvider } from "@material-ui/styles";
 import { toastr } from "react-redux-toastr";
 
 import PaymentForm from "./PaymentForm";
+import PaymentRule from "./PaymentRule";
 import PageHeader from "components/PageHeader";
 import { calculateAmount } from "services/teams";
 import Progress from "../../components/Progress";
@@ -55,12 +57,12 @@ const CreateTassPayment = () => {
         imageUrl,
         name,
         rate,
+        isCustomRole: role.isCustomRole,
         numberOfResources,
         durationWeeks,
         availability,
       });
-      // not custome role
-      if (role.imageUrl) {
+      if (!role.isCustomRole) {
         amount.push({ rate, numberOfResources });
       }
     });
@@ -113,7 +115,7 @@ const CreateTassPayment = () => {
                         <div>
                           <p styleName="title">{data.name}</p>
                           <ul styleName="details">
-                            {data.imageUrl && (
+                            {!data.isCustomRole && (
                               <li>
                                 {data.numberOfResources} x ${data.rate}/ Week
                               </li>
@@ -124,7 +126,7 @@ const CreateTassPayment = () => {
                         </div>
                         <p styleName="amount">
                           $
-                          {!data.imageUrl
+                          {data.isCustomRole
                             ? "0"
                             : data.numberOfResources * data.rate}
                         </p>
@@ -134,34 +136,44 @@ const CreateTassPayment = () => {
                   ))}
                 </div>
               </div>
-              <p styleName="heading terms-title">Deposit & Refund Terms</p>
-              <ul styleName="terms">
-                <li>This is a refundable deposit payment.</li>
-                <li>
-                  Topcoder will find you qualified candidates within 2 weeks, or
-                  your money back.
-                </li>
-                <li>
-                  If we find you talent that meets your needs, this deposit will
-                  be credited towards your payment.
-                </li>
-                <li>
-                  If we are only able to partially fill your talent order, we
-                  will refund any portion we cannot fulfill.
-                </li>
-                <li>
-                  Future payments can be processed on this credit card or you
-                  can arrange invoicing.
-                </li>
-              </ul>
+              {calculatedAmount ? (
+                <>
+                  <p styleName="heading terms-title">Deposit & Refund Terms</p>
+                  <ul styleName="terms">
+                    <li>This is a refundable deposit payment.</li>
+                    <li>
+                      Topcoder will find you qualified candidates within 2
+                      weeks, or your money back.
+                    </li>
+                    <li>
+                      If we find you talent that meets your needs, this deposit
+                      will be credited towards your payment.
+                    </li>
+                    <li>
+                      If we are only able to partially fill your talent order,
+                      we will refund any portion we cannot fulfill.
+                    </li>
+                    <li>
+                      Future payments can be processed on this credit card or
+                      you can arrange invoicing.
+                    </li>
+                  </ul>
+                </>
+              ) : null}
             </div>
-            <div styleName="payment">
+            <div
+              styleName={cn("payment", { "show-rule": calculatedAmount === 0 })}
+            >
               <p styleName="amount">${calculatedAmount}</p>
               <p styleName="deposit">Total Deposit</p>
               <hr />
               <Elements stripe={stripePromise}>
                 <ThemeProvider theme={theme}>
-                  <PaymentForm calculatedAmount={calculatedAmount} />
+                  {calculatedAmount ? (
+                    <PaymentForm calculatedAmount={calculatedAmount} />
+                  ) : (
+                    <PaymentRule />
+                  )}
                 </ThemeProvider>
               </Elements>
             </div>
