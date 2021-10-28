@@ -7,6 +7,8 @@ import React, { useMemo, useState, useCallback, useEffect } from "react";
 import PT from "prop-types";
 import cn from "classnames";
 import _ from "lodash";
+import qs from "query-string";
+import { useLocation, navigate } from "@reach/router";
 import CardHeader from "components/CardHeader";
 import "./styles.module.scss";
 import Select from "components/Select";
@@ -30,10 +32,10 @@ import { PERMISSIONS } from "constants/permissions";
 import { hasPermission } from "utils/permissions";
 import ActionsMenu from "components/ActionsMenu";
 import LatestInterview from "../LatestInterview";
-import InterviewDetailsPopup from "../InterviewDetailsPopup";
 import PreviousInterviewsPopup from "../PreviousInterviewsPopup";
 import InterviewConfirmPopup from "../InterviewConfirmPopup";
 import SelectCandidatePopup from "../SelectCandidatePopup";
+import InterviewPopup from "../InterviewPopup";
 
 /**
  * Generates a function to sort candidates
@@ -67,6 +69,7 @@ const populateSkillsMatched = (position, candidate) => ({
 });
 
 const PositionCandidates = ({ position, statusFilterKey, updateCandidate }) => {
+  const location = useLocation();
   const [interviewDetailsOpen, setInterviewDetailsOpen] = useState(false);
   const [prevInterviewsOpen, setPrevInterviewsOpen] = useState(false);
   const [selectedCandidate, setSelectedCandidate] = useState(null);
@@ -206,6 +209,34 @@ const PositionCandidates = ({ position, statusFilterKey, updateCandidate }) => {
     },
     [updateCandidate]
   );
+
+  /*
+   * Useeffect to check if calendar has been connected, then remove params 
+   * found in redirected url and show toast notification
+   */
+  useEffect(() => {
+    // wait till pageCandidates is properly set
+    if (location.search && pageCandidates.length > 0) {
+      const queryParams = qs.parse(location.search);
+
+      if (queryParams.calendarConnected === 'true') {
+        // check if any candidate found with id parsed from redirected url
+        // if found, open Schedule Interview modal for that candidate
+        const candidateToScheduleInterviewWith = _.find(pageCandidates, (c) => c.id = queryParams.interviewWithCandidate);
+        if (candidateToScheduleInterviewWith) {
+          setSelectedCandidate(candidateToScheduleInterviewWith);
+          setInterviewDetailsOpen(true);
+        }
+
+        toastr.success('Calendar was successfully connected');
+        navigate(location.pathname, { replace: true });
+      }
+      else {
+        toastr.error(`Failed to connect calendar: ${queryParams.error}`);
+        navigate(location.pathname, { replace: true });
+      }
+    }
+  }, [location.search, pageCandidates])
 
   return (
     <>
@@ -366,12 +397,13 @@ const PositionCandidates = ({ position, statusFilterKey, updateCandidate }) => {
         onClose={() => setPrevInterviewsOpen(false)}
         candidate={selectedCandidate}
       />
-      <InterviewDetailsPopup
+
+      <InterviewPopup
         open={interviewDetailsOpen}
         onClose={() => setInterviewDetailsOpen(false)}
         candidate={selectedCandidate}
-        openNext={() => setInterviewConfirmOpen(true)}
       />
+
       <InterviewConfirmPopup
         open={interviewConfirmOpen}
         onClose={() => setInterviewConfirmOpen(false)}

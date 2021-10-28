@@ -9,11 +9,17 @@
   border: 0;
   color: #2a2a2a;
   outline: none;
-  font-size: 14px;
+  font-size: 16px;
   height: 100%;
   line-height: 22px;
   padding-left: 15px;
   width: 100%;
+}
+
+.empty-value {
+  color: #aaaaaa;
+  font-weight: 400;
+  font-size: 16px;
 }
 
 .select-wrapper {

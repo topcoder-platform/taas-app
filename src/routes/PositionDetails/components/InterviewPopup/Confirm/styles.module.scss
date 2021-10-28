@@ -1,0 +1,42 @@
+@import "styles/include";
+
+.confirm-wrapper {
+}
+
+.confirm-text {
+  @include font-roboto;
+  font-size: 16px;
+  line-height: 26px;
+  font-weight: 400;
+  color: #000000;
+  margin-top: 59px;
+  min-height: 257px;
+}
+
+.confirm-text-bold {
+  @include font-roboto;
+  font-size: 16px;
+  line-height: 26px;
+  font-weight: 500;
+}
+
+.button-wrapper {
+  display: flex;
+  align-items: center;
+  margin-top: 16px;
+  justify-content: flex-end;
+}
+
+.manage-calendar {
+  flex: 1;
+  color: #0d61bf;
+  @include font-roboto;
+  font-weight: 400;
+  font-size: 14px;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.back-button {
+  margin-right: 8px;
+}

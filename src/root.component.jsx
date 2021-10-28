@@ -1,7 +1,10 @@
 import React, { useLayoutEffect } from "react";
 import { Provider } from "react-redux";
 import { Router, Redirect } from "@reach/router";
-import { setNotificationPlatform, PLATFORM } from "@topcoder/micro-frontends-navbar-app";
+import {
+  setNotificationPlatform,
+  PLATFORM,
+} from "@topcoder/micro-frontends-navbar-app";
 import MyTeamsList from "./routes/MyTeamsList";
 import MyTeamsDetails from "./routes/MyTeamsDetails";
 import PositionDetails from "./routes/PositionDetails";
@@ -16,6 +19,7 @@ import InputSkills from "./routes/CreateNewTeam/pages/InputSkills";
 import InputJobDescription from "./routes/CreateNewTeam/pages/InputJobDescription";
 import SelectRole from "./routes/CreateNewTeam/pages/SelectRole";
 import CreateTaasPayment from "./routes/CreateNewTeam/pages/CreateTaasPayment";
+import SchedulingPage from "./routes/SchedulingPage";
 import ReduxToastr from "react-redux-toastr";
 import store from "./store";
 import "./styles/main.vendor.scss";
@@ -47,6 +51,7 @@ export default function Root() {
             <InputSkills path="skills/*" />
             <SelectRole path="role/*" />
           </CreateNewTeam>
+          <SchedulingPage path="/taas/interview/:interviewId" />
         </Router>
 
         {/* Global config for Toastr popups */}
