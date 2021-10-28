@@ -189,7 +189,7 @@ const ManageAvailability = ({ scheduleDetails, onContinue }) => {
               <div styleName="days">
                 {days.map((day, index) => (
                   <div
-                    key={day}
+                    key={daysMapped[index]}
                     onClick={() => onDayChanged(daysMapped[index], slotIndex)}
                     styleName={cn("day", {
                       "selected-day": slot.days.indexOf(daysMapped[index]) > -1,
