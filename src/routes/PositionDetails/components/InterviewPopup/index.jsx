@@ -65,13 +65,24 @@ const InterviewPopup = ({
   /**
    * Gets the settings from the backend and checks if the calendar is already available
    */
-  const getSettings = () => {
+  const getSettings = (options = { preferredStage: POPUP_STAGES.MANAGE_AVAILABILITY }) => {
     setLoading(true);
     getUserSettings(v5UserProfile.id)
       .then((res) => {
         setUserSettings(res.data);
         setScheduleDetails(prepareSlots(res.data));
-        setStage(POPUP_STAGES.MANAGE_AVAILABILITY);
+
+        let nextStage = options.preferredStage;
+        if (
+          options.preferredStage === POPUP_STAGES.CONNECT_CALENDAR &&
+          _.findIndex(res.data.nylasCalendars, (item) => item.isPrimary) !== -1
+        ) {
+          // checks if any connected calendars are available by above conditions
+          // if available, modify nextStage to POPUP_STAGES.MANAGE_CALENDAR
+          nextStage = POPUP_STAGES.MANAGE_CALENDAR;
+        }
+        
+        setStage(nextStage);
       })
       .catch((e) => {
         if (e.response && e.response.status === 404) {
@@ -87,7 +98,7 @@ const InterviewPopup = ({
   };
 
   /**
-   * Get the calendar which is not of provider nylas
+   * Get the calendar which is not of provider nylas & is a primary calendar
    * @param {*} settings
    * @returns
    */
@@ -96,10 +107,10 @@ const InterviewPopup = ({
     const calendar =
       (settings.nylasCalendars &&
         settings.nylasCalendars.filter(
-          (item) => item.accountProvider !== "nylas"
+          (item) => item.accountProvider !== "nylas" && item.isPrimary
         )) ||
       [];
-    // Take the first calendar which are other than nylas calendar
+    // Take the first calendar which are other than nylas calendar & which is primary
     return calendar[0];
   };
 
@@ -146,12 +157,7 @@ const InterviewPopup = ({
    * Removes the calendar from the state once it is removed from the server
    */
   const onCalendarRemoved = () => {
-    setUserSettings({
-      ...userSettings,
-      nylasCalendars: [],
-    });
-
-    setStage(POPUP_STAGES.CONNECT_CALENDAR);
+    getSettings({ preferredStage: POPUP_STAGES.CONNECT_CALENDAR });
   };
 
   /**
@@ -203,16 +209,15 @@ const InterviewPopup = ({
         return (
           <Confirm
             scheduleDetails={scheduleDetails}
-            userProfile={v5UserProfile}
             onContinue={onChangeStage}
             onGoBack={onGoingBack}
             onShowingLoader={onShowingLoader}
-            candidateId={candidate.id}
+            candidate={candidate}
           />
         );
       case POPUP_STAGES.SUCCESS:
         return (
-          <Success userProfile={v5UserProfile} onContinue={onChangeStage} />
+          <Success candidate={candidate} onContinue={onChangeStage} />
         );
       default:
         return null;

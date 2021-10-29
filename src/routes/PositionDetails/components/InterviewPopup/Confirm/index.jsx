@@ -18,13 +18,12 @@ import "./styles.module.scss";
  */
 const Confirm = ({
   scheduleDetails,
-  candidateId,
-  userProfile,
+  candidate,
   onGoBack,
   onContinue,
   onShowingLoader,
 }) => {
-  const { handle } = userProfile;
+  const { handle, id: candidateId } = candidate;
   const { duration } = scheduleDetails;
 
   /**
@@ -83,8 +82,7 @@ const Confirm = ({
 
 Confirm.propTypes = {
   scheduleDetails: PT.object,
-  userProfile: PT.object,
-  candidateId: PT.string,
+  candidate: PT.object,
   onGoBack: PT.func,
   onContinue: PT.func,
   onShowingLoader: PT.func,
