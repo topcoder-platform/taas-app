@@ -63,9 +63,11 @@ const ConnectCalendar = ({
       {isConnected && (
         <>
           <div styleName="connected-section">
-            <span styleName="connected-to-text">Currently connected to: </span>
-            <span styleName="email-address">
-              {` ${calendar && calendar.accountEmail}`}
+            <span styleName="connected-to-text">
+              {'Currently connected to: '} 
+              <span styleName="email-address">
+                {calendar && calendar.email}
+              </span>
             </span>
             {!showLoader && (
               <button
