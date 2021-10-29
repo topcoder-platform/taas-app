@@ -7,8 +7,8 @@ import "./styles.module.scss";
 /**
  * The success component shown once the interview is scheduled successfully
  */
-const Success = ({ userProfile, onContinue }) => {
-  const { handle } = userProfile;
+const Success = ({ candidate, onContinue }) => {
+  const { handle } = candidate;
   return (
     <div styleName="success-wrapper">
       <div styleName="success-text">
@@ -29,7 +29,7 @@ const Success = ({ userProfile, onContinue }) => {
 };
 
 Success.propTypes = {
-  userProfile: PT.object,
+  candidate: PT.object,
 };
 
 export default Success;

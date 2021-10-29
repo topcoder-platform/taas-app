@@ -209,16 +209,15 @@ const InterviewPopup = ({
         return (
           <Confirm
             scheduleDetails={scheduleDetails}
-            userProfile={v5UserProfile}
             onContinue={onChangeStage}
             onGoBack={onGoingBack}
             onShowingLoader={onShowingLoader}
-            candidateId={candidate.id}
+            candidate={candidate}
           />
         );
       case POPUP_STAGES.SUCCESS:
         return (
-          <Success userProfile={v5UserProfile} onContinue={onChangeStage} />
+          <Success candidate={candidate} onContinue={onChangeStage} />
         );
       default:
         return null;
