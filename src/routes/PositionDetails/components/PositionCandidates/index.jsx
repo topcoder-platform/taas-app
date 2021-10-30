@@ -19,6 +19,7 @@ import {
   CANDIDATES_SORT_BY,
   CANDIDATE_STATUS,
   POSITION_CANDIDATES_PER_PAGE,
+  DISABLED_SCHEDULE_INTERVIEW,
 } from "constants";
 import User from "components/User";
 import SkillsSummary from "components/SkillsSummary";
@@ -335,6 +336,8 @@ const PositionCandidates = ({ position, statusFilterKey, updateCandidate }) => {
                               action: () => {
                                 openInterviewDetailsPopup(candidate);
                               },
+                              disabled: candidate.interviews.length === 3,
+                              disabledReason: DISABLED_SCHEDULE_INTERVIEW
                             },
                             {
                               label: "View Previous Interviews",
