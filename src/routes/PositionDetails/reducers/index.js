@@ -84,6 +84,7 @@ const reducer = (state = initialState, action) => {
     case ACTION_TYPE.LOAD_POSITION_PENDING:
       return {
         ...state,
+        position: { ...state.position, shouldRefreshData: false },
         loading: true,
         error: undefined,
       };
@@ -101,6 +102,12 @@ const reducer = (state = initialState, action) => {
         ...state,
         loading: false,
         error: action.payload,
+      };
+
+    case ACTION_TYPE.TRIGGER_POSITION_DATA_REFRESH:
+      return {
+        ...state,
+        position: { ...state.position, shouldRefreshData: true },
       };
 
     case ACTION_TYPE.UPDATE_CANDIDATE_PENDING:

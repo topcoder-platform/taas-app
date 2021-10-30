@@ -1,7 +1,7 @@
 /**
  * State for PositionDetails page
  */
-import { useCallback, useLayoutEffect } from "react";
+import { useCallback, useEffect, useLayoutEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { loadPosition, updateCandidate, resetPositionState } from "../actions";
 
@@ -22,10 +22,19 @@ export const useTeamPositionsState = (teamId, positionId) => {
     dispatch(loadPosition(teamId, positionId));
 
     // clear state when we leave the page
-    return () => {
-      dispatch(resetPositionState());
-    };
+    return () => dispatch(resetPositionState());
   }, [dispatch, teamId, positionId]);
+
+  // if position.shouldRefreshData is true, reload position details
+  useEffect(() => {
+    if (state.position && state.position.shouldRefreshData) {
+      dispatch(loadPosition(teamId, positionId));
+    }
+
+    // clear state when we leave the page here as well - so it
+    // doesn't try to change state after component unmount
+    return () => dispatch(resetPositionState());
+  }, [state, teamId, positionId, dispatch]);
 
   // bind actions to dispatch method
   const updateCandidateCallback = useCallback(

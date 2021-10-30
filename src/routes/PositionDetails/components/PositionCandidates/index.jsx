@@ -26,7 +26,6 @@ import Button from "components/Button";
 import Pagination from "components/Pagination";
 import IconResume from "../../../../assets/images/icon-resume.svg";
 import { toastr } from "react-redux-toastr";
-import { getJobById } from "services/jobs";
 import { touchCandidateResume } from "services/teams";
 import { PERMISSIONS } from "constants/permissions";
 import { hasPermission } from "utils/permissions";
