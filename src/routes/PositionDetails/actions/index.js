@@ -10,15 +10,6 @@ import {
 import { ACTION_TYPE } from "constants";
 
 /**
- * Trigger job position data refresh
- * @returns Updates the state in Reduxfor 'positionDetails'
- * entry by changing value of 'shouldRefreshData' to true
- */
-export const triggerPositionDataRefresh = () => ({
-  type: ACTION_TYPE.TRIGGER_POSITION_DATA_REFRESH,
-});
-
-/**
  * Load Team Position details (team job)
  *
  * @param {string} teamId team id
@@ -30,7 +21,7 @@ export const loadPosition = (teamId, positionId) => ({
   type: ACTION_TYPE.LOAD_POSITION,
   payload: async () => {
     const response = await getPositionDetails(teamId, positionId);
-    return { ...response.data, shouldRefreshData: false };
+    return response.data;
   },
   meta: {
     teamId,

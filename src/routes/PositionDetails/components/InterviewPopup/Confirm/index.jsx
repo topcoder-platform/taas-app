@@ -1,7 +1,5 @@
 import React from "react";
 import PT from "prop-types";
-import { useDispatch } from "react-redux";
-import { triggerPositionDataRefresh } from "../../../actions";
 import Button from "components/Button";
 import { toastr } from "react-redux-toastr";
 
@@ -25,7 +23,6 @@ const Confirm = ({
   onContinue,
   onShowingLoader,
 }) => {
-  const dispatch = useDispatch();
   const { handle, id: candidateId } = candidate;
   const { duration } = scheduleDetails;
 
@@ -42,8 +39,6 @@ const Confirm = ({
 
     confirmInterview(candidateId, params)
       .then(() => {
-        // interview scheduled, trigger Job position details data reload
-        dispatch(triggerPositionDataRefresh());
         onContinue(POPUP_STAGES.SUCCESS);
       })
       .catch((e) => {
