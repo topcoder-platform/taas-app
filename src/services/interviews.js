@@ -36,11 +36,9 @@ export const connectCalendar = (userId, appRedirectUrl) => {
       userId,
       redirectTo: appRedirectUrl,
     },
-    NYLAS_CONNECT_CALENDAR_JWT_SECRET,
-    {
-      algorithm: "HS256",
-      expiresIn: 60,
-    }
+    // we use secret just because it's required, we don't have actual reasons to secure data inside
+    // we use JWT token just to compress data we pass to the `state` because `state` has very limited length allowed
+    NYLAS_CONNECT_CALENDAR_JWT_SECRET
   );
 
   const nylasCalendarConnectionUrl = `https://api.nylas.com/oauth/authorize?client_id=${nylasClientId}&redirect_uri=${apiRedirectUrl}&response_type=code&scopes=calendar&state=${state}`;
