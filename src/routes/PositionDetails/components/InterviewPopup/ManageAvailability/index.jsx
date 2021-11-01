@@ -173,14 +173,18 @@ const ManageAvailability = ({ scheduleDetails, onContinue }) => {
           }));
           const startTimeOptions = [
             { label: "Start Time", value: "" },
-            ...timeSlotsOptions,
+            ...timeSlotsOptions.map((item) => ({
+              label: item.label,
+              value: item.value,
+              disabled: slot.end && slot.end != '00:00' && item.value !== '00:00' && slot.end <= item.value,
+            })),
           ];
           const endTimeOptions = [
             { label: "End Time", value: "" },
             ...timeSlotsOptions.map((item) => ({
               label: item.label,
               value: item.value,
-              disabled: slot.start >= item.value,
+              disabled: slot.start && slot.start !== '00:00' && item.value !== '00:00' && slot.start >= item.value,
             })),
           ];
 
