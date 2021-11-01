@@ -1,5 +1,8 @@
 import React from "react";
 import PT from "prop-types";
+import { useDispatch } from "react-redux";
+import { useParams } from "@reach/router";
+import { loadPosition } from "../../../actions";
 import Button from "components/Button";
 import { toastr } from "react-redux-toastr";
 
@@ -23,6 +26,8 @@ const Confirm = ({
   onContinue,
   onShowingLoader,
 }) => {
+  const { teamId, positionId } = useParams();
+  const dispatch = useDispatch();
   const { handle, id: candidateId } = candidate;
   const { duration } = scheduleDetails;
 
@@ -39,6 +44,7 @@ const Confirm = ({
 
     confirmInterview(candidateId, params)
       .then(() => {
+        dispatch(loadPosition(teamId, positionId));
         onContinue(POPUP_STAGES.SUCCESS);
       })
       .catch((e) => {
