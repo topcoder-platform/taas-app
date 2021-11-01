@@ -394,6 +394,12 @@ export const RESOURCE_BOOKING_STATUS_OPTIONS = [
 export const DISABLED_DESCRIPTION_MESSAGE =
   "You may not edit a Job Description that is currently posted to Topcoder.com. Please contact support@topcoder.com.";
 
+/*
+ * the disabled reason show in the tooltip
+ */
+export const DISABLED_SCHEDULE_INTERVIEW =
+  "You've reached the maximum allowed number (3) of interviews for this candidate.";
+
 /**
  * The media URL to be shown on Interview popup
  */
