@@ -66,9 +66,11 @@ const ActionsMenu = ({ options = [] }) => {
   }, [isOpen, setIsOpen]);
 
   const closeOnAction = useCallback(
-    (action) => () => {
-      close();
-      action && action();
+    (action, isDisabled) => () => {
+      if (!isDisabled) {
+        close();
+        action && action();
+      }
     },
     [close]
   );
@@ -98,7 +100,7 @@ const ActionsMenu = ({ options = [] }) => {
                 return (
                   <div
                     key={option.label}
-                    onClick={closeOnAction(option.action)}
+                    onClick={closeOnAction(option.action, option.disabled)}
                     role="button"
                     tabIndex={0}
                     styleName={
