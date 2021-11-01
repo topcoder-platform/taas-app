@@ -43,10 +43,8 @@ const Confirm = ({
     onShowingLoader(true);
 
     confirmInterview(candidateId, params)
-      .then(() => {
-        dispatch(loadPosition(teamId, positionId));
-        onContinue(POPUP_STAGES.SUCCESS);
-      })
+      .then(() => dispatch(loadPosition(teamId, positionId)))
+      .then(() => onContinue(POPUP_STAGES.SUCCESS))
       .catch((e) => {
         toastr.error(e.message);
       })
