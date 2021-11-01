@@ -337,7 +337,7 @@ const PositionCandidates = ({ position, statusFilterKey, updateCandidate }) => {
                                 openInterviewDetailsPopup(candidate);
                               },
                               disabled: candidate.interviews.length === 3,
-                              disabledReason: DISABLED_SCHEDULE_INTERVIEW
+                              disabledReason: candidate.interviews.length === 3 ? DISABLED_SCHEDULE_INTERVIEW: ''
                             },
                             {
                               label: "View Previous Interviews",
