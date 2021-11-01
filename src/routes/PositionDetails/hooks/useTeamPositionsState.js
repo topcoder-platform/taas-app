@@ -30,10 +30,6 @@ export const useTeamPositionsState = (teamId, positionId) => {
     if (state.position && state.position.shouldRefreshData) {
       dispatch(loadPosition(teamId, positionId));
     }
-
-    // clear state when we leave the page here as well - so it
-    // doesn't try to change state after component unmount
-    return () => dispatch(resetPositionState());
   }, [state, teamId, positionId, dispatch]);
 
   // bind actions to dispatch method
