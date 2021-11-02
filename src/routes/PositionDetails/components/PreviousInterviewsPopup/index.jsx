@@ -24,7 +24,7 @@ function PreviousInterviewsPopup(props) {
         key={interview.id}
         round={interview.round}
         date={interview.startTimestamp}
-        hostName={`${interview.firstName} ${interview.lastName}`}
+        hostName={`${interview.hostFirstName} ${interview.hostLastName}`}
         guestName={`${candidate.firstName} ${candidate.lastName}` }
       />
     ));
