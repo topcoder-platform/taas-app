@@ -5,18 +5,23 @@
  */
 import React from "react";
 import PT from "prop-types";
+import Page from "../Page";
+import LoadingIndicator from "../LoadingIndicator";
+import PageHeader from "../PageHeader";
 
-const NylasSchedulerPage = ({ pageTitle, src, errorMessage, header, iframeTitle }) => {
+const NylasSchedulerPage = ({ pageTitle, src, errorMessage, pageHeader, iframeTitle }) => {
     return (
         <Page title={pageTitle}>
             {!src ? (
             <LoadingIndicator error={errorMessage} />
             ) : (
             <>
-                <PageHeader title={header} />
-                <NylasSchedulerIframe
+                <PageHeader title={pageHeader} />
+                <iframe
                     title={iframeTitle}
                     src={src}
+                    width="1020"
+                    height="900"
                 />
             </>
             )}
@@ -28,7 +33,7 @@ NylasSchedulerPage.propTypes = {
     pageTitle: PT.string,
     src: PT.string,
     errorMessage: PT.string,
-    header: PT.string,
+    pageHeader: PT.string,
     iframeTitle: PT.iframeTitle
 };
  
