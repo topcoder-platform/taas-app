@@ -13,7 +13,6 @@ const RescheduleInterviewPage = ({ interviewId }) => {
   const [schedulingPageUrl, setSchedulingPageUrl] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
 
-  // if there are some candidates to review, then show "To Review" tab by default
   useEffect(() => {
     getInterview(interviewId)
       .then(({ data }) => {
@@ -22,7 +21,7 @@ const RescheduleInterviewPage = ({ interviewId }) => {
             `https://schedule.nylas.com/${data.nylasPageSlug}/reschedule/${data.nylasEventEditHash}?prefilled_readonly=true`
           );
         } else {
-          setErrorMessage(`This interview has status ${data.status} and cannot be cancelled.`);
+          setErrorMessage(`This interview has status ${data.status} and cannot be rescheduled.`);
         }
       })
       .catch((err) => {
