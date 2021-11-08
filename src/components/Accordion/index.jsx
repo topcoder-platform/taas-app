@@ -10,7 +10,7 @@ import PT from "prop-types";
 import "./styles.module.scss";
 
 function Accordion(props) {
-  const { title, sidebar, subhead, children } = props;
+  const { title, sidebar, status, subhead, children } = props;
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -26,6 +26,7 @@ function Accordion(props) {
             <h4 styleName="title">{title}</h4>
             <p>{subhead}</p>
           </div>
+          <p styleName="status">{status}</p>
           <p>{sidebar}</p>
         </div>
       </button>
@@ -38,6 +39,7 @@ Accordion.propTypes = {
   title: PT.string,
   sidebar: PT.string,
   subhead: PT.string,
+  status: PT.string,
   children: PT.node,
 };
 
