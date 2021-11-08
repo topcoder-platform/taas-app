@@ -59,7 +59,7 @@ const Confirm = ({
       <div styleName="confirm-text">
         Send a <span styleName="confirm-text-bold">{duration} Minute</span>{" "}
         Interview invite to <span styleName="confirm-text-bold">{handle}</span>.
-        This invite will allow {handle} to select and schedule an interview date
+        This invite will allow <span styleName="confirm-text-bold">{handle}</span> to select and schedule an interview date
         and time based on your availability.
       </div>
 

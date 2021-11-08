@@ -12,7 +12,7 @@ const Success = ({ candidate, onContinue }) => {
   return (
     <div styleName="success-wrapper">
       <div styleName="success-text">
-        Your interview invite for {handle} was sent successfully. Once your
+        Your interview invite for <span styleName="confirm-text-bold">{handle}</span> was sent successfully. Once your
         candidate selects a time, you will receive a confirmation email.
       </div>
       <div styleName="button-wrapper">

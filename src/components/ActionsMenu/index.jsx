@@ -10,6 +10,7 @@ import "./styles.module.scss";
 import OutsideClickHandler from "react-outside-click-handler";
 import IconArrowDown from "../../assets/images/icon-arrow-down.svg";
 import Button from "components/Button";
+import Tooltip from "components/Tooltip";
 import { usePopper } from "react-popper";
 import cn from "classnames";
 
@@ -65,9 +66,11 @@ const ActionsMenu = ({ options = [] }) => {
   }, [isOpen, setIsOpen]);
 
   const closeOnAction = useCallback(
-    (action) => () => {
-      close();
-      action && action();
+    (action, isDisabled) => () => {
+      if (!isDisabled) {
+        close();
+        action && action();
+      }
     },
     [close]
   );
@@ -97,7 +100,7 @@ const ActionsMenu = ({ options = [] }) => {
                 return (
                   <div
                     key={option.label}
-                    onClick={closeOnAction(option.action)}
+                    onClick={closeOnAction(option.action, option.disabled)}
                     role="button"
                     tabIndex={0}
                     styleName={
@@ -106,7 +109,14 @@ const ActionsMenu = ({ options = [] }) => {
                       (option.disabled ? " disabled" : "")
                     }
                   >
-                    {option.label}
+                    {
+                      option.disabledReason ? <Tooltip
+                        content={option.disabledReason}
+                        strategy="fixed"
+                      >
+                        {option.label}
+                      </Tooltip>: option.label
+                    }
                   </div>
                 );
               }
@@ -127,6 +137,7 @@ ActionsMenu.propTypes = {
   options: PT.arrayOf(
     PT.shape({
       label: PT.string,
+      disabledReason: PT.string,
       action: PT.func,
       separator: PT.bool,
       hidden: PT.bool,

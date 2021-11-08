@@ -9,7 +9,7 @@
   border: 0;
   color: #2a2a2a;
   outline: none;
-  font-size: 16px;
+  font-size: 14px;
   height: 100%;
   line-height: 22px;
   padding-left: 15px;
@@ -19,7 +19,9 @@
 .empty-value {
   color: #aaaaaa;
   font-weight: 400;
-  font-size: 16px;
+  option {
+    color: #2a2a2a 
+  }
 }
 
 .select-wrapper {
@@ -30,6 +32,9 @@
   display: flex;
   height: 40px;
   position: relative;
+  option[disabled] {
+    color: #aaaaaa
+  }
 }
 
 .select-label {
