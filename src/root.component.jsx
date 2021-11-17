@@ -20,6 +20,8 @@ import InputJobDescription from "./routes/CreateNewTeam/pages/InputJobDescriptio
 import SelectRole from "./routes/CreateNewTeam/pages/SelectRole";
 import CreateTaasPayment from "./routes/CreateNewTeam/pages/CreateTaasPayment";
 import SchedulingPage from "./routes/SchedulingPage";
+import CancelInterviewPage from "./routes/CancelInterviewPage";
+import RescheduleInterviewPage from "./routes/RescheduleInterviewPage";
 import ReduxToastr from "react-redux-toastr";
 import store from "./store";
 import "./styles/main.vendor.scss";
@@ -51,6 +53,8 @@ export default function Root() {
             <InputSkills path="skills/*" />
             <SelectRole path="role/*" />
           </CreateNewTeam>
+          <CancelInterviewPage path="/taas/interview/:interviewId/cancel" />
+          <RescheduleInterviewPage path="/taas/interview/:interviewId/reschedule" />
           <SchedulingPage path="/taas/interview/:interviewId" />
         </Router>
 

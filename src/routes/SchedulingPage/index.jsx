@@ -5,13 +5,10 @@
  */
 import React, { useEffect, useState } from "react";
 import { getAuthUserProfile } from "@topcoder/micro-frontends-navbar-app";
-import _ from "lodash";
-import Page from "components/Page";
-import LoadingIndicator from "components/LoadingIndicator";
-import PageHeader from "components/PageHeader";
 import { getInterview } from "services/interviews";
 import { INTERVIEW_STATUS } from "constants";
 import withAuthentication from "../../hoc/withAuthentication";
+import NylasSchedulerPage from "components/NylasSchedulerPage";
 
 const SchedulingPage = ({ interviewId }) => {
   const [schedulingPageUrl, setSchedulingPageUrl] = useState(null);
@@ -49,21 +46,13 @@ const SchedulingPage = ({ interviewId }) => {
   }, [interviewId]);
 
   return (
-    <Page title="Schedule Interview">
-      {!schedulingPageUrl ? (
-        <LoadingIndicator error={errorMessage} />
-      ) : (
-        <>
-          <PageHeader title="Schedule Interview" />
-          <iframe
-            title="Nylas Scheduling Page"
-            src={schedulingPageUrl}
-            width="1020"
-            height="900"
-          />
-        </>
-      )}
-    </Page>
+    <NylasSchedulerPage
+      pageTitle="Schedule Interview"
+      src={schedulingPageUrl}
+      errorMessage={errorMessage}
+      pageHeader="Schedule Interview"
+      iframeTitle="Nylas Scheduling Page"
+    />
   );
 };
 
