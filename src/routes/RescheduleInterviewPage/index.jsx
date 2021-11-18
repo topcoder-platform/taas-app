@@ -4,6 +4,7 @@
  * Allows users reschedule an interview in Nylas
  */
 import React, { useEffect, useState } from "react";
+import { getAuthUserProfile } from "@topcoder/micro-frontends-navbar-app";
 import { getInterview } from "services/interviews";
 import { INTERVIEW_STATUS } from "constants";
 import withAuthentication from "../../hoc/withAuthentication";
@@ -14,18 +15,32 @@ const RescheduleInterviewPage = ({ interviewId }) => {
   const [errorMessage, setErrorMessage] = useState(null);
 
   useEffect(() => {
-    getInterview(interviewId)
-      .then(({ data }) => {
-        if (data.status === INTERVIEW_STATUS.SCHEDULED ||data.status === INTERVIEW_STATUS.RESCHEDULED) {
-          setSchedulingPageUrl(
-            `https://schedule.nylas.com/${data.nylasPageSlug}/reschedule/${data.nylasEventEditHash}?prefilled_readonly=true`
-          );
-        } else {
-          setErrorMessage(`This interview has status ${data.status} and cannot be rescheduled.`);
-        }
+    getAuthUserProfile()
+      .then((res) => {
+        return {
+          firstName: res.firstName,
+          lastName: res.lastName,
+          email: res.email,
+        };
       })
-      .catch((err) => {
-        setErrorMessage(err);
+      .then((profile) => {
+        getInterview(interviewId)
+          .then(({ data }) => {
+            if (data.status === INTERVIEW_STATUS.SCHEDULED ||data.status === INTERVIEW_STATUS.RESCHEDULED) {
+              setSchedulingPageUrl(
+                `https://schedule.nylas.com/${data.nylasPageSlug}/reschedule/${data.nylasEventEditHash}?email=${
+                  profile.email
+                }&name=${encodeURI(
+                  profile.firstName + " " + profile.lastName
+                )}&prefilled_readonly=true`
+              );
+            } else {
+              setErrorMessage(`This interview has status ${data.status} and cannot be rescheduled.`);
+            }
+          })
+          .catch((err) => {
+            setErrorMessage(err);
+          });
       });
   }, [interviewId]);
 
