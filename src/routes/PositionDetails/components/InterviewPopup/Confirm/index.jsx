@@ -36,7 +36,7 @@ const Confirm = ({
    */
   const onContinueAhead = () => {
     const params = {
-      timezone: scheduleDetails.timezone,
+      hostTimezone: scheduleDetails.timezone,
       duration: scheduleDetails.duration,
       availableTime: scheduleDetails.slots,
     };
