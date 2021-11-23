@@ -212,7 +212,7 @@ const PositionCandidates = ({ position, statusFilterKey, updateCandidate }) => {
   );
 
   /*
-   * Useeffect to check if calendar has been connected, then remove params 
+   * Useeffect to check if calendar has been connected, then remove params
    * found in redirected url and show toast notification
    */
   useEffect(() => {
@@ -336,8 +336,8 @@ const PositionCandidates = ({ position, statusFilterKey, updateCandidate }) => {
                               action: () => {
                                 openInterviewDetailsPopup(candidate);
                               },
-                              disabled: candidate.interviews.length === 3,
-                              disabledReason: candidate.interviews.length === 3 ? DISABLED_SCHEDULE_INTERVIEW: ''
+                              disabled: candidate.interviews && candidate.interviews.length === 3,
+                              disabledReason: candidate.interviews && candidate.interviews.length === 3 ? DISABLED_SCHEDULE_INTERVIEW: ''
                             },
                             {
                               label: "View Previous Interviews",
