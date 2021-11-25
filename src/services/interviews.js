@@ -61,3 +61,19 @@ export const confirmInterview = (candidateJobId, data) => {
 export const getInterview = (interviewId) => {
   return axios.get(`${config.API.V5}/getInterview/${interviewId}`);
 };
+
+/**
+ * Cancel interview
+ * @param {String} nylasPageSlug  the nylasPageSlug
+ * @param {String} nylasEventEditHash The nylasEventEditHash
+ * @param {String} reason The cancel reason
+ * @returns Promise
+ */
+export const cancelInterview = (nylasPageSlug, nylasEventEditHash, reason) => {
+  return axios.post(
+    `https://api.schedule.nylas.com/schedule/${nylasPageSlug}/${nylasEventEditHash}/cancel`,
+    {
+      reason,
+    }
+  );
+};

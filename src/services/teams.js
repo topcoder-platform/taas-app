@@ -71,6 +71,17 @@ export const getPositionDetails = (teamId, positionId) => {
 };
 
 /**
+ * Get Job Candidate.
+ *
+ * @param {string} candidateId position candidate id
+ *
+ * @returns {Promise<object{}>} position candidate
+ */
+export const getJobCandidateById = (candidateId) => {
+  return axios.get(`${config.API.V5}/jobCandidates/${candidateId}`);
+};
+
+/**
  * Patch Position Candidate
  *
  * @param {string} candidateId position candidate id

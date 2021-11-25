@@ -1,18 +1,48 @@
 /**
  * Cancel Interview Page
  *
- * Allows users to cancel an interview in Nylas
+ * Allows users to cancel an interview
  */
 import React, { useEffect, useState } from "react";
+import { toastr } from "react-redux-toastr";
+import Page from "components/Page";
+import moment from "moment";
+import PageHeader from "components/PageHeader";
+import Button from "components/Button";
+import Input from "components/Input";
+import LoadingIndicator from "components/LoadingIndicator";
 import { getAuthUserProfile } from "@topcoder/micro-frontends-navbar-app";
-import { getInterview } from "services/interviews";
+import { getJobCandidateById } from "services/teams";
+import { getJobById } from "services/jobs";
+import { getInterview, cancelInterview } from "services/interviews";
 import { INTERVIEW_STATUS } from "constants";
 import withAuthentication from "../../hoc/withAuthentication";
-import NylasSchedulerPage from "components/NylasSchedulerPage";
+import "./styles.module.scss";
 
 const CancelInterviewPage = ({ interviewId }) => {
-  const [schedulingPageUrl, setSchedulingPageUrl] = useState(null);
+  const [interview, setInterview] = useState(null);
+  const [jobTitle, setJobTitle] = useState("");
   const [errorMessage, setErrorMessage] = useState(null);
+  const [cancelled, setCancelled] = useState(false);
+  const [cancelling, setCancelling] = useState(false);
+  const [reason, setReason] = useState("");
+
+  const onCancelInterview = () => {
+    setCancelling(true);
+    cancelInterview(
+      interview.nylasPageSlug,
+      interview.nylasEventEditHash,
+      reason
+    )
+      .then(({ s }) => {
+        setCancelled(true);
+        setCancelling(false);
+      })
+      .catch((err) => {
+        setCancelling(false);
+        toastr.error("Error cancel interview", err.message);
+      });
+  };
 
   useEffect(() => {
     getAuthUserProfile()
@@ -26,16 +56,23 @@ const CancelInterviewPage = ({ interviewId }) => {
       .then((profile) => {
         getInterview(interviewId)
           .then(({ data }) => {
-            if (data.status === INTERVIEW_STATUS.SCHEDULED ||data.status === INTERVIEW_STATUS.RESCHEDULED) {
-              setSchedulingPageUrl(
-                `https://schedule.nylas.com/${data.nylasPageSlug}/cancel/${data.nylasEventEditHash}?email=${
-                  profile.email
-                }&name=${encodeURI(
-                  profile.firstName + " " + profile.lastName
-                )}&prefilled_readonly=true`
+            if (
+              data.status === INTERVIEW_STATUS.SCHEDULED ||
+              data.status === INTERVIEW_STATUS.RESCHEDULED
+            ) {
+              setInterview(data);
+
+              return getJobCandidateById(
+                data.jobCandidateId
+              ).then(({ data: { jobId } }) =>
+                getJobById(jobId).then(({ data: { title } }) =>
+                  setJobTitle(title)
+                )
               );
             } else {
-              setErrorMessage(`This interview has status ${data.status} and cannot be cancelled.`);
+              setErrorMessage(
+                `This interview has status ${data.status} and cannot be cancelled.`
+              );
             }
           })
           .catch((err) => {
@@ -45,13 +82,74 @@ const CancelInterviewPage = ({ interviewId }) => {
   }, [interviewId]);
 
   return (
-    <NylasSchedulerPage
-      pageTitle="Cancel Interview"
-      src={schedulingPageUrl}
-      errorMessage={errorMessage}
-      pageHeader="Cancel Interview"
-      iframeTitle="Nylas Cancel Schedule Page"
-    />
+    <>
+      <Page title="Cancel Interview">
+        {!interview || !jobTitle ? (
+          <LoadingIndicator error={errorMessage} />
+        ) : (
+          <>
+            <PageHeader title="Cancel Interview" />
+            <div>
+              <div styleName="top-bar">
+                <h1>Job Interview for "{jobTitle}"</h1>
+              </div>
+              <div styleName="shadowed-content">
+                <div styleName="slot-cancelview">
+                  <div styleName="left-panel">
+                    <div styleName="booking-summary">
+                      <h2>
+                        {moment(interview.startTimestamp).format("dddd")} <br />{" "}
+                        {moment(interview.startTimestamp).format(
+                          "MMMM DD, yyyy"
+                        )}
+                      </h2>
+                      <h4>
+                        {moment(interview.startTimestamp).format("H:mm A")} -{" "}
+                        {moment(interview.endTimestamp).format("H:mm A")}
+                      </h4>
+                      <p>{interview.guestTimezone}</p>
+                    </div>
+                  </div>
+                  <div styleName="divider"></div>
+                  <div styleName="right-panel">
+                    {cancelled ? (
+                      <form styleName="cancelled-form">
+                        <div styleName="tick-mark"></div>
+                        <h3>Thank you</h3>
+                        <div>your booking has been cancelled</div>
+                      </form>
+                    ) : (
+                      <form>
+                        <h3>Are you sure?</h3>
+                        <div>
+                          <div styleName="label">Reason for canceling *</div>
+                          <div>
+                            <Input
+                              placeholder="Please add a brief reason"
+                              onChange={(e) => {
+                                setReason(e.target.value);
+                              }}
+                            />
+                          </div>
+                        </div>
+                        <Button
+                          onClick={onCancelInterview}
+                          size="medium"
+                          type="primary"
+                          disabled={!reason.length || cancelling}
+                        >
+                          {cancelling ? "Cancelling Event" : "Cancel Event"}
+                        </Button>
+                      </form>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </>
+        )}
+      </Page>
+    </>
   );
 };
 
