@@ -4,11 +4,13 @@
   <meta charset="UTF-8">
   <title></title>
   <style>
-    body {
+    html {
       font-family: -apple-system,BlinkMacSystemFont,"Segoe UI","Roboto","Oxygen","Ubuntu","Cantarell","Fira Sans","Droid Sans","Helvetica Neue",sans-serif;
+      -webkit-font-smoothing: antialiased;
+      font-size: 10pt;
     }
     .top-bar {
-      margin-top: 100px; 
+      margin-top: 20px; 
       display: flex;
       flex-direction: row;
       align-items: center;
@@ -54,16 +56,16 @@
       width: 100%;
     }
     .slot-cancelview h2 {
-        font-size: 20px;
-        line-height: 30px;
-        font-weight: 450;
+        font-size: 2.1rem;
+        line-height: 3rem;
+        font-weight: 400;
     }
 
     .slot-cancelview h4 { 
-        font-size: 12px;
-        line-height: 17px;
-        font-weight: 500;
         margin: 10px;
+        font-size: 1.2rem;
+        line-height: 1.7rem;
+        font-weight: 400;
     }
     .left-panel {
       margin-top: 40px;
@@ -109,6 +111,35 @@
     .right-panel  form  button {
       margin: 20px auto;
     }
+    .tick-mark {
+      position: relative;
+      display: inline-block;
+      width: 45px;
+      height: 50px;
+      margin-bottom: 30px;
+    }
+    .tick-mark::before {
+        position: absolute;
+        left: 0;
+        top: 50%;
+        height: 50%;
+        width: 6px;
+        background-color: #336699;
+        content: "";
+        transform: translateX(10px) rotate(-45deg);
+        transform-origin: left bottom;
+      }
+    .tick-mark::after {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      height: 6px;
+      width: 100%;
+      background-color: #336699;
+      content: "";
+      transform: translateX(10px) rotate(-45deg);
+      transform-origin: left bottom;
+    }
   </style>
 </head>
 <body>
@@ -123,16 +154,13 @@
             <%= week %><br />
             <%= startDate %>
           </h2>
-          <h4>
-            <%= startTime %> - <%= endTime %>
-          </h4>
-          <h4><%= page_slug %></h4>
-          <h4>virtual calendar</h4>
+          <h4><%= startTime %> - <%= endTime %><br/><%= page_slug %> virtual calendar</h4>
           <p><%= tz %></p>
         </div>
       </div>
       <div class="divider"></div>
       <div class="right-panel">
+        <div class='tick-mark'></div>
         <h3>You're all set.</h3>
         <div class="label">Your response has been recorded</div>
       </div>
