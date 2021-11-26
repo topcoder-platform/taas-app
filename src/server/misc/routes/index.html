@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+    html {
+      font-family: -apple-system,BlinkMacSystemFont,"Segoe UI","Roboto","Oxygen","Ubuntu","Cantarell","Fira Sans","Droid Sans","Helvetica Neue",sans-serif;
+      -webkit-font-smoothing: antialiased;
+      font-size: 10pt;
+    }
+    .top-bar {
+      margin-top: 20px; 
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      min-width: 600px;
+      width: 100%;
+    }
+    .top-bar h1 {
+      margin: 0;
+      font-weight: 500;
+      height: 90px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2em;
+      flex-shrink: 0;
+      flex: 1 1;
+    }
+    .shadowed-content {
+      margin: auto;
+      width: 100%;
+      max-width: 900px;
+      box-sizing: border-box;
+      text-align: left;
+      border: 1px solid transparent;
+      border-radius: 6px;
+      box-shadow: none;
+      position: relative;
+      border: 1px solid #d6d6d6;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    }
+
+    .slot-cancelview {
+      display: flex;
+      flex-direction: row;
+      position: relative;
+      box-sizing: border-box;
+      align-items: center;
+      z-index: 200;
+      background: #fff;
+      border-radius: 6px;
+      height: 420px;
+      width: 100%;
+    }
+    .slot-cancelview h2 {
+        font-size: 2.1rem;
+        line-height: 3rem;
+        font-weight: 400;
+    }
+
+    .slot-cancelview h4 { 
+        margin: 10px;
+        font-size: 1.2rem;
+        line-height: 1.7rem;
+        font-weight: 400;
+    }
+    .left-panel {
+      margin-top: 40px;
+      display: flex;
+      align-items: center;
+      justify-content:center;
+      padding-bottom: 70px ;
+      flex: 1 1;
+    }
+
+    .left-panel p{ 
+        opacity: 0.6;
+    }
+    .booking-summary {
+      text-align: center;
+    }
+
+    .divider {
+      align-self: stretch;
+      width: 1px ;
+      flex-grow: 0;
+      border-left: 1px solid #eee;
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+
+    .right-panel {
+      box-sizing: border-box;
+      flex: 1.4 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+    .right-panel  form {
+       padding: 30px 70px 0; 
+     }
+    .right-panel  form  h3 {
+      margin-bottom: 15px;
+      font-size: 1.17em;
+      font-weight: bold;
+    }
+    .right-panel  form  button {
+      margin: 20px auto;
+    }
+    .tick-mark {
+      position: relative;
+      display: inline-block;
+      width: 45px;
+      height: 50px;
+      margin-bottom: 30px;
+    }
+    .tick-mark::before {
+        position: absolute;
+        left: 0;
+        top: 50%;
+        height: 50%;
+        width: 6px;
+        background-color: #336699;
+        content: "";
+        transform: translateX(10px) rotate(-45deg);
+        transform-origin: left bottom;
+      }
+    .tick-mark::after {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      height: 6px;
+      width: 100%;
+      background-color: #336699;
+      content: "";
+      transform: translateX(10px) rotate(-45deg);
+      transform-origin: left bottom;
+    }
+  </style>
+</head>
+<body>
+  <div class="top-bar">
+    <h1><%= jobTitle %></h1>
+  </div>
+  <div class="shadowed-content">
+    <div class="slot-cancelview">
+      <div class="left-panel">
+        <div class="booking-summary">
+          <h2>
+            <%= week %><br />
+            <%= startDate %>
+          </h2>
+          <h4><%= startTime %> - <%= endTime %><br/><%= page_slug %> virtual calendar</h4>
+          <p><%= tz %></p>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="right-panel">
+        <div class='tick-mark'></div>
+        <h3>You're all set.</h3>
+        <div class="label">Your response has been recorded</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
