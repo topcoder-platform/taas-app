@@ -30,9 +30,13 @@ async function getInterviewThankYouPageController(req, res) {
   const nylasconfig = JSON.parse(
     nylasHtml.match(/window.nylasWindowContext.page = (.*);<\/script>/)[1]
   );
+  // get calendar name from timeslots
+  const { data: timeslots } = await axios.get(
+    `https://api.schedule.nylas.com/schedule/${query.page_slug}/timeslots?locale=en`
+  );
   const object = {
     jobTitle: nylasconfig.name,
-    page_slug: query.page_slug,
+    calendarName: _.get(timeslots, '[0].host_name', ''),
     tz: query.tz,
     week: moment.unix(query.start_time).format("dddd"),
     startDate: moment.unix(query.start_time).format("MMMM DD, yyyy"),
