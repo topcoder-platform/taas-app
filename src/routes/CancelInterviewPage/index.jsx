@@ -7,12 +7,12 @@ import React, { useEffect, useState } from "react";
 import { toastr } from "react-redux-toastr";
 import Page from "components/Page";
 import moment from "moment";
+import axios from "axios";
 import PageHeader from "components/PageHeader";
 import Button from "components/Button";
 import Input from "components/Input";
 import LoadingIndicator from "components/LoadingIndicator";
 import { getAuthUserProfile } from "@topcoder/micro-frontends-navbar-app";
-import { getJobCandidateById } from "services/teams";
 import { getJobById } from "services/jobs";
 import { getInterview, cancelInterview } from "services/interviews";
 import { INTERVIEW_STATUS } from "constants";
@@ -62,13 +62,17 @@ const CancelInterviewPage = ({ interviewId }) => {
             ) {
               setInterview(data);
 
-              return getJobCandidateById(
-                data.jobCandidateId
-              ).then(({ data: { jobId } }) =>
-                getJobById(jobId).then(({ data: { title } }) =>
-                  setJobTitle(title)
-                )
-              );
+              return axios
+                .get(`https://schedule.nylas.com/${data.nylasPageSlug}`)
+                .then(({ data: nylasHtml }) => {
+                  // extract json object from html file
+                  const nylasconfig = JSON.parse(
+                    nylasHtml.match(
+                      /window.nylasWindowContext.page = (.*);<\/script>/
+                    )[1]
+                  );
+                  setJobTitle(nylasconfig.name);
+                });
             } else {
               setErrorMessage(
                 `This interview has status ${data.status} and cannot be cancelled.`
@@ -91,7 +95,7 @@ const CancelInterviewPage = ({ interviewId }) => {
             <PageHeader title="Cancel Interview" />
             <div>
               <div styleName="top-bar">
-                <h1>Job Interview for "{jobTitle}"</h1>
+                <h1>{jobTitle}</h1>
               </div>
               <div styleName="shadowed-content">
                 <div styleName="slot-cancelview">
