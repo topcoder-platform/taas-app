@@ -268,15 +268,16 @@ const PositionCandidates = ({ position, statusFilterKey, updateCandidate }) => {
                       <div styleName="actions">
                         <ActionsMenu
                           options={[
-                            {
-                              label: "Schedule Interview",
-                              action: () => {
-                                openInterviewDetailsPopup(candidate);
-                              },
-                            },
-                            {
-                              separator: true,
-                            },
+                            // issue #586 hide option temporarily
+                            // {
+                            //   label: "Schedule Interview",
+                            //   action: () => {
+                            //     openInterviewDetailsPopup(candidate);
+                            //   },
+                            // },
+                            // {
+                            //   separator: true,
+                            // },
                             {
                               label: "Select Candidate",
                               action: () => {
@@ -299,24 +300,25 @@ const PositionCandidates = ({ position, statusFilterKey, updateCandidate }) => {
                       <div styleName="actions">
                         <ActionsMenu
                           options={[
-                            {
-                              label: "Schedule Another Interview",
-                              action: () => {
-                                openInterviewDetailsPopup(candidate);
-                              },
-                            },
-                            {
-                              label: "View Previous Interviews",
-                              action: () => {
-                                openPrevInterviewsPopup(candidate);
-                              },
-                              disabled:
-                                !!candidate.interviews !== true ||
-                                candidate.interviews.length === 0,
-                            },
-                            {
-                              separator: true,
-                            },
+                            // issue #586 hide option temporarily
+                            // {
+                            //   label: "Schedule Another Interview",
+                            //   action: () => {
+                            //     openInterviewDetailsPopup(candidate);
+                            //   },
+                            // },
+                            // {
+                            //   label: "View Previous Interviews",
+                            //   action: () => {
+                            //     openPrevInterviewsPopup(candidate);
+                            //   },
+                            //   disabled:
+                            //     !!candidate.interviews !== true ||
+                            //     candidate.interviews.length === 0,
+                            // },
+                            // {
+                            //   separator: true,
+                            // },
                             {
                               label: "Select Candidate",
                               action: () => {

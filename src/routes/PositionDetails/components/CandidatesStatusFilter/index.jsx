@@ -17,6 +17,10 @@ const CandidatesStatusFilter = ({ statusFilterKey, onChange, candidates }) => {
   return (
     <div styleName="candidates-status-filter">
       {CANDIDATE_STATUS_FILTERS.map((statusFilter) => {
+        // issue #586 hide 'interview' tab temporarily
+        if (statusFilter.key === CANDIDATE_STATUS_FILTER_KEY.INTERESTED) {
+          return null;
+        }
         const count = _.filter(candidates, (candidate) =>
           statusFilter.statuses.includes(candidate.status)
         ).length;

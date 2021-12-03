@@ -62,7 +62,9 @@ const PositionDetails = ({ teamId, positionId, candidateStatus }) => {
       ) {
         onCandidateStatusChange({ urlParam: "to-review" });
       } else {
-        onCandidateStatusChange({ urlParam: "interviews" });
+        // issue #586 hide 'interview' tab temporarily
+        onCandidateStatusChange({ urlParam: "to-review" });
+        // onCandidateStatusChange({ urlParam: "interviews" });
       }
     }
   }, [position, candidateStatus, onCandidateStatusChange]);
