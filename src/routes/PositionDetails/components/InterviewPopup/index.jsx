@@ -12,6 +12,7 @@ import ConnectCalendar from "./ConnectCalendar";
 import SelectDuration from "./SelectDuration";
 import Confirm from "./Confirm";
 import Success from "./Success";
+import CalendarSyncTimedOut from "./CalendarSyncTimedOut";
 
 import { getUserSettings } from "../../../../services/interviews";
 import IconCrossBlack from "../../../../assets/images/icon-cross-black.svg";
@@ -61,6 +62,21 @@ const InterviewPopup = ({
     timezone: userSettings.defaultTimezone,
     slots: userSettings.defaultAvailableTime || []
   });
+
+  const getSettingsModular = () => {
+    getUserSettings(v5UserProfile.id)
+      .then((res) => {
+        setUserSettings(res.data);
+      })
+      .catch((e) => {
+        if (e.response && e.response.status === 404) {
+          setStage(POPUP_STAGES.SCHEDULE_INTERVIEW);
+        } else {
+          toastr.error("Failed to get user settings");
+          onCloseInterviewPopup();
+        }
+      })
+  }
 
   /**
    * Gets the settings from the backend and checks if the calendar is already available
@@ -213,12 +229,18 @@ const InterviewPopup = ({
             onGoBack={onGoingBack}
             onShowingLoader={onShowingLoader}
             candidate={candidate}
+            userSettings={userSettings}
+            getSettingsModular={getSettingsModular}
           />
         );
       case POPUP_STAGES.SUCCESS:
         return (
           <Success candidate={candidate} onContinue={onChangeStage} />
         );
+      case POPUP_STAGES.CALENDAR_SYNC_TIMED_OUT:
+          return (
+            <CalendarSyncTimedOut userSettings={userSettings} onContinue={onChangeStage} />
+          );
       default:
         return null;
     }

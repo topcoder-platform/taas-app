@@ -440,6 +440,7 @@ export const POPUP_STAGES = {
   SELECT_DURATION: "selectDuration",
   SEND_INTERVIEW_INVITE: "sendInterviewInvite",
   SUCCESS: "sucess",
+  CALENDAR_SYNC_TIMED_OUT: "calendarSyncTimedOut",
   CLOSE: "close",
 };
 
@@ -477,6 +478,10 @@ export const INTERVIEW_POPUP_STAGES = [
   {
     id: POPUP_STAGES.SUCCESS,
     title: "Success! Interview invite sent",
+  },
+  {
+    id: POPUP_STAGES.CALENDAR_SYNC_TIMED_OUT,
+    title: "Send Interview Invite",
   },
 ];
 

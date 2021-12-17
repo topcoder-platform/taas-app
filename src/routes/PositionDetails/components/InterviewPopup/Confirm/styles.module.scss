@@ -1,5 +1,18 @@
 @import "styles/include";
 
+.spinner-wrapper {
+  padding-top: 103px;
+  display: none;
+}
+
+.show-spinner {
+  display: block;
+}
+
+.loading-message {
+  margin-top: 10px;
+}
+
 .confirm-wrapper {
 }
 
