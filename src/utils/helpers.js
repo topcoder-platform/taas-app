@@ -86,7 +86,8 @@ export const isCustomRole = (role) =>
  * @param {Object} userMeetingSettings UserMeetingSettings instance to check
  * @returns {object} the calendar object which is primary
  */
-export const getPrimaryCalendar = (userMeetingSettings) => _.find(userMeetingSettings.nylasCalendars, calendar => calendar.isPrimary);
+export const getPrimaryCalendar = (userMeetingSettings) =>
+  _.find(userMeetingSettings.nylasCalendars, (calendar) => calendar.isPrimary);
 
 /**
  * Checks if calendar is synced or not
@@ -94,6 +95,5 @@ export const getPrimaryCalendar = (userMeetingSettings) => _.find(userMeetingSet
  * @returns {boolean} whether the calendar is in sync or not
  */
 export const isCalendarInSync = (calendar) => {
-  if (calendar)
-    return calendar && calendar.calendarId;
-}
+  if (calendar) return calendar && calendar.calendarId;
+};
