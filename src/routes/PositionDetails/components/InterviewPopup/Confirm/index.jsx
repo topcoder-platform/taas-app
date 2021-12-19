@@ -28,6 +28,7 @@ const Confirm = ({
   onGoBack,
   onContinue,
   onShowingLoader,
+  onSetLoadingMessage,
   userSettings,
   getSettingsModular,
 }) => {
@@ -58,11 +59,8 @@ const Confirm = ({
       setSyncCalendarTimeoutId(null);
       setInitiateInterviewConfirmation(false);
 
-      // disable loading indicator
-      onSetLoadingMessage(`Scheduling interview...`);
-
       // continue with interview scheduling
-      onContinueAhead();
+      onContinueAhead(true);
     }
     else if ((primaryCalendar && !calendarSynced) && (syncCalendarTimeoutId || initiateInterviewConfirmation))
     {
@@ -82,19 +80,23 @@ const Confirm = ({
     return () => clearTimeout(syncCalendarTimeoutId);
   }, [userSettings]);
 
-  const onSetLoadingMessage = (text) => setLoadingMessage(text);
+  const onSetLoadingMessageLocal = (text) => setLoadingMessage(text);
 
   /**
    * This will trigger the API call to the server to request an interview
    */
-  const onContinueAhead = () => {
+  const onContinueAhead = (showSyncCompletedMessage) => {
     const params = {
       hostTimezone: scheduleDetails.timezone,
       duration: scheduleDetails.duration,
       availableTime: scheduleDetails.slots,
     };
-    onSetLoadingMessage(null);
+    onSetLoadingMessageLocal(null);
     onShowingLoader(true);
+
+    // sync completed, let the user know scheduling is underway
+    if (showSyncCompletedMessage)
+      onSetLoadingMessage("Scheduling interview...");
 
     confirmInterview(candidateId, params)
       .then(() => dispatch(loadPosition(teamId, positionId)))
@@ -114,7 +116,7 @@ const Confirm = ({
     if (primaryCalendar && !calendarSynced)
     {
       // show loading indicator with message
-      onSetLoadingMessage(`Syncing your new calendar ${primaryCalendar.email}, it might take a few minutes...`);
+      onSetLoadingMessageLocal(`Syncing your new calendar ${primaryCalendar.email}, it might take a few minutes...`);
       
       // fetch UserMeetingSettings in the background, for the 1st time, no timeout is necessary,
       // so we set initiateInterviewConfirmation value to true
@@ -175,6 +177,7 @@ Confirm.propTypes = {
   onGoBack: PT.func,
   onContinue: PT.func,
   onShowingLoader: PT.func,
+  onSetLoadingMessage: PT.func,
   userSettings: PT.object,
   getSettingsModular: PT.func,
 };

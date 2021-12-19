@@ -36,6 +36,7 @@ const InterviewPopup = ({
   const [stage, setStage] = useState(initialStage);
   const [previousStage, setPreviousStage] = useState(initialStage);
   const [isLoading, setLoading] = useState(false);
+  const [loadingMessage, setLoadingMessage] = useState(null);
   const [userSettings, setUserSettings] = useState();
   const { v5UserProfile } = useSelector((state) => state.authUser);
   const [scheduleDetails, setScheduleDetails] = useState({
@@ -48,6 +49,12 @@ const InterviewPopup = ({
       getSettings();
     }
   }, [open]);
+
+  // if loading finished, reset value of loadingMessage 
+  useEffect(() => {
+    if (!isLoading)
+      setLoadingMessage(null);
+  }, [isLoading])
 
   const onCloseInterviewPopup = () => {
     setStage("");
@@ -169,6 +176,8 @@ const InterviewPopup = ({
     setLoading(loading);
   };
 
+  const onSetLoadingMessage = (text) => setLoadingMessage(text);
+
   /**
    * Removes the calendar from the state once it is removed from the server
    */
@@ -231,6 +240,7 @@ const InterviewPopup = ({
             candidate={candidate}
             userSettings={userSettings}
             getSettingsModular={getSettingsModular}
+            onSetLoadingMessage={onSetLoadingMessage}
           />
         );
       case POPUP_STAGES.SUCCESS:
@@ -301,6 +311,7 @@ const InterviewPopup = ({
             })}
           >
             <Spinner stype="Oval" width={80} height={80} />
+            {isLoading && loadingMessage && <p styleName="loading-message">{loadingMessage}</p>}
           </div>
           <div
             styleName={cn("component-wrapper", {
