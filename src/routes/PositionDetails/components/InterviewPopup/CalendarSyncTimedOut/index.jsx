@@ -22,7 +22,7 @@ const CalendarSyncTimedOut = ({ userSettings, onContinue }) => {
             styleName="manage-calendar"
           >
             manage connected calendars</span>". Would you have any issues, please don't hesitate to reach out to us
-            by <a styleName="topcoder-support-email-link" href="mailto:support@topcoder.com">support@topcoder.com</a>.
+            by <a styleName="topcoder-support-email-link" href="mailto:support@topcoder.com" target="_blank">support@topcoder.com</a>.
         </p>
       </div>
       <div styleName="button-wrapper">
