@@ -36,7 +36,7 @@ async function getInterviewThankYouPageController(req, res) {
   );
   const object = {
     jobTitle: nylasconfig.name,
-    calendarName: _.get(timeslots, '[0].host_name', ''),
+    calendarName: _.get(timeslots, "[0].host_name", ""),
     tz: query.tz,
     week: moment.unix(query.start_time).format("dddd"),
     startDate: moment.unix(query.start_time).format("MMMM DD, yyyy"),

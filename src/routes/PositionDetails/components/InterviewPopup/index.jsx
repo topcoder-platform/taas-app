@@ -12,6 +12,7 @@ import ConnectCalendar from "./ConnectCalendar";
 import SelectDuration from "./SelectDuration";
 import Confirm from "./Confirm";
 import Success from "./Success";
+import CalendarSyncTimedOut from "./CalendarSyncTimedOut";
 
 import { getUserSettings } from "../../../../services/interviews";
 import IconCrossBlack from "../../../../assets/images/icon-cross-black.svg";
@@ -35,6 +36,7 @@ const InterviewPopup = ({
   const [stage, setStage] = useState(initialStage);
   const [previousStage, setPreviousStage] = useState(initialStage);
   const [isLoading, setLoading] = useState(false);
+  const [loadingMessage, setLoadingMessage] = useState(null);
   const [userSettings, setUserSettings] = useState();
   const { v5UserProfile } = useSelector((state) => state.authUser);
   const [scheduleDetails, setScheduleDetails] = useState({
@@ -47,6 +49,12 @@ const InterviewPopup = ({
       getSettings();
     }
   }, [open]);
+
+  // if loading finished, reset value of loadingMessage 
+  useEffect(() => {
+    if (!isLoading)
+      setLoadingMessage(null);
+  }, [isLoading])
 
   const onCloseInterviewPopup = () => {
     setStage("");
@@ -61,6 +69,21 @@ const InterviewPopup = ({
     timezone: userSettings.defaultTimezone,
     slots: userSettings.defaultAvailableTime || []
   });
+
+  const getSettingsModular = () => {
+    getUserSettings(v5UserProfile.id)
+      .then((res) => {
+        setUserSettings(res.data);
+      })
+      .catch((e) => {
+        if (e.response && e.response.status === 404) {
+          setStage(POPUP_STAGES.SCHEDULE_INTERVIEW);
+        } else {
+          toastr.error("Failed to get user settings");
+          onCloseInterviewPopup();
+        }
+      })
+  }
 
   /**
    * Gets the settings from the backend and checks if the calendar is already available
@@ -153,6 +176,8 @@ const InterviewPopup = ({
     setLoading(loading);
   };
 
+  const onSetLoadingMessage = (text) => setLoadingMessage(text);
+
   /**
    * Removes the calendar from the state once it is removed from the server
    */
@@ -213,12 +238,19 @@ const InterviewPopup = ({
             onGoBack={onGoingBack}
             onShowingLoader={onShowingLoader}
             candidate={candidate}
+            userSettings={userSettings}
+            getSettingsModular={getSettingsModular}
+            onSetLoadingMessage={onSetLoadingMessage}
           />
         );
       case POPUP_STAGES.SUCCESS:
         return (
           <Success candidate={candidate} onContinue={onChangeStage} />
         );
+      case POPUP_STAGES.CALENDAR_SYNC_TIMED_OUT:
+          return (
+            <CalendarSyncTimedOut userSettings={userSettings} onContinue={onChangeStage} />
+          );
       default:
         return null;
     }
@@ -279,6 +311,7 @@ const InterviewPopup = ({
             })}
           >
             <Spinner stype="Oval" width={80} height={80} />
+            {isLoading && loadingMessage && <p styleName="loading-message">{loadingMessage}</p>}
           </div>
           <div
             styleName={cn("component-wrapper", {
