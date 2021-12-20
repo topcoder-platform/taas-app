@@ -56,12 +56,12 @@
 
 .button-wrapper {
   display: flex;
+  justify-content: space-between;
   align-items: center;
   margin-top: 16px;
 }
 
 .manage-calendar {
-  flex: 1;
   color: #0d61bf;
   @include font-roboto;
   font-weight: 400;
