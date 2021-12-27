@@ -4,7 +4,7 @@
 const url = require("url");
 const axios = require("axios");
 const _ = require("lodash");
-const moment = require("moment");
+const moment = require("moment-timezone");
 const fs = require("fs");
 
 // eslint-disable-next-line
@@ -34,14 +34,16 @@ async function getInterviewThankYouPageController(req, res) {
   const { data: timeslots } = await axios.get(
     `https://api.schedule.nylas.com/schedule/${query.page_slug}/timeslots?locale=en`
   );
+  const startTime = moment.unix(query.start_time).tz(query.tz);
+  const endTime = moment.unix(query.end_time).tz(query.tz);
   const object = {
     jobTitle: nylasconfig.name,
     calendarName: _.get(timeslots, "[0].host_name", ""),
     tz: query.tz,
-    week: moment.unix(query.start_time).format("dddd"),
-    startDate: moment.unix(query.start_time).format("MMMM DD, yyyy"),
-    startTime: moment.unix(query.start_time).format("H:mm A"),
-    endTime: moment.unix(query.end_time).format("H:mm A"),
+    week: startTime.format("dddd"),
+    startDate: startTime.format("MMMM DD, yyyy"),
+    startTime: startTime.format("H:mm A"),
+    endTime: endTime.format("H:mm A"),
   };
 
   res.set("Content-Type", "text/html");
