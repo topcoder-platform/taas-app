@@ -42,8 +42,8 @@ async function getInterviewThankYouPageController(req, res) {
     tz: query.tz,
     week: startTime.format("dddd"),
     startDate: startTime.format("MMMM DD, yyyy"),
-    startTime: startTime.format("H:mm A"),
-    endTime: endTime.format("H:mm A"),
+    startTime: startTime.format("h:mm A"),
+    endTime: endTime.format("h:mm A"),
   };
 
   res.set("Content-Type", "text/html");
