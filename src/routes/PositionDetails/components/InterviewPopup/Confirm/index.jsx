@@ -48,7 +48,7 @@ const Confirm = ({
     const primaryCalendar = getPrimaryCalendar(userSettings);
     const calendarSynced = primaryCalendar ? isCalendarInSync(primaryCalendar) : false;
 
-    // to know if calendar is ready and synced to request interview, we check for primary calendar 
+    // to know if calendar is ready and synced to request interview, we check for primary calendar
     // & its sync status, combined with either the timeoutid or initiate confirmation flag
     if ((primaryCalendar && calendarSynced) && (syncCalendarTimeoutId || initiateInterviewConfirmation))
     {
@@ -117,13 +117,13 @@ const Confirm = ({
     {
       // show loading indicator with message
       onSetLoadingMessageLocal(`Syncing your new calendar ${primaryCalendar.email}, it might take a few minutes...`);
-      
+
       // fetch UserMeetingSettings in the background, for the 1st time, no timeout is necessary,
       // so we set initiateInterviewConfirmation value to true
       getSettingsModular();
       setInitiateInterviewConfirmation(true);
     }
-    else if (primaryCalendar && calendarSynced)
+    else
     {
       onContinueAhead();
     }
