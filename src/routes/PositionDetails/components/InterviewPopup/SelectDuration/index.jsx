@@ -71,16 +71,18 @@ const SelectDuration = ({ onContinue, onGoBack, scheduleDetails }) => {
         </div>
       </div>
       <div styleName="button-wrapper">
-        <div
-          onClick={() =>
-            onContinue(POPUP_STAGES.MANAGE_CALENDAR, {
-              duration,
-            })
-          }
-          styleName="manage-calendar"
-        >
-          Manage connected calendar
-        </div>
+        {/* issue #598, hide `Manage connected calendar` button temporarily   */}
+        <div></div>
+        {/* <div */}
+        {/*   onClick={() => */}
+        {/*     onContinue(POPUP_STAGES.MANAGE_CALENDAR, { */}
+        {/*       duration, */}
+        {/*     }) */}
+        {/*   } */}
+        {/*   styleName="manage-calendar" */}
+        {/* > */}
+        {/*   Manage connected calendar */}
+        {/* </div> */}
         <div styleName="button-wrapper-right-pane">
           <Button
             styleName="back-button"

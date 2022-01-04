@@ -247,17 +247,19 @@ const ManageAvailability = ({ scheduleDetails, onContinue }) => {
       </div>
 
       <div styleName="button-wrapper">
-        <div
-          onClick={() =>
-            onContinue(POPUP_STAGES.MANAGE_CALENDAR, {
-              timezone,
-              slots,
-            })
-          }
-          styleName="manage-calendar"
-        >
-          Manage connected calendar
-        </div>
+        {/* issue #598, hide `Manage connected calendar` button temporarily   */}
+        <div></div>
+        {/* <div */}
+        {/*   onClick={() => */}
+        {/*     onContinue(POPUP_STAGES.MANAGE_CALENDAR, { */}
+        {/*       timezone, */}
+        {/*       slots, */}
+        {/*     }) */}
+        {/*   } */}
+        {/*   styleName="manage-calendar" */}
+        {/* > */}
+        {/*   Manage connected calendar */}
+        {/* </div> */}
         <Button
           onClick={() => onContinueAhead()}
           disabled={isDisabled()}
