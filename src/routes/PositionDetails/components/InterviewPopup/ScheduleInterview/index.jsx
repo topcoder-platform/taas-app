@@ -1,6 +1,10 @@
 import Button from "components/Button";
 import PT from "prop-types";
-import { BUTTON_SIZE, POPUP_STAGES } from "constants";
+import {
+  ALLOW_CONNECTING_CALENDAR,
+  BUTTON_SIZE,
+  POPUP_STAGES,
+} from "constants";
 
 import React from "react";
 import "./styles.module.scss";
@@ -21,13 +25,17 @@ const ScheduleInterview = ({ onClick }) => {
       >
         Add your availability
       </Button>
-      <div styleName="or-label">OR</div>
-      <Button
-        size={BUTTON_SIZE.LARGE}
-        onClick={() => onClick(POPUP_STAGES.CONNECT_CALENDAR)}
-      >
-        Connect your calendar
-      </Button>
+      {ALLOW_CONNECTING_CALENDAR && (
+        <>
+          <div styleName="or-label">OR</div>
+          <Button
+            size={BUTTON_SIZE.LARGE}
+            onClick={() => onClick(POPUP_STAGES.CONNECT_CALENDAR)}
+          >
+            Connect your calendar
+          </Button>
+        </>
+      )}
     </div>
   );
 };
