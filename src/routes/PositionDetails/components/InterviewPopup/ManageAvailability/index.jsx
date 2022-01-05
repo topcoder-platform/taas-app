@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import cn from "classnames";
 import PT from "prop-types";
 import {
+  ALLOW_CONNECTING_CALENDAR,
   SCHEDULE_INTERVIEW_STEPS,
   DAYS,
   DEFAULT_SELECTED_DAYS,
@@ -245,21 +246,22 @@ const ManageAvailability = ({ scheduleDetails, onContinue }) => {
           </Button>
         </div>
       </div>
-
       <div styleName="button-wrapper">
-        {/* issue #598, hide `Manage connected calendar` button temporarily   */}
-        <div></div>
-        {/* <div */}
-        {/*   onClick={() => */}
-        {/*     onContinue(POPUP_STAGES.MANAGE_CALENDAR, { */}
-        {/*       timezone, */}
-        {/*       slots, */}
-        {/*     }) */}
-        {/*   } */}
-        {/*   styleName="manage-calendar" */}
-        {/* > */}
-        {/*   Manage connected calendar */}
-        {/* </div> */}
+        {ALLOW_CONNECTING_CALENDAR ? (
+          <div
+            onClick={() =>
+              onContinue(POPUP_STAGES.MANAGE_CALENDAR, {
+                timezone,
+                slots,
+              })
+            }
+            styleName="manage-calendar"
+          >
+            Manage connected calendar
+          </div>
+        ) : (
+          <div />
+        )}
         <Button
           onClick={() => onContinueAhead()}
           disabled={isDisabled()}

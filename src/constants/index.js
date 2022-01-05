@@ -720,3 +720,8 @@ export const DEFAULT_SELECTED_DAYS = ["M", "T", "W", "R", "F"];
  * Actually it's not secret, we just use JWT to compress data not to secure it
  */
 export const NYLAS_CONNECT_CALENDAR_JWT_SECRET = "secret";
+
+/*
+ * connecting calendar switcher
+ */
+export const ALLOW_CONNECTING_CALENDAR = false
