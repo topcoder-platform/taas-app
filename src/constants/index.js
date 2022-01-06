@@ -724,4 +724,4 @@ export const NYLAS_CONNECT_CALENDAR_JWT_SECRET = "secret";
 /*
  * connecting calendar switcher
  */
-export const ALLOW_CONNECTING_CALENDAR = false
+export const ALLOW_CONNECTING_CALENDAR = false;

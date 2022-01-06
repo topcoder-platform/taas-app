@@ -87,6 +87,7 @@ export const isCustomRole = (role) =>
  * @returns {object} the calendar object which is primary
  */
 export const getPrimaryCalendar = (userMeetingSettings) =>
+  userMeetingSettings &&
   _.find(userMeetingSettings.nylasCalendars, (calendar) => calendar.isPrimary);
 
 /**
