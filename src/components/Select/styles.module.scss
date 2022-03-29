@@ -16,6 +16,14 @@
   width: 100%;
 }
 
+.empty-value {
+  color: #aaaaaa;
+  font-weight: 400;
+  option {
+    color: #2a2a2a 
+  }
+}
+
 .select-wrapper {
   align-items: center;
   border: 1px solid #aaaaaa;
@@ -24,6 +32,9 @@
   display: flex;
   height: 40px;
   position: relative;
+  option[disabled] {
+    color: #aaaaaa
+  }
 }
 
 .select-label {

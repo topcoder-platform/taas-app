@@ -3,6 +3,10 @@
 const express = require("express");
 
 const app = express();
+const miscRouter = require("./src/server/misc/router");
+
+// Register misc routes
+app.use("/taas-app/misc", miscRouter);
 
 app.use(
   "/taas-app",

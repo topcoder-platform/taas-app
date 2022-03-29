@@ -1,0 +1,148 @@
+@import "styles/include";
+
+.top-bar {
+  display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    min-width: 600px;
+    margin-top: 20px;
+    width: 100%;
+    h1 {
+      margin: 0;
+      font-weight: 500;
+      height: 90px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2em;
+      flex-shrink: 0;
+      flex: 1 1;
+    }
+}
+
+.shadowed-content {
+  margin: auto;
+  width: 100%;
+  max-width: 900px;
+  box-sizing: border-box;
+  text-align: left;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  box-shadow: none;
+  position: relative;
+  border: 1px solid #d6d6d6;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+}
+
+.slot-cancelview {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  box-sizing: border-box;
+  align-items: center;
+  z-index: 200;
+  background: #fff;
+  border-radius: 6px;
+  height: 420px;
+  width: 100%;
+
+  h2 {
+    font-size: 2.1rem;
+    line-height: 3rem;
+    white-space: pre-wrap;
+  }
+
+  h4 {
+    font-size: 1.2rem;
+    line-height: 1.7rem;
+    font-weight: 400;
+    white-space: pre-wrap;
+    margin: 10px ;
+  }
+
+}
+
+.left-panel {
+  display: flex;
+  align-items: center;
+  justify-content:center;
+  padding-bottom: 70px ;
+  flex: 1 1;
+
+  p {
+    opacity: 0.6;
+  }
+}
+
+.booking-summary {
+  text-align: center;
+}
+
+.divider {
+  align-self: stretch;
+  width: 1px ;
+  flex-grow: 0;
+  border-left: 1px solid #eee;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.tick-mark {
+  position: relative;
+  display: inline-block;
+  width: 45px;
+  height: 50px;
+  margin-bottom: 30px; 
+  &:before {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    height: 50%;
+    width: 6px;
+    background-color: #336699;
+    content: "";
+    transform: translateX(10px) rotate(-45deg);
+    transform-origin: left bottom;
+  }
+  &:after {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 6px;
+    width: 100%;
+    background-color: #336699;
+    content: "";
+    transform: translateX(10px) rotate(-45deg);
+    transform-origin: left bottom;
+  }
+}
+
+.right-panel {
+  box-sizing: border-box;
+  flex: 1.4 1;
+
+  .cancelled-form {
+    margin-top: -80px; 
+    text-align: center;
+  }
+
+  form {
+    padding: 30px 70px 0; 
+    h3 {
+      margin-bottom: 15px;
+      font-size: 1.17em;
+      font-weight: bold;
+    }
+    button {
+      margin: 20px auto;
+    }
+  }
+  input {
+    margin-top: 10px;
+  }
+  .label {
+    color: rgb(88, 88, 88);
+    text-align: left;
+  }
+}

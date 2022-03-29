@@ -5,6 +5,7 @@ UPDATE_CACHE=""
 
 docker build -f docker/Dockerfile -t $APP_NAME:latest \
 --build-arg STRIPE_PUBLIC_KEY=$STRIPE_PUBLIC_KEY \
+--build-arg NYLAS_CLIENT_ID=$NYLAS_CLIENT_ID \
 --build-arg APPMODE=$APPMODE \
 --build-arg APPENV=$APPENV .
 

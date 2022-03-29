@@ -10,19 +10,18 @@ import Accordion from "components/Accordion";
 import "./styles.module.scss";
 
 function PrevInterviewItem(props) {
-  const { date, round, hostEmail, guestEmails } = props;
+  const { date,status, round, hostName, guestName } = props;
 
   return (
     <Accordion
       title={`Interview Round ${round}`}
       subhead={formatInterviewDate(date)}
-      sidebar={`${guestEmails.length + 1} Attendee(s)`}
+      status={status}
+      sidebar={`2 Attendee(s)`}
     >
       <ul>
-        <li styleName="email">{hostEmail}</li>
-        {guestEmails.map((email) => (
-          <li styleName="email">{email}</li>
-        ))}
+        <li styleName="email">{hostName}</li>
+        <li styleName="email">{guestName}</li>
       </ul>
     </Accordion>
   );
@@ -31,8 +30,9 @@ function PrevInterviewItem(props) {
 PrevInterviewItem.propTypes = {
   date: PT.string.isRequired,
   round: PT.number.isRequired,
-  hostEmail: PT.string.isRequired,
-  guestEmails: PT.arrayOf(PT.string).isRequired,
+  hostName: PT.string.isRequired,
+  guestName: PT.string.isRequired,
+  status: PT.string.isRequired,
 };
 
 export default PrevInterviewItem;
