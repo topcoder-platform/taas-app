@@ -78,9 +78,9 @@ Some config files are using domain `local.topcoder-dev.com`. You can change it t
 1. Run **Frame** App:
 
    ```sh
-   git clone https://github.com/topcoder-platform/micro-frontends-frame.git
-   cd micro-frontends-frame
-   # inside folder "micro-frontends-frame" run:
+   git clone https://github.com/topcoder-platform/mfe-core.git
+   cd mfe-core
+   # inside folder "mfe-core" run:
 
    nvm use # or make sure to use Node 10
    npm i   # to install dependencies
@@ -111,21 +111,21 @@ Some config files are using domain `local.topcoder-dev.com`. You can change it t
 2. Run **Navbar** micro-app:
 
    ```sh
-   git clone https://github.com/topcoder-platform/micro-frontends-navbar-app.git
-   cd micro-frontends-navbar-app
+   git clone https://github.com/topcoder-platform/mfe-header.git
+   cd mfe-header
    ```
 
-   Update in file `micro-frontends-navbar-app/blob/dev/config/dev.js` values for `ACCOUNTS_APP_CONNECTOR` and `AUTH` to `http://localhost:5000` so Navbar app which handles authentication uses our local Authentication service.
+   Update in file `mfe-header/blob/dev/config/dev.js` values for `ACCOUNTS_APP_CONNECTOR` and `AUTH` to `http://localhost:5000` so Navbar app which handles authentication uses our local Authentication service.
 
    ```sh
-   # inside folder "micro-frontends-navbar-app" run:
+   # inside folder "mfe-header" run:
 
    nvm use # or make sure to use Node 10
    npm i   # to install dependencies
 
    npm run dev
 
-   # this host navbar app as http://localhost:3001/navbar/topcoder-micro-frontends-navbar-app.js
+   # this host navbar app as http://localhost:3001/navbar/topcoder-mfe-header.js
    ```
 
 3. Run **TaaS** micro-app:
@@ -148,7 +148,7 @@ Some config files are using domain `local.topcoder-dev.com`. You can change it t
    # this host TaaS App as http://localhost:8501/taas-app/topcoder-micro-frontends-teams.js
    ```
 
-4. Now we have to update the `micro-frontends-frame` app to show our local version of TaaS App, instead of remote one. Update file `micro-frontends-frame/config/micro-frontends-config-local.json`:
+4. Now we have to update the `mfe-core` app to show our local version of TaaS App, instead of remote one. Update file `mfe-core/config/micro-frontends-config-local.json`:
 
    ```js
    // replace line
@@ -162,4 +162,4 @@ Some config files are using domain `local.topcoder-dev.com`. You can change it t
 - If you are not logged-in yet, you should be redirected to the login page.
 - If you cannot see the application and redirect doesn't happen, make sure that file "http://local.topcoder-dev.com:8501/taas-app/topcoder-micro-frontends-teams.js" is loaded successfully in the Network tab.
 
-Congratulations, you successfully run the project. If you had some issue, please, try to go through README of https://github.com/topcoder-platform/micro-frontends-frame and https://github.com/topcoder-platform/micro-frontends-navbar-app.
+Congratulations, you successfully run the project. If you had some issue, please, try to go through README of https://github.com/topcoder-platform/mfe-core and https://github.com/topcoder-platform/mfe-header.
