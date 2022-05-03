@@ -4,7 +4,7 @@ import { Router, Redirect } from "@reach/router";
 import {
   setNotificationPlatform,
   PLATFORM,
-} from "@topcoder/micro-frontends-navbar-app";
+} from "@topcoder/mfe-header";
 import MyTeamsList from "./routes/MyTeamsList";
 import MyTeamsDetails from "./routes/MyTeamsDetails";
 import PositionDetails from "./routes/PositionDetails";

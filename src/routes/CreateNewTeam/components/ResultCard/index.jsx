@@ -7,7 +7,7 @@
 import React, { useState, useEffect } from "react";
 import PT from "prop-types";
 import _ from "lodash";
-import { getAuthUserProfile } from "@topcoder/micro-frontends-navbar-app";
+import { getAuthUserProfile } from "@topcoder/mfe-header";
 import "./styles.module.scss";
 import IconEarthCheck from "../../../../assets/images/icon-earth-check.svg";
 import IconMultipleUsers from "../../../../assets/images/icon-multiple-users.svg";

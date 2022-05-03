@@ -4,7 +4,7 @@
  * Allows users reschedule an interview in Nylas
  */
 import React, { useEffect, useState } from "react";
-import { getAuthUserProfile } from "@topcoder/micro-frontends-navbar-app";
+import { getAuthUserProfile } from "@topcoder/mfe-header";
 import { getInterview } from "services/interviews";
 import { INTERVIEW_STATUS } from "constants";
 import withAuthentication from "../../hoc/withAuthentication";

@@ -17,7 +17,7 @@ import {
   getAuthUserTokens,
   login,
   businessLogin,
-} from "@topcoder/micro-frontends-navbar-app";
+} from "@topcoder/mfe-header";
 import LoadingIndicator from "../../components/LoadingIndicator";
 import {
   authUserSuccess,

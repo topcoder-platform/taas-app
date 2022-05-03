@@ -2,7 +2,7 @@ import { Router, navigate } from "@reach/router";
 import _ from "lodash";
 import React, { useCallback, useState, useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAuthUserTokens } from "@topcoder/micro-frontends-navbar-app";
+import { getAuthUserTokens } from "@topcoder/mfe-header";
 import { decodeToken } from "tc-auth-lib";
 import { SEARCH_STAGE_TIME } from "constants/";
 import { useData } from "hooks/useData";

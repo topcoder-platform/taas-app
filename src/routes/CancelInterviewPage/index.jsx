@@ -12,7 +12,7 @@ import PageHeader from "components/PageHeader";
 import Button from "components/Button";
 import Input from "components/Input";
 import LoadingIndicator from "components/LoadingIndicator";
-import { getAuthUserProfile } from "@topcoder/micro-frontends-navbar-app";
+import { getAuthUserProfile } from "@topcoder/mfe-header";
 import { getJobById } from "services/jobs";
 import { getInterview, cancelInterview } from "services/interviews";
 import { INTERVIEW_STATUS } from "constants";

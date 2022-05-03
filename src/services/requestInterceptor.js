@@ -1,6 +1,6 @@
 import axios from "axios";
 import _ from "lodash";
-import { getAuthUserTokens } from "@topcoder/micro-frontends-navbar-app";
+import { getAuthUserTokens } from "@topcoder/mfe-header";
 
 export const axiosInstance = axios.create({
   headers: {
